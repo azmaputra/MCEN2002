@@ -161,6 +161,60 @@ h4{color:#1a3c6e;font-size:14.5px;margin:18px 0 6px}
   <details>
     <summary><span class="step-label">Step 1</span> Use symmetry — the geometry and loading are symmetric about midspan $x = 1$ m</summary>
     <div class="step-body">
+      <div class="diagram-wrap">
+      <figure>
+      <svg viewBox="0 0 480 235" width="480" xmlns="http://www.w3.org/2000/svg" font-family="Arial,sans-serif" font-size="13">
+        <!-- FBD. Scale 170 px/m: O(x=0)=70, rollers at 104 (0.2 m) and 376 (1.8 m), right end 410 (2 m) -->
+        <line x1="70" y1="34" x2="410" y2="34" stroke="#c0392b" stroke-width="1.5"/>
+        <line x1="70" y1="34" x2="70" y2="69" stroke="#c0392b" stroke-width="1.2"/>
+        <line x1="104" y1="34" x2="104" y2="69" stroke="#c0392b" stroke-width="1.2"/>
+        <line x1="138" y1="34" x2="138" y2="69" stroke="#c0392b" stroke-width="1.2"/>
+        <line x1="172" y1="34" x2="172" y2="69" stroke="#c0392b" stroke-width="1.2"/>
+        <line x1="206" y1="34" x2="206" y2="69" stroke="#c0392b" stroke-width="1.2"/>
+        <line x1="240" y1="34" x2="240" y2="69" stroke="#c0392b" stroke-width="1.2"/>
+        <line x1="274" y1="34" x2="274" y2="69" stroke="#c0392b" stroke-width="1.2"/>
+        <line x1="308" y1="34" x2="308" y2="69" stroke="#c0392b" stroke-width="1.2"/>
+        <line x1="342" y1="34" x2="342" y2="69" stroke="#c0392b" stroke-width="1.2"/>
+        <line x1="376" y1="34" x2="376" y2="69" stroke="#c0392b" stroke-width="1.2"/>
+        <line x1="410" y1="34" x2="410" y2="69" stroke="#c0392b" stroke-width="1.2"/>
+        <polygon points="70,76 65,65 75,65" fill="#c0392b"/>
+        <polygon points="104,76 99,65 109,65" fill="#c0392b"/>
+        <polygon points="138,76 133,65 143,65" fill="#c0392b"/>
+        <polygon points="172,76 167,65 177,65" fill="#c0392b"/>
+        <polygon points="206,76 201,65 211,65" fill="#c0392b"/>
+        <polygon points="240,76 235,65 245,65" fill="#c0392b"/>
+        <polygon points="274,76 269,65 279,65" fill="#c0392b"/>
+        <polygon points="308,76 303,65 313,65" fill="#c0392b"/>
+        <polygon points="342,76 337,65 347,65" fill="#c0392b"/>
+        <polygon points="376,76 371,65 381,65" fill="#c0392b"/>
+        <polygon points="410,76 405,65 415,65" fill="#c0392b"/>
+        <text x="240" y="26" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="bold">15 kN/m</text>
+
+        <rect x="70" y="78" width="340" height="12" fill="#7eaecf" stroke="#1a3c6e" stroke-width="1.5"/>
+        <text x="54" y="89" font-size="13" fill="#1a3c6e" text-anchor="middle" font-weight="bold">O</text>
+
+        <!-- Unknown reactions at the rollers -->
+        <line x1="104" y1="160" x2="104" y2="112" stroke="#1a6fc4" stroke-width="2.2"/>
+        <polygon points="104,106 98,118 110,118" fill="#1a6fc4"/>
+        <text x="104" y="178" font-size="13" fill="#1a6fc4" text-anchor="middle" font-weight="bold">R<tspan font-size="9" baseline-shift="-4">L</tspan> = ?</text>
+        <line x1="376" y1="160" x2="376" y2="112" stroke="#1a6fc4" stroke-width="2.2"/>
+        <polygon points="376,106 370,118 382,118" fill="#1a6fc4"/>
+        <text x="376" y="178" font-size="13" fill="#1a6fc4" text-anchor="middle" font-weight="bold">R<tspan font-size="9" baseline-shift="-4">R</tspan> = ?</text>
+
+        <!-- Dimensions -->
+        <line x1="70" y1="200" x2="410" y2="200" stroke="#555" stroke-width="1"/>
+        <line x1="70" y1="195" x2="70" y2="205" stroke="#555" stroke-width="1"/>
+        <line x1="104" y1="195" x2="104" y2="205" stroke="#555" stroke-width="1"/>
+        <line x1="376" y1="195" x2="376" y2="205" stroke="#555" stroke-width="1"/>
+        <line x1="410" y1="195" x2="410" y2="205" stroke="#555" stroke-width="1"/>
+        <text x="87" y="218" font-size="12" fill="#333" text-anchor="middle">0.2</text>
+        <text x="240" y="218" font-size="12" fill="#333" text-anchor="middle">1.6 m</text>
+        <text x="393" y="218" font-size="12" fill="#333" text-anchor="middle">0.2</text>
+      </svg>
+      <figcaption>Free-body diagram — full-span UDL (resultant 30 kN at midspan) and the two unknown roller reactions. Symmetry gives $R_L = R_R$ immediately.</figcaption>
+      </figure>
+      </div>
+
       <p>The total UDL resultant is $15 \times 2 = 30\ \text{kN}$ downward. By symmetry of both the loading and the support positions:</p>
       <div class="math-block">$$R_L = R_R = \frac{30}{2} = \mathbf{15\ \text{kN} \uparrow}$$</div>
       <div class="callout note">
@@ -183,6 +237,43 @@ h4{color:#1a3c6e;font-size:14.5px;margin:18px 0 6px}
     <div class="step-body">
 
       <h4>① Left overhang ($0 \le x \le 0.2\ \text{m}$):</h4>
+
+      <div class="diagram-wrap">
+      <figure>
+      <svg viewBox="0 0 300 190" width="300" xmlns="http://www.w3.org/2000/svg" font-family="Arial,sans-serif" font-size="13">
+        <!-- Cut on the left overhang, 0 < x < 0.2 m. Scale 170 px/m: O=70, cut=94 -->
+        <line x1="70" y1="34" x2="94" y2="34" stroke="#c0392b" stroke-width="1.5"/>
+        <line x1="70" y1="34" x2="70" y2="51" stroke="#c0392b" stroke-width="1.2"/>
+        <line x1="82" y1="34" x2="82" y2="51" stroke="#c0392b" stroke-width="1.2"/>
+        <line x1="94" y1="34" x2="94" y2="51" stroke="#c0392b" stroke-width="1.2"/>
+        <polygon points="70,58 65,47 75,47" fill="#c0392b"/>
+        <polygon points="82,58 77,47 87,47" fill="#c0392b"/>
+        <polygon points="94,58 89,47 99,47" fill="#c0392b"/>
+        <text x="82" y="26" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="bold">15 kN/m</text>
+
+        <rect x="70" y="60" width="24" height="12" fill="#7eaecf" stroke="#1a3c6e" stroke-width="1.5"/>
+        <text x="54" y="70" font-size="13" fill="#1a3c6e" text-anchor="middle" font-weight="bold">O</text>
+
+        <!-- x dimension -->
+        <line x1="70" y1="95" x2="70" y2="105" stroke="#555" stroke-width="1"/>
+        <line x1="70" y1="100" x2="88" y2="100" stroke="#555" stroke-width="1"/>
+        <polygon points="94,100 85,97 85,103" fill="#555"/>
+        <text x="82" y="118" font-size="13" fill="#333" text-anchor="middle" font-style="italic">x</text>
+
+        <!-- internal shear V -->
+        <line x1="122" y1="30" x2="122" y2="87" stroke="#1a3c6e" stroke-width="2.2"/>
+        <polygon points="122,93 116,81 128,81" fill="#1a3c6e"/>
+        <text x="122" y="21" font-size="14" fill="#1a3c6e" text-anchor="middle" font-weight="bold" font-style="italic">V</text>
+
+        <!-- internal moment M -->
+        <path d="M 166,91 A 27,27 0 0 0 166,37" fill="none" stroke="#6b7280" stroke-width="2.2"/>
+        <polygon points="150,37 168,29 166,46" fill="#6b7280"/>
+        <text x="206" y="68" font-size="14" fill="#1a3c6e" font-weight="bold" font-style="italic">M</text>
+      </svg>
+      <figcaption>Cut on the left overhang ($0 &lt; x &lt; 0.2$ m) — there is <em>no support</em> on this segment; only the UDL resultant $15x$ acts, so $V$ is negative and $M$ is hogging.</figcaption>
+      </figure>
+      </div>
+
       <div class="math-block">$$V(x) = -15x$$
       $$V(0) = 0,\qquad V(0.2^-) = -3\ \text{kN}$$</div>
 
@@ -190,12 +281,143 @@ h4{color:#1a3c6e;font-size:14.5px;margin:18px 0 6px}
       <div class="math-block">$$V(0.2^+) = -3 + 15 = +12\ \text{kN}$$</div>
 
       <h4>③ Between rollers ($0.2 \le x \le 1.8\ \text{m}$):</h4>
+
+      <div class="diagram-wrap">
+      <figure>
+      <svg viewBox="0 0 470 230" width="470" xmlns="http://www.w3.org/2000/svg" font-family="Arial,sans-serif" font-size="13">
+        <!-- Cut between rollers, drawn at ~1.3 m. Scale 170 px/m: O=70, roller=104, cut=291 -->
+        <line x1="70" y1="34" x2="291" y2="34" stroke="#c0392b" stroke-width="1.5"/>
+        <line x1="70" y1="34" x2="70" y2="51" stroke="#c0392b" stroke-width="1.2"/>
+        <line x1="107" y1="34" x2="107" y2="51" stroke="#c0392b" stroke-width="1.2"/>
+        <line x1="144" y1="34" x2="144" y2="51" stroke="#c0392b" stroke-width="1.2"/>
+        <line x1="181" y1="34" x2="181" y2="51" stroke="#c0392b" stroke-width="1.2"/>
+        <line x1="218" y1="34" x2="218" y2="51" stroke="#c0392b" stroke-width="1.2"/>
+        <line x1="254" y1="34" x2="254" y2="51" stroke="#c0392b" stroke-width="1.2"/>
+        <line x1="291" y1="34" x2="291" y2="51" stroke="#c0392b" stroke-width="1.2"/>
+        <polygon points="70,58 65,47 75,47" fill="#c0392b"/>
+        <polygon points="107,58 102,47 112,47" fill="#c0392b"/>
+        <polygon points="144,58 139,47 149,47" fill="#c0392b"/>
+        <polygon points="181,58 176,47 186,47" fill="#c0392b"/>
+        <polygon points="218,58 213,47 223,47" fill="#c0392b"/>
+        <polygon points="254,58 249,47 259,47" fill="#c0392b"/>
+        <polygon points="291,58 286,47 296,47" fill="#c0392b"/>
+        <text x="180" y="26" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="bold">15 kN/m</text>
+
+        <rect x="70" y="60" width="221" height="12" fill="#7eaecf" stroke="#1a3c6e" stroke-width="1.5"/>
+        <text x="54" y="70" font-size="13" fill="#1a3c6e" text-anchor="middle" font-weight="bold">O</text>
+
+        <!-- left roller at 0.2 m -->
+        <circle cx="104" cy="84" r="10" fill="#dbe4f0" stroke="#1a3c6e" stroke-width="1.5"/>
+        <line x1="84" y1="96" x2="124" y2="96" stroke="#1a3c6e" stroke-width="1.5"/>
+        <line x1="88" y1="102" x2="94" y2="96" stroke="#1a3c6e" stroke-width="1"/>
+        <line x1="98" y1="102" x2="104" y2="96" stroke="#1a3c6e" stroke-width="1"/>
+        <line x1="108" y1="102" x2="114" y2="96" stroke="#1a3c6e" stroke-width="1"/>
+        <line x1="118" y1="102" x2="124" y2="96" stroke="#1a3c6e" stroke-width="1"/>
+        <line x1="104" y1="145" x2="104" y2="110" stroke="#1a6fc4" stroke-width="2.2"/>
+        <polygon points="104,104 98,116 110,116" fill="#1a6fc4"/>
+        <text x="104" y="163" font-size="13" fill="#1a6fc4" text-anchor="middle" font-weight="bold">R<tspan font-size="9" baseline-shift="-4">L</tspan> = 15 kN</text>
+
+        <!-- dimensions -->
+        <line x1="70" y1="178" x2="104" y2="178" stroke="#555" stroke-width="1"/>
+        <line x1="70" y1="173" x2="70" y2="183" stroke="#555" stroke-width="1"/>
+        <line x1="104" y1="173" x2="104" y2="183" stroke="#555" stroke-width="1"/>
+        <text x="87" y="194" font-size="12" fill="#333" text-anchor="middle">0.2</text>
+        <line x1="70" y1="197" x2="70" y2="207" stroke="#555" stroke-width="1"/>
+        <line x1="70" y1="202" x2="282" y2="202" stroke="#555" stroke-width="1"/>
+        <polygon points="291,202 279,198 279,206" fill="#555"/>
+        <text x="180" y="220" font-size="13" fill="#333" text-anchor="middle" font-style="italic">x</text>
+
+        <line x1="319" y1="35" x2="319" y2="87" stroke="#1a3c6e" stroke-width="2.2"/>
+        <polygon points="319,93 313,81 325,81" fill="#1a3c6e"/>
+        <text x="319" y="26" font-size="14" fill="#1a3c6e" text-anchor="middle" font-weight="bold" font-style="italic">V</text>
+        <path d="M 363,91 A 27,27 0 0 0 363,37" fill="none" stroke="#6b7280" stroke-width="2.2"/>
+        <polygon points="347,37 365,29 363,46" fill="#6b7280"/>
+        <text x="403" y="68" font-size="14" fill="#1a3c6e" font-weight="bold" font-style="italic">M</text>
+      </svg>
+      <figcaption>Cut between the rollers ($0.2 &lt; x &lt; 1.8$ m) — the segment carries the UDL over its full length $x$ plus the left roller reaction.</figcaption>
+      </figure>
+      </div>
+
       <div class="math-block">$$V(x) = -3 + 15 - 15(x - 0.2) = 12 - 15(x - 0.2)$$
       $$V(0.2^+) = +12\ \text{kN},\qquad V(1.8^-) = 12 - 15(1.6) = -12\ \text{kN}$$</div>
       <p>By symmetry, $V = 0$ at midspan:</p>
       <div class="math-block">$$12 - 15(x - 0.2) = 0 \implies x = 0.2 + 0.8 = \mathbf{1.0\ \text{m}} \quad\checkmark$$</div>
 
       <h4>④ Jump at right roller, then right overhang ($1.8 \le x \le 2\ \text{m}$):</h4>
+
+      <div class="diagram-wrap">
+      <figure>
+      <svg viewBox="0 0 540 230" width="540" xmlns="http://www.w3.org/2000/svg" font-family="Arial,sans-serif" font-size="13">
+        <!-- Cut on the right overhang, drawn at ~1.93 m. Scale 170 px/m: O=70, rollers=104 and 376, cut=398 -->
+        <line x1="70" y1="34" x2="398" y2="34" stroke="#c0392b" stroke-width="1.5"/>
+        <line x1="70" y1="34" x2="70" y2="51" stroke="#c0392b" stroke-width="1.2"/>
+        <line x1="111" y1="34" x2="111" y2="51" stroke="#c0392b" stroke-width="1.2"/>
+        <line x1="152" y1="34" x2="152" y2="51" stroke="#c0392b" stroke-width="1.2"/>
+        <line x1="193" y1="34" x2="193" y2="51" stroke="#c0392b" stroke-width="1.2"/>
+        <line x1="234" y1="34" x2="234" y2="51" stroke="#c0392b" stroke-width="1.2"/>
+        <line x1="275" y1="34" x2="275" y2="51" stroke="#c0392b" stroke-width="1.2"/>
+        <line x1="316" y1="34" x2="316" y2="51" stroke="#c0392b" stroke-width="1.2"/>
+        <line x1="357" y1="34" x2="357" y2="51" stroke="#c0392b" stroke-width="1.2"/>
+        <line x1="398" y1="34" x2="398" y2="51" stroke="#c0392b" stroke-width="1.2"/>
+        <polygon points="70,58 65,47 75,47" fill="#c0392b"/>
+        <polygon points="111,58 106,47 116,47" fill="#c0392b"/>
+        <polygon points="152,58 147,47 157,47" fill="#c0392b"/>
+        <polygon points="193,58 188,47 198,47" fill="#c0392b"/>
+        <polygon points="234,58 229,47 239,47" fill="#c0392b"/>
+        <polygon points="275,58 270,47 280,47" fill="#c0392b"/>
+        <polygon points="316,58 311,47 321,47" fill="#c0392b"/>
+        <polygon points="357,58 352,47 362,47" fill="#c0392b"/>
+        <polygon points="398,58 393,47 403,47" fill="#c0392b"/>
+        <text x="234" y="26" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="bold">15 kN/m</text>
+
+        <rect x="70" y="60" width="328" height="12" fill="#7eaecf" stroke="#1a3c6e" stroke-width="1.5"/>
+        <text x="54" y="70" font-size="13" fill="#1a3c6e" text-anchor="middle" font-weight="bold">O</text>
+
+        <!-- left roller -->
+        <circle cx="104" cy="84" r="10" fill="#dbe4f0" stroke="#1a3c6e" stroke-width="1.5"/>
+        <line x1="84" y1="96" x2="124" y2="96" stroke="#1a3c6e" stroke-width="1.5"/>
+        <line x1="88" y1="102" x2="94" y2="96" stroke="#1a3c6e" stroke-width="1"/>
+        <line x1="98" y1="102" x2="104" y2="96" stroke="#1a3c6e" stroke-width="1"/>
+        <line x1="108" y1="102" x2="114" y2="96" stroke="#1a3c6e" stroke-width="1"/>
+        <line x1="118" y1="102" x2="124" y2="96" stroke="#1a3c6e" stroke-width="1"/>
+        <line x1="104" y1="145" x2="104" y2="110" stroke="#1a6fc4" stroke-width="2.2"/>
+        <polygon points="104,104 98,116 110,116" fill="#1a6fc4"/>
+        <text x="104" y="163" font-size="13" fill="#1a6fc4" text-anchor="middle" font-weight="bold">R<tspan font-size="9" baseline-shift="-4">L</tspan> = 15 kN</text>
+
+        <!-- right roller -->
+        <circle cx="376" cy="84" r="10" fill="#dbe4f0" stroke="#1a3c6e" stroke-width="1.5"/>
+        <line x1="356" y1="96" x2="396" y2="96" stroke="#1a3c6e" stroke-width="1.5"/>
+        <line x1="360" y1="102" x2="366" y2="96" stroke="#1a3c6e" stroke-width="1"/>
+        <line x1="370" y1="102" x2="376" y2="96" stroke="#1a3c6e" stroke-width="1"/>
+        <line x1="380" y1="102" x2="386" y2="96" stroke="#1a3c6e" stroke-width="1"/>
+        <line x1="390" y1="102" x2="396" y2="96" stroke="#1a3c6e" stroke-width="1"/>
+        <line x1="376" y1="145" x2="376" y2="110" stroke="#1a6fc4" stroke-width="2.2"/>
+        <polygon points="376,104 370,116 382,116" fill="#1a6fc4"/>
+        <text x="376" y="163" font-size="13" fill="#1a6fc4" text-anchor="middle" font-weight="bold">R<tspan font-size="9" baseline-shift="-4">R</tspan> = 15 kN</text>
+
+        <!-- dimensions -->
+        <line x1="70" y1="178" x2="376" y2="178" stroke="#555" stroke-width="1"/>
+        <line x1="70" y1="173" x2="70" y2="183" stroke="#555" stroke-width="1"/>
+        <line x1="104" y1="173" x2="104" y2="183" stroke="#555" stroke-width="1"/>
+        <line x1="376" y1="173" x2="376" y2="183" stroke="#555" stroke-width="1"/>
+        <text x="87" y="194" font-size="12" fill="#333" text-anchor="middle">0.2</text>
+        <text x="240" y="194" font-size="12" fill="#333" text-anchor="middle">1.6 m</text>
+        <line x1="70" y1="197" x2="70" y2="207" stroke="#555" stroke-width="1"/>
+        <line x1="70" y1="202" x2="389" y2="202" stroke="#555" stroke-width="1"/>
+        <polygon points="398,202 386,198 386,206" fill="#555"/>
+        <text x="234" y="220" font-size="13" fill="#333" text-anchor="middle" font-style="italic">x</text>
+
+        <line x1="426" y1="35" x2="426" y2="87" stroke="#1a3c6e" stroke-width="2.2"/>
+        <polygon points="426,93 420,81 432,81" fill="#1a3c6e"/>
+        <text x="426" y="26" font-size="14" fill="#1a3c6e" text-anchor="middle" font-weight="bold" font-style="italic">V</text>
+        <path d="M 470,91 A 27,27 0 0 0 470,37" fill="none" stroke="#6b7280" stroke-width="2.2"/>
+        <polygon points="454,37 472,29 470,46" fill="#6b7280"/>
+        <text x="510" y="68" font-size="14" fill="#1a3c6e" font-weight="bold" font-style="italic">M</text>
+      </svg>
+      <figcaption>Cut on the right overhang ($1.8 &lt; x &lt; 2$ m) — both roller reactions are now behind the cut.</figcaption>
+      </figure>
+      </div>
+
       <div class="math-block">$$V(1.8^+) = -12 + 15 = +3\ \text{kN}$$
       $$V(x) = 3 - 15(x-1.8),\qquad V(2) = 3 - 3 = 0 \quad\checkmark$$</div>
 
@@ -284,19 +506,183 @@ h4{color:#1a3c6e;font-size:14.5px;margin:18px 0 6px}
     <summary><span class="step-label">Step 3</span> UDL throughout gives a parabolic BMD — negative (hogging) at the rollers, positive (sagging) at midspan</summary>
     <div class="step-body">
 
+      <p>For each cut, apply $\sum M_O = 0$ — moments about the <em>left free end</em> $O$ ($x=0$), CCW positive — to the left segment, reusing $V(x)$ from Step 2. (There is no pin here, so the fixed reference point is the beam's left end.)</p>
+
       <h4>① Left overhang ($0 \le x \le 0.2\ \text{m}$):</h4>
-      <div class="math-block">$$M(x) = -\frac{15x^2}{2} = -7.5x^2$$
+
+      <div class="diagram-wrap">
+      <figure>
+      <svg viewBox="0 0 300 190" width="300" xmlns="http://www.w3.org/2000/svg" font-family="Arial,sans-serif" font-size="13">
+        <!-- Same cut as Step 2 ① -->
+        <line x1="70" y1="34" x2="94" y2="34" stroke="#c0392b" stroke-width="1.5"/>
+        <line x1="70" y1="34" x2="70" y2="51" stroke="#c0392b" stroke-width="1.2"/>
+        <line x1="82" y1="34" x2="82" y2="51" stroke="#c0392b" stroke-width="1.2"/>
+        <line x1="94" y1="34" x2="94" y2="51" stroke="#c0392b" stroke-width="1.2"/>
+        <polygon points="70,58 65,47 75,47" fill="#c0392b"/>
+        <polygon points="82,58 77,47 87,47" fill="#c0392b"/>
+        <polygon points="94,58 89,47 99,47" fill="#c0392b"/>
+        <text x="82" y="26" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="bold">15 kN/m</text>
+
+        <rect x="70" y="60" width="24" height="12" fill="#7eaecf" stroke="#1a3c6e" stroke-width="1.5"/>
+        <text x="54" y="70" font-size="13" fill="#1a3c6e" text-anchor="middle" font-weight="bold">O</text>
+
+        <line x1="70" y1="95" x2="70" y2="105" stroke="#555" stroke-width="1"/>
+        <line x1="70" y1="100" x2="88" y2="100" stroke="#555" stroke-width="1"/>
+        <polygon points="94,100 85,97 85,103" fill="#555"/>
+        <text x="82" y="118" font-size="13" fill="#333" text-anchor="middle" font-style="italic">x</text>
+
+        <line x1="122" y1="30" x2="122" y2="87" stroke="#1a3c6e" stroke-width="2.2"/>
+        <polygon points="122,93 116,81 128,81" fill="#1a3c6e"/>
+        <text x="122" y="21" font-size="14" fill="#1a3c6e" text-anchor="middle" font-weight="bold" font-style="italic">V</text>
+
+        <path d="M 166,91 A 27,27 0 0 0 166,37" fill="none" stroke="#6b7280" stroke-width="2.2"/>
+        <polygon points="150,37 168,29 166,46" fill="#6b7280"/>
+        <text x="206" y="68" font-size="14" fill="#1a3c6e" font-weight="bold" font-style="italic">M</text>
+      </svg>
+      <figcaption>Same cut as Step 2 ① — $\sum M_O = 0$: the UDL resultant $15x$ acts at $x/2$; $V$ acts at lever arm $x$.</figcaption>
+      </figure>
+      </div>
+
+      <div class="math-block">$$\sum M_O = 0: \quad M - Vx - 15x\cdot\frac{x}{2} = 0 \quad\Rightarrow\quad M(x) = Vx + 7.5x^2 = -7.5x^2$$
       $$M(0) = 0,\qquad M(0.2) = -7.5(0.04) = -0.3\ \text{kN·m}$$</div>
 
       <h4>② Between rollers ($0.2 \le x \le 1.8\ \text{m}$):</h4>
-      <div class="math-block">$$M(x) = -7.5x^2 + 15(x - 0.2) = -7.5x^2 + 15x - 3$$</div>
+
+      <div class="diagram-wrap">
+      <figure>
+      <svg viewBox="0 0 470 230" width="470" xmlns="http://www.w3.org/2000/svg" font-family="Arial,sans-serif" font-size="13">
+        <!-- Same cut as Step 2 ③ -->
+        <line x1="70" y1="34" x2="291" y2="34" stroke="#c0392b" stroke-width="1.5"/>
+        <line x1="70" y1="34" x2="70" y2="51" stroke="#c0392b" stroke-width="1.2"/>
+        <line x1="107" y1="34" x2="107" y2="51" stroke="#c0392b" stroke-width="1.2"/>
+        <line x1="144" y1="34" x2="144" y2="51" stroke="#c0392b" stroke-width="1.2"/>
+        <line x1="181" y1="34" x2="181" y2="51" stroke="#c0392b" stroke-width="1.2"/>
+        <line x1="218" y1="34" x2="218" y2="51" stroke="#c0392b" stroke-width="1.2"/>
+        <line x1="254" y1="34" x2="254" y2="51" stroke="#c0392b" stroke-width="1.2"/>
+        <line x1="291" y1="34" x2="291" y2="51" stroke="#c0392b" stroke-width="1.2"/>
+        <polygon points="70,58 65,47 75,47" fill="#c0392b"/>
+        <polygon points="107,58 102,47 112,47" fill="#c0392b"/>
+        <polygon points="144,58 139,47 149,47" fill="#c0392b"/>
+        <polygon points="181,58 176,47 186,47" fill="#c0392b"/>
+        <polygon points="218,58 213,47 223,47" fill="#c0392b"/>
+        <polygon points="254,58 249,47 259,47" fill="#c0392b"/>
+        <polygon points="291,58 286,47 296,47" fill="#c0392b"/>
+        <text x="180" y="26" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="bold">15 kN/m</text>
+
+        <rect x="70" y="60" width="221" height="12" fill="#7eaecf" stroke="#1a3c6e" stroke-width="1.5"/>
+        <text x="54" y="70" font-size="13" fill="#1a3c6e" text-anchor="middle" font-weight="bold">O</text>
+
+        <circle cx="104" cy="84" r="10" fill="#dbe4f0" stroke="#1a3c6e" stroke-width="1.5"/>
+        <line x1="84" y1="96" x2="124" y2="96" stroke="#1a3c6e" stroke-width="1.5"/>
+        <line x1="88" y1="102" x2="94" y2="96" stroke="#1a3c6e" stroke-width="1"/>
+        <line x1="98" y1="102" x2="104" y2="96" stroke="#1a3c6e" stroke-width="1"/>
+        <line x1="108" y1="102" x2="114" y2="96" stroke="#1a3c6e" stroke-width="1"/>
+        <line x1="118" y1="102" x2="124" y2="96" stroke="#1a3c6e" stroke-width="1"/>
+        <line x1="104" y1="145" x2="104" y2="110" stroke="#1a6fc4" stroke-width="2.2"/>
+        <polygon points="104,104 98,116 110,116" fill="#1a6fc4"/>
+        <text x="104" y="163" font-size="13" fill="#1a6fc4" text-anchor="middle" font-weight="bold">R<tspan font-size="9" baseline-shift="-4">L</tspan> = 15 kN</text>
+
+        <line x1="70" y1="178" x2="104" y2="178" stroke="#555" stroke-width="1"/>
+        <line x1="70" y1="173" x2="70" y2="183" stroke="#555" stroke-width="1"/>
+        <line x1="104" y1="173" x2="104" y2="183" stroke="#555" stroke-width="1"/>
+        <text x="87" y="194" font-size="12" fill="#333" text-anchor="middle">0.2</text>
+        <line x1="70" y1="197" x2="70" y2="207" stroke="#555" stroke-width="1"/>
+        <line x1="70" y1="202" x2="282" y2="202" stroke="#555" stroke-width="1"/>
+        <polygon points="291,202 279,198 279,206" fill="#555"/>
+        <text x="180" y="220" font-size="13" fill="#333" text-anchor="middle" font-style="italic">x</text>
+
+        <line x1="319" y1="35" x2="319" y2="87" stroke="#1a3c6e" stroke-width="2.2"/>
+        <polygon points="319,93 313,81 325,81" fill="#1a3c6e"/>
+        <text x="319" y="26" font-size="14" fill="#1a3c6e" text-anchor="middle" font-weight="bold" font-style="italic">V</text>
+        <path d="M 363,91 A 27,27 0 0 0 363,37" fill="none" stroke="#6b7280" stroke-width="2.2"/>
+        <polygon points="347,37 365,29 363,46" fill="#6b7280"/>
+        <text x="403" y="68" font-size="14" fill="#1a3c6e" font-weight="bold" font-style="italic">M</text>
+      </svg>
+      <figcaption>Same cut as Step 2 ③ — $\sum M_O = 0$: the UDL resultant $15x$ acts at $x/2$; $R_L$ enters at its 0.2 m lever arm.</figcaption>
+      </figure>
+      </div>
+
+      <div class="math-block">$$\sum M_O = 0: \quad M - Vx - 15x\cdot\frac{x}{2} + 15(0.2) = 0$$
+      $$\Rightarrow\quad M(x) = Vx + 7.5x^2 - 3 = -7.5x^2 + 15x - 3$$</div>
       <p>At midspan ($x = 1.0$ m, where $V = 0$):</p>
       <div class="math-block">$$M(1.0) = -7.5(1) + 15(1) - 3 = -7.5 + 15 - 3 = \mathbf{4.5\ \text{kN·m}} \quad\checkmark$$</div>
       <p>At right roller ($x = 1.8$ m), by symmetry:</p>
       <div class="math-block">$$M(1.8) = -0.3\ \text{kN·m} \quad\text{(symmetric to left roller)}$$</div>
 
       <h4>③ Right overhang ($1.8 \le x \le 2\ \text{m}$):</h4>
-      <div class="math-block">$$M(x) = -7.5(2-x)^2, \qquad M(2) = 0 \quad\checkmark$$</div>
+
+      <div class="diagram-wrap">
+      <figure>
+      <svg viewBox="0 0 540 230" width="540" xmlns="http://www.w3.org/2000/svg" font-family="Arial,sans-serif" font-size="13">
+        <!-- Same cut as Step 2 ④ -->
+        <line x1="70" y1="34" x2="398" y2="34" stroke="#c0392b" stroke-width="1.5"/>
+        <line x1="70" y1="34" x2="70" y2="51" stroke="#c0392b" stroke-width="1.2"/>
+        <line x1="111" y1="34" x2="111" y2="51" stroke="#c0392b" stroke-width="1.2"/>
+        <line x1="152" y1="34" x2="152" y2="51" stroke="#c0392b" stroke-width="1.2"/>
+        <line x1="193" y1="34" x2="193" y2="51" stroke="#c0392b" stroke-width="1.2"/>
+        <line x1="234" y1="34" x2="234" y2="51" stroke="#c0392b" stroke-width="1.2"/>
+        <line x1="275" y1="34" x2="275" y2="51" stroke="#c0392b" stroke-width="1.2"/>
+        <line x1="316" y1="34" x2="316" y2="51" stroke="#c0392b" stroke-width="1.2"/>
+        <line x1="357" y1="34" x2="357" y2="51" stroke="#c0392b" stroke-width="1.2"/>
+        <line x1="398" y1="34" x2="398" y2="51" stroke="#c0392b" stroke-width="1.2"/>
+        <polygon points="70,58 65,47 75,47" fill="#c0392b"/>
+        <polygon points="111,58 106,47 116,47" fill="#c0392b"/>
+        <polygon points="152,58 147,47 157,47" fill="#c0392b"/>
+        <polygon points="193,58 188,47 198,47" fill="#c0392b"/>
+        <polygon points="234,58 229,47 239,47" fill="#c0392b"/>
+        <polygon points="275,58 270,47 280,47" fill="#c0392b"/>
+        <polygon points="316,58 311,47 321,47" fill="#c0392b"/>
+        <polygon points="357,58 352,47 362,47" fill="#c0392b"/>
+        <polygon points="398,58 393,47 403,47" fill="#c0392b"/>
+        <text x="234" y="26" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="bold">15 kN/m</text>
+
+        <rect x="70" y="60" width="328" height="12" fill="#7eaecf" stroke="#1a3c6e" stroke-width="1.5"/>
+        <text x="54" y="70" font-size="13" fill="#1a3c6e" text-anchor="middle" font-weight="bold">O</text>
+
+        <circle cx="104" cy="84" r="10" fill="#dbe4f0" stroke="#1a3c6e" stroke-width="1.5"/>
+        <line x1="84" y1="96" x2="124" y2="96" stroke="#1a3c6e" stroke-width="1.5"/>
+        <line x1="88" y1="102" x2="94" y2="96" stroke="#1a3c6e" stroke-width="1"/>
+        <line x1="98" y1="102" x2="104" y2="96" stroke="#1a3c6e" stroke-width="1"/>
+        <line x1="108" y1="102" x2="114" y2="96" stroke="#1a3c6e" stroke-width="1"/>
+        <line x1="118" y1="102" x2="124" y2="96" stroke="#1a3c6e" stroke-width="1"/>
+        <line x1="104" y1="145" x2="104" y2="110" stroke="#1a6fc4" stroke-width="2.2"/>
+        <polygon points="104,104 98,116 110,116" fill="#1a6fc4"/>
+        <text x="104" y="163" font-size="13" fill="#1a6fc4" text-anchor="middle" font-weight="bold">R<tspan font-size="9" baseline-shift="-4">L</tspan> = 15 kN</text>
+
+        <circle cx="376" cy="84" r="10" fill="#dbe4f0" stroke="#1a3c6e" stroke-width="1.5"/>
+        <line x1="356" y1="96" x2="396" y2="96" stroke="#1a3c6e" stroke-width="1.5"/>
+        <line x1="360" y1="102" x2="366" y2="96" stroke="#1a3c6e" stroke-width="1"/>
+        <line x1="370" y1="102" x2="376" y2="96" stroke="#1a3c6e" stroke-width="1"/>
+        <line x1="380" y1="102" x2="386" y2="96" stroke="#1a3c6e" stroke-width="1"/>
+        <line x1="390" y1="102" x2="396" y2="96" stroke="#1a3c6e" stroke-width="1"/>
+        <line x1="376" y1="145" x2="376" y2="110" stroke="#1a6fc4" stroke-width="2.2"/>
+        <polygon points="376,104 370,116 382,116" fill="#1a6fc4"/>
+        <text x="376" y="163" font-size="13" fill="#1a6fc4" text-anchor="middle" font-weight="bold">R<tspan font-size="9" baseline-shift="-4">R</tspan> = 15 kN</text>
+
+        <line x1="70" y1="178" x2="376" y2="178" stroke="#555" stroke-width="1"/>
+        <line x1="70" y1="173" x2="70" y2="183" stroke="#555" stroke-width="1"/>
+        <line x1="104" y1="173" x2="104" y2="183" stroke="#555" stroke-width="1"/>
+        <line x1="376" y1="173" x2="376" y2="183" stroke="#555" stroke-width="1"/>
+        <text x="87" y="194" font-size="12" fill="#333" text-anchor="middle">0.2</text>
+        <text x="240" y="194" font-size="12" fill="#333" text-anchor="middle">1.6 m</text>
+        <line x1="70" y1="197" x2="70" y2="207" stroke="#555" stroke-width="1"/>
+        <line x1="70" y1="202" x2="389" y2="202" stroke="#555" stroke-width="1"/>
+        <polygon points="398,202 386,198 386,206" fill="#555"/>
+        <text x="234" y="220" font-size="13" fill="#333" text-anchor="middle" font-style="italic">x</text>
+
+        <line x1="426" y1="35" x2="426" y2="87" stroke="#1a3c6e" stroke-width="2.2"/>
+        <polygon points="426,93 420,81 432,81" fill="#1a3c6e"/>
+        <text x="426" y="26" font-size="14" fill="#1a3c6e" text-anchor="middle" font-weight="bold" font-style="italic">V</text>
+        <path d="M 470,91 A 27,27 0 0 0 470,37" fill="none" stroke="#6b7280" stroke-width="2.2"/>
+        <polygon points="454,37 472,29 470,46" fill="#6b7280"/>
+        <text x="510" y="68" font-size="14" fill="#1a3c6e" font-weight="bold" font-style="italic">M</text>
+      </svg>
+      <figcaption>Same cut as Step 2 ④ — $\sum M_O = 0$ picks up both roller reactions at their 0.2 m and 1.8 m lever arms.</figcaption>
+      </figure>
+      </div>
+
+      <div class="math-block">$$\sum M_O = 0: \quad M - Vx - 15x\cdot\frac{x}{2} + 15(0.2) + 15(1.8) = 0$$
+      $$\Rightarrow\quad M(x) = Vx + 7.5x^2 - 30 = -7.5(2-x)^2, \qquad M(2) = 0 \quad\checkmark$$</div>
 
       <div class="diagram-wrap">
       <figure>

@@ -147,6 +147,47 @@ h4{color:#1a3c6e;font-size:14.5px;margin:18px 0 6px}
     <summary><span class="step-label">Step 1</span> Replace UDL with equivalent point load, then apply $\sum M_A = 0$ and $\sum F_y = 0$</summary>
     <div class="step-body">
       <p>The UDL of intensity $P/l$ over length $l$ is equivalent to a single downward force of magnitude $(P/l)\times l = P$, acting at the centroid of the UDL region, which is at $x = l/2$.</p>
+
+      <div class="diagram-wrap">
+      <figure>
+      <svg viewBox="0 0 440 225" width="440" xmlns="http://www.w3.org/2000/svg" font-family="Arial,sans-serif" font-size="13">
+        <!-- FBD with UDL replaced by its resultant. Scale 100 px/l: A=70, l/2=120, 2l=270, B=370 -->
+        <rect x="70" y="78" width="300" height="12" fill="#7eaecf" stroke="#1a3c6e" stroke-width="1.5"/>
+        <text x="52" y="89" font-size="14" fill="#1a3c6e" text-anchor="middle" font-weight="bold">A</text>
+        <text x="388" y="89" font-size="14" fill="#1a3c6e" text-anchor="middle" font-weight="bold">B</text>
+
+        <!-- UDL resultant P at l/2 -->
+        <line x1="120" y1="34" x2="120" y2="72" stroke="#c0392b" stroke-width="2.2"/>
+        <polygon points="120,78 114,65 126,65" fill="#c0392b"/>
+        <text x="120" y="26" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="bold">P <tspan font-size="10" fill="#c0392b">(UDL resultant)</tspan></text>
+
+        <!-- Point load P at 2l -->
+        <line x1="270" y1="34" x2="270" y2="72" stroke="#c0392b" stroke-width="2.2"/>
+        <polygon points="270,78 264,65 276,65" fill="#c0392b"/>
+        <text x="270" y="26" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="bold">P</text>
+
+        <!-- Unknown reactions -->
+        <line x1="70" y1="148" x2="70" y2="98" stroke="#1a6fc4" stroke-width="2.2"/>
+        <polygon points="70,94 64,106 76,106" fill="#1a6fc4"/>
+        <text x="70" y="166" font-size="13" fill="#1a6fc4" text-anchor="middle" font-weight="bold">R<tspan font-size="9" baseline-shift="-4">A</tspan> = ?</text>
+        <line x1="370" y1="148" x2="370" y2="98" stroke="#1a6fc4" stroke-width="2.2"/>
+        <polygon points="370,94 364,106 376,106" fill="#1a6fc4"/>
+        <text x="370" y="166" font-size="13" fill="#1a6fc4" text-anchor="middle" font-weight="bold">R<tspan font-size="9" baseline-shift="-4">B</tspan> = ?</text>
+
+        <!-- Dimensions: l/2 to resultant, then to 2l, then to B -->
+        <line x1="70" y1="190" x2="370" y2="190" stroke="#555" stroke-width="1"/>
+        <line x1="70" y1="185" x2="70" y2="195" stroke="#555" stroke-width="1"/>
+        <line x1="120" y1="185" x2="120" y2="195" stroke="#555" stroke-width="1"/>
+        <line x1="270" y1="185" x2="270" y2="195" stroke="#555" stroke-width="1"/>
+        <line x1="370" y1="185" x2="370" y2="195" stroke="#555" stroke-width="1"/>
+        <text x="95" y="208" font-size="12" fill="#333" text-anchor="middle" font-style="italic">l/2</text>
+        <text x="195" y="208" font-size="12" fill="#333" text-anchor="middle" font-style="italic">3l/2</text>
+        <text x="320" y="208" font-size="12" fill="#333" text-anchor="middle" font-style="italic">l</text>
+      </svg>
+      <figcaption>Free-body diagram for the reactions — the UDL is replaced by its resultant $P$ at $x = l/2$; both reactions assumed upward.</figcaption>
+      </figure>
+      </div>
+
       <p>Taking moments about $A$ (CCW positive), with $R_B$ acting upward at $x = 3l$:</p>
       <div class="math-block">$$\sum M_A = 0:\quad R_B(3l) - P\!\left(\frac{l}{2}\right) - P(2l) = 0$$
       $$R_B = \frac{\tfrac{Pl}{2} + 2Pl}{3l} = \frac{\tfrac{5Pl}{2}}{3l} = \mathbf{\frac{5P}{6} \uparrow}$$</div>
@@ -174,16 +215,192 @@ h4{color:#1a3c6e;font-size:14.5px;margin:18px 0 6px}
     <div class="step-body">
 
       <h4>① From $A$ to $x = l$ (UDL region):</h4>
+
+      <div class="diagram-wrap">
+      <figure>
+      <svg viewBox="0 0 340 205" width="340" xmlns="http://www.w3.org/2000/svg" font-family="Arial,sans-serif" font-size="13">
+        <!-- Cut in 0 < x < l, drawn at ~0.7l. Scale 100 px/l: A=70, cut=140 -->
+        <!-- UDL over the whole segment -->
+        <line x1="70" y1="34" x2="140" y2="34" stroke="#c0392b" stroke-width="1.5"/>
+        <line x1="70" y1="34" x2="70" y2="51" stroke="#c0392b" stroke-width="1.2"/>
+        <line x1="93" y1="34" x2="93" y2="51" stroke="#c0392b" stroke-width="1.2"/>
+        <line x1="116" y1="34" x2="116" y2="51" stroke="#c0392b" stroke-width="1.2"/>
+        <line x1="140" y1="34" x2="140" y2="51" stroke="#c0392b" stroke-width="1.2"/>
+        <polygon points="70,58 65,47 75,47" fill="#c0392b"/>
+        <polygon points="93,58 88,47 98,47" fill="#c0392b"/>
+        <polygon points="116,58 111,47 121,47" fill="#c0392b"/>
+        <polygon points="140,58 135,47 145,47" fill="#c0392b"/>
+        <text x="105" y="26" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="bold">P/l</text>
+
+        <rect x="70" y="60" width="70" height="12" fill="#7eaecf" stroke="#1a3c6e" stroke-width="1.5"/>
+        <text x="52" y="70" font-size="14" fill="#1a3c6e" text-anchor="middle" font-weight="bold">A</text>
+
+        <!-- pin support under A -->
+        <polygon points="70,72 58,92 82,92" fill="#dbe4f0" stroke="#1a3c6e" stroke-width="1.5"/>
+        <line x1="50" y1="92" x2="90" y2="92" stroke="#1a3c6e" stroke-width="1.5"/>
+        <line x1="54" y1="98" x2="60" y2="92" stroke="#1a3c6e" stroke-width="1"/>
+        <line x1="64" y1="98" x2="70" y2="92" stroke="#1a3c6e" stroke-width="1"/>
+        <line x1="74" y1="98" x2="80" y2="92" stroke="#1a3c6e" stroke-width="1"/>
+        <line x1="84" y1="98" x2="90" y2="92" stroke="#1a3c6e" stroke-width="1"/>
+
+        <!-- reaction arrow -->
+        <line x1="70" y1="140" x2="70" y2="110" stroke="#1a6fc4" stroke-width="2.2"/>
+        <polygon points="70,104 64,116 76,116" fill="#1a6fc4"/>
+        <text x="70" y="158" font-size="13" fill="#1a6fc4" text-anchor="middle" font-weight="bold">R<tspan font-size="9" baseline-shift="-4">A</tspan> = 7P/6</text>
+
+        <!-- x dimension -->
+        <line x1="70" y1="165" x2="70" y2="175" stroke="#555" stroke-width="1"/>
+        <line x1="70" y1="170" x2="131" y2="170" stroke="#555" stroke-width="1"/>
+        <polygon points="140,170 128,166 128,174" fill="#555"/>
+        <text x="105" y="188" font-size="13" fill="#333" text-anchor="middle" font-style="italic">x</text>
+
+        <!-- internal shear V -->
+        <line x1="168" y1="35" x2="168" y2="92" stroke="#1a3c6e" stroke-width="2.2"/>
+        <polygon points="168,98 162,86 174,86" fill="#1a3c6e"/>
+        <text x="168" y="26" font-size="14" fill="#1a3c6e" text-anchor="middle" font-weight="bold" font-style="italic">V</text>
+
+        <!-- internal moment M -->
+        <path d="M 212,96 A 27,27 0 0 0 212,42" fill="none" stroke="#6b7280" stroke-width="2.2"/>
+        <polygon points="196,42 214,34 212,51" fill="#6b7280"/>
+        <text x="252" y="76" font-size="14" fill="#1a3c6e" font-weight="bold" font-style="italic">M</text>
+      </svg>
+      <figcaption>Cut at a section $0 &lt; x &lt; l$ — the UDL covers the whole segment; its running resultant is $(P/l)\,x$, acting at $x/2$ from $A$.</figcaption>
+      </figure>
+      </div>
+
       <div class="math-block">$$V(x) = R_A - \frac{P}{l}\,x = \frac{7P}{6} - \frac{P}{l}\,x$$
       $$V(0) = \frac{7P}{6}, \qquad V(l) = \frac{7P}{6} - P = \frac{P}{6}$$</div>
 
       <h4>② From $x = l$ to $x = 2l$ (no load):</h4>
+
+      <div class="diagram-wrap">
+      <figure>
+      <svg viewBox="0 0 430 220" width="430" xmlns="http://www.w3.org/2000/svg" font-family="Arial,sans-serif" font-size="13">
+        <!-- Cut in l < x < 2l, drawn at ~1.6l. Scale 100 px/l: A=70, l=170, cut=230 -->
+        <!-- UDL over [0, l] only -->
+        <line x1="70" y1="34" x2="170" y2="34" stroke="#c0392b" stroke-width="1.5"/>
+        <line x1="70" y1="34" x2="70" y2="51" stroke="#c0392b" stroke-width="1.2"/>
+        <line x1="95" y1="34" x2="95" y2="51" stroke="#c0392b" stroke-width="1.2"/>
+        <line x1="120" y1="34" x2="120" y2="51" stroke="#c0392b" stroke-width="1.2"/>
+        <line x1="145" y1="34" x2="145" y2="51" stroke="#c0392b" stroke-width="1.2"/>
+        <line x1="170" y1="34" x2="170" y2="51" stroke="#c0392b" stroke-width="1.2"/>
+        <polygon points="70,58 65,47 75,47" fill="#c0392b"/>
+        <polygon points="95,58 90,47 100,47" fill="#c0392b"/>
+        <polygon points="120,58 115,47 125,47" fill="#c0392b"/>
+        <polygon points="145,58 140,47 150,47" fill="#c0392b"/>
+        <polygon points="170,58 165,47 175,47" fill="#c0392b"/>
+        <text x="120" y="26" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="bold">P/l</text>
+
+        <rect x="70" y="60" width="160" height="12" fill="#7eaecf" stroke="#1a3c6e" stroke-width="1.5"/>
+        <text x="52" y="70" font-size="14" fill="#1a3c6e" text-anchor="middle" font-weight="bold">A</text>
+
+        <!-- pin support under A -->
+        <polygon points="70,72 58,92 82,92" fill="#dbe4f0" stroke="#1a3c6e" stroke-width="1.5"/>
+        <line x1="50" y1="92" x2="90" y2="92" stroke="#1a3c6e" stroke-width="1.5"/>
+        <line x1="54" y1="98" x2="60" y2="92" stroke="#1a3c6e" stroke-width="1"/>
+        <line x1="64" y1="98" x2="70" y2="92" stroke="#1a3c6e" stroke-width="1"/>
+        <line x1="74" y1="98" x2="80" y2="92" stroke="#1a3c6e" stroke-width="1"/>
+        <line x1="84" y1="98" x2="90" y2="92" stroke="#1a3c6e" stroke-width="1"/>
+
+        <!-- reaction arrow -->
+        <line x1="70" y1="140" x2="70" y2="110" stroke="#1a6fc4" stroke-width="2.2"/>
+        <polygon points="70,104 64,116 76,116" fill="#1a6fc4"/>
+        <text x="70" y="158" font-size="13" fill="#1a6fc4" text-anchor="middle" font-weight="bold">R<tspan font-size="9" baseline-shift="-4">A</tspan> = 7P/6</text>
+
+        <!-- dimensions -->
+        <line x1="70" y1="170" x2="170" y2="170" stroke="#555" stroke-width="1"/>
+        <line x1="170" y1="165" x2="170" y2="175" stroke="#555" stroke-width="1"/>
+        <text x="120" y="186" font-size="12" fill="#333" text-anchor="middle" font-style="italic">l</text>
+        <line x1="70" y1="192" x2="70" y2="202" stroke="#555" stroke-width="1"/>
+        <line x1="70" y1="197" x2="221" y2="197" stroke="#555" stroke-width="1"/>
+        <polygon points="230,197 218,193 218,201" fill="#555"/>
+        <text x="150" y="215" font-size="13" fill="#333" text-anchor="middle" font-style="italic">x</text>
+
+        <!-- internal shear V -->
+        <line x1="258" y1="35" x2="258" y2="92" stroke="#1a3c6e" stroke-width="2.2"/>
+        <polygon points="258,98 252,86 264,86" fill="#1a3c6e"/>
+        <text x="258" y="26" font-size="14" fill="#1a3c6e" text-anchor="middle" font-weight="bold" font-style="italic">V</text>
+
+        <!-- internal moment M -->
+        <path d="M 302,96 A 27,27 0 0 0 302,42" fill="none" stroke="#6b7280" stroke-width="2.2"/>
+        <polygon points="286,42 304,34 302,51" fill="#6b7280"/>
+        <text x="342" y="76" font-size="14" fill="#1a3c6e" font-weight="bold" font-style="italic">M</text>
+      </svg>
+      <figcaption>Cut at a section $l &lt; x &lt; 2l$ — the full UDL (resultant $P$ at $l/2$) is now behind the cut; no new load enters, so $V$ is constant.</figcaption>
+      </figure>
+      </div>
+
       <div class="math-block">$$V = \frac{P}{6} \quad \text{(constant)}$$</div>
 
       <h4>③ Jump at $x = 2l$ (point load $P$ downward):</h4>
       <div class="math-block">$$V(2l^+) = \frac{P}{6} - P = -\frac{5P}{6}$$</div>
 
       <h4>④ From $x = 2l$ to $B$ (no load):</h4>
+
+      <div class="diagram-wrap">
+      <figure>
+      <svg viewBox="0 0 460 220" width="460" xmlns="http://www.w3.org/2000/svg" font-family="Arial,sans-serif" font-size="13">
+        <!-- Cut in 2l < x < 3l, drawn at ~2.5l. Scale 100 px/l: A=70, l=170, 2l=270, cut=320 -->
+        <!-- UDL over [0, l] -->
+        <line x1="70" y1="34" x2="170" y2="34" stroke="#c0392b" stroke-width="1.5"/>
+        <line x1="70" y1="34" x2="70" y2="51" stroke="#c0392b" stroke-width="1.2"/>
+        <line x1="95" y1="34" x2="95" y2="51" stroke="#c0392b" stroke-width="1.2"/>
+        <line x1="120" y1="34" x2="120" y2="51" stroke="#c0392b" stroke-width="1.2"/>
+        <line x1="145" y1="34" x2="145" y2="51" stroke="#c0392b" stroke-width="1.2"/>
+        <line x1="170" y1="34" x2="170" y2="51" stroke="#c0392b" stroke-width="1.2"/>
+        <polygon points="70,58 65,47 75,47" fill="#c0392b"/>
+        <polygon points="95,58 90,47 100,47" fill="#c0392b"/>
+        <polygon points="120,58 115,47 125,47" fill="#c0392b"/>
+        <polygon points="145,58 140,47 150,47" fill="#c0392b"/>
+        <polygon points="170,58 165,47 175,47" fill="#c0392b"/>
+        <text x="120" y="26" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="bold">P/l</text>
+
+        <!-- point load P at 2l -->
+        <line x1="270" y1="22" x2="270" y2="51" stroke="#c0392b" stroke-width="2.2"/>
+        <polygon points="270,58 264,45 276,45" fill="#c0392b"/>
+        <text x="270" y="15" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="bold">P</text>
+
+        <rect x="70" y="60" width="250" height="12" fill="#7eaecf" stroke="#1a3c6e" stroke-width="1.5"/>
+        <text x="52" y="70" font-size="14" fill="#1a3c6e" text-anchor="middle" font-weight="bold">A</text>
+
+        <!-- pin support under A -->
+        <polygon points="70,72 58,92 82,92" fill="#dbe4f0" stroke="#1a3c6e" stroke-width="1.5"/>
+        <line x1="50" y1="92" x2="90" y2="92" stroke="#1a3c6e" stroke-width="1.5"/>
+        <line x1="54" y1="98" x2="60" y2="92" stroke="#1a3c6e" stroke-width="1"/>
+        <line x1="64" y1="98" x2="70" y2="92" stroke="#1a3c6e" stroke-width="1"/>
+        <line x1="74" y1="98" x2="80" y2="92" stroke="#1a3c6e" stroke-width="1"/>
+        <line x1="84" y1="98" x2="90" y2="92" stroke="#1a3c6e" stroke-width="1"/>
+
+        <!-- reaction arrow -->
+        <line x1="70" y1="140" x2="70" y2="110" stroke="#1a6fc4" stroke-width="2.2"/>
+        <polygon points="70,104 64,116 76,116" fill="#1a6fc4"/>
+        <text x="70" y="158" font-size="13" fill="#1a6fc4" text-anchor="middle" font-weight="bold">R<tspan font-size="9" baseline-shift="-4">A</tspan> = 7P/6</text>
+
+        <!-- dimensions -->
+        <line x1="70" y1="170" x2="270" y2="170" stroke="#555" stroke-width="1"/>
+        <line x1="170" y1="165" x2="170" y2="175" stroke="#555" stroke-width="1"/>
+        <line x1="270" y1="165" x2="270" y2="175" stroke="#555" stroke-width="1"/>
+        <text x="120" y="186" font-size="12" fill="#333" text-anchor="middle" font-style="italic">l</text>
+        <text x="220" y="186" font-size="12" fill="#333" text-anchor="middle" font-style="italic">l</text>
+        <line x1="70" y1="192" x2="70" y2="202" stroke="#555" stroke-width="1"/>
+        <line x1="70" y1="197" x2="311" y2="197" stroke="#555" stroke-width="1"/>
+        <polygon points="320,197 308,193 308,201" fill="#555"/>
+        <text x="195" y="215" font-size="13" fill="#333" text-anchor="middle" font-style="italic">x</text>
+
+        <!-- internal shear V -->
+        <line x1="348" y1="35" x2="348" y2="92" stroke="#1a3c6e" stroke-width="2.2"/>
+        <polygon points="348,98 342,86 354,86" fill="#1a3c6e"/>
+        <text x="348" y="26" font-size="14" fill="#1a3c6e" text-anchor="middle" font-weight="bold" font-style="italic">V</text>
+
+        <!-- internal moment M -->
+        <path d="M 392,96 A 27,27 0 0 0 392,42" fill="none" stroke="#6b7280" stroke-width="2.2"/>
+        <polygon points="376,42 394,34 392,51" fill="#6b7280"/>
+        <text x="432" y="76" font-size="14" fill="#1a3c6e" font-weight="bold" font-style="italic">M</text>
+      </svg>
+      <figcaption>Cut at a section $2l &lt; x &lt; 3l$ — the segment now carries the UDL <em>and</em> the point load $P$ at $2l$.</figcaption>
+      </figure>
+      </div>
+
       <div class="math-block">$$V = -\frac{5P}{6} \quad \text{(constant)}$$</div>
       <p>At $B$, $R_B = 5P/6$ restores $V$ to zero. ✓</p>
 
@@ -265,16 +482,176 @@ h4{color:#1a3c6e;font-size:14.5px;margin:18px 0 6px}
     <summary><span class="step-label">Step 3</span> Parabola in $[0,l]$, two linear segments from $l$ to $B$ — maximum at $x = 2l$</summary>
     <div class="step-body">
 
+      <p>For each cut, apply $\sum M_A = 0$ (moments about $A$, CCW positive) to the left segment, reusing $V(x)$ from Step 2 — $R_A$ passes through $A$ and drops out.</p>
+
       <h4>① From $A$ to $x = l$ (UDL region, parabolic):</h4>
-      <div class="math-block">$$M(x) = R_A\,x - \frac{P}{l}\cdot\frac{x^2}{2} = \frac{7P}{6}\,x - \frac{P}{2l}\,x^2$$
+
+      <div class="diagram-wrap">
+      <figure>
+      <svg viewBox="0 0 340 205" width="340" xmlns="http://www.w3.org/2000/svg" font-family="Arial,sans-serif" font-size="13">
+        <!-- Same cut as Step 2 ①: 0 < x < l, drawn at ~0.7l -->
+        <line x1="70" y1="34" x2="140" y2="34" stroke="#c0392b" stroke-width="1.5"/>
+        <line x1="70" y1="34" x2="70" y2="51" stroke="#c0392b" stroke-width="1.2"/>
+        <line x1="93" y1="34" x2="93" y2="51" stroke="#c0392b" stroke-width="1.2"/>
+        <line x1="116" y1="34" x2="116" y2="51" stroke="#c0392b" stroke-width="1.2"/>
+        <line x1="140" y1="34" x2="140" y2="51" stroke="#c0392b" stroke-width="1.2"/>
+        <polygon points="70,58 65,47 75,47" fill="#c0392b"/>
+        <polygon points="93,58 88,47 98,47" fill="#c0392b"/>
+        <polygon points="116,58 111,47 121,47" fill="#c0392b"/>
+        <polygon points="140,58 135,47 145,47" fill="#c0392b"/>
+        <text x="105" y="26" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="bold">P/l</text>
+
+        <rect x="70" y="60" width="70" height="12" fill="#7eaecf" stroke="#1a3c6e" stroke-width="1.5"/>
+        <text x="52" y="70" font-size="14" fill="#1a3c6e" text-anchor="middle" font-weight="bold">A</text>
+
+        <polygon points="70,72 58,92 82,92" fill="#dbe4f0" stroke="#1a3c6e" stroke-width="1.5"/>
+        <line x1="50" y1="92" x2="90" y2="92" stroke="#1a3c6e" stroke-width="1.5"/>
+        <line x1="54" y1="98" x2="60" y2="92" stroke="#1a3c6e" stroke-width="1"/>
+        <line x1="64" y1="98" x2="70" y2="92" stroke="#1a3c6e" stroke-width="1"/>
+        <line x1="74" y1="98" x2="80" y2="92" stroke="#1a3c6e" stroke-width="1"/>
+        <line x1="84" y1="98" x2="90" y2="92" stroke="#1a3c6e" stroke-width="1"/>
+
+        <line x1="70" y1="140" x2="70" y2="110" stroke="#1a6fc4" stroke-width="2.2"/>
+        <polygon points="70,104 64,116 76,116" fill="#1a6fc4"/>
+        <text x="70" y="158" font-size="13" fill="#1a6fc4" text-anchor="middle" font-weight="bold">R<tspan font-size="9" baseline-shift="-4">A</tspan> = 7P/6</text>
+
+        <line x1="70" y1="165" x2="70" y2="175" stroke="#555" stroke-width="1"/>
+        <line x1="70" y1="170" x2="131" y2="170" stroke="#555" stroke-width="1"/>
+        <polygon points="140,170 128,166 128,174" fill="#555"/>
+        <text x="105" y="188" font-size="13" fill="#333" text-anchor="middle" font-style="italic">x</text>
+
+        <line x1="168" y1="35" x2="168" y2="92" stroke="#1a3c6e" stroke-width="2.2"/>
+        <polygon points="168,98 162,86 174,86" fill="#1a3c6e"/>
+        <text x="168" y="26" font-size="14" fill="#1a3c6e" text-anchor="middle" font-weight="bold" font-style="italic">V</text>
+
+        <path d="M 212,96 A 27,27 0 0 0 212,42" fill="none" stroke="#6b7280" stroke-width="2.2"/>
+        <polygon points="196,42 214,34 212,51" fill="#6b7280"/>
+        <text x="252" y="76" font-size="14" fill="#1a3c6e" font-weight="bold" font-style="italic">M</text>
+      </svg>
+      <figcaption>Same cut as Step 2 ① — $\sum M_A = 0$: the running UDL resultant $(P/l)x$ acts at $x/2$; $V$ acts at lever arm $x$.</figcaption>
+      </figure>
+      </div>
+
+      <div class="math-block">$$\sum M_A = 0: \quad M - Vx - \frac{P}{l}x\cdot\frac{x}{2} = 0 \quad\Rightarrow\quad M(x) = Vx + \frac{P}{2l}x^2 = \frac{7P}{6}\,x - \frac{P}{2l}\,x^2$$
       $$M(l) = \frac{7Pl}{6} - \frac{Pl}{2} = \frac{7Pl}{6} - \frac{3Pl}{6} = \frac{2Pl}{3}$$</div>
 
       <h4>② From $x = l$ to $x = 2l$ (no distributed load, linear):</h4>
-      <div class="math-block">$$M(x) = \frac{7P}{6}\,x - P\!\left(x - \frac{l}{2}\right) = \frac{P}{6}\,x + \frac{Pl}{2}$$
+
+      <div class="diagram-wrap">
+      <figure>
+      <svg viewBox="0 0 430 220" width="430" xmlns="http://www.w3.org/2000/svg" font-family="Arial,sans-serif" font-size="13">
+        <!-- Same cut as Step 2 ②: l < x < 2l, drawn at ~1.6l -->
+        <line x1="70" y1="34" x2="170" y2="34" stroke="#c0392b" stroke-width="1.5"/>
+        <line x1="70" y1="34" x2="70" y2="51" stroke="#c0392b" stroke-width="1.2"/>
+        <line x1="95" y1="34" x2="95" y2="51" stroke="#c0392b" stroke-width="1.2"/>
+        <line x1="120" y1="34" x2="120" y2="51" stroke="#c0392b" stroke-width="1.2"/>
+        <line x1="145" y1="34" x2="145" y2="51" stroke="#c0392b" stroke-width="1.2"/>
+        <line x1="170" y1="34" x2="170" y2="51" stroke="#c0392b" stroke-width="1.2"/>
+        <polygon points="70,58 65,47 75,47" fill="#c0392b"/>
+        <polygon points="95,58 90,47 100,47" fill="#c0392b"/>
+        <polygon points="120,58 115,47 125,47" fill="#c0392b"/>
+        <polygon points="145,58 140,47 150,47" fill="#c0392b"/>
+        <polygon points="170,58 165,47 175,47" fill="#c0392b"/>
+        <text x="120" y="26" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="bold">P/l</text>
+
+        <rect x="70" y="60" width="160" height="12" fill="#7eaecf" stroke="#1a3c6e" stroke-width="1.5"/>
+        <text x="52" y="70" font-size="14" fill="#1a3c6e" text-anchor="middle" font-weight="bold">A</text>
+
+        <polygon points="70,72 58,92 82,92" fill="#dbe4f0" stroke="#1a3c6e" stroke-width="1.5"/>
+        <line x1="50" y1="92" x2="90" y2="92" stroke="#1a3c6e" stroke-width="1.5"/>
+        <line x1="54" y1="98" x2="60" y2="92" stroke="#1a3c6e" stroke-width="1"/>
+        <line x1="64" y1="98" x2="70" y2="92" stroke="#1a3c6e" stroke-width="1"/>
+        <line x1="74" y1="98" x2="80" y2="92" stroke="#1a3c6e" stroke-width="1"/>
+        <line x1="84" y1="98" x2="90" y2="92" stroke="#1a3c6e" stroke-width="1"/>
+
+        <line x1="70" y1="140" x2="70" y2="110" stroke="#1a6fc4" stroke-width="2.2"/>
+        <polygon points="70,104 64,116 76,116" fill="#1a6fc4"/>
+        <text x="70" y="158" font-size="13" fill="#1a6fc4" text-anchor="middle" font-weight="bold">R<tspan font-size="9" baseline-shift="-4">A</tspan> = 7P/6</text>
+
+        <line x1="70" y1="170" x2="170" y2="170" stroke="#555" stroke-width="1"/>
+        <line x1="170" y1="165" x2="170" y2="175" stroke="#555" stroke-width="1"/>
+        <text x="120" y="186" font-size="12" fill="#333" text-anchor="middle" font-style="italic">l</text>
+        <line x1="70" y1="192" x2="70" y2="202" stroke="#555" stroke-width="1"/>
+        <line x1="70" y1="197" x2="221" y2="197" stroke="#555" stroke-width="1"/>
+        <polygon points="230,197 218,193 218,201" fill="#555"/>
+        <text x="150" y="215" font-size="13" fill="#333" text-anchor="middle" font-style="italic">x</text>
+
+        <line x1="258" y1="35" x2="258" y2="92" stroke="#1a3c6e" stroke-width="2.2"/>
+        <polygon points="258,98 252,86 264,86" fill="#1a3c6e"/>
+        <text x="258" y="26" font-size="14" fill="#1a3c6e" text-anchor="middle" font-weight="bold" font-style="italic">V</text>
+
+        <path d="M 302,96 A 27,27 0 0 0 302,42" fill="none" stroke="#6b7280" stroke-width="2.2"/>
+        <polygon points="286,42 304,34 302,51" fill="#6b7280"/>
+        <text x="342" y="76" font-size="14" fill="#1a3c6e" font-weight="bold" font-style="italic">M</text>
+      </svg>
+      <figcaption>Same cut as Step 2 ② — $\sum M_A = 0$: the completed UDL contributes its resultant $P$ at lever arm $l/2$.</figcaption>
+      </figure>
+      </div>
+
+      <div class="math-block">$$\sum M_A = 0: \quad M - Vx - P\,\frac{l}{2} = 0 \quad\Rightarrow\quad M(x) = Vx + \frac{Pl}{2} = \frac{P}{6}\,x + \frac{Pl}{2}$$
       $$M(2l) = \frac{P}{6}(2l) + \frac{Pl}{2} = \frac{Pl}{3} + \frac{Pl}{2} = \frac{2Pl}{6} + \frac{3Pl}{6} = \boxed{\frac{5Pl}{6}} \quad \checkmark$$</div>
 
       <h4>③ From $x = 2l$ to $B$ (linear, slope $= -5P/6$):</h4>
-      <div class="math-block">$$M(x) = -\frac{5P}{6}\,x + \frac{5Pl}{2} \implies M(3l) = -\frac{15Pl}{6} + \frac{15Pl}{6} = 0 \quad \checkmark$$</div>
+
+      <div class="diagram-wrap">
+      <figure>
+      <svg viewBox="0 0 460 220" width="460" xmlns="http://www.w3.org/2000/svg" font-family="Arial,sans-serif" font-size="13">
+        <!-- Same cut as Step 2 ④: 2l < x < 3l, drawn at ~2.5l -->
+        <line x1="70" y1="34" x2="170" y2="34" stroke="#c0392b" stroke-width="1.5"/>
+        <line x1="70" y1="34" x2="70" y2="51" stroke="#c0392b" stroke-width="1.2"/>
+        <line x1="95" y1="34" x2="95" y2="51" stroke="#c0392b" stroke-width="1.2"/>
+        <line x1="120" y1="34" x2="120" y2="51" stroke="#c0392b" stroke-width="1.2"/>
+        <line x1="145" y1="34" x2="145" y2="51" stroke="#c0392b" stroke-width="1.2"/>
+        <line x1="170" y1="34" x2="170" y2="51" stroke="#c0392b" stroke-width="1.2"/>
+        <polygon points="70,58 65,47 75,47" fill="#c0392b"/>
+        <polygon points="95,58 90,47 100,47" fill="#c0392b"/>
+        <polygon points="120,58 115,47 125,47" fill="#c0392b"/>
+        <polygon points="145,58 140,47 150,47" fill="#c0392b"/>
+        <polygon points="170,58 165,47 175,47" fill="#c0392b"/>
+        <text x="120" y="26" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="bold">P/l</text>
+
+        <line x1="270" y1="22" x2="270" y2="51" stroke="#c0392b" stroke-width="2.2"/>
+        <polygon points="270,58 264,45 276,45" fill="#c0392b"/>
+        <text x="270" y="15" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="bold">P</text>
+
+        <rect x="70" y="60" width="250" height="12" fill="#7eaecf" stroke="#1a3c6e" stroke-width="1.5"/>
+        <text x="52" y="70" font-size="14" fill="#1a3c6e" text-anchor="middle" font-weight="bold">A</text>
+
+        <polygon points="70,72 58,92 82,92" fill="#dbe4f0" stroke="#1a3c6e" stroke-width="1.5"/>
+        <line x1="50" y1="92" x2="90" y2="92" stroke="#1a3c6e" stroke-width="1.5"/>
+        <line x1="54" y1="98" x2="60" y2="92" stroke="#1a3c6e" stroke-width="1"/>
+        <line x1="64" y1="98" x2="70" y2="92" stroke="#1a3c6e" stroke-width="1"/>
+        <line x1="74" y1="98" x2="80" y2="92" stroke="#1a3c6e" stroke-width="1"/>
+        <line x1="84" y1="98" x2="90" y2="92" stroke="#1a3c6e" stroke-width="1"/>
+
+        <line x1="70" y1="140" x2="70" y2="110" stroke="#1a6fc4" stroke-width="2.2"/>
+        <polygon points="70,104 64,116 76,116" fill="#1a6fc4"/>
+        <text x="70" y="158" font-size="13" fill="#1a6fc4" text-anchor="middle" font-weight="bold">R<tspan font-size="9" baseline-shift="-4">A</tspan> = 7P/6</text>
+
+        <line x1="70" y1="170" x2="270" y2="170" stroke="#555" stroke-width="1"/>
+        <line x1="170" y1="165" x2="170" y2="175" stroke="#555" stroke-width="1"/>
+        <line x1="270" y1="165" x2="270" y2="175" stroke="#555" stroke-width="1"/>
+        <text x="120" y="186" font-size="12" fill="#333" text-anchor="middle" font-style="italic">l</text>
+        <text x="220" y="186" font-size="12" fill="#333" text-anchor="middle" font-style="italic">l</text>
+        <line x1="70" y1="192" x2="70" y2="202" stroke="#555" stroke-width="1"/>
+        <line x1="70" y1="197" x2="311" y2="197" stroke="#555" stroke-width="1"/>
+        <polygon points="320,197 308,193 308,201" fill="#555"/>
+        <text x="195" y="215" font-size="13" fill="#333" text-anchor="middle" font-style="italic">x</text>
+
+        <line x1="348" y1="35" x2="348" y2="92" stroke="#1a3c6e" stroke-width="2.2"/>
+        <polygon points="348,98 342,86 354,86" fill="#1a3c6e"/>
+        <text x="348" y="26" font-size="14" fill="#1a3c6e" text-anchor="middle" font-weight="bold" font-style="italic">V</text>
+
+        <path d="M 392,96 A 27,27 0 0 0 392,42" fill="none" stroke="#6b7280" stroke-width="2.2"/>
+        <polygon points="376,42 394,34 392,51" fill="#6b7280"/>
+        <text x="432" y="76" font-size="14" fill="#1a3c6e" font-weight="bold" font-style="italic">M</text>
+      </svg>
+      <figcaption>Same cut as Step 2 ④ — $\sum M_A = 0$ now also picks up the point load $P$ at its $2l$ lever arm.</figcaption>
+      </figure>
+      </div>
+
+      <div class="math-block">$$\sum M_A = 0: \quad M - Vx - P\,\frac{l}{2} - P(2l) = 0 \quad\Rightarrow\quad M(x) = Vx + \frac{5Pl}{2} = -\frac{5P}{6}\,x + \frac{5Pl}{2}$$
+      $$M(3l) = -\frac{15Pl}{6} + \frac{15Pl}{6} = 0 \quad \checkmark$$</div>
 
       <div class="diagram-wrap">
       <figure>

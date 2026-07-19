@@ -158,6 +158,47 @@ h4{color:#1a3c6e;font-size:14.5px;margin:18px 0 6px}
     <div class="step-body">
       <p>The UDL of 800 N/m over 3 m (from $x=2$ m to $x=5$ m) is equivalent to a single downward force of $800 \times 3 = 2400\ \text{N}$ acting at the centroid: $x = 2 + 1.5 = 3.5\ \text{m}$.</p>
       <p>The concentrated moment 4.2 kN·m is clockwise (negative in our CCW-positive convention).</p>
+
+      <div class="diagram-wrap">
+      <figure>
+      <svg viewBox="0 0 500 225" width="500" xmlns="http://www.w3.org/2000/svg" font-family="Arial,sans-serif" font-size="13">
+        <!-- FBD with UDL resultant. Scale 40 px/m: A=70, 3.5m=210, 7m=350, B(9m)=430 -->
+        <rect x="70" y="78" width="360" height="12" fill="#7eaecf" stroke="#1a3c6e" stroke-width="1.5"/>
+        <text x="52" y="89" font-size="14" fill="#1a3c6e" text-anchor="middle" font-weight="bold">A</text>
+        <text x="448" y="89" font-size="14" fill="#1a3c6e" text-anchor="middle" font-weight="bold">B</text>
+
+        <!-- UDL resultant 2400 N at 3.5 m -->
+        <line x1="210" y1="34" x2="210" y2="72" stroke="#c0392b" stroke-width="2.2"/>
+        <polygon points="210,78 204,65 216,65" fill="#c0392b"/>
+        <text x="210" y="26" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="bold">2400 N <tspan font-size="10">(UDL resultant)</tspan></text>
+
+        <!-- 4.2 kN·m clockwise moment at 7 m (centered on beam) -->
+        <path d="M 361.6,70.2 A 18,18 0 1,1 338.4,70.2" fill="none" stroke="#c0392b" stroke-width="2.2"/>
+        <polygon points="346.1,63.8 342.3,74.8 334.5,65.6" fill="#c0392b"/>
+        <text x="350" y="40" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="bold">4.2 kN·m</text>
+
+        <!-- Unknown reactions -->
+        <line x1="70" y1="148" x2="70" y2="98" stroke="#1a6fc4" stroke-width="2.2"/>
+        <polygon points="70,94 64,106 76,106" fill="#1a6fc4"/>
+        <text x="70" y="166" font-size="13" fill="#1a6fc4" text-anchor="middle" font-weight="bold">R<tspan font-size="9" baseline-shift="-4">A</tspan> = ?</text>
+        <line x1="430" y1="148" x2="430" y2="98" stroke="#1a6fc4" stroke-width="2.2"/>
+        <polygon points="430,94 424,106 436,106" fill="#1a6fc4"/>
+        <text x="430" y="166" font-size="13" fill="#1a6fc4" text-anchor="middle" font-weight="bold">R<tspan font-size="9" baseline-shift="-4">B</tspan> = ?</text>
+
+        <!-- Dimensions -->
+        <line x1="70" y1="190" x2="430" y2="190" stroke="#555" stroke-width="1"/>
+        <line x1="70" y1="185" x2="70" y2="195" stroke="#555" stroke-width="1"/>
+        <line x1="210" y1="185" x2="210" y2="195" stroke="#555" stroke-width="1"/>
+        <line x1="350" y1="185" x2="350" y2="195" stroke="#555" stroke-width="1"/>
+        <line x1="430" y1="185" x2="430" y2="195" stroke="#555" stroke-width="1"/>
+        <text x="140" y="208" font-size="12" fill="#333" text-anchor="middle">3.5 m</text>
+        <text x="280" y="208" font-size="12" fill="#333" text-anchor="middle">3.5 m</text>
+        <text x="390" y="208" font-size="12" fill="#333" text-anchor="middle">2 m</text>
+      </svg>
+      <figcaption>Free-body diagram for the reactions — UDL replaced by its 2400 N resultant at $x = 3.5$ m; the 4.2 kN·m clockwise moment acts at $x = 7$ m; reactions assumed upward.</figcaption>
+      </figure>
+      </div>
+
       <div class="math-block">$$\sum M_A = 0:\quad R_B(9) - 2400(3.5) - 4200 = 0$$
       $$R_B = \frac{8400 + 4200}{9} = \frac{12600}{9} = \mathbf{1400\ \text{N} \uparrow}$$</div>
       <div class="math-block">$$\sum F_y = 0:\quad R_A + 1400 = 2400 \implies \mathbf{R_A = 1000\ \text{N} \uparrow}$$</div>
@@ -183,15 +224,149 @@ h4{color:#1a3c6e;font-size:14.5px;margin:18px 0 6px}
     <div class="step-body">
 
       <h4>① From $A$ to UDL start ($0 \le x \le 2\ \text{m}$):</h4>
+
+      <div class="diagram-wrap">
+      <figure>
+      <svg viewBox="0 0 320 200" width="320" xmlns="http://www.w3.org/2000/svg" font-family="Arial,sans-serif" font-size="13">
+        <!-- Cut in 0 < x < 2 m, drawn at ~1.4 m. Scale 40 px/m: A=70, cut=126 -->
+        <rect x="70" y="60" width="56" height="12" fill="#7eaecf" stroke="#1a3c6e" stroke-width="1.5"/>
+        <circle cx="80" cy="66" r="2.5" fill="#1a3c6e"/>
+        <text x="52" y="70" font-size="14" fill="#1a3c6e" text-anchor="middle" font-weight="bold">A</text>
+        <polygon points="70,72 58,92 82,92" fill="#dbe4f0" stroke="#1a3c6e" stroke-width="1.5"/>
+        <line x1="50" y1="92" x2="90" y2="92" stroke="#1a3c6e" stroke-width="1.5"/>
+        <line x1="54" y1="98" x2="60" y2="92" stroke="#1a3c6e" stroke-width="1"/>
+        <line x1="64" y1="98" x2="70" y2="92" stroke="#1a3c6e" stroke-width="1"/>
+        <line x1="74" y1="98" x2="80" y2="92" stroke="#1a3c6e" stroke-width="1"/>
+        <line x1="84" y1="98" x2="90" y2="92" stroke="#1a3c6e" stroke-width="1"/>
+        <line x1="70" y1="140" x2="70" y2="110" stroke="#1a6fc4" stroke-width="2.2"/>
+        <polygon points="70,104 64,116 76,116" fill="#1a6fc4"/>
+        <text x="70" y="158" font-size="13" fill="#1a6fc4" text-anchor="middle" font-weight="bold">R<tspan font-size="9" baseline-shift="-4">A</tspan> = 1000 N</text>
+        <line x1="70" y1="165" x2="70" y2="175" stroke="#555" stroke-width="1"/>
+        <line x1="70" y1="170" x2="117" y2="170" stroke="#555" stroke-width="1"/>
+        <polygon points="126,170 114,166 114,174" fill="#555"/>
+        <text x="98" y="188" font-size="13" fill="#333" text-anchor="middle" font-style="italic">x</text>
+        <line x1="154" y1="35" x2="154" y2="92" stroke="#1a3c6e" stroke-width="2.2"/>
+        <polygon points="154,98 148,86 160,86" fill="#1a3c6e"/>
+        <text x="154" y="26" font-size="14" fill="#1a3c6e" text-anchor="middle" font-weight="bold" font-style="italic">V</text>
+        <path d="M 198,96 A 27,27 0 0 0 198,42" fill="none" stroke="#6b7280" stroke-width="2.2"/>
+        <polygon points="182,42 200,34 198,51" fill="#6b7280"/>
+        <text x="238" y="76" font-size="14" fill="#1a3c6e" font-weight="bold" font-style="italic">M</text>
+      </svg>
+      <figcaption>Cut at a section $0 &lt; x &lt; 2$ m — only $R_A$ acts on the left segment.</figcaption>
+      </figure>
+      </div>
+
       <div class="math-block">$$V = +1000\ \text{N} \quad \text{(constant)}$$</div>
 
       <h4>② Through the UDL zone ($2\ \text{m} \le x \le 5\ \text{m}$):</h4>
+
+      <div class="diagram-wrap">
+      <figure>
+      <svg viewBox="0 0 430 220" width="430" xmlns="http://www.w3.org/2000/svg" font-family="Arial,sans-serif" font-size="13">
+        <!-- Cut in 2 < x < 5 m, drawn at ~4 m. Scale 40 px/m: A=70, UDL start=150, cut=230 -->
+        <line x1="150" y1="34" x2="230" y2="34" stroke="#c0392b" stroke-width="1.5"/>
+        <line x1="150" y1="34" x2="150" y2="51" stroke="#c0392b" stroke-width="1.2"/>
+        <line x1="170" y1="34" x2="170" y2="51" stroke="#c0392b" stroke-width="1.2"/>
+        <line x1="190" y1="34" x2="190" y2="51" stroke="#c0392b" stroke-width="1.2"/>
+        <line x1="210" y1="34" x2="210" y2="51" stroke="#c0392b" stroke-width="1.2"/>
+        <line x1="230" y1="34" x2="230" y2="51" stroke="#c0392b" stroke-width="1.2"/>
+        <polygon points="150,58 145,47 155,47" fill="#c0392b"/>
+        <polygon points="170,58 165,47 175,47" fill="#c0392b"/>
+        <polygon points="190,58 185,47 195,47" fill="#c0392b"/>
+        <polygon points="210,58 205,47 215,47" fill="#c0392b"/>
+        <polygon points="230,58 225,47 235,47" fill="#c0392b"/>
+        <text x="190" y="26" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="bold">800 N/m</text>
+
+        <rect x="70" y="60" width="160" height="12" fill="#7eaecf" stroke="#1a3c6e" stroke-width="1.5"/>
+        <text x="52" y="70" font-size="14" fill="#1a3c6e" text-anchor="middle" font-weight="bold">A</text>
+        <polygon points="70,72 58,92 82,92" fill="#dbe4f0" stroke="#1a3c6e" stroke-width="1.5"/>
+        <line x1="50" y1="92" x2="90" y2="92" stroke="#1a3c6e" stroke-width="1.5"/>
+        <line x1="54" y1="98" x2="60" y2="92" stroke="#1a3c6e" stroke-width="1"/>
+        <line x1="64" y1="98" x2="70" y2="92" stroke="#1a3c6e" stroke-width="1"/>
+        <line x1="74" y1="98" x2="80" y2="92" stroke="#1a3c6e" stroke-width="1"/>
+        <line x1="84" y1="98" x2="90" y2="92" stroke="#1a3c6e" stroke-width="1"/>
+        <line x1="70" y1="140" x2="70" y2="110" stroke="#1a6fc4" stroke-width="2.2"/>
+        <polygon points="70,104 64,116 76,116" fill="#1a6fc4"/>
+        <text x="70" y="158" font-size="13" fill="#1a6fc4" text-anchor="middle" font-weight="bold">R<tspan font-size="9" baseline-shift="-4">A</tspan> = 1000 N</text>
+
+        <line x1="70" y1="170" x2="150" y2="170" stroke="#555" stroke-width="1"/>
+        <line x1="150" y1="165" x2="150" y2="175" stroke="#555" stroke-width="1"/>
+        <text x="110" y="186" font-size="12" fill="#333" text-anchor="middle">2 m</text>
+        <line x1="70" y1="192" x2="70" y2="202" stroke="#555" stroke-width="1"/>
+        <line x1="70" y1="197" x2="221" y2="197" stroke="#555" stroke-width="1"/>
+        <polygon points="230,197 218,193 218,201" fill="#555"/>
+        <text x="150" y="215" font-size="13" fill="#333" text-anchor="middle" font-style="italic">x</text>
+
+        <line x1="258" y1="35" x2="258" y2="92" stroke="#1a3c6e" stroke-width="2.2"/>
+        <polygon points="258,98 252,86 264,86" fill="#1a3c6e"/>
+        <text x="258" y="26" font-size="14" fill="#1a3c6e" text-anchor="middle" font-weight="bold" font-style="italic">V</text>
+        <path d="M 302,96 A 27,27 0 0 0 302,42" fill="none" stroke="#6b7280" stroke-width="2.2"/>
+        <polygon points="286,42 304,34 302,51" fill="#6b7280"/>
+        <text x="342" y="76" font-size="14" fill="#1a3c6e" font-weight="bold" font-style="italic">M</text>
+      </svg>
+      <figcaption>Cut inside the UDL zone ($2 &lt; x &lt; 5$ m) — the running resultant behind the cut is $800(x-2)$ N.</figcaption>
+      </figure>
+      </div>
+
       <div class="math-block">$$V(x) = 1000 - 800(x - 2)$$
       $$V(2) = +1000\ \text{N}, \qquad V(5) = 1000 - 2400 = -1400\ \text{N}$$</div>
       <p>Setting $V = 0$ to find the local moment maximum under the distributed load:</p>
       <div class="math-block">$$1000 - 800(x-2) = 0 \implies x = 2 + 1.25 = \mathbf{3.25\ \text{m}} \quad \checkmark$$</div>
 
       <h4>③ From UDL end to $B$ ($5\ \text{m} \le x \le 9\ \text{m}$):</h4>
+
+      <div class="diagram-wrap">
+      <figure>
+      <svg viewBox="0 0 460 220" width="460" xmlns="http://www.w3.org/2000/svg" font-family="Arial,sans-serif" font-size="13">
+        <!-- Cut in 5 < x < 9 m, drawn at ~6.4 m (before the applied moment). Scale 40 px/m: A=70, UDL 150–270, cut=326 -->
+        <line x1="150" y1="34" x2="270" y2="34" stroke="#c0392b" stroke-width="1.5"/>
+        <line x1="150" y1="34" x2="150" y2="51" stroke="#c0392b" stroke-width="1.2"/>
+        <line x1="174" y1="34" x2="174" y2="51" stroke="#c0392b" stroke-width="1.2"/>
+        <line x1="198" y1="34" x2="198" y2="51" stroke="#c0392b" stroke-width="1.2"/>
+        <line x1="222" y1="34" x2="222" y2="51" stroke="#c0392b" stroke-width="1.2"/>
+        <line x1="246" y1="34" x2="246" y2="51" stroke="#c0392b" stroke-width="1.2"/>
+        <line x1="270" y1="34" x2="270" y2="51" stroke="#c0392b" stroke-width="1.2"/>
+        <polygon points="150,58 145,47 155,47" fill="#c0392b"/>
+        <polygon points="174,58 169,47 179,47" fill="#c0392b"/>
+        <polygon points="198,58 193,47 203,47" fill="#c0392b"/>
+        <polygon points="222,58 217,47 227,47" fill="#c0392b"/>
+        <polygon points="246,58 241,47 251,47" fill="#c0392b"/>
+        <polygon points="270,58 265,47 275,47" fill="#c0392b"/>
+        <text x="210" y="26" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="bold">800 N/m</text>
+
+        <rect x="70" y="60" width="256" height="12" fill="#7eaecf" stroke="#1a3c6e" stroke-width="1.5"/>
+        <text x="52" y="70" font-size="14" fill="#1a3c6e" text-anchor="middle" font-weight="bold">A</text>
+        <polygon points="70,72 58,92 82,92" fill="#dbe4f0" stroke="#1a3c6e" stroke-width="1.5"/>
+        <line x1="50" y1="92" x2="90" y2="92" stroke="#1a3c6e" stroke-width="1.5"/>
+        <line x1="54" y1="98" x2="60" y2="92" stroke="#1a3c6e" stroke-width="1"/>
+        <line x1="64" y1="98" x2="70" y2="92" stroke="#1a3c6e" stroke-width="1"/>
+        <line x1="74" y1="98" x2="80" y2="92" stroke="#1a3c6e" stroke-width="1"/>
+        <line x1="84" y1="98" x2="90" y2="92" stroke="#1a3c6e" stroke-width="1"/>
+        <line x1="70" y1="140" x2="70" y2="110" stroke="#1a6fc4" stroke-width="2.2"/>
+        <polygon points="70,104 64,116 76,116" fill="#1a6fc4"/>
+        <text x="70" y="158" font-size="13" fill="#1a6fc4" text-anchor="middle" font-weight="bold">R<tspan font-size="9" baseline-shift="-4">A</tspan> = 1000 N</text>
+
+        <line x1="70" y1="170" x2="270" y2="170" stroke="#555" stroke-width="1"/>
+        <line x1="150" y1="165" x2="150" y2="175" stroke="#555" stroke-width="1"/>
+        <line x1="270" y1="165" x2="270" y2="175" stroke="#555" stroke-width="1"/>
+        <text x="110" y="186" font-size="12" fill="#333" text-anchor="middle">2 m</text>
+        <text x="210" y="186" font-size="12" fill="#333" text-anchor="middle">3 m</text>
+        <line x1="70" y1="192" x2="70" y2="202" stroke="#555" stroke-width="1"/>
+        <line x1="70" y1="197" x2="317" y2="197" stroke="#555" stroke-width="1"/>
+        <polygon points="326,197 314,193 314,201" fill="#555"/>
+        <text x="198" y="215" font-size="13" fill="#333" text-anchor="middle" font-style="italic">x</text>
+
+        <line x1="354" y1="35" x2="354" y2="92" stroke="#1a3c6e" stroke-width="2.2"/>
+        <polygon points="354,98 348,86 360,86" fill="#1a3c6e"/>
+        <text x="354" y="26" font-size="14" fill="#1a3c6e" text-anchor="middle" font-weight="bold" font-style="italic">V</text>
+        <path d="M 398,96 A 27,27 0 0 0 398,42" fill="none" stroke="#6b7280" stroke-width="2.2"/>
+        <polygon points="382,42 400,34 398,51" fill="#6b7280"/>
+        <text x="438" y="76" font-size="14" fill="#1a3c6e" font-weight="bold" font-style="italic">M</text>
+      </svg>
+      <figcaption>Cut at a section $5 &lt; x &lt; 9$ m — only the completed UDL is behind the cut. Even past $x = 7$ m the applied moment adds no vertical force, so $V$ stays $-1400$ N all the way to $B$.</figcaption>
+      </figure>
+      </div>
+
       <div class="math-block">$$V = 1000 - 2400 = -1400\ \text{N} \quad \text{(constant — moment at $x=7$ m causes no shear jump)}$$</div>
       <p>At $B$: $-1400 + 1400 = 0$ ✓</p>
 
@@ -263,16 +438,152 @@ h4{color:#1a3c6e;font-size:14.5px;margin:18px 0 6px}
     <summary><span class="step-label">Step 3</span> Integrate $V(x)$ piecewise; the BMD jumps by $+4200\ \text{N·m}$ at the clockwise applied moment</summary>
     <div class="step-body">
 
+      <p>For each cut, apply $\sum M_A = 0$ (moments about $A$, CCW positive) to the left segment, reusing $V(x)$ from Step 2 — $R_A$ passes through $A$ and drops out.</p>
+
       <h4>① From $A$ to UDL start ($0 \le x \le 2\ \text{m}$):</h4>
-      <div class="math-block">$$M(x) = 1000x \implies M(2) = 2000\ \text{N·m}$$</div>
+
+      <div class="diagram-wrap">
+      <figure>
+      <svg viewBox="0 0 320 200" width="320" xmlns="http://www.w3.org/2000/svg" font-family="Arial,sans-serif" font-size="13">
+        <!-- Same cut as Step 2 ① -->
+        <rect x="70" y="60" width="56" height="12" fill="#7eaecf" stroke="#1a3c6e" stroke-width="1.5"/>
+        <circle cx="80" cy="66" r="2.5" fill="#1a3c6e"/>
+        <text x="52" y="70" font-size="14" fill="#1a3c6e" text-anchor="middle" font-weight="bold">A</text>
+        <polygon points="70,72 58,92 82,92" fill="#dbe4f0" stroke="#1a3c6e" stroke-width="1.5"/>
+        <line x1="50" y1="92" x2="90" y2="92" stroke="#1a3c6e" stroke-width="1.5"/>
+        <line x1="54" y1="98" x2="60" y2="92" stroke="#1a3c6e" stroke-width="1"/>
+        <line x1="64" y1="98" x2="70" y2="92" stroke="#1a3c6e" stroke-width="1"/>
+        <line x1="74" y1="98" x2="80" y2="92" stroke="#1a3c6e" stroke-width="1"/>
+        <line x1="84" y1="98" x2="90" y2="92" stroke="#1a3c6e" stroke-width="1"/>
+        <line x1="70" y1="140" x2="70" y2="110" stroke="#1a6fc4" stroke-width="2.2"/>
+        <polygon points="70,104 64,116 76,116" fill="#1a6fc4"/>
+        <text x="70" y="158" font-size="13" fill="#1a6fc4" text-anchor="middle" font-weight="bold">R<tspan font-size="9" baseline-shift="-4">A</tspan> = 1000 N</text>
+        <line x1="70" y1="165" x2="70" y2="175" stroke="#555" stroke-width="1"/>
+        <line x1="70" y1="170" x2="117" y2="170" stroke="#555" stroke-width="1"/>
+        <polygon points="126,170 114,166 114,174" fill="#555"/>
+        <text x="98" y="188" font-size="13" fill="#333" text-anchor="middle" font-style="italic">x</text>
+        <line x1="154" y1="35" x2="154" y2="92" stroke="#1a3c6e" stroke-width="2.2"/>
+        <polygon points="154,98 148,86 160,86" fill="#1a3c6e"/>
+        <text x="154" y="26" font-size="14" fill="#1a3c6e" text-anchor="middle" font-weight="bold" font-style="italic">V</text>
+        <path d="M 198,96 A 27,27 0 0 0 198,42" fill="none" stroke="#6b7280" stroke-width="2.2"/>
+        <polygon points="182,42 200,34 198,51" fill="#6b7280"/>
+        <text x="238" y="76" font-size="14" fill="#1a3c6e" font-weight="bold" font-style="italic">M</text>
+      </svg>
+      <figcaption>Same cut as Step 2 ① — $\sum M_A = 0$: only $V$ (lever arm $x$) and $M$ contribute.</figcaption>
+      </figure>
+      </div>
+
+      <div class="math-block">$$\sum M_A = 0: \quad M - Vx = 0 \quad\Rightarrow\quad M(x) = Vx = 1000x \implies M(2) = 2000\ \text{N·m}$$</div>
 
       <h4>② Through the UDL zone ($2 \le x \le 5\ \text{m}$, parabolic):</h4>
-      <div class="math-block">$$M(x) = 1000x - 400(x-2)^2$$
+
+      <div class="diagram-wrap">
+      <figure>
+      <svg viewBox="0 0 430 220" width="430" xmlns="http://www.w3.org/2000/svg" font-family="Arial,sans-serif" font-size="13">
+        <!-- Same cut as Step 2 ② -->
+        <line x1="150" y1="34" x2="230" y2="34" stroke="#c0392b" stroke-width="1.5"/>
+        <line x1="150" y1="34" x2="150" y2="51" stroke="#c0392b" stroke-width="1.2"/>
+        <line x1="170" y1="34" x2="170" y2="51" stroke="#c0392b" stroke-width="1.2"/>
+        <line x1="190" y1="34" x2="190" y2="51" stroke="#c0392b" stroke-width="1.2"/>
+        <line x1="210" y1="34" x2="210" y2="51" stroke="#c0392b" stroke-width="1.2"/>
+        <line x1="230" y1="34" x2="230" y2="51" stroke="#c0392b" stroke-width="1.2"/>
+        <polygon points="150,58 145,47 155,47" fill="#c0392b"/>
+        <polygon points="170,58 165,47 175,47" fill="#c0392b"/>
+        <polygon points="190,58 185,47 195,47" fill="#c0392b"/>
+        <polygon points="210,58 205,47 215,47" fill="#c0392b"/>
+        <polygon points="230,58 225,47 235,47" fill="#c0392b"/>
+        <text x="190" y="26" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="bold">800 N/m</text>
+
+        <rect x="70" y="60" width="160" height="12" fill="#7eaecf" stroke="#1a3c6e" stroke-width="1.5"/>
+        <text x="52" y="70" font-size="14" fill="#1a3c6e" text-anchor="middle" font-weight="bold">A</text>
+        <polygon points="70,72 58,92 82,92" fill="#dbe4f0" stroke="#1a3c6e" stroke-width="1.5"/>
+        <line x1="50" y1="92" x2="90" y2="92" stroke="#1a3c6e" stroke-width="1.5"/>
+        <line x1="54" y1="98" x2="60" y2="92" stroke="#1a3c6e" stroke-width="1"/>
+        <line x1="64" y1="98" x2="70" y2="92" stroke="#1a3c6e" stroke-width="1"/>
+        <line x1="74" y1="98" x2="80" y2="92" stroke="#1a3c6e" stroke-width="1"/>
+        <line x1="84" y1="98" x2="90" y2="92" stroke="#1a3c6e" stroke-width="1"/>
+        <line x1="70" y1="140" x2="70" y2="110" stroke="#1a6fc4" stroke-width="2.2"/>
+        <polygon points="70,104 64,116 76,116" fill="#1a6fc4"/>
+        <text x="70" y="158" font-size="13" fill="#1a6fc4" text-anchor="middle" font-weight="bold">R<tspan font-size="9" baseline-shift="-4">A</tspan> = 1000 N</text>
+
+        <line x1="70" y1="170" x2="150" y2="170" stroke="#555" stroke-width="1"/>
+        <line x1="150" y1="165" x2="150" y2="175" stroke="#555" stroke-width="1"/>
+        <text x="110" y="186" font-size="12" fill="#333" text-anchor="middle">2 m</text>
+        <line x1="70" y1="192" x2="70" y2="202" stroke="#555" stroke-width="1"/>
+        <line x1="70" y1="197" x2="221" y2="197" stroke="#555" stroke-width="1"/>
+        <polygon points="230,197 218,193 218,201" fill="#555"/>
+        <text x="150" y="215" font-size="13" fill="#333" text-anchor="middle" font-style="italic">x</text>
+
+        <line x1="258" y1="35" x2="258" y2="92" stroke="#1a3c6e" stroke-width="2.2"/>
+        <polygon points="258,98 252,86 264,86" fill="#1a3c6e"/>
+        <text x="258" y="26" font-size="14" fill="#1a3c6e" text-anchor="middle" font-weight="bold" font-style="italic">V</text>
+        <path d="M 302,96 A 27,27 0 0 0 302,42" fill="none" stroke="#6b7280" stroke-width="2.2"/>
+        <polygon points="286,42 304,34 302,51" fill="#6b7280"/>
+        <text x="342" y="76" font-size="14" fill="#1a3c6e" font-weight="bold" font-style="italic">M</text>
+      </svg>
+      <figcaption>Same cut as Step 2 ② — $\sum M_A = 0$: the running UDL resultant $800(x-2)$ acts at $\frac{x+2}{2}$ from $A$.</figcaption>
+      </figure>
+      </div>
+
+      <div class="math-block">$$\sum M_A = 0: \quad M - Vx - 800(x-2)\cdot\frac{x+2}{2} = 0 \quad\Rightarrow\quad M(x) = 1000x - 400(x-2)^2$$
       $$M(3.25) = 1000(3.25) - 400(1.25)^2 = 3250 - 625 = \mathbf{2625\ \text{N·m}} \quad\checkmark$$
       $$M(5) = 5000 - 400(9) = 1400\ \text{N·m}$$</div>
 
       <h4>③ From UDL end to the applied moment ($5 \le x \le 7\ \text{m}$):</h4>
-      <div class="math-block">$$M(x) = 1400 + (-1400)(x-5) = 1400 - 1400(x-5)$$
+
+      <div class="diagram-wrap">
+      <figure>
+      <svg viewBox="0 0 460 220" width="460" xmlns="http://www.w3.org/2000/svg" font-family="Arial,sans-serif" font-size="13">
+        <!-- Same cut as Step 2 ③ (drawn at ~6.4 m, before the applied moment) -->
+        <line x1="150" y1="34" x2="270" y2="34" stroke="#c0392b" stroke-width="1.5"/>
+        <line x1="150" y1="34" x2="150" y2="51" stroke="#c0392b" stroke-width="1.2"/>
+        <line x1="174" y1="34" x2="174" y2="51" stroke="#c0392b" stroke-width="1.2"/>
+        <line x1="198" y1="34" x2="198" y2="51" stroke="#c0392b" stroke-width="1.2"/>
+        <line x1="222" y1="34" x2="222" y2="51" stroke="#c0392b" stroke-width="1.2"/>
+        <line x1="246" y1="34" x2="246" y2="51" stroke="#c0392b" stroke-width="1.2"/>
+        <line x1="270" y1="34" x2="270" y2="51" stroke="#c0392b" stroke-width="1.2"/>
+        <polygon points="150,58 145,47 155,47" fill="#c0392b"/>
+        <polygon points="174,58 169,47 179,47" fill="#c0392b"/>
+        <polygon points="198,58 193,47 203,47" fill="#c0392b"/>
+        <polygon points="222,58 217,47 227,47" fill="#c0392b"/>
+        <polygon points="246,58 241,47 251,47" fill="#c0392b"/>
+        <polygon points="270,58 265,47 275,47" fill="#c0392b"/>
+        <text x="210" y="26" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="bold">800 N/m</text>
+
+        <rect x="70" y="60" width="256" height="12" fill="#7eaecf" stroke="#1a3c6e" stroke-width="1.5"/>
+        <text x="52" y="70" font-size="14" fill="#1a3c6e" text-anchor="middle" font-weight="bold">A</text>
+        <polygon points="70,72 58,92 82,92" fill="#dbe4f0" stroke="#1a3c6e" stroke-width="1.5"/>
+        <line x1="50" y1="92" x2="90" y2="92" stroke="#1a3c6e" stroke-width="1.5"/>
+        <line x1="54" y1="98" x2="60" y2="92" stroke="#1a3c6e" stroke-width="1"/>
+        <line x1="64" y1="98" x2="70" y2="92" stroke="#1a3c6e" stroke-width="1"/>
+        <line x1="74" y1="98" x2="80" y2="92" stroke="#1a3c6e" stroke-width="1"/>
+        <line x1="84" y1="98" x2="90" y2="92" stroke="#1a3c6e" stroke-width="1"/>
+        <line x1="70" y1="140" x2="70" y2="110" stroke="#1a6fc4" stroke-width="2.2"/>
+        <polygon points="70,104 64,116 76,116" fill="#1a6fc4"/>
+        <text x="70" y="158" font-size="13" fill="#1a6fc4" text-anchor="middle" font-weight="bold">R<tspan font-size="9" baseline-shift="-4">A</tspan> = 1000 N</text>
+
+        <line x1="70" y1="170" x2="270" y2="170" stroke="#555" stroke-width="1"/>
+        <line x1="150" y1="165" x2="150" y2="175" stroke="#555" stroke-width="1"/>
+        <line x1="270" y1="165" x2="270" y2="175" stroke="#555" stroke-width="1"/>
+        <text x="110" y="186" font-size="12" fill="#333" text-anchor="middle">2 m</text>
+        <text x="210" y="186" font-size="12" fill="#333" text-anchor="middle">3 m</text>
+        <line x1="70" y1="192" x2="70" y2="202" stroke="#555" stroke-width="1"/>
+        <line x1="70" y1="197" x2="317" y2="197" stroke="#555" stroke-width="1"/>
+        <polygon points="326,197 314,193 314,201" fill="#555"/>
+        <text x="198" y="215" font-size="13" fill="#333" text-anchor="middle" font-style="italic">x</text>
+
+        <line x1="354" y1="35" x2="354" y2="92" stroke="#1a3c6e" stroke-width="2.2"/>
+        <polygon points="354,98 348,86 360,86" fill="#1a3c6e"/>
+        <text x="354" y="26" font-size="14" fill="#1a3c6e" text-anchor="middle" font-weight="bold" font-style="italic">V</text>
+        <path d="M 398,96 A 27,27 0 0 0 398,42" fill="none" stroke="#6b7280" stroke-width="2.2"/>
+        <polygon points="382,42 400,34 398,51" fill="#6b7280"/>
+        <text x="438" y="76" font-size="14" fill="#1a3c6e" font-weight="bold" font-style="italic">M</text>
+      </svg>
+      <figcaption>Cut at $5 &lt; x &lt; 7$ m (before the applied moment) — $\sum M_A = 0$: the completed UDL contributes 2400 N at 3.5 m.</figcaption>
+      </figure>
+      </div>
+
+      <div class="math-block">$$\sum M_A = 0: \quad M - Vx - 2400(3.5) = 0 \quad\Rightarrow\quad M(x) = Vx + 8400 = 1400 - 1400(x-5)$$
       $$M(6) = 0,\qquad M(7^-) = 1400 - 2800 = -1400\ \text{N·m}$$</div>
 
       <h4>④ Jump at $x = 7\ \text{m}$ due to clockwise moment:</h4>
@@ -280,7 +591,68 @@ h4{color:#1a3c6e;font-size:14.5px;margin:18px 0 6px}
       <div class="math-block">$$M(7^+) = M(7^-) + 4200 = -1400 + 4200 = \mathbf{+2800\ \text{N·m}}$$</div>
 
       <h4>⑤ From applied moment to $B$ ($7 \le x \le 9\ \text{m}$):</h4>
-      <div class="math-block">$$M(x) = 2800 + (-1400)(x-7) \implies M(9) = 2800 - 2800 = 0 \quad\checkmark$$</div>
+
+      <div class="diagram-wrap">
+      <figure>
+      <svg viewBox="0 0 530 220" width="530" xmlns="http://www.w3.org/2000/svg" font-family="Arial,sans-serif" font-size="13">
+        <!-- Cut in 7 < x < 9 m, drawn at ~8.2 m. Scale 40 px/m: A=70, UDL 150–270, moment=350, cut=398 -->
+        <line x1="150" y1="34" x2="270" y2="34" stroke="#c0392b" stroke-width="1.5"/>
+        <line x1="150" y1="34" x2="150" y2="51" stroke="#c0392b" stroke-width="1.2"/>
+        <line x1="174" y1="34" x2="174" y2="51" stroke="#c0392b" stroke-width="1.2"/>
+        <line x1="198" y1="34" x2="198" y2="51" stroke="#c0392b" stroke-width="1.2"/>
+        <line x1="222" y1="34" x2="222" y2="51" stroke="#c0392b" stroke-width="1.2"/>
+        <line x1="246" y1="34" x2="246" y2="51" stroke="#c0392b" stroke-width="1.2"/>
+        <line x1="270" y1="34" x2="270" y2="51" stroke="#c0392b" stroke-width="1.2"/>
+        <polygon points="150,58 145,47 155,47" fill="#c0392b"/>
+        <polygon points="174,58 169,47 179,47" fill="#c0392b"/>
+        <polygon points="198,58 193,47 203,47" fill="#c0392b"/>
+        <polygon points="222,58 217,47 227,47" fill="#c0392b"/>
+        <polygon points="246,58 241,47 251,47" fill="#c0392b"/>
+        <polygon points="270,58 265,47 275,47" fill="#c0392b"/>
+        <text x="210" y="26" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="bold">800 N/m</text>
+
+        <!-- 4.2 kN·m clockwise moment at 7 m -->
+        <path d="M 361.6,52.2 A 18,18 0 1,1 338.4,52.2" fill="none" stroke="#c0392b" stroke-width="2.2"/>
+        <polygon points="346.1,45.8 342.3,56.8 334.5,47.6" fill="#c0392b"/>
+        <text x="350" y="22" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="bold">4.2 kN·m</text>
+
+        <rect x="70" y="60" width="328" height="12" fill="#7eaecf" stroke="#1a3c6e" stroke-width="1.5"/>
+        <text x="52" y="70" font-size="14" fill="#1a3c6e" text-anchor="middle" font-weight="bold">A</text>
+        <polygon points="70,72 58,92 82,92" fill="#dbe4f0" stroke="#1a3c6e" stroke-width="1.5"/>
+        <line x1="50" y1="92" x2="90" y2="92" stroke="#1a3c6e" stroke-width="1.5"/>
+        <line x1="54" y1="98" x2="60" y2="92" stroke="#1a3c6e" stroke-width="1"/>
+        <line x1="64" y1="98" x2="70" y2="92" stroke="#1a3c6e" stroke-width="1"/>
+        <line x1="74" y1="98" x2="80" y2="92" stroke="#1a3c6e" stroke-width="1"/>
+        <line x1="84" y1="98" x2="90" y2="92" stroke="#1a3c6e" stroke-width="1"/>
+        <line x1="70" y1="140" x2="70" y2="110" stroke="#1a6fc4" stroke-width="2.2"/>
+        <polygon points="70,104 64,116 76,116" fill="#1a6fc4"/>
+        <text x="70" y="158" font-size="13" fill="#1a6fc4" text-anchor="middle" font-weight="bold">R<tspan font-size="9" baseline-shift="-4">A</tspan> = 1000 N</text>
+
+        <line x1="70" y1="170" x2="350" y2="170" stroke="#555" stroke-width="1"/>
+        <line x1="150" y1="165" x2="150" y2="175" stroke="#555" stroke-width="1"/>
+        <line x1="270" y1="165" x2="270" y2="175" stroke="#555" stroke-width="1"/>
+        <line x1="350" y1="165" x2="350" y2="175" stroke="#555" stroke-width="1"/>
+        <text x="110" y="186" font-size="12" fill="#333" text-anchor="middle">2 m</text>
+        <text x="210" y="186" font-size="12" fill="#333" text-anchor="middle">3 m</text>
+        <text x="310" y="186" font-size="12" fill="#333" text-anchor="middle">2 m</text>
+        <line x1="70" y1="192" x2="70" y2="202" stroke="#555" stroke-width="1"/>
+        <line x1="70" y1="197" x2="389" y2="197" stroke="#555" stroke-width="1"/>
+        <polygon points="398,197 386,193 386,201" fill="#555"/>
+        <text x="234" y="215" font-size="13" fill="#333" text-anchor="middle" font-style="italic">x</text>
+
+        <line x1="426" y1="35" x2="426" y2="92" stroke="#1a3c6e" stroke-width="2.2"/>
+        <polygon points="426,98 420,86 432,86" fill="#1a3c6e"/>
+        <text x="426" y="26" font-size="14" fill="#1a3c6e" text-anchor="middle" font-weight="bold" font-style="italic">V</text>
+        <path d="M 470,96 A 27,27 0 0 0 470,42" fill="none" stroke="#6b7280" stroke-width="2.2"/>
+        <polygon points="454,42 472,34 470,51" fill="#6b7280"/>
+        <text x="510" y="76" font-size="14" fill="#1a3c6e" font-weight="bold" font-style="italic">M</text>
+      </svg>
+      <figcaption>Cut at $7 &lt; x &lt; 9$ m — the 4.2 kN·m clockwise moment is now behind the cut and enters $\sum M_A$ directly (no lever arm), producing the jump.</figcaption>
+      </figure>
+      </div>
+
+      <div class="math-block">$$\sum M_A = 0: \quad M - Vx - 2400(3.5) - 4200 = 0$$
+      $$\Rightarrow\quad M(x) = Vx + 12600 = 2800 - 1400(x-7) \implies M(9) = 2800 - 2800 = 0 \quad\checkmark$$</div>
 
       <div class="diagram-wrap">
       <figure>
