@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>T1.5 – Second Moment of Area (Rectangle)</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css"/>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]})"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+body{font-family:'Segoe UI',Arial,sans-serif;font-size:15px;line-height:1.75;color:#1a1a1a;background:#f5f6f8;margin:0;padding:24px 16px 56px}
+.page{max-width:860px;margin:0 auto;background:#fff;border-radius:10px;box-shadow:0 2px 14px rgba(0,0,0,.10);padding:40px 52px 52px}
+
+/* Header */
+.uni-header{text-align:center;border-bottom:2px solid #1a3c6e;padding-bottom:16px;margin-bottom:32px}
+.uni-header p{margin:0;line-height:1.4;font-size:13.5px;color:#555}
+.uni-header h2{margin:8px 0 0;font-size:20px;color:#1a3c6e}
+
+/* Section headings */
+h3{color:#1a3c6e;border-left:4px solid #1a3c6e;padding-left:10px;margin:28px 0 10px;font-size:15.5px}
+h4{color:#1a3c6e;font-size:14.5px;margin:18px 0 6px}
+
+/* Steps */
+.step{margin-bottom:10px}
+.step details{border:1px solid #d1d9e8;border-radius:8px;overflow:hidden;margin-top:6px}
+.step details summary{
+  list-style:none;cursor:pointer;padding:11px 15px;
+  background:#f0f4fb;color:#1a3c6e;font-weight:500;font-size:14.5px;
+  display:flex;align-items:center;gap:10px;user-select:none;
+}
+.step details summary::-webkit-details-marker{display:none}
+.step details summary::before{display:none}
+.step details summary::after{content:'▼';font-size:11px;color:#f97316;transition:transform 0.2s;flex-shrink:0;margin-left:auto;padding-left:8px}
+.step details[open] summary::after{transform:rotate(180deg)}
+.step details summary .step-label{font-size:12px;font-weight:500;color:#f97316;margin-right:4px}
+.step details[open] summary{background:#e8eef9;border-bottom:1px solid #d1d9e8}
+.step-body{padding:16px 20px}
+.step-heading{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.step-num{background:#1a3c6e;color:#fff;font-size:12px;font-weight:700;border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.step-title{font-size:15px;font-weight:600;color:#1a3c6e}
+.try-hint{font-size:12.5px;color:#6b7280;font-style:italic;margin-left:auto}
+
+/* Callouts */
+.callout{border-radius:6px;padding:13px 18px;margin:14px 0;font-size:14.5px}
+.callout p{margin:4px 0}
+.info{background:#eef4ff;border-left:4px solid #3b82f6}
+.given{background:#f0fdf4;border-left:4px solid #22c55e}
+.answer{background:#fff7ed;border-left:4px solid #f97316;font-size:16px;font-weight:600}
+.note{background:#faf5ff;border-left:4px solid #a855f7;font-size:14px}
+.warn{background:#fffbeb;border-left:4px solid #f59e0b;font-size:14px}
+
+/* Math display */
+.math-block{background:#f8f9fb;border:1px solid #e2e6ef;border-radius:6px;padding:14px 20px;margin:12px 0;overflow-x:auto;text-align:center}
+
+/* Table */
+table{width:100%;border-collapse:collapse;margin:18px 0;font-size:13.5px}
+th{background:#1a3c6e;color:#fff;padding:9px 10px;text-align:center;font-weight:600;font-size:13px}
+td{padding:8px 10px;text-align:center;border-bottom:1px solid #e5e7eb;vertical-align:middle}
+td.left{text-align:left;font-weight:600}
+tr:nth-child(even) td{background:#f8f9fb}
+tr.total td{font-weight:700;background:#eef4ff;border-top:2px solid #1a3c6e}
+
+/* Diagram */
+.diagram-wrap{text-align:center;margin:24px 0 8px}
+.diagram-wrap figcaption{font-size:13px;color:#555;margin-top:8px;font-style:italic}
+
+.footer{margin-top:40px;border-top:1px solid #e5e7eb;padding-top:12px;font-size:12px;color:#999;text-align:center}
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- ═══════════════════════════ HEADER ═══════════════════════════ -->
+<div class="uni-header">
+  <p>Curtin University &nbsp;·&nbsp; School of Civil and Mechanical Engineering</p>
+  <p>MCEN2002 – Fundamentals of Mechanical Design</p>
+  <p style="margin-top:8px"><strong>Dr Azma Putra Azis</strong></p>
+  <h2>Tutorial 1.5 &nbsp;–&nbsp; Second Moment of Area: Rectangle</h2>
+</div>
+
+<!-- ═══════════════════════════ PROBLEM ═══════════════════════════ -->
+<h3>Problem Statement</h3>
+<p>Calculate the second moment of area about the <strong>x</strong> and <strong>y</strong> axes, and the polar moment of area about point <strong>O</strong>.</p>
+
+<div class="callout given">
+  <p><strong>Given answer:</strong> &nbsp; $I_x = 2.106 \times 10^7\ \text{mm}^4$ &nbsp;&nbsp;&nbsp; $I_y = 1.458 \times 10^7\ \text{mm}^4$ &nbsp;&nbsp;&nbsp; $J_O = 3.564 \times 10^7\ \text{mm}^4$</p>
+</div>
+
+<!-- Diagram -->
+<div class="diagram-wrap">
+<figure>
+<svg viewBox="0 0 420 340" width="380" xmlns="http://www.w3.org/2000/svg" font-family="Arial,sans-serif" font-size="13">
+
+  <!-- Grid reference -->
+  <!-- O is at (240, 80). Rectangle: x from 60 to 240, y from 110 to 230 -->
+  <!-- Axes -->
+  <line x1="60" y1="80" x2="370" y2="80" stroke="#222" stroke-width="1.8"/>
+  <polygon points="370,80 362,76 362,84" fill="#222"/>
+  <line x1="240" y1="20" x2="240" y2="270" stroke="#222" stroke-width="1.8"/>
+  <polygon points="240,20 236,28 244,28" fill="#222"/>
+  <text x="375" y="84" font-size="14" font-weight="bold" fill="#222">x</text>
+  <text x="244" y="16" font-size="14" font-weight="bold" fill="#222">y</text>
+  <text x="224" y="97" font-size="14" font-weight="bold" fill="#222">O</text>
+
+  <!-- Rectangle fill -->
+  <rect x="60" y="110" width="180" height="120" fill="#4a90c4" fill-opacity="0.55" stroke="#1a3c6e" stroke-width="2"/>
+
+  <!-- Dim: 30mm gap from O to top of rect (vertical) -->
+  <line x1="256" y1="80" x2="256" y2="110" stroke="#555" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="249" y1="80" x2="263" y2="80" stroke="#555" stroke-width="1"/>
+  <line x1="249" y1="110" x2="263" y2="110" stroke="#555" stroke-width="1"/>
+  <text x="262" y="98" font-size="12" fill="#333">30</text>
+
+  <!-- Dim: 60mm height -->
+  <line x1="256" y1="110" x2="256" y2="230" stroke="#555" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="249" y1="230" x2="263" y2="230" stroke="#555" stroke-width="1"/>
+  <text x="262" y="178" font-size="12" fill="#333">60</text>
+
+  <!-- Dim: 90mm width -->
+  <line x1="60" y1="248" x2="240" y2="248" stroke="#555" stroke-width="1"/>
+  <line x1="60" y1="241" x2="60" y2="255" stroke="#555" stroke-width="1"/>
+  <line x1="240" y1="241" x2="240" y2="255" stroke="#555" stroke-width="1"/>
+  <text x="136" y="265" font-size="12" fill="#333">90</text>
+
+  <!-- Centroid marker -->
+  <circle cx="150" cy="170" r="3" fill="#f97316"/>
+  <text x="155" y="167" font-size="11" fill="#f97316">C̄</text>
+
+  <!-- d_y dimension: centroid to x-axis = 90mm -->
+  <line x1="35" y1="80" x2="35" y2="170" stroke="#f97316" stroke-width="1" stroke-dasharray="4,3"/>
+  <line x1="28" y1="80" x2="42" y2="80" stroke="#f97316" stroke-width="1"/>
+  <line x1="28" y1="170" x2="42" y2="170" stroke="#f97316" stroke-width="1"/>
+  <text x="2" y="130" font-size="11" fill="#f97316">d_y=60</text>
+
+  <!-- d_x dimension: centroid to y-axis = 45mm -->
+  <line x1="150" y1="295" x2="240" y2="295" stroke="#f97316" stroke-width="1" stroke-dasharray="4,3"/>
+  <line x1="150" y1="288" x2="150" y2="302" stroke="#f97316" stroke-width="1"/>
+  <line x1="240" y1="288" x2="240" y2="302" stroke="#f97316" stroke-width="1"/>
+  <text x="172" y="315" font-size="11" fill="#f97316">d_x = 45</text>
+
+  <!-- Units note -->
+  <text x="300" y="270" font-size="11" fill="#888" font-style="italic">all dims in mm</text>
+</svg>
+<figcaption>Rectangle (90 × 60 mm) with origin O at top-right corner. Orange dashes show centroid distances.</figcaption>
+</figure>
+</div>
+
+<!-- ═══════════════════════════ STEP 1 ═══════════════════════════ -->
+<h3>Solution</h3>
+
+<div class="step">
+  <div class="step-heading">
+    <div class="step-num">1</div>
+    <div class="step-title">Identify the geometry and centroid distances</div>
+    <div class="try-hint">Try it first, then reveal ↓</div>
+  </div>
+  <details>
+    <summary><span class="step-label">Step 1</span> Locate the rectangle's centroid relative to O</summary>
+    <div class="step-body">
+      <p>The rectangle has width $b = 90\text{ mm}$ (extending to the left of O) and height $h = 60\text{ mm}$ (top edge is 30 mm below O).</p>
+      <p>The centroid $\bar{C}$ of the rectangle is at its geometric centre:</p>
+      <div class="callout info">
+        <p><strong>Distance from centroid to x-axis (horizontal through O):</strong></p>
+        <p style="margin:6px 0 0 12px">$d_y = 30 + \dfrac{60}{2} = 30 + 30 = 60\text{ mm}$</p>
+        <p style="margin-top:10px"><strong>Distance from centroid to y-axis (vertical through O):</strong></p>
+        <p style="margin:6px 0 0 12px">$d_x = \dfrac{90}{2} = 45\text{ mm}$</p>
+      </div>
+      <p>These distances $d_y$ and $d_x$ will be used in the <strong>parallel axis theorem</strong> to shift the centroidal moments to axes through O.</p>
+    </div>
+  </details>
+</div>
+
+<!-- ═══════════════════════════ STEP 2 ═══════════════════════════ -->
+<div class="step">
+  <div class="step-heading">
+    <div class="step-num">2</div>
+    <div class="step-title">Calculate $I_x$ about the x-axis through O</div>
+    <div class="try-hint">Try it first, then reveal ↓</div>
+  </div>
+  <details>
+    <summary><span class="step-label">Step 2</span> Apply the parallel axis theorem to find $I_x$</summary>
+    <div class="step-body">
+      <p>The second moment of area about the <strong>x-axis through O</strong> uses the parallel axis theorem:</p>
+      <div class="math-block">$$I_x = \bar{I}_x + A \, d_y^2$$</div>
+      <p>where $\bar{I}_x = \dfrac{bh^3}{12}$ is the centroidal second moment of area about a horizontal axis.</p>
+
+      <p><strong>Centroidal second moment:</strong></p>
+      <div class="math-block">$$\bar{I}_x = \frac{bh^3}{12} = \frac{90 \times 60^3}{12} = \frac{90 \times 216\,000}{12} = 1\,620\,000\text{ mm}^4$$</div>
+
+      <p><strong>Area and transfer term:</strong></p>
+      <div class="math-block">$$A = b \times h = 90 \times 60 = 5\,400\text{ mm}^2$$
+$$A\,d_y^2 = 5\,400 \times 60^2 = 5\,400 \times 3\,600 = 19\,440\,000\text{ mm}^4$$</div>
+
+      <p><strong>Total:</strong></p>
+      <div class="math-block">$$I_x = 1\,620\,000 + 19\,440\,000 = 21\,060\,000\text{ mm}^4$$</div>
+
+      <div class="callout answer">
+        <p>$$I_x = 2.106 \times 10^7\text{ mm}^4$$</p>
+      </div>
+
+      <div class="callout note">
+        <p><strong>Note:</strong> The transfer term $A\,d_y^2$ accounts for the fact that the x-axis is 60 mm away from the rectangle's centroid — this dominates over the centroidal term.</p>
+      </div>
+    </div>
+  </details>
+</div>
+
+<!-- ═══════════════════════════ STEP 3 ═══════════════════════════ -->
+<div class="step">
+  <div class="step-heading">
+    <div class="step-num">3</div>
+    <div class="step-title">Calculate $I_y$ about the y-axis through O</div>
+    <div class="try-hint">Try it first, then reveal ↓</div>
+  </div>
+  <details>
+    <summary><span class="step-label">Step 3</span> Apply the parallel axis theorem to find $I_y$</summary>
+    <div class="step-body">
+      <p>The second moment of area about the <strong>y-axis through O</strong>:</p>
+      <div class="math-block">$$I_y = \bar{I}_y + A \, d_x^2$$</div>
+      <p>where $\bar{I}_y = \dfrac{hb^3}{12}$ is the centroidal second moment of area about a vertical axis.</p>
+
+      <p><strong>Centroidal second moment:</strong></p>
+      <div class="math-block">$$\bar{I}_y = \frac{h b^3}{12} = \frac{60 \times 90^3}{12} = \frac{60 \times 729\,000}{12} = 3\,645\,000\text{ mm}^4$$</div>
+
+      <p><strong>Transfer term:</strong></p>
+      <div class="math-block">$$A\,d_x^2 = 5\,400 \times 45^2 = 5\,400 \times 2\,025 = 10\,935\,000\text{ mm}^4$$</div>
+
+      <p><strong>Total:</strong></p>
+      <div class="math-block">$$I_y = 3\,645\,000 + 10\,935\,000 = 14\,580\,000\text{ mm}^4$$</div>
+
+      <div class="callout answer">
+        <p>$$I_y = 1.458 \times 10^7\text{ mm}^4$$</p>
+      </div>
+    </div>
+  </details>
+</div>
+
+<!-- ═══════════════════════════ STEP 4 ═══════════════════════════ -->
+<div class="step">
+  <div class="step-heading">
+    <div class="step-num">4</div>
+    <div class="step-title">Calculate the polar moment $J_O$</div>
+    <div class="try-hint">Try it first, then reveal ↓</div>
+  </div>
+  <details>
+    <summary><span class="step-label">Step 4</span> Sum $I_x$ and $I_y$ to get the polar moment about O</summary>
+    <div class="step-body">
+      <p>The <strong>polar moment of area</strong> (also written $J_O$ or $I_p$) about a point is the sum of the two orthogonal second moments of area:</p>
+      <div class="math-block">$$J_O = I_x + I_y$$</div>
+
+      <div class="math-block">$$J_O = 2.106 \times 10^7 + 1.458 \times 10^7 = 3.564 \times 10^7\text{ mm}^4$$</div>
+
+      <div class="callout answer">
+        <p>$$J_O = 3.564 \times 10^7\text{ mm}^4$$</p>
+      </div>
+
+      <div class="callout note">
+        <p><strong>Physical meaning:</strong> $J_O$ measures the section's resistance to twisting (torsion) about point O. It is always the sum of the two planar second moments, regardless of axis orientation.</p>
+      </div>
+    </div>
+  </details>
+</div>
+
+<!-- ═══════════════════════════ SUMMARY TABLE ═══════════════════════════ -->
+<div class="step">
+  <div class="step-heading">
+    <div class="step-num">5</div>
+    <div class="step-title">Summary Table</div>
+  </div>
+  <details>
+    <summary><span class="step-label">Step 5</span> Review the complete summary of all terms and final answers</summary>
+    <div class="step-body">
+<table>
+  <thead>
+    <tr>
+      <th>Quantity</th>
+      <th>Formula</th>
+      <th>Centroidal term (mm⁴)</th>
+      <th>Transfer term $Ad^2$ (mm⁴)</th>
+      <th>Total (mm⁴)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="left">$I_x$ (about x–O)</td>
+      <td>$\bar{I}_x + Ad_y^2$</td>
+      <td>1 620 000</td>
+      <td>19 440 000</td>
+      <td><strong>2.106 × 10⁷</strong></td>
+    </tr>
+    <tr>
+      <td class="left">$I_y$ (about y–O)</td>
+      <td>$\bar{I}_y + Ad_x^2$</td>
+      <td>3 645 000</td>
+      <td>10 935 000</td>
+      <td><strong>1.458 × 10⁷</strong></td>
+    </tr>
+    <tr class="total">
+      <td class="left">$J_O$ (polar)</td>
+      <td>$I_x + I_y$</td>
+      <td colspan="2">—</td>
+      <td><strong>3.564 × 10⁷</strong></td>
+    </tr>
+  </tbody>
+</table>
+    </div>
+  </details>
+</div>
+
+<div class="callout warn">
+  <p><strong>Common mistake:</strong> Using $d_y = 30\text{ mm}$ (top-edge distance) instead of $d_y = 60\text{ mm}$ (centroid distance). The parallel axis theorem always uses the distance from the <em>centroidal axis</em> to the target axis — not from a corner or edge.</p>
+</div>
+
+<div class="footer">MCEN2002 – Fundamentals of Mechanical Design &nbsp;|&nbsp; Tutorial 1.5 &nbsp;|&nbsp; Curtin University</div>
+</div>
+</body>
+</html>

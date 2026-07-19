@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>T1.4 – Second Moment of Area (Beveled Section)</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css"/>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]})"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+body{font-family:'Segoe UI',Arial,sans-serif;font-size:15px;line-height:1.75;color:#1a1a1a;background:#f5f6f8;margin:0;padding:24px 16px 56px}
+.page{max-width:860px;margin:0 auto;background:#fff;border-radius:10px;box-shadow:0 2px 14px rgba(0,0,0,.10);padding:40px 52px 52px}
+
+/* Header */
+.uni-header{text-align:center;border-bottom:2px solid #1a3c6e;padding-bottom:16px;margin-bottom:32px}
+.uni-header p{margin:0;line-height:1.4;font-size:13.5px;color:#555}
+.uni-header h2{margin:8px 0 0;font-size:20px;color:#1a3c6e}
+
+/* Section headings */
+h3{color:#1a3c6e;border-left:4px solid #1a3c6e;padding-left:10px;margin:28px 0 10px;font-size:15.5px}
+h4{color:#1a3c6e;font-size:14.5px;margin:18px 0 6px}
+
+/* Steps */
+.step{margin-bottom:10px}
+.step details{border:1px solid #d1d9e8;border-radius:8px;overflow:hidden;margin-top:6px}
+.step details summary{
+  list-style:none;cursor:pointer;padding:11px 15px;
+  background:#f0f4fb;color:#1a3c6e;font-weight:500;font-size:14.5px;
+  display:flex;align-items:center;gap:10px;user-select:none;
+}
+.step details summary::-webkit-details-marker{display:none}
+.step details summary::before{display:none}
+.step details summary::after{content:'▼';font-size:11px;color:#f97316;transition:transform 0.2s;flex-shrink:0;margin-left:auto;padding-left:8px}
+.step details[open] summary::after{transform:rotate(180deg)}
+.step details summary .step-label{font-size:12px;font-weight:500;color:#f97316;margin-right:4px}
+.step details[open] summary{background:#e8eef9;border-bottom:1px solid #d1d9e8}
+.step-body{padding:16px 20px}
+.step-heading{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.step-num{background:#1a3c6e;color:#fff;font-size:12px;font-weight:700;border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.step-title{font-size:15px;font-weight:600;color:#1a3c6e}
+.try-hint{font-size:12.5px;color:#6b7280;font-style:italic;margin-left:auto}
+
+/* Method header band */
+.method-header{
+  background:#1a3c6e;color:#fff;
+  padding:11px 18px;border-radius:7px;
+  margin:36px 0 16px;font-size:15px;font-weight:700;
+  display:flex;align-items:center;gap:12px;
+}
+.method-badge{
+  background:#f97316;color:#fff;font-size:12px;font-weight:700;
+  border-radius:4px;padding:2px 10px;letter-spacing:0.04em;flex-shrink:0;
+}
+
+/* Callouts */
+.callout{border-radius:6px;padding:13px 18px;margin:14px 0;font-size:14.5px}
+.callout p{margin:4px 0}
+.info{background:#eef4ff;border-left:4px solid #3b82f6}
+.given{background:#f0fdf4;border-left:4px solid #22c55e}
+.answer{background:#fff7ed;border-left:4px solid #f97316;font-size:16px;font-weight:600}
+.note{background:#faf5ff;border-left:4px solid #a855f7;font-size:14px}
+.warn{background:#fffbeb;border-left:4px solid #f59e0b;font-size:14px}
+.agree{background:#ecfdf5;border-left:4px solid #10b981;font-size:15px}
+
+/* Math display */
+.math-block{background:#f8f9fb;border:1px solid #e2e6ef;border-radius:6px;padding:14px 20px;margin:12px 0;overflow-x:auto;text-align:center}
+
+/* Table */
+table{width:100%;border-collapse:collapse;margin:18px 0;font-size:13.5px}
+th{background:#1a3c6e;color:#fff;padding:9px 10px;text-align:center;font-weight:600;font-size:13px}
+td{padding:8px 10px;text-align:center;border-bottom:1px solid #e5e7eb;vertical-align:middle}
+td.left{text-align:left;font-weight:600}
+tr:nth-child(even) td{background:#f8f9fb}
+tr.total td{font-weight:700;background:#eef4ff;border-top:2px solid #1a3c6e}
+tr.subtotal td{font-style:italic;background:#f0fdf4;border-top:1px dashed #22c55e}
+
+/* Diagram */
+.diagram-wrap{text-align:center;margin:24px 0 8px}
+.diagram-wrap figcaption{font-size:13px;color:#555;margin-top:8px;font-style:italic}
+
+.footer{margin-top:40px;border-top:1px solid #e5e7eb;padding-top:12px;font-size:12px;color:#999;text-align:center}
+
+/* Decomposition diagram wrapper */
+.decomp-wrap{display:flex;align-items:flex-start;gap:20px;flex-wrap:wrap;margin:14px 0 18px}
+.decomp-svg-box{flex:0 0 auto;text-align:center}
+.decomp-desc{flex:1;min-width:180px;font-size:14px;color:#333;line-height:1.8;padding-top:4px}
+.decomp-desc ul{margin:6px 0 6px 20px}
+.decomp-desc li{margin-bottom:4px}
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- ═══════════════════════════ HEADER ═══════════════════════════ -->
+<div class="uni-header">
+  <p>Curtin University &nbsp;·&nbsp; School of Civil and Mechanical Engineering</p>
+  <p>MCEN2002 – Fundamentals of Mechanical Design</p>
+  <p style="margin-top:8px"><strong>Dr Azma Putra Azis</strong></p>
+  <h2>Tutorial 1.4 &nbsp;–&nbsp; Second Moment of Area of a Beveled Section</h2>
+</div>
+
+<!-- ═══════════════════════════ PROBLEM STATEMENT ═══════════════════════════ -->
+<h3 style="border-left-color:#6366f1;color:#6366f1">Problem Statement</h3>
+<p>Calculate the second moment of area $I_x$ and $I_y$ about the x and y axes shown. Treat C as the centroid of the composite shape.</p>
+
+<div class="callout given">
+  <p><strong>Given answer:</strong> &nbsp; $I_x = 210.25 \times 10^4 \ \text{mm}^4$ &nbsp;&nbsp;&nbsp; $I_y = 110.25 \times 10^4 \ \text{mm}^4$</p>
+</div>
+
+<!-- ═══════════════════════════ DIAGRAM ═══════════════════════════ -->
+<div class="diagram-wrap">
+<figure>
+<svg viewBox="0 0 520 460" width="100%" style="max-width:520px;font-family:Arial,sans-serif">
+  <defs>
+    <marker id="ah" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="#444"/></marker>
+    <marker id="ahr" markerWidth="7" markerHeight="7" refX="1" refY="3.5" orient="auto"><path d="M7,0 L0,3.5 L7,7 Z" fill="#444"/></marker>
+    <marker id="ah-blue" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="#1a3c6e"/></marker>
+    <marker id="ahr-blue" markerWidth="7" markerHeight="7" refX="1" refY="3.5" orient="auto"><path d="M7,0 L0,3.5 L7,7 Z" fill="#1a3c6e"/></marker>
+  </defs>
+
+  <!-- Shape: vertices at (-30,-30),(30,-30),(30,50),(0,50),(-30,0) -->
+  <!-- Scale: 3.5 px/mm, origin C at SVG (235, 295) -->
+  <!-- (-30,-30) → (130, 400)  (30,-30) → (340, 400) -->
+  <!-- (30,50)   → (340, 120)  (0,50)   → (235, 120) -->
+  <!-- (-30,0)   → (130, 295)                          -->
+
+  <!-- Filled composite shape -->
+  <polygon points="130,400 340,400 340,120 235,120 130,295"
+    fill="#f97316" fill-opacity="0.25" stroke="#c2410c" stroke-width="2"/>
+
+  <!-- Part dividers (dashed) — along axes inside shape -->
+  <!-- Horizontal: from (-30,0) to (0,0): (130,295)→(235,295) -->
+  <line x1="130" y1="295" x2="235" y2="295" stroke="#c2410c" stroke-width="1.2" stroke-dasharray="5,4"/>
+  <!-- Vertical: from (0,0) to (0,50): (235,295)→(235,120) -->
+  <line x1="235" y1="295" x2="235" y2="120" stroke="#c2410c" stroke-width="1.2" stroke-dasharray="5,4"/>
+
+  <!-- X axis -->
+  <line x1="60" y1="295" x2="430" y2="295" stroke="#1a3c6e" stroke-width="1.8"
+    marker-end="url(#ah-blue)"/>
+  <text x="436" y="299" font-size="15" fill="#1a3c6e" font-style="italic" font-weight="bold">x</text>
+
+  <!-- Y axis -->
+  <line x1="235" y1="430" x2="235" y2="70" stroke="#1a3c6e" stroke-width="1.8"
+    marker-end="url(#ah-blue)"/>
+  <text x="229" y="65" font-size="15" fill="#1a3c6e" font-style="italic" font-weight="bold">y</text>
+
+  <!-- Centroid C -->
+  <circle cx="235" cy="295" r="5" fill="#1a3c6e"/>
+  <text x="241" y="315" font-size="13" fill="#1a3c6e" font-weight="bold">C</text>
+
+  <!-- ── Dimension annotations ── -->
+
+  <!-- Bottom width: 60mm total, split 30|30 about y-axis -->
+  <!-- Arrow: 30mm left, at y=422 -->
+  <line x1="130" y1="418" x2="235" y2="418" stroke="#444" stroke-width="1.2"
+    marker-start="url(#ahr)" marker-end="url(#ah)"/>
+  <text x="182" y="414" font-size="12" fill="#333" text-anchor="middle">30</text>
+
+  <!-- Arrow: 30mm right -->
+  <line x1="235" y1="418" x2="340" y2="418" stroke="#444" stroke-width="1.2"
+    marker-start="url(#ahr)" marker-end="url(#ah)"/>
+  <text x="287" y="414" font-size="12" fill="#333" text-anchor="middle">30</text>
+
+  <!-- Right-side heights: 50 above, 30 below -->
+  <line x1="360" y1="295" x2="360" y2="120" stroke="#444" stroke-width="1.2"
+    marker-start="url(#ahr)" marker-end="url(#ah)"/>
+  <text x="378" y="214" font-size="12" fill="#333" text-anchor="middle">50</text>
+
+  <line x1="360" y1="400" x2="360" y2="295" stroke="#444" stroke-width="1.2"
+    marker-start="url(#ahr)" marker-end="url(#ah)"/>
+  <text x="378" y="353" font-size="12" fill="#333" text-anchor="middle">30</text>
+
+  <!-- Tick marks connecting dimension lines to shape -->
+  <line x1="340" y1="120" x2="363" y2="120" stroke="#888" stroke-width="1"/>
+  <line x1="340" y1="295" x2="363" y2="295" stroke="#888" stroke-width="1"/>
+  <line x1="340" y1="400" x2="363" y2="400" stroke="#888" stroke-width="1"/>
+  <line x1="130" y1="400" x2="130" y2="425" stroke="#888" stroke-width="1"/>
+  <line x1="235" y1="400" x2="235" y2="425" stroke="#888" stroke-width="1"/>
+  <line x1="340" y1="400" x2="340" y2="425" stroke="#888" stroke-width="1"/>
+
+  <!-- Units label -->
+  <text x="235" y="450" font-size="11" fill="#888" text-anchor="middle">All dimensions in mm</text>
+</svg>
+<figcaption>Figure 1.4 — Beveled rectangular section. C is the given reference origin. Parts A (base rect), B (upper-right rect), and C (top-left triangle) are divided by the x-y reference axes.</figcaption>
+</figure>
+</div>
+
+<!-- ═══════════════════════════ METHOD INFO ═══════════════════════════ -->
+<div class="callout info">
+  <p><strong>Key point:</strong> The x–y axes are assumed through the overall centroidal axes of the composite shape, C. So we do not need to calculate the centroid. We compute $I_x$ and $I_y$ directly about these axes using the <strong>parallel axis theorem</strong> applied to each part.</p>
+  <div class="math-block">$$I = \bar{I} + A d^2$$</div>
+  <p style="margin:4px 0">where $\bar{I}$ is the second moment about the part's <em>own</em> centroidal axis, and $d$ is the perpendicular distance from that centroidal axis to the reference axis.</p>
+</div>
+
+<!-- ═══════════════════════════ METHOD 1 ═══════════════════════════ -->
+<div class="method-header">
+  <span class="method-badge">Method 1</span>
+  Three-Part Decomposition
+</div>
+<p>Decompose the shape into three parts using the reference axes as natural dividers:</p>
+
+<!-- Method 1 decomposition diagram -->
+<div class="decomp-wrap">
+  <div class="decomp-svg-box">
+    <!--
+      Scale 2.5 px/mm. Origin C at SVG (130, 195).
+      SVG_x = 130 + x*2.5,  SVG_y = 195 - y*2.5
+      Shape vertices:
+        (-30,-30)→(55,270)  (30,-30)→(205,270)
+        (30,50)→(205,70)    (0,50)→(130,70)
+        (-30,0)→(55,195)
+      Centroids:
+        A(0,-15)→(130,232)  B(15,25)→(167,132)  C(-10,16.67)→(105,153)
+    -->
+    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="230" viewBox="0 0 1440 1439.999935" preserveAspectRatio="xMidYMid meet" version="1.0"><defs><g/><clipPath id="577d875b64"><path d="M 343.507812 341 L 679.535156 341 L 679.535156 912.214844 L 343.507812 912.214844 Z M 343.507812 341 " clip-rule="nonzero"/></clipPath><clipPath id="b2e38de390"><path d="M 679.535156 341.070312 L 679.535156 912.214844 L 343.507812 912.214844 Z M 679.535156 341.070312 " clip-rule="nonzero"/></clipPath><clipPath id="1a8a601e39"><path d="M 0.507812 0.0390625 L 336.535156 0.0390625 L 336.535156 571.214844 L 0.507812 571.214844 Z M 0.507812 0.0390625 " clip-rule="nonzero"/></clipPath><clipPath id="cce97a3222"><path d="M 336.535156 0.0703125 L 336.535156 571.214844 L 0.507812 571.214844 Z M 336.535156 0.0703125 " clip-rule="nonzero"/></clipPath><clipPath id="43fd884ee7"><rect x="0" width="337" y="0" height="572"/></clipPath><clipPath id="44fd56603f"><path d="M 343.507812 341 L 679.507812 341 L 679.507812 912.214844 L 343.507812 912.214844 Z M 343.507812 341 " clip-rule="nonzero"/></clipPath><clipPath id="efa1aa9a5c"><path d="M 679.53125 341.078125 L 679.53125 912.214844 L 343.507812 912.214844 Z M 679.53125 341.078125 " clip-rule="nonzero"/></clipPath><clipPath id="c160863221"><path d="M 343.507812 912.21875 L 1005.296875 912.21875 L 1005.296875 1241.507812 L 343.507812 1241.507812 Z M 343.507812 912.21875 " clip-rule="nonzero"/></clipPath><clipPath id="bfcfd7b076"><path d="M 0.507812 0.21875 L 662 0.21875 L 662 329.507812 L 0.507812 329.507812 Z M 0.507812 0.21875 " clip-rule="nonzero"/></clipPath><clipPath id="b83fdf0879"><rect x="0" width="663" y="0" height="330"/></clipPath><clipPath id="24aa24dbfb"><path d="M 343.507812 912.222656 L 1005.007812 912.222656 L 1005.007812 1241.46875 L 343.507812 1241.46875 Z M 343.507812 912.222656 " clip-rule="nonzero"/></clipPath><clipPath id="e8db1b606e"><path d="M 676.484375 351.511719 L 1005.296875 351.511719 L 1005.296875 912.21875 L 676.484375 912.21875 Z M 676.484375 351.511719 " clip-rule="nonzero"/></clipPath><clipPath id="604c6fcf78"><path d="M 0.484375 0.511719 L 329.296875 0.511719 L 329.296875 561.21875 L 0.484375 561.21875 Z M 0.484375 0.511719 " clip-rule="nonzero"/></clipPath><clipPath id="3cdb458240"><rect x="0" width="330" y="0" height="562"/></clipPath><clipPath id="2d5881819c"><path d="M 676.484375 351.515625 L 1004.984375 351.515625 L 1004.984375 912.210938 L 676.484375 912.210938 Z M 676.484375 351.515625 " clip-rule="nonzero"/></clipPath><clipPath id="697c62c109"><path d="M 661 1062 L 690 1062 L 690 1091 L 661 1091 Z M 661 1062 " clip-rule="nonzero"/></clipPath><clipPath id="c7d9341bc8"><path d="M 661.566406 1063.355469 L 689.304688 1062.613281 L 690.046875 1090.355469 L 662.308594 1091.097656 Z M 661.566406 1063.355469 " clip-rule="nonzero"/></clipPath><clipPath id="022b8ffde9"><path d="M 661.570312 1063.355469 L 689.679688 1062.605469 L 690.421875 1090.375 L 662.3125 1091.128906 Z M 661.570312 1063.355469 " clip-rule="nonzero"/></clipPath><clipPath id="7fd5eed56a"><path d="M 675.53125 1062.984375 C 667.820312 1063.1875 661.734375 1069.570312 661.941406 1077.230469 C 662.144531 1084.894531 668.5625 1090.941406 676.273438 1090.734375 C 683.984375 1090.527344 690.066406 1084.148438 689.863281 1076.484375 C 689.65625 1068.820312 683.238281 1062.777344 675.53125 1062.984375 Z M 675.53125 1062.984375 " clip-rule="nonzero"/></clipPath><clipPath id="1ce7032bbb"><path d="M 826 617 L 855 617 L 855 646 L 826 646 Z M 826 617 " clip-rule="nonzero"/></clipPath><clipPath id="0c898c809b"><path d="M 826.554688 618.359375 L 854.292969 617.617188 L 855.035156 645.355469 L 827.296875 646.097656 Z M 826.554688 618.359375 " clip-rule="nonzero"/></clipPath><clipPath id="e3bd01d384"><path d="M 826.558594 618.359375 L 854.667969 617.605469 L 855.410156 645.378906 L 827.300781 646.128906 Z M 826.558594 618.359375 " clip-rule="nonzero"/></clipPath><clipPath id="fe0e45ae8d"><path d="M 840.515625 617.984375 C 832.808594 618.191406 826.722656 624.570312 826.929688 632.234375 C 827.132812 639.898438 833.550781 645.945312 841.261719 645.738281 C 848.96875 645.53125 855.054688 639.152344 854.847656 631.488281 C 854.644531 623.824219 848.226562 617.777344 840.515625 617.984375 Z M 840.515625 617.984375 " clip-rule="nonzero"/></clipPath><clipPath id="73a4eb47ad"><path d="M 549 718 L 578 718 L 578 747 L 549 747 Z M 549 718 " clip-rule="nonzero"/></clipPath><clipPath id="1b77284676"><path d="M 549.464844 719.308594 L 577.207031 718.566406 L 577.949219 746.304688 L 550.207031 747.050781 Z M 549.464844 719.308594 " clip-rule="nonzero"/></clipPath><clipPath id="5e5ae8af17"><path d="M 549.46875 719.308594 L 577.578125 718.554688 L 578.324219 746.328125 L 550.210938 747.082031 Z M 549.46875 719.308594 " clip-rule="nonzero"/></clipPath><clipPath id="3cdc3eb822"><path d="M 563.429688 718.933594 C 555.71875 719.140625 549.636719 725.519531 549.839844 733.183594 C 550.046875 740.847656 556.460938 746.894531 564.171875 746.6875 C 571.882812 746.480469 577.964844 740.101562 577.761719 732.4375 C 577.554688 724.773438 571.140625 718.730469 563.429688 718.933594 Z M 563.429688 718.933594 " clip-rule="nonzero"/></clipPath></defs><rect x="-144" width="1728" fill="#ffffff" y="-143.999994" height="1727.999922" fill-opacity="1"/><rect x="-144" width="1728" fill="#ffffff" y="-143.999994" height="1727.999922" fill-opacity="1"/><g clip-path="url(#577d875b64)"><g clip-path="url(#b2e38de390)"><g transform="matrix(1, 0, 0, 1, 343, 341)"><g clip-path="url(#43fd884ee7)"><g clip-path="url(#1a8a601e39)"><g clip-path="url(#cce97a3222)"><path fill="#d9d9d9" d="M 0.507812 571.214844 L 0.507812 0.230469 L 336.535156 0.230469 L 336.535156 571.214844 Z M 0.507812 571.214844 " fill-opacity="1" fill-rule="nonzero"/></g></g></g></g></g></g><g clip-path="url(#44fd56603f)"><g clip-path="url(#efa1aa9a5c)"><path stroke-linecap="butt" transform="matrix(0, -0.75, 0.75, 0, 343.507767, 912.214461)" fill="none" stroke-linejoin="miter" d="M 761.515181 448.03135 L -0.00051058 448.03135 L -0.00051058 0.0000610912 Z M 761.515181 448.03135 " stroke="#000000" stroke-width="8" stroke-opacity="1" stroke-miterlimit="4"/></g></g><g clip-path="url(#c160863221)"><g transform="matrix(1, 0, 0, 1, 343, 912)"><g clip-path="url(#b83fdf0879)"><g clip-path="url(#bfcfd7b076)"><path fill="#dee6f0" d="M 0.507812 0.21875 L 661.652344 0.21875 L 661.652344 329.507812 L 0.507812 329.507812 Z M 0.507812 0.21875 " fill-opacity="1" fill-rule="nonzero"/></g></g></g></g><g clip-path="url(#24aa24dbfb)"><path stroke-linecap="butt" transform="matrix(0.75, 0, 0, 0.75, 343.508177, 912.219741)" fill="none" stroke-linejoin="miter" d="M -0.000486109 0.00388725 L 882.37459 0.00388725 L 882.37459 439.045592 L -0.000486109 439.045592 Z M -0.000486109 0.00388725 " stroke="#000000" stroke-width="8" stroke-opacity="1" stroke-miterlimit="4"/></g><path stroke-linecap="butt" transform="matrix(0, 0.75, -0.75, 0, 680.981757, 167.189452)" fill="none" stroke-linejoin="miter" d="M 32.9974 6.001719 L 1542.15899 6.001719 " stroke="#000000" stroke-width="12" stroke-opacity="1" stroke-miterlimit="4"/><path stroke-linecap="round" transform="matrix(0, 0.75, -0.75, 0, 680.981757, 167.189452)" fill-opacity="1" fill="#000000" fill-rule="nonzero" stroke-linejoin="round" d="M 29.9974 -11.998283 L 5.997398 6.001719 L 29.9974 24.00172 Z M 29.9974 -11.998283 " stroke="#000000" stroke-width="12" stroke-opacity="1" stroke-miterlimit="4"/><g clip-path="url(#e8db1b606e)"><g transform="matrix(1, 0, 0, 1, 676, 351)"><g clip-path="url(#3cdb458240)"><g clip-path="url(#604c6fcf78)"><path fill="#c1ff72" d="M 0.484375 0.511719 L 329.296875 0.511719 L 329.296875 561.804688 L 0.484375 561.804688 Z M 0.484375 0.511719 " fill-opacity="1" fill-rule="nonzero"/></g></g></g></g><g clip-path="url(#2d5881819c)"><path stroke-linecap="butt" transform="matrix(0.75, 0, 0, 0.75, 676.483222, 351.511121)" fill="none" stroke-linejoin="miter" d="M 0.00153763 0.00600575 L 438.407854 0.00600575 L 438.407854 747.599868 L 0.00153763 747.599868 Z M 0.00153763 0.00600575 " stroke="#000000" stroke-width="8" stroke-opacity="1" stroke-miterlimit="4"/></g><path stroke-linecap="butt" transform="matrix(-0.75, 0, 0, -0.75, 1285.752449, 916.71974)" fill="none" stroke-linejoin="miter" d="M 32.99806 6.001321 L 1611.20653 6.001321 " stroke="#000000" stroke-width="12" stroke-opacity="1" stroke-miterlimit="4"/><path stroke-linecap="round" transform="matrix(-0.75, 0, 0, -0.75, 1285.752449, 916.71974)" fill-opacity="1" fill="#000000" fill-rule="nonzero" stroke-linejoin="round" d="M 29.998059 -11.99868 L 5.998057 6.001321 L 29.998059 24.001323 Z M 29.998059 -11.99868 " stroke="#000000" stroke-width="12" stroke-opacity="1" stroke-miterlimit="4"/><g fill="#000000" fill-opacity="1"><g transform="translate(1314.9257, 925.94006)"><g><path d="M 6.140625 0 L -2.875 0 L 10.421875 -17.390625 L 4.484375 -32.296875 L 12.46875 -32.296875 L 16.15625 -21.65625 L 16.828125 -21.65625 L 24.5625 -32.296875 L 33.4375 -32.296875 L 21.171875 -16.453125 L 27.078125 0 L 19.03125 0 L 15.21875 -11.796875 L 14.546875 -11.796875 Z M 6.140625 0 "/></g></g></g><g fill="#000000" fill-opacity="1"><g transform="translate(662.189678, 130.499969)"><g><path d="M 0.9375 13.71875 C -0.445312 13.71875 -1.703125 13.609375 -2.828125 13.390625 C -3.953125 13.171875 -4.828125 12.890625 -5.453125 12.546875 L -2.78125 5.984375 L -2.234375 5.796875 C -1.773438 6.054688 -1.203125 6.265625 -0.515625 6.421875 C 0.160156 6.578125 0.878906 6.65625 1.640625 6.65625 C 2.953125 6.65625 4.082031 6.484375 5.03125 6.140625 C 5.976562 5.796875 6.835938 5.226562 7.609375 4.4375 C 8.378906 3.644531 9.144531 2.546875 9.90625 1.140625 L 4.125 -32.3125 L 12.1875 -32.3125 L 15.5625 -9.84375 L 16.265625 -9.84375 L 28.765625 -32.3125 L 37.4375 -32.3125 L 17.25 2.609375 C 15.675781 5.335938 14.09375 7.507812 12.5 9.125 C 10.90625 10.738281 9.179688 11.90625 7.328125 12.625 C 5.472656 13.351562 3.34375 13.71875 0.9375 13.71875 Z M 0.9375 13.71875 "/></g></g></g><g fill="#000000" fill-opacity="1"><g transform="translate(915.566551, 1208.111011)"><g><path d="M 41.078125 0 L 32.171875 0 L 28.953125 -9.859375 L 12.5625 -9.859375 L 9.34375 0 L 0.640625 0 L 15.421875 -42.796875 L 26.28125 -42.796875 Z M 20.34375 -33.875 L 14.84375 -16.984375 L 26.609375 -16.984375 L 21.078125 -33.875 Z M 20.34375 -33.875 "/></g></g></g><g fill="#000000" fill-opacity="1"><g transform="translate(915.496239, 427.941915)"><g><path d="M 5.5625 0 L 5.5625 -42.796875 L 23.828125 -42.796875 C 26.460938 -42.796875 28.691406 -42.378906 30.515625 -41.546875 C 32.335938 -40.722656 33.71875 -39.546875 34.65625 -38.015625 C 35.59375 -36.484375 36.0625 -34.671875 36.0625 -32.578125 C 36.0625 -30.691406 35.601562 -29.023438 34.6875 -27.578125 C 33.769531 -26.128906 32.453125 -24.96875 30.734375 -24.09375 L 30.734375 -23.484375 C 33.429688 -22.773438 35.507812 -21.492188 36.96875 -19.640625 C 38.4375 -17.785156 39.171875 -15.515625 39.171875 -12.828125 C 39.171875 -8.722656 37.9375 -5.554688 35.46875 -3.328125 C 33 -1.109375 29.332031 0 24.46875 0 Z M 22.078125 -25.734375 C 26.015625 -25.734375 27.984375 -27.507812 27.984375 -31.0625 C 27.984375 -32.875 27.492188 -34.222656 26.515625 -35.109375 C 25.546875 -36.003906 24.066406 -36.453125 22.078125 -36.453125 L 14.015625 -36.453125 L 14.015625 -25.734375 Z M 23.625 -6.703125 C 28.289062 -6.703125 30.625 -8.820312 30.625 -13.0625 C 30.625 -17.3125 28.289062 -19.4375 23.625 -19.4375 L 14.015625 -19.4375 L 14.015625 -6.703125 Z M 23.625 -6.703125 "/></g></g></g><g fill="#000000" fill-opacity="1"><g transform="translate(408.197751, 877.008408)"><g><path d="M 23.390625 0.609375 C 19.453125 0.609375 15.976562 -0.207031 12.96875 -1.84375 C 9.957031 -3.476562 7.601562 -5.941406 5.90625 -9.234375 C 4.207031 -12.523438 3.359375 -16.582031 3.359375 -21.40625 C 3.359375 -26.21875 4.207031 -30.269531 5.90625 -33.5625 C 7.601562 -36.851562 9.957031 -39.316406 12.96875 -40.953125 C 15.976562 -42.585938 19.453125 -43.40625 23.390625 -43.40625 C 27.503906 -43.40625 31 -42.597656 33.875 -40.984375 C 36.757812 -39.378906 38.816406 -36.929688 40.046875 -33.640625 L 33.875 -29.859375 L 33.140625 -29.890625 C 32.222656 -32.109375 30.976562 -33.703125 29.40625 -34.671875 C 27.832031 -35.640625 25.828125 -36.125 23.390625 -36.125 C 19.835938 -36.125 17.066406 -34.945312 15.078125 -32.59375 C 13.085938 -30.238281 12.09375 -26.507812 12.09375 -21.40625 C 12.09375 -16.3125 13.085938 -12.585938 15.078125 -10.234375 C 17.066406 -7.878906 19.835938 -6.703125 23.390625 -6.703125 C 28.953125 -6.703125 32.359375 -9.40625 33.609375 -14.8125 L 34.34375 -14.8125 L 40.578125 -11.5625 C 39.398438 -7.5 37.394531 -4.453125 34.5625 -2.421875 C 31.738281 -0.398438 28.015625 0.609375 23.390625 0.609375 Z M 23.390625 0.609375 "/></g></g></g><g clip-path="url(#697c62c109)"><g clip-path="url(#c7d9341bc8)"><g clip-path="url(#022b8ffde9)"><g clip-path="url(#7fd5eed56a)"><path stroke-linecap="butt" transform="matrix(0.749731, -0.0200645, 0.0200645, 0.749731, 661.566119, 1063.35656)" fill="none" stroke-linejoin="miter" d="M 18.626789 0.00207126 C 8.341972 -0.00224352 0.00261474 8.288041 0.00531781 18.505314 C 0.00267508 28.727654 8.341212 37.0162 18.626168 37.015308 C 28.911125 37.014416 37.245136 28.729199 37.247779 18.506859 C 37.245215 8.28438 28.906539 0.00104023 18.626789 0.00207126 Z M 18.626789 0.00207126 " stroke="#5e17eb" stroke-width="26" stroke-opacity="1" stroke-miterlimit="4"/></g></g></g></g><g clip-path="url(#1ce7032bbb)"><g clip-path="url(#0c898c809b)"><g clip-path="url(#e3bd01d384)"><g clip-path="url(#fe0e45ae8d)"><path stroke-linecap="butt" transform="matrix(0.749731, -0.0200645, 0.0200645, 0.749731, 826.553625, 618.35911)" fill="none" stroke-linejoin="miter" d="M 18.622707 -0.00144003 C 8.342957 -0.000409005 0.00373945 8.284669 0.00630318 18.507148 C 0.00366045 28.729488 8.342197 37.018034 18.627154 37.017143 C 28.906904 37.016111 37.246121 28.731033 37.243557 18.508554 C 37.2462 8.286214 28.907664 -0.00233173 18.622707 -0.00144003 Z M 18.622707 -0.00144003 " stroke="#5e17eb" stroke-width="26" stroke-opacity="1" stroke-miterlimit="4"/></g></g></g></g><g clip-path="url(#73a4eb47ad)"><g clip-path="url(#1b77284676)"><g clip-path="url(#5e5ae8af17)"><g clip-path="url(#3cdc3eb822)"><path stroke-linecap="butt" transform="matrix(0.749731, -0.0200645, 0.0200645, 0.749731, 549.465465, 719.308982)" fill="none" stroke-linejoin="miter" d="M 18.625693 -0.00223043 C 8.340736 -0.00133874 0.00672492 8.283879 0.00408219 18.506219 C 0.00664593 28.728698 8.339976 37.017104 18.624933 37.016213 C 28.909889 37.015321 37.2439 28.730103 37.246543 18.507764 C 37.243979 8.285285 28.91051 0.00208435 18.625693 -0.00223043 Z M 18.625693 -0.00223043 " stroke="#5e17eb" stroke-width="26" stroke-opacity="1" stroke-miterlimit="4"/></g></g></g></g><path stroke-linecap="butt" transform="matrix(0, 0.75, -0.75, 0, 1050.465421, 924.752012)" fill="none" stroke-linejoin="miter" d="M 3.502526 3.50077 L 413.38277 3.50077 " stroke="#8c52ff" stroke-width="7" stroke-opacity="1" stroke-miterlimit="4"/><path stroke-linecap="round" transform="matrix(0, 0.75, -0.75, 0, 1050.465421, 924.752012)" fill="none" stroke-linejoin="round" d="M 17.502528 -6.999231 L 3.502526 3.50077 L 17.502528 14.000771 " stroke="#8c52ff" stroke-width="7" stroke-opacity="1" stroke-miterlimit="4"/><path stroke-linecap="round" transform="matrix(0, 0.75, -0.75, 0, 1050.465421, 924.752012)" fill="none" stroke-linejoin="round" d="M 399.382769 -6.999231 L 413.38277 3.50077 L 399.382769 14.000771 " stroke="#8c52ff" stroke-width="7" stroke-opacity="1" stroke-miterlimit="4"/><g fill="#000000" fill-opacity="1"><g transform="translate(1078.475799, 1094.112773)"><g><path d="M 12.71875 0.46875 C 9.601562 0.46875 7.128906 -0.234375 5.296875 -1.640625 C 3.460938 -3.046875 2.273438 -5 1.734375 -7.5 L 4.546875 -8.765625 L 5.046875 -8.671875 C 5.609375 -6.753906 6.46875 -5.316406 7.625 -4.359375 C 8.789062 -3.410156 10.488281 -2.9375 12.71875 -2.9375 C 14.988281 -2.9375 16.71875 -3.457031 17.90625 -4.5 C 19.09375 -5.539062 19.6875 -7.070312 19.6875 -9.09375 C 19.6875 -11.070312 19.082031 -12.582031 17.875 -13.625 C 16.664062 -14.664062 14.765625 -15.1875 12.171875 -15.1875 L 8.671875 -15.1875 L 8.671875 -18.296875 L 11.796875 -18.296875 C 13.816406 -18.296875 15.421875 -18.796875 16.609375 -19.796875 C 17.804688 -20.804688 18.40625 -22.226562 18.40625 -24.0625 C 18.40625 -25.800781 17.890625 -27.109375 16.859375 -27.984375 C 15.828125 -28.859375 14.382812 -29.296875 12.53125 -29.296875 C 9.289062 -29.296875 6.984375 -28.003906 5.609375 -25.421875 L 5.09375 -25.328125 L 2.984375 -27.640625 C 3.847656 -29.117188 5.09375 -30.3125 6.71875 -31.21875 C 8.34375 -32.125 10.28125 -32.578125 12.53125 -32.578125 C 14.570312 -32.578125 16.3125 -32.257812 17.75 -31.625 C 19.195312 -30.988281 20.296875 -30.070312 21.046875 -28.875 C 21.796875 -27.675781 22.171875 -26.238281 22.171875 -24.5625 C 22.171875 -22.976562 21.710938 -21.585938 20.796875 -20.390625 C 19.878906 -19.203125 18.664062 -18.265625 17.15625 -17.578125 L 17.15625 -17.109375 C 19.28125 -16.597656 20.878906 -15.644531 21.953125 -14.25 C 23.023438 -12.851562 23.5625 -11.132812 23.5625 -9.09375 C 23.5625 -6.050781 22.648438 -3.695312 20.828125 -2.03125 C 19.015625 -0.363281 16.3125 0.46875 12.71875 0.46875 Z M 12.71875 0.46875 "/></g></g><g transform="translate(1104.579313, 1094.112773)"><g><path d="M 15.796875 0.46875 C 13.441406 0.46875 11.328125 -0.0976562 9.453125 -1.234375 C 7.578125 -2.367188 6.082031 -4.171875 4.96875 -6.640625 C 3.851562 -9.109375 3.296875 -12.25 3.296875 -16.0625 C 3.296875 -19.875 3.851562 -23.015625 4.96875 -25.484375 C 6.082031 -27.953125 7.578125 -29.75 9.453125 -30.875 C 11.328125 -32.007812 13.441406 -32.578125 15.796875 -32.578125 C 18.160156 -32.578125 20.28125 -32.007812 22.15625 -30.875 C 24.03125 -29.75 25.519531 -27.953125 26.625 -25.484375 C 27.726562 -23.015625 28.28125 -19.875 28.28125 -16.0625 C 28.28125 -12.25 27.726562 -9.109375 26.625 -6.640625 C 25.519531 -4.171875 24.03125 -2.367188 22.15625 -1.234375 C 20.28125 -0.0976562 18.160156 0.46875 15.796875 0.46875 Z M 15.796875 -3.03125 C 18.597656 -3.03125 20.71875 -4.035156 22.15625 -6.046875 C 23.601562 -8.066406 24.328125 -11.40625 24.328125 -16.0625 C 24.328125 -20.71875 23.601562 -24.050781 22.15625 -26.0625 C 20.71875 -28.082031 18.597656 -29.09375 15.796875 -29.09375 C 13.953125 -29.09375 12.398438 -28.664062 11.140625 -27.8125 C 9.878906 -26.96875 8.914062 -25.582031 8.25 -23.65625 C 7.582031 -21.738281 7.25 -19.207031 7.25 -16.0625 C 7.25 -12.914062 7.582031 -10.378906 8.25 -8.453125 C 8.914062 -6.535156 9.878906 -5.148438 11.140625 -4.296875 C 12.398438 -3.453125 13.953125 -3.03125 15.796875 -3.03125 Z M 15.796875 -3.03125 "/></g></g></g><path stroke-linecap="butt" transform="matrix(0, 0.75, -0.75, 0, 1050.733309, 351.514169)" fill="none" stroke-linejoin="miter" d="M 3.501942 3.498579 L 733.819714 3.498579 " stroke="#8c52ff" stroke-width="7" stroke-opacity="1" stroke-miterlimit="4"/><path stroke-linecap="round" transform="matrix(0, 0.75, -0.75, 0, 1050.733309, 351.514169)" fill="none" stroke-linejoin="round" d="M 17.501943 -7.001422 L 3.501942 3.498579 L 17.501943 13.99858 " stroke="#8c52ff" stroke-width="7" stroke-opacity="1" stroke-miterlimit="4"/><path stroke-linecap="round" transform="matrix(0, 0.75, -0.75, 0, 1050.733309, 351.514169)" fill="none" stroke-linejoin="round" d="M 719.819713 -7.001422 L 733.819714 3.498579 L 719.819713 13.99858 " stroke="#8c52ff" stroke-width="7" stroke-opacity="1" stroke-miterlimit="4"/><g fill="#000000" fill-opacity="1"><g transform="translate(1078.229706, 661.861675)"><g><path d="M 13.234375 0.46875 C 10.222656 0.46875 7.820312 -0.195312 6.03125 -1.53125 C 4.238281 -2.863281 3.070312 -4.753906 2.53125 -7.203125 L 5.3125 -8.484375 L 5.828125 -8.390625 C 6.191406 -7.148438 6.671875 -6.132812 7.265625 -5.34375 C 7.859375 -4.550781 8.632812 -3.953125 9.59375 -3.546875 C 10.5625 -3.140625 11.773438 -2.9375 13.234375 -2.9375 C 15.398438 -2.9375 17.085938 -3.582031 18.296875 -4.875 C 19.503906 -6.175781 20.109375 -8.066406 20.109375 -10.546875 C 20.109375 -13.066406 19.515625 -14.984375 18.328125 -16.296875 C 17.140625 -17.609375 15.5 -18.265625 13.40625 -18.265625 C 11.8125 -18.265625 10.515625 -17.941406 9.515625 -17.296875 C 8.515625 -16.648438 7.632812 -15.660156 6.875 -14.328125 L 3.84375 -14.59375 L 4.453125 -32.125 L 22.453125 -32.125 L 22.453125 -28.921875 L 7.75 -28.921875 L 7.390625 -18.265625 L 7.84375 -18.171875 C 8.601562 -19.285156 9.53125 -20.113281 10.625 -20.65625 C 11.71875 -21.207031 13.023438 -21.484375 14.546875 -21.484375 C 16.460938 -21.484375 18.132812 -21.054688 19.5625 -20.203125 C 20.988281 -19.347656 22.09375 -18.097656 22.875 -16.453125 C 23.664062 -14.816406 24.0625 -12.847656 24.0625 -10.546875 C 24.0625 -8.265625 23.609375 -6.296875 22.703125 -4.640625 C 21.804688 -2.984375 20.539062 -1.71875 18.90625 -0.84375 C 17.269531 0.03125 15.378906 0.46875 13.234375 0.46875 Z M 13.234375 0.46875 "/></g></g><g transform="translate(1104.816617, 661.861675)"><g><path d="M 15.796875 0.46875 C 13.441406 0.46875 11.328125 -0.0976562 9.453125 -1.234375 C 7.578125 -2.367188 6.082031 -4.171875 4.96875 -6.640625 C 3.851562 -9.109375 3.296875 -12.25 3.296875 -16.0625 C 3.296875 -19.875 3.851562 -23.015625 4.96875 -25.484375 C 6.082031 -27.953125 7.578125 -29.75 9.453125 -30.875 C 11.328125 -32.007812 13.441406 -32.578125 15.796875 -32.578125 C 18.160156 -32.578125 20.28125 -32.007812 22.15625 -30.875 C 24.03125 -29.75 25.519531 -27.953125 26.625 -25.484375 C 27.726562 -23.015625 28.28125 -19.875 28.28125 -16.0625 C 28.28125 -12.25 27.726562 -9.109375 26.625 -6.640625 C 25.519531 -4.171875 24.03125 -2.367188 22.15625 -1.234375 C 20.28125 -0.0976562 18.160156 0.46875 15.796875 0.46875 Z M 15.796875 -3.03125 C 18.597656 -3.03125 20.71875 -4.035156 22.15625 -6.046875 C 23.601562 -8.066406 24.328125 -11.40625 24.328125 -16.0625 C 24.328125 -20.71875 23.601562 -24.050781 22.15625 -26.0625 C 20.71875 -28.082031 18.597656 -29.09375 15.796875 -29.09375 C 13.953125 -29.09375 12.398438 -28.664062 11.140625 -27.8125 C 9.878906 -26.96875 8.914062 -25.582031 8.25 -23.65625 C 7.582031 -21.738281 7.25 -19.207031 7.25 -16.0625 C 7.25 -12.914062 7.582031 -10.378906 8.25 -8.453125 C 8.914062 -6.535156 9.878906 -5.148438 11.140625 -4.296875 C 12.398438 -3.453125 13.953125 -3.03125 15.796875 -3.03125 Z M 15.796875 -3.03125 "/></g></g></g><path stroke-linecap="butt" transform="matrix(0.75, 0, 0, 0.75, 682.512405, 1275.073933)" fill="none" stroke-linejoin="miter" d="M 3.499085 3.500381 L 425.212663 3.500381 " stroke="#8c52ff" stroke-width="7" stroke-opacity="1" stroke-miterlimit="4"/><path stroke-linecap="round" transform="matrix(0.75, 0, 0, 0.75, 682.512405, 1275.073933)" fill="none" stroke-linejoin="round" d="M 17.499086 -6.99962 L 3.499085 3.500381 L 17.499086 14.000382 " stroke="#8c52ff" stroke-width="7" stroke-opacity="1" stroke-miterlimit="4"/><path stroke-linecap="round" transform="matrix(0.75, 0, 0, 0.75, 682.512405, 1275.073933)" fill="none" stroke-linejoin="round" d="M 411.212662 -6.99962 L 425.212663 3.500381 L 411.212662 14.000382 " stroke="#8c52ff" stroke-width="7" stroke-opacity="1" stroke-miterlimit="4"/><g fill="#000000" fill-opacity="1"><g transform="translate(797.696272, 1332.073928)"><g><path d="M 12.71875 0.46875 C 9.601562 0.46875 7.128906 -0.234375 5.296875 -1.640625 C 3.460938 -3.046875 2.273438 -5 1.734375 -7.5 L 4.546875 -8.765625 L 5.046875 -8.671875 C 5.609375 -6.753906 6.46875 -5.316406 7.625 -4.359375 C 8.789062 -3.410156 10.488281 -2.9375 12.71875 -2.9375 C 14.988281 -2.9375 16.71875 -3.457031 17.90625 -4.5 C 19.09375 -5.539062 19.6875 -7.070312 19.6875 -9.09375 C 19.6875 -11.070312 19.082031 -12.582031 17.875 -13.625 C 16.664062 -14.664062 14.765625 -15.1875 12.171875 -15.1875 L 8.671875 -15.1875 L 8.671875 -18.296875 L 11.796875 -18.296875 C 13.816406 -18.296875 15.421875 -18.796875 16.609375 -19.796875 C 17.804688 -20.804688 18.40625 -22.226562 18.40625 -24.0625 C 18.40625 -25.800781 17.890625 -27.109375 16.859375 -27.984375 C 15.828125 -28.859375 14.382812 -29.296875 12.53125 -29.296875 C 9.289062 -29.296875 6.984375 -28.003906 5.609375 -25.421875 L 5.09375 -25.328125 L 2.984375 -27.640625 C 3.847656 -29.117188 5.09375 -30.3125 6.71875 -31.21875 C 8.34375 -32.125 10.28125 -32.578125 12.53125 -32.578125 C 14.570312 -32.578125 16.3125 -32.257812 17.75 -31.625 C 19.195312 -30.988281 20.296875 -30.070312 21.046875 -28.875 C 21.796875 -27.675781 22.171875 -26.238281 22.171875 -24.5625 C 22.171875 -22.976562 21.710938 -21.585938 20.796875 -20.390625 C 19.878906 -19.203125 18.664062 -18.265625 17.15625 -17.578125 L 17.15625 -17.109375 C 19.28125 -16.597656 20.878906 -15.644531 21.953125 -14.25 C 23.023438 -12.851562 23.5625 -11.132812 23.5625 -9.09375 C 23.5625 -6.050781 22.648438 -3.695312 20.828125 -2.03125 C 19.015625 -0.363281 16.3125 0.46875 12.71875 0.46875 Z M 12.71875 0.46875 "/></g></g><g transform="translate(823.799785, 1332.073928)"><g><path d="M 15.796875 0.46875 C 13.441406 0.46875 11.328125 -0.0976562 9.453125 -1.234375 C 7.578125 -2.367188 6.082031 -4.171875 4.96875 -6.640625 C 3.851562 -9.109375 3.296875 -12.25 3.296875 -16.0625 C 3.296875 -19.875 3.851562 -23.015625 4.96875 -25.484375 C 6.082031 -27.953125 7.578125 -29.75 9.453125 -30.875 C 11.328125 -32.007812 13.441406 -32.578125 15.796875 -32.578125 C 18.160156 -32.578125 20.28125 -32.007812 22.15625 -30.875 C 24.03125 -29.75 25.519531 -27.953125 26.625 -25.484375 C 27.726562 -23.015625 28.28125 -19.875 28.28125 -16.0625 C 28.28125 -12.25 27.726562 -9.109375 26.625 -6.640625 C 25.519531 -4.171875 24.03125 -2.367188 22.15625 -1.234375 C 20.28125 -0.0976562 18.160156 0.46875 15.796875 0.46875 Z M 15.796875 -3.03125 C 18.597656 -3.03125 20.71875 -4.035156 22.15625 -6.046875 C 23.601562 -8.066406 24.328125 -11.40625 24.328125 -16.0625 C 24.328125 -20.71875 23.601562 -24.050781 22.15625 -26.0625 C 20.71875 -28.082031 18.597656 -29.09375 15.796875 -29.09375 C 13.953125 -29.09375 12.398438 -28.664062 11.140625 -27.8125 C 9.878906 -26.96875 8.914062 -25.582031 8.25 -23.65625 C 7.582031 -21.738281 7.25 -19.207031 7.25 -16.0625 C 7.25 -12.914062 7.582031 -10.378906 8.25 -8.453125 C 8.914062 -6.535156 9.878906 -5.148438 11.140625 -4.296875 C 12.398438 -3.453125 13.953125 -3.03125 15.796875 -3.03125 Z M 15.796875 -3.03125 "/></g></g></g><path stroke-linecap="butt" transform="matrix(0.75, 0, 0, 0.75, 348.948429, 1275.073933)" fill="none" stroke-linejoin="miter" d="M 3.501053 3.500381 L 425.214631 3.500381 " stroke="#8c52ff" stroke-width="7" stroke-opacity="1" stroke-miterlimit="4"/><path stroke-linecap="round" transform="matrix(0.75, 0, 0, 0.75, 348.948429, 1275.073933)" fill="none" stroke-linejoin="round" d="M 17.501054 -6.99962 L 3.501053 3.500381 L 17.501054 14.000382 " stroke="#8c52ff" stroke-width="7" stroke-opacity="1" stroke-miterlimit="4"/><path stroke-linecap="round" transform="matrix(0.75, 0, 0, 0.75, 348.948429, 1275.073933)" fill="none" stroke-linejoin="round" d="M 411.21463 -6.99962 L 425.214631 3.500381 L 411.21463 14.000382 " stroke="#8c52ff" stroke-width="7" stroke-opacity="1" stroke-miterlimit="4"/><g fill="#000000" fill-opacity="1"><g transform="translate(475.45394, 1332.073928)"><g><path d="M 12.71875 0.46875 C 9.601562 0.46875 7.128906 -0.234375 5.296875 -1.640625 C 3.460938 -3.046875 2.273438 -5 1.734375 -7.5 L 4.546875 -8.765625 L 5.046875 -8.671875 C 5.609375 -6.753906 6.46875 -5.316406 7.625 -4.359375 C 8.789062 -3.410156 10.488281 -2.9375 12.71875 -2.9375 C 14.988281 -2.9375 16.71875 -3.457031 17.90625 -4.5 C 19.09375 -5.539062 19.6875 -7.070312 19.6875 -9.09375 C 19.6875 -11.070312 19.082031 -12.582031 17.875 -13.625 C 16.664062 -14.664062 14.765625 -15.1875 12.171875 -15.1875 L 8.671875 -15.1875 L 8.671875 -18.296875 L 11.796875 -18.296875 C 13.816406 -18.296875 15.421875 -18.796875 16.609375 -19.796875 C 17.804688 -20.804688 18.40625 -22.226562 18.40625 -24.0625 C 18.40625 -25.800781 17.890625 -27.109375 16.859375 -27.984375 C 15.828125 -28.859375 14.382812 -29.296875 12.53125 -29.296875 C 9.289062 -29.296875 6.984375 -28.003906 5.609375 -25.421875 L 5.09375 -25.328125 L 2.984375 -27.640625 C 3.847656 -29.117188 5.09375 -30.3125 6.71875 -31.21875 C 8.34375 -32.125 10.28125 -32.578125 12.53125 -32.578125 C 14.570312 -32.578125 16.3125 -32.257812 17.75 -31.625 C 19.195312 -30.988281 20.296875 -30.070312 21.046875 -28.875 C 21.796875 -27.675781 22.171875 -26.238281 22.171875 -24.5625 C 22.171875 -22.976562 21.710938 -21.585938 20.796875 -20.390625 C 19.878906 -19.203125 18.664062 -18.265625 17.15625 -17.578125 L 17.15625 -17.109375 C 19.28125 -16.597656 20.878906 -15.644531 21.953125 -14.25 C 23.023438 -12.851562 23.5625 -11.132812 23.5625 -9.09375 C 23.5625 -6.050781 22.648438 -3.695312 20.828125 -2.03125 C 19.015625 -0.363281 16.3125 0.46875 12.71875 0.46875 Z M 12.71875 0.46875 "/></g></g><g transform="translate(501.557453, 1332.073928)"><g><path d="M 15.796875 0.46875 C 13.441406 0.46875 11.328125 -0.0976562 9.453125 -1.234375 C 7.578125 -2.367188 6.082031 -4.171875 4.96875 -6.640625 C 3.851562 -9.109375 3.296875 -12.25 3.296875 -16.0625 C 3.296875 -19.875 3.851562 -23.015625 4.96875 -25.484375 C 6.082031 -27.953125 7.578125 -29.75 9.453125 -30.875 C 11.328125 -32.007812 13.441406 -32.578125 15.796875 -32.578125 C 18.160156 -32.578125 20.28125 -32.007812 22.15625 -30.875 C 24.03125 -29.75 25.519531 -27.953125 26.625 -25.484375 C 27.726562 -23.015625 28.28125 -19.875 28.28125 -16.0625 C 28.28125 -12.25 27.726562 -9.109375 26.625 -6.640625 C 25.519531 -4.171875 24.03125 -2.367188 22.15625 -1.234375 C 20.28125 -0.0976562 18.160156 0.46875 15.796875 0.46875 Z M 15.796875 -3.03125 C 18.597656 -3.03125 20.71875 -4.035156 22.15625 -6.046875 C 23.601562 -8.066406 24.328125 -11.40625 24.328125 -16.0625 C 24.328125 -20.71875 23.601562 -24.050781 22.15625 -26.0625 C 20.71875 -28.082031 18.597656 -29.09375 15.796875 -29.09375 C 13.953125 -29.09375 12.398438 -28.664062 11.140625 -27.8125 C 9.878906 -26.96875 8.914062 -25.582031 8.25 -23.65625 C 7.582031 -21.738281 7.25 -19.207031 7.25 -16.0625 C 7.25 -12.914062 7.582031 -10.378906 8.25 -8.453125 C 8.914062 -6.535156 9.878906 -5.148438 11.140625 -4.296875 C 12.398438 -3.453125 13.953125 -3.03125 15.796875 -3.03125 Z M 15.796875 -3.03125 "/></g></g></g></svg>
+    <div style="font-size:12px;color:#555;margin-top:4px;font-style:italic">Fig. M1 — Three-part decomposition</div>
+  </div>
+
+  <div class="decomp-desc">
+    <p>The x–y axes naturally divide the shape into three parts:</p>
+    <ul>
+      <li><strong>A</strong> — base rectangle, $60 \times 30\ \text{mm}$, below x-axis</li>
+      <li><strong>B</strong> — upper-right rectangle, $30 \times 50\ \text{mm}$, right of y-axis</li>
+      <li><strong>C</strong> — top-left right triangle, base $30\ \text{mm}$, height $50\ \text{mm}$, left of y-axis</li>
+    </ul>
+    <p style="font-size:13px;color:#555">The dashed lines show where the axes divide the shape into its component parts.</p>
+  </div>
+</div>
+
+<!-- ─── STEP 1 ─── -->
+<div class="step">
+  <div class="step-heading">
+    <div class="step-num">1</div>
+    <div class="step-title">Areas and Centroid Distances</div>
+    <div class="try-hint">Try it first, then reveal ↓</div>
+  </div>
+  <details>
+    <summary><span class="step-label">Step 1</span> Calculate the area and centroid distances ($d_x$, $d_y$) for each part</summary>
+    <div class="step-body">
+      <p>Calculate the area of each part and the distance from its centroid to each reference axis ($d_x$ for $I_x$; $d_y$ for $I_y$).</p>
+
+      <div style="text-align:center; margin: 1rem 0;">
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAcwAAAHMCAIAAADXuQ/RAAAABmJLR0QA/wD/AP+gvaeTAAAgAElEQVR4nO3dZ1xT5/sG8DvMsMKWIaCAqKCAGwfWrShaqrbWXbFWrQv3rK2oVdzYal118RO3DAXcA3Hhxi0OwAGyZJMAIfm/OP7TiBPN4STh+n58kTw5OdzhgxcPzznnPjypVEoAAMAODa4LAABQZwhZAAAWIWQBAFiEkAUAYBFCFgCARQhZAAAWIWQBAFiEkAUAYBFCFgCARQhZAAAWIWQBAFiEkAUAYBFCFgCARQhZAAAWIWQBAFiEkAUAYBFCFgCARQhZAAAWIWQBAFiEkAUAYBFCFgCARQhZAAAWIWQBAFiEkAUAYBFCFgCARQhZAAAWIWQBAFiEkAUAYBFCFgCARQhZAAAWaXFdAFRf+fn506ZNI6Lvvvuue/fusvGjR4+GhYUR0dixYz08PDirD0AReFKplOsaoJqSSqUmJib5+fmjR49et24dMygSierXr5+SktKgQYObN29qaWEeAKoNywXAGR6P5+bmRkQPHz6UDQYHB6ekpBDRqlWrkLCgBhCywKWGDRsSUWJiIvM0KysrKCiIiPr27dulSxcuKwNQEIQscIkJ2dTU1IKCAiKaN29eXl6erq4uE7UAagB/jgGXmJCVSqWPHj0yMDDYuHEjEU2dOrVOnTpclwagGAhZ4BITskSUmJi4a9eusrIya2vr6dOnc1sVgALh7ALgmJWVVUZGRqtWrS5evEhE27dvHzp0KNdFASgMQhY41rFjx9OnTzOPW7ZseeHCBR6Px21JAAqEA1/AMXd3d+YBj8cLDg5GwoKaQcgCxxo0aMA8GDp0qJeXF7fFACgcQhY4Fh8fT0QCgWDRokVc1wKgeDi7ADiQkJCQmZmpqam5d+/eLVu2ENHy5cttbW25rgtA8XDgCzjg4+Nz9OhR2dOxY8euWbOGw3oA2IPlAqhqubm5CQkJRMTj8Tw8PLZu3YqEBTWGmSxwo7i4WFtbW1tbm+tCANiFkAUAYBGWCwAAWISQBQBgEUIWAIBFCFkAABYhZAEAWISQBe6tX79+wYIFQqGQ60IAFA+X1QLHgoODJ02aRESPHj0KCQnhuhwABcN5ssCly5cvt23btrS0lHm6efPm4cOHc1sSgGIhZIEzubm5TZo0SUpKko3w+fxLly55enpyWBWAYmFNFrghlUr9/f3lE5aIRCLRgAEDCgsLuaoKQOEQssCN4ODgiIiId8fv37//yy+/VH09ACzBcgFw4MqVK97e3rKl2Hdt2bLF39+/KksCYAlmssCBTZs2fSRhiWjt2rVVVgwAqxCywIE+ffoYGhp+6FUtLa1BgwZVZT0A7EHIAgd8fHwKCgqkUqlUKt29ezczOGPGDGakrKyMOXMWQA0gZAEAWISQBQBgEUIWAIBFCFkAABYhZAEAWISQBQBgEUIWAIBFCFkAABYhZAEAWISQBQBgEUIWAIBFCFkAABYhZAEAWISQBQBgEUIWAIBFCFkAABYhZAEAWISQBQBgEUIWAIBFCFkAABYhZAEAWISQBQBgEUIWAIBFCFkAABYhZAEAWISQBQBgEUIWAIBFCFkAABYhZAEAWISQBQBgEUIWAIBFCFkAABYhZAEAWISQBQBgEUIWAIBFCFkAABYhZAEAWISQBQBgEUIWAIBFCFkAABYhZAEAWISQBQBgEUIWAIBFCFkAABYhZAEAWISQBQBgEUIWlIVQKOS6BADFQ8gCALAIIQsAwCItrguA6i4vL4+IGrSyPXM1olWX41yXo3qORcUa6Vp+fBuphM5sIzs3cmlZNUXBfxCywLEdO3YQUerT3Gkbu/D1tbkuR8UsG3m8TFL6yc3O76Lr0XTzCA1ZRha1qqAu+A9CFrgUHx9/584d5nGj9vYGAh1u61E5eoaf/rWUnECXw4mIpBI6tIIGLyVtPuuFgQzWZIEzUql0woQJfn5+XBeizgpf0+HVb1LVoja9fknHN3BdUzWDkAXObNq0SSKReHh4cF2IOrt7horzqPMoIiJzW3JqSvfPUlEO12VVJ1guAG7k5eUFBgauX7/+yZMnXNeizhr7kH0DsnKiGCLiUc8plPGUDEy5Lqs6wUwWuDFnzpzOnTvXq1eP60LUnI4+2cp9j7V1qaYrd9VUS5jJAgcePHhw4MCBQ4cOcV0IAOswkwUOjBkzZty4cQKBgOtCAFiHkIWqtnfv3oyMjL59+3JdCEBVwHIBVCmRSDRr1qzFixdraOAXPFQLCFmoUgsWLGjUqFGjRo24LoQzY9vsvnMhVX5EYMa3r2f67ShPn5/cuKoK2IOQhaqTnJy8adOm8PBwrgtRLvmvRXcvpt29mFaUX9J3fGOuywEFQ8hC1QkICPj5558tLT/RzaQ6EJjxdz4eTkSScunDq+l/9IsqLigN+/smQlb9YF0MqsjJkyfv3r07ZMgQrgtRDjwyMuUbmfKNLfRa+NT26l6biPKz0bZcDSFkoSqUl5ePHz9+1qxZWlr44+k90lMKiKhhG1uuCwHFw088VIUVK1bY2dm1bduW60KURUmxeMPMOCKSSqQPrqbfi09zcreY/E8nrusCxUPIAusyMzNXrVoVGhrKdSFKpEQo3rnkivyIiaV++rMCSzsjrkoCliBkgXWTJ0/u27evnZ0d14UoEb6+1k+/t2Iev35VdDb88fVTz26fe7kkpnfTTg7c1gaKhZAFdsXHx586dSomJobrQpSLjp7WwBnNZU8Hz/Ya4Ly5uKB067yLCFk1gwNfwCKmLffMmTP19PS4rkWpmVjq2bmYEFHKvWyuawEFQ8gCizZu3KihodGtWzeuC1F2BTmil0/yiMjQRJfrWkDBsFwAbMnLy5s/f/6GDbjbyXuUyh34EhWXnd6bWJRXQkStejpxWhcoHkIW2DJ79uzOnTvXrVuX60KUkej/T+GSV6+p1fDA1pzUA+xByAIr7t+/HxYWhrbc76rXzEpX/63/d/qGOiY19Bt3sP+mTx1tHU2uCgOWIGSBFWPHjh0/fjzacr9rwuoOXJcAVQoHvkDx9uzZk5GR0adPH64LAeAeZrKgYExb7qCgILTlBiDMZEHh5s+f37hx4+rclhtAHmayoEjJycn//vsv2nIDyGAmC4qEttwAFSBkQWFOnjx57949tOUGkIeQBcUoLy8fN27czJkz0ZYbQB5CFhRjxYoV9vb2aMsNUAEmHaAAGRkZK1eu3LlzJ9eFACgdzGRBAaZMmfLDDz+gLTfAuzCTha916dKl06dPR0dHc10IgDLCTBa+ilQqDQgImDFjBtpyA7wXQha+CtpyA3wclgvgy+Xl5QUGBm7cuJHrQgCUF2ay8OVmz57dtWtXtOUG+AjMZOEL3bt3Lzw8/ODBg1wXAqDUMJOFLzRu3Di05Qb4JIQsfIndu3dnZGT07t2b60IAlB2WC6DSRCLR7Nmz0ZYb4HPgPwlUWmBgYJMmTdCWG+BzYCYLlZOcnLx582a05Qb4TJjJQuVMmDBhxIgRaMsN8JkQslAJJ0+evH///uDBg7kuBEBlYLkAPpdSteV+8Ui0ZMSTd8dnbXW2deJ/wQ5FRWV8A+2vrgugIu7/t4CqWL58uYODg5K05baw1f51aa13x82tdSq1n/zXojWTzpzem1hWIq5hbzRqyTed+tcjoh2L4ncvvya/5cHMXzU0eV9TM1RPCFn4LBkZGatWrVKettx8A003L8Ov30+Q/1EdvuauJ8PNrAzOH3wSOCDazcvaxtG4IKfk21EeA6Y3k22JhIUvg5CFzzJ58mRla8sdF/5YU1ujdU8nIsrNFO5bda3/tGZGppVbKxi9pK2Nk7G2jiYRte1dx7qW4MGVdBtHY1FxmXVt48ruDeBdCFn4NKYtd0xMDNeFvIVvoL1yzMlWvk7lYsm8H6Mad7B/NxMj/kkIDbosPzJtY5cWPrVlTx3qm8kei4rFmS8LbZ2MiahEKNbha0ZvvnP73Msa9kZ9xjc2sUTDXPgSCFn4BKYt98yZM5WtLXezLrW0tHgJZ1+c3vvQ0Fh36G8t393Gd0TDrkNc5Ud09d7/My8ukywdcaxxe/u6Ta2IqFQojlyX4Puze6P29oe33jm99+G/N4Z86L0AH4EfGviEDRs2KGdbbh6P/H71XPTTEX0jnXUXB/Det2QqlUjLxZK3RqTv2SzrZeGCQTG6+tp/7PZl9tOhX71vR3s2amdHRO1/qPtj7U0XDj3t0A9NHaHSELLwMXl5efPnz1fOttxSKSWcfVmYW+Lt56xnqE1EWamFwWNP2dczzcko7jrYtUlHh8Pb7u1aekX+XZPXdWrRrbb8yM3YF4H9o3uNdB/2eyvZ0a22vevINuDrazk2tHj5JJf1jwTqCCELH6PMbblDF8dnvSxcEvXd7O8if136jbauprhUYlVLMCqobblYEtg/uklHB7/RHn6jPT6yk1txL2f7Rc7b7Su/UCspl26cfW7IHC8DwZsTwrLTiozNcRAMvgRCFj7o3r17YWFhhw4d4rqQ97h24tn+1TfWxw+0ri2wsDW8FJPEzD1fPMo5sy/x2cOcdt9/1i+GXUuv9BzR0NXLuiBHxIzwDbS1dTTvx6et/PXEr0u/0RfohK+9mZ1W1OZbZxY/D6gvhCx80Lhx4yZMmKCEbbmzUgtX/Hpi7s4e1rUFROT7c8PYA4+YkDUQ6Ng4GRuZ8cPX3PT2c/7koaqC3JKYLXdjttyVjUxa27HTgPq/7/Jd+euJAXW2lJWIXRrXWBLd28zagNUPBeoKIQvvp8xtuS1sDXc+Gi57+n1AE9ljUyuDek2tiOj8wSeZLwrsXEw/vqs1cT++d9zcxuDPCD8iEpdJtLTR4gO+HEIW3oNpy71kyRKVa8t9+/zLDTPjSoTigpwSW2eTr98hEha+EkIW3oNpy+3p6cl1IZVTw8FoxbG+RKTD11LgOa3iEuLxSLNyTREA3kDIQkVJSUkq2pZbQ4PHxoWwqQmkpcuz9XzfGbYAn4I/haCigIAAtOUGUBSELLzl+PHjaMsNoEAIWfiPWCyeMGHCrFmzlKEtN4B6QMjCf5i23N7e3lwXAqA+ELLwRkZGRnBw8IwZMzisQS+5uE5QIocFVGByNcdhcwpPgkNe8OXwVyG8wXlbbptTWe4rHvNKJdntLLiqoQKz869tdz83rJ0dN8kD/1ngy+DnBoiILl26dObMmejoaA5rsItJ55UTT0q2+1M5LEOeZqGYiMxS8gWpRUTGXJcDKgkhCySVSidMmMB5W+6rSxs02P7cJiz17oqGHJYhz3bvS71nxSdGehQ4GdkSFg3gSyBkgdavX6+pqdm1a1duy5BqUFKAc8poR27LkJf2fc20PrY513n4fwJfDD881V1eXt6CBQuUpy23RFeJDsZKNYg0cJNa+CpK9AMNnJg9e3a3bt2Usy03gBrATFZthR06dj3hXoVB59r2/oP7yp7eunXrwIEDUVFRVVsaQDWCmWy1FhAQEBAQ8PltuaVSaUJCwoQJE37//Xf58fz8/Dlz5rRp06Z58+Zjx4599uwZC8UCqCTMZNVWn15d+/T62LGsXbt2ZWZmVqotd9u2bfX19W1sbMRisWywvLx8+PDhDg4O27Zt4/F4e/bsGThwYExMjBLeUgGg6mEmq7aePXu2e/du2dP9+/ffvn1b9lQoFM6cOfOPP/6oVFvurVu3Hjt2rEOHDvKDp06dysrKWrp0qYuLS506debMmWNvb79jx46v/wgAagAzWbVlamo6evTopk2buri4bN++fcmSJZcuXZK9GhgY2Lx587p16/bp00f+Xe7u7oGBgR/ap4uLy7uD586da9OmjXxPmU6dOp05c2bMmDGK+BwAqg0hq7aMjIwGDx68devWXr16zZo16+zZs7K/35OSkrZs2RIeHs7n81evXi3/Lj7/rabXr1+/vnfvzdEze3v7WrVqvfuFMjIy3Nzc5EesrKzS09MV+WEAVBZCVp2NGTOmffv2ISEhISEhderUkY1PmDDhl19+Ydpy29vbf2QPz58/DwkJYR736NHjvSFbXl7O4711MqmmpmZ5ebkCPgCA6kPIqrNHjx4VFhba2dl17tyZGcnOzh46dGhcXBwRpaammpiYtGvXTv4tzZo1W7duneypp6fnJ69TsLCwyMrKkh/JysqysFCWJi8A3ELIqq3ExMSRI0eePHmyT58+ly5datmyJRGNHDnywYMHwcHBrq6usbGxffr0uXLlyld+oRYtWmzYsEEqlcrms+fOnWvRosXXfgAAtYCzC9RTYWFh7969FyxY0KpVq0GDBm3dupWICgoK7t+/7+Li4u3tbW5uXuGQ1xfz8fERi8WrVq0qKSkRiUShoaHXr18fNGiQQnYOoOowk1VDUqnU39+/cePGI0eOJCJ/f//WrVuvWrUqKSnp6dOna9eu/bLdpqam+vn5EVFpaalYLG7evDkRHT161MzMbPPmzbNmzWrcuDEROTo6bty40cbGRnEfiDPCTIOkSNf0J0JdgVhPL9u0btan3wPwNoSsGuLxePv27ZM9bdCgQV5eHhEFBQVZWFhYW1sTkUQiOXr0aPfu3T9/t7a2th9aW3BwcAgNDS0oKBCLxaampl9XvrJIiakXO6FnWaEO3/mWVKzz4O96jSafbzI1juu6QMUgZKuLS5cunT17dvbs2ePHj/fy8rp9+zYzLVUgIyMjxe6QQzkPLE+N9pOUaspGpBLejeXeRg55Lv1ucVgYqByEbLUglUrHjBkzc+bMzp07t2rVKjk5uXfv3rjs9SPubmzOJCzfTFizfVLuXZuSFCKihL9aImShUhCy1cL69ev5fD7TltvAwKBBgwZcV1Slsp/Qo1OVawubXXTLuOMDIjJzy5TyCwWtEsX6ScxLFzdWOC34g3RLxCW6X/tfrNGPUn6V/DZ88uRJhcbtP/7446JFi5jHT58+nT59emxsrIaGRqdOnZYuXcrh7eBUC0JW/X1ZW+68vLyCggL1+I9k7kzmzpW7ecyhyA55V+2IyKnJOYtv4vIfmSet+pGINLTLvUKWa2hJPrkHvefCpv0uP55R99V3qnEMMD8/v6Cg4PDhw7IR2cnOWVlZrVu39vPzO378eEFBwV9//eXt7X3r1i38MfQ5ELLqb9asWV/QlruoqCg7O1s9QvYL1GyfnHHVjohuLPc2Pq1d8vrNcrNN25TPSViNUknD8QkapVKXxYn5HoJiJwN2y1UEoVBoZGTUtGnTd19atmyZm5vbhg0bmKfe3t7u7u5///33nDlzqrZGlYTzZNXcrVu3wsLCxo4dy3UhKsZ95GWj2rnM45JcPalEg4i0+OLmc05/ztt1MkvLTHRKLHWKHfUNHhWyWKjiiEQiPT29/Pz8HTt2bNu27fnz57KXoqKi+vb9r9c7j8fr379/TEwMF2WqHoSsmqtsW25gaAtKfMN32HVIko2YumZ2Dws1b5DxOW8X1eTf3Nak3Ejr7oqGmd2sWCtTkYRCYX5+/nfffXfixIlNmzbVrVv32LFjzEvJyclOTk7yG9vb2ycnJ3NQpQrCcoE6+4K23BVo5eaa792bMXy4VEvBPyqmhw+XWlkVNWmi2N0qkIFNQbddu4vSjJ6c1tEzK3Pxyee6Inbp6enVq1fvwIEDzK/kcePGBQQE3L9/XyqVikQiXV1d+Y0NDQ2Li4s5qlTFIGTVFtOWe/ny5ZVqyy2vRkpKrb//1iwuLmrUSKKnp9jyjM6d001KyuvalWdpqdg9K5aBTYFJHdLSVf971nbs2LFjx46yp4MHD167dm1OTo6pqampqSlzPYtMRkaGubl5ldeokhCyaotpy+3p6fnFe7C/d0+jtFSqqSk4e1bhM1kNoZB4PKPz53V79FDsnuHLFBQUFBcXW1m9WdxgurBLpVIiatKkydWrV+X/JLp582YTJf4rRKkgZNWTrC331+zkWvfuRu7uFjt3vho7VuEz2ZpLlpSbmKROniw6e1axe4YvM3369MzMzH379jGnAYeHh9etW9fMzIyIhg0bNmXKlPHjxzPXZCcmJu7atSs0NJTjilUEQlY9jR8/XtaW+2vk+Prmdeyo8IQlorQJEyR8Pn3maf3AvunTp7dp08bb29vLy+vx48cnT56MiIhgXhowYMCRI0c8PT39/PyKiopiYmKGDBnSq1cvbgtWFTi7QA0dPnz44cOHimo2yEbCvtktElaZODo63rt3b8iQIZqamm3atLl9+3aXLl2Yl3g83vbt23fs2FGjRg1nZ+fw8PAv7uVWDWEmq27KysomT548a9YsLUWvooLaMzExGT169Htf4vF4Xbp0kcUufD7MZNXNsmXLatWq5e3tzXUhAECEmayaSUtLCw4O3rNnD9eFAMAbmMmqlalTp/bv379mzZpcFwIAb2Amqz4uXrwYGxsbHR3NdSEA8B+ErJqQSqVjx46dNWuWHjsnA1RnfAFpaFeuUyKADEJWTaxbt47P5+PgLxtq1Oe6AlBlCFl1kJeXt3Dhwsq25QaAKoADX+pg1qxZPj4+lW3LDQBVADNZlce05cbxLgDlhJmsygsICJg4caI63Y4bQJ0gZFXbzp07MzMzv/vuO64LAYD3w3KBCisuLp41a9bXtOUGALbhP6cKCwwMbNGixde05QYAtmEmq6qSkpK2bt0q6/gJAMoJM1lVNX78+JEjR1pYWHBdCAB8DEJWJTFtuQcOHMh1IQDwCQhZ1VMFbblLCnlp97WykjULMvETAvBVsCarelhtyy2V0vn/8S/8T59nmq9pphO/ysTDp7TbxEJtPhtfDUD9IWRVDNttuc+H6MVu1iMiHSIikkooIUZHVGD4/Z+FLH1FAPWGPwZVzJQpUwYMGMBSW25Rgcb5/73plMg3kuoJ3vT3exin8/wWfh8DfAn8z1ElFy9ePHv2LHttCp7f1hSXEk+71NBC3GNGTm5+4YPywmcJWkSUdLPcqn6p/Mbl5eVlZWWfs9vS0tKPv2plZSUw4+c+0xDqvnX/Wg0tqZlj5T8GgDJByKqMj7TlTk9Pv3r16nvfxePxdHR0iKjLqVMvzM1v1v9gb1Rtbe2i11qCb7SISEdPeu9hfklJidihwFBPg4hSS8vPni0nIg0NDW1t7c8pmPm6nyQSiWrVqqVnqJ33QkNH962XtHR5Zo7olg2qDSGrMj7SltvKysrX1/cj7zU5etQiNdU5NdW5d2+Rk9OHNsvP0Fiz3kQqISLSyX+qZZb2MqaNVEpE1K17Qd02nzVvrazs7OzLly+bWunPaN3YQKCA9avVE5IT4vIrDHp1MxkV5PD1OweoLISsamDacm/atOlL3iyVmu/fryESEZHZgQOp06Z9aENBDYln95Kb0bpElJWkqZmnySSsTT1xnZasJCwbBkyz9fvVqsKgoUCzsvuRSunghlvRm2/npBdbORgNnNGidS8nIjp/8Mn2+Zfkt1wY/m0Ne3RBg/dDyKqGmTNn+vj4uLi4fMmbebwnmzZZ/fuvsF69/LZtP75tt0lFpULevVP//aVf0038/cJCjUpnFGdq2H/WMsUnbZ57PnZ/4q/L2znUM70V9/KPflHr4wc4e1hmvig0tzEYNq+VbEvTGvoK+YqglhCyKuDWrVsRERFRUVFV8LW0dKj3vMJWA7XuXC4pLC3zGF7g2KyMp1InoTy9nSUuk9RtUkM2ciHqqbO7hVUtQaX2066vS69f3Jl32bmYHg99cPloirOHZYlQbGlnWK9pxckywHshZFXAhAkTAgICqrItt3VdscSwNDNT7OSpMqsEMrfPvbwUk7T40Jseu9dOPlv687EdD/0rbHbzzPOQP+PlR74d5dH++/9u4ePSuIb8q3lZQnNrfSIqEYp19bQf38y8cjzFyFS344/19I0UM3cGtYSQVXY7d+7Mzs5GW+7P5+xpuXPpFeZxuViyZtKZUUvaGprovrvZqMVvLZ58ZF01atPtwlxR617ORFQiFF89kZKXLbSuJTi568GeFdc2XB6InIUPQcgqNaYt94oVK9CW+/M5uVtkPCsoyi81EOhErEvQ1tXsNtTt3c2MTPn1mn36YuFysWTLHxeP/e9eUNR3TFLX8bQUmPF/nNKUiIbM8Rpcf+uR7ff6jGuk8A8C6gEhq9QCAwO9vLw8PDy4LkSV6BvpWNcWJN/NdqhvGrLgUlBUbw0NHhEtHnbEzNpAVFTW8cd67t414yIeLx95XP6NwwNb+/36Vgf0nPTi3384pKmlsT5+oLmNATPYod9/SwraupqN2tkl3cli/2OBqkLIKi+05f5izp6WSXeyjofeb9vbxbWFNTNYkFMya5tPqUj8+/dRQVE1vf3qtPJ965RhDc23rjfLySge1SK004D6vyzyZmKacXL3wyYd7WVnFBQXlAnMK14eAiCDkFVeaMv9xZw9LI/vfJByL3v73Z9kg4W5JQ+vpedlCus3tyIiHo+0tD+2CLN35TVnT8tRQRVPejsRev9STNKMzV21tDXuxaddikladqQPG58C1ANCVkkxbbmXLl3KVQHm5uYCQeXOeVIezh4W2wIvTlrbydjivzlmUV5J4rV0iYRePs4tzC1591BYBc8Tc27FvRzgvFk20ndC4+8DmkzZ0Pn37w91F6wxttAryBH98mebRu3s2PokoPoQssqoCtpyf5Kurq6u7idiSGkJC8vqNLL8dtRba9lWtQS9RnoQkbi0/F58WotutT++kzkh3cVl5fIjOnwtIrKwNfznwoDstKK8LKGtkzHf4LM6OUC1pYwhm/g4+UnSswqDBgZ637Ruzkk9VW/ZsmW1a9dmqS232nuVnL9x1rmF4d9WWGPNSi08sy9RWFR2Ierp7wN7fHI/eobaRB8MUHMbA9mhMICPUMaQPXfx6v/2HqwwWMvO9mtCtqysrLDwrbbTAoFAU/O/a0XT0tKys7OdnJz09SteIhkfH3/t2rUxY8YQUVFR0dOnTwUCQa1atb64GLFYLBKJDA0N5QelUunTp0+FQqFAIPhQW+6cnJxXr17Z2NiYmJgQkVAorNBskM/nf2bvK7U078eo9JkCHvMAACAASURBVGcFr5Lzf13aVna8S2bK+s5EpKml0aFfPb6+Mv7kg1pSxh+14UO+Hz7ke8XuMywsbMiQIfK5dubMGebUqIyMjCFDhsTFxRkZGYlEosDAwIkTJ8q/d9OmTQ0aNCCi4ODg+fPn16xZMy0tzcnJ6dChQ1ZWlbu2MikpKTIycvXq1R4eHpGRkbLxa9euDRo06NWrV7q6ujk5Oe3bt6/QllsoFM6dO/fIkSOWlpYZGRndunVbvHjxmjVr9u7dK9umqKho9uzZgwcPrlRJ6mTyP52z0wptnU109d7zg40LYYET1eUUd6FQ+N13372WIzv5dMCAATY2NllZWenp6ceOHVu0aFF4eLjsjRKJJDo62s/Pr7CwcO/evVevXr19+/bLly/19fVXrFhR2TKaNWt29erVjh07yg/m5+f37NlzxIgROTk5ERERxsbG7y4UBAUFvXr16sKFC6dPn46Li7OxsdHU1Jw2bdqV/3fhwgVTU9NqfkatwJzv2NDivQkLwBVlDNlTp04tWLBAfmTSpEnHjh37yFvEYnHp2ypsIBQK3+11TUQ3b968ePHiX3/9xawSeHl5TZw4cdWqVbINLl68WKNGDScnJ0NDwwsXLjg5ORGRrq5u27Zt09PTK+ytrKxMvoZ3bxyQkZGxY8cOd3d3+cE9e/bUqFFj6tSpTFvuwMDA/v37y29QVFR04MCB2bNnM4f7zczMpk2bVuGY2NGjR2vWrFnNQxZACSljyOro6Gze/N95MwcOHDhw4ECbNm0+8pYBAwbYvy0//622zSKRiM/n//XXXx07dvTz84uNjWXG4+LiGjVqJH+uUocOHS5evFhe/uawcmRkpJ+fX4Uvl5GRERUV9fPPP1cYb9OmjXwN70ae/CqwzIULFzp27BgfH+/l5ZWcnPz48eMKvyRu3bplYGBgZ2e3bNmyn3/++Y8//khKSqqwk9DQ0EGDBn3kWwQAnFDGkPXw8Hj+/DmTkqWlpTNnzgwODjYw+NiR3H379qW/rcI5nkKhMCIiwsDAYNGiRR4eHl27dr19+zYRZWZmVjjb38rKSiwWv379mnlaIWRDQ0MbNmxob2/v4+Pzbu5fvnxZvob79+9/zufNzMxMTU2dNWvWkydPhg8fHhERMe3tvto5OTnGxsbTp0+3sbEZNGhQcXFxv379MjMzZRs8ePAgOTnZx8fnc74cAFQlZVy9EggEDg4Od+/ebdWq1fLly2vVqtWnz39X1DBz0gpvSUxMzMvLkx9p0qSJ/LTRz8+vU6dOXl5eRNSyZcv4+PiQkJBly5Zpa2vLJq2MkpISImJOEb13715RUVGTJk1kr/bs2bNVq1bPnz//7bffRo8eXeFWBbdv3xaJRLKnWlpajRs3/uTn1dbWPnr0aN++fR0dHUeOHNm2bdvevXtnZmZaWlrK9pOSkjJ+/PhevXoRUYcOHfz8/CIjI0eMGMFssGPHjn79+qnuaa0AakwZQ5aIPD0979y54+TktGLFCtmf9vHx8fPnz69Ro0ZGRkZgYGCzZs1k22/ZsuX69evyewgPD5ef/DKnB8g/ffHiBRHZ29tXOFnq5cuXAoGAad4aGRnZu3dvHu+/0y2NjY2NjY2dnJzWrVvn6em5evVq+VO+li9fnpaWJnsqEAj279//yQ9ra2trZ2cXHR3N3Ia2bt26PB4vNTVVFrI1atQgIje3N62keDxevXr1UlNTmaf5+fmHDx8+eLDiSW8AoAyUNGQ9PDzu3Llz/vz54cOHN2zYkIgkEsmsWbOio6P19PSEQuG1a9fktw8KCvr4DqdOndq3b99Wrd7cMuTRo0eurq5E1LVr11GjRiUmJtat+6a10v79+318fJhgjYyMXLhwITMeFhZ2/vx52RkFUqmUx+NV6EC4ffv2L/iwXbp02bRp07x585hkf/HihUQiYYKV0bBhQ4FAkJKS4uzszIw8f/68ffv2zOMDBw60bt26wilfAKAklDdkJ06cKJVKZcuaycnJzs7OzBkCenp6lb0aSiAQ+Pv7r1ixwsHBITo6+tSpU0xbAFtb24CAgD59+gQFBVlaWh46dGjXrl3x8fFElJ6enpiY+M033zB7cHNzGzZsmLW1dY8ePbKysubOnevr6/vuwsVHlJaWMgvBL168yM3NZX5PeHh4FBQUaGlpnT9/3tXVVSQSLV++vGPHjsxZZYsWLZo4caKDg8P48eP//PNPHo9nZ2cXExPz6NGjlStXEpFUKt29e3dgYGClvhsAUGWUN2RfvnwZEhIiO37F4/GkzK1Tv8hvv/2mr6//+++/Z2dnu7q6Hj9+XPbX95IlS+zs7ObNm/f69WtPT8/Y2Nj69esTUURERPfu3WUXUNWvX//YsWN//vnnhg0bDA0NO3To8Pvvv1eqhqysrFGjRsmeMo8jIiJ+++23devWHT16dPLkyTwer127dgEBAURUWlqalZXFnGkwdOhQPT29tWvXZmdn16tXLyQkxNbWloju37/v6OjIrDUDgBL6quRiz/r163fs2BEXFydbD5VKpZ07d46IiDAyMsrKytqxY0eF67IUrkePHsOGDevXrx+rX2XGjBlJSUmyRQn2fObdaqteTEzMpEmTTK30QxOHGwjU6prgZj9cvhPsLqrJYrdZf4+QK/E3zfQ+sVhUXkbB/am+N/lOYq8WeD/lmsmmpqbq6OjEx8cHBgbGxsbKH3Hi8XgrV64cPHiwQCAoKSmpgh6AQUFBsoValqAtN4DaU66Q/eeff0JCQurXrx8ZGfluwHl6espf78+2Krh6aty4cWjLDaDelCtkFy5cWAV/OCsJ5vjVsmXLuC4EAFikjFd8VQdlZWVTpkyZOXMmh225AaAKIGS5gbbcANUEplEcSEtL+1BbbgBQM5jJcmDy5MkDBw7ENVoA1QFmslXt4sWLcXFxTJsCAFB7mMlWKYlEMnbs2NmzZ7+3gzgAqB/MZKvUunXr9PT0Onfu/JFtUlJS9uzZc/78+czMTE1NzZo1a3bu3PmHH34wNjausjoBQFEQslUnNzf3zz//rNCCtoKwsLDAwED5prQZGRk3btzYuXPnxo0b69Spw36ZAKBICNmqM3PmzB49eri4uHxog8uXL8+ZM0cikWhpafn5+Xl6epaUlMTGxp47d+7ly5fTp0/fv39/heaKAKDkELJVJCEhITIyMioq6iPbLFy4UCKRaGpqbtq0qXXr1szg0KFDg4KCQkJCGjVqVFpaWqnmigDAOYRsFQkICJg4cSLTlvu9EhMTHz58SERdu3aVJazsvb17965Xrx7rVQKAouFvz6oQGhqanZ397l1v5d26dYt5IH9LMYaenh4SFkBFYSbLuuLi4tmzZ69YseLjy6myu89aW1tXSV0AUBUwk2VdYGBgy5YtP9k4UdY9Xf4muwCg6jCTZdfTp0+3b9/+OW25ZV1l5e93CwCqDjNZdo0fP37EiBFmZmaf3FK26nrv3r0KLwmFwl9//bXCDXoBQCUgZFnEtOUeOHDg52zs4eFhZ2dHRFFRUQ8ePJB/aevWradOnRo4cGBiYiIrhQIAa7BcwBamLffcuXM/sy03j8ebNm1aQEBASUnJkCFDhg0b5unpWVRUdPr0aeamO40bN2b7nmMAoHAIWbYsXbq0sjfr9vHxGTdu3Nq1a/Pz8//66y/5l0xMTBYsWKDoGgGAdVguYEVaWtrq1aunTZtW2TeOHz8+JCSka9euhoaGRMTj8aysrPr27RseHv6R63EBQGlhJsuKSZMmfXFb7hYtWrRo0YKIiouLtbS0dHR0FF0dVC/iUuLx3nqqhZ+pKoSZrOJdvHjx0qVLP//881fuR19fHwkLX+nGYfpnGGUmv3l6LpTW/kTFeVyWVN1gJqtgTFvuGTNm6Orqcl0LcEci5aeJeGKpbnpJmZlOuR5nF5jY1iVJOUWvIpJSUQ49OE/WdUjvgy00VENhYeGpU6e8vb0/5+RIeRcvXmQOI8+cOdPExISI7t+/v337diLq0KFDt27d2KgWM1kF++eff/T09Dp16sR1IXKkUqcxYwSxsVabNtmuWsV1NdWC3jNhi2/jdTJLPX+5YX0glcNKrJyp7RDKTSfiUWoi6epTz8nEU/H/9z/88IOfn5+7u3tsbGyl3mhnZ7d8+fIlS5aEhYURkUgkGjBgwJIlS3bv3t2sWTN2ikXIKlRubu7ixYvnzp3LdSFv4/FyevSQampKebzXvr5cV1MtCGvrPx/mwCuTFDkapPa347aYpr7k3IyIqFxMPuPIuAa35SgA000pNTW1U6dOTIPQz3yjvb19165diWjXrl1ENGXKlISEBD6fHxYWZm5uzlK1CFlFmjFjRvfu3Z2cnLgupKIcX99id/fsfv1EONO2qiSPdXrV1/bu3x5SLd6nt2YVj3zGkYUDNe1JdVpwXItilZeXz50718fHJyMj4zPfMnLkSCI6ffr0mjVr/vnnHyL6559/3m19p0A8WV+SrySRSEpKShSyKxV1+/btb7/9NiwsjDn7Cj7T0aNHp0+fblJDf9utofoCHOirnFHNQ8+djTfVs+W6kCrl7OxcocWHra3tzp0727Vr98n3isXiWrVqpaa+WcMZOXLkhg0bWKlSRqogH+/5DwCgKNra2u8Oampq7tq165NJJRQKGzRowLzF3NxcKBQqKgM/BMsFAKAOysvL9+3b98nNAgIC7t69yzzOzs5+8uQJy3Up7hQuIyOj+vXrK2pvKqewsCgzK9PExJTrQlSPSCTMy80lIgMDQ8MP354H3is7K9PJyam63V4zOTm5rKyswqC5ufnUqVM//sZdu3Zt3LiRiEJCQqZMmZKZmbl79262L1hX2JpsNRcVc+Tvv9es3xLKdSGqJ+pg2ITRw4lo9NiJ0+fMU+zOeWWlvDKxRF9fsbtVHj06tbl6Jd7AwIDrQqpUzZo1ZYuqjObNm+/Zs8fR0fEj73r48GHz5s0LCgqGDBkSEhLy888/b9mypVatWklJSTweiwcnq9cvQKhuavz5h+3EUbyyUq4LAbYw7esuXLjw8YQtLCzs06dPQUGBo6PjmjVriKhv375ElJKScuHCBVYrRMiC2hIcDNO7cVXrVZr5mup+CYZUQpf2U0YS13UoiGx5xNzc/NChQ0uXLv1kQ1HmKqGmTZvu2LFDIBAQUadOnVq3bt20adP4+HhWq8VltaC2tHJelzrV4YnFPLGY61o4djaErh6iawdp+BrSE3BdzVfz9fXdsGFDmzZtdu3aZW9v/zlvmT59+vTp0+VHdHV1z58/z06Bb8FMFtTW659GFHTzFbl7Zk6bw3UtXEpJoGtRRESiIjr8N5HqH4VZv3798+fP4+LiPjNhuYWQBVBnxbl0+C/S1CEiMrOjpOt0+dN39VQBdnZ2rB6tUiCELIA6uxxBRbnU7iciIoeGZGZHF3ZTecXTn4BFWJMFUGeNu5N9A6rhSCeJNDSp72+U/pQ033PBFLAFIQugzoytyNiKCrLePBVYksCS04KqHywXAACwCCELAMAihCwAAIsQsgAALELIAgCwCCELAMAihCwAAIsQsgAALELIAgCwCCELAMAiXFYL1c7dew9KSiveK8HW2traugYn9YB6Q8hCtfP3P/9mZGRWGOzfr0+/7/2+cs9lZaXZWVnWNraykWcpyfIbCIyNcbfN6gYhC9XO+jXLFb7Px48enjga879t/xoaGR09fYkZlEgk7Vs1sneoJet8OnDI8JFjJij8q4MyQ8gCKMCc6RMdner0H/RT1MEw2aBIJOLxeGcu3lSV9tLABhz4gmpn9PBBz5L/u6fg8aMxs6cFvLtZVmZGevor2b+szIyP7HNP+OGgFX+7NfSQHywRCXV1dZGw1RxmslDtZGVm3r5106G2IxGJRKL5c2fMnR/07mbjRg3Lef1a9tSyhtWOvZGV+kIlJSV8vt6Zk8fWrVmVm5PTxcc3YMoMbW2dr6wfVAtCFqqd+m4NHiU+YB5vWBtc29G5q4/vu5vtDov5yE4yM9L/Dl7GPHb3aPRD/8HvbiMSCQsK8q9fu7J01drnz1JmTwsoF4tn/Bb41Z8AVAlCFqqd+q4NzsedIaJXaalbN607EHWcGZdKpQUF+QKBMfP0wrnY0pIS2bt0+Xqt2rSVe8qv79qAeWxb0+69X8japmbovkMtWrYmolq1nSZNm730z3kI2eoGIQvVjmuDhls2rSOixQt+HzB4mHOdusz4jWuXfxk2MPLwaTt7ByI6HH2wID9f9i5TUzP5kBUIjAcO8f/4F+Lz+UzCMmrVdszKypRKpVilrVYQslDt1Hdt+PxZ8vm4M/EXz504e0U2fjD8QOCiZVGRB0aPm0RECxav+MovdDTm0LWr8bN/X8g8ffjgfk17ByRsdYOQhWrHwNDQtqZdwJgRv89fbGhkxAyWl5dnZLzy7dV7lP/AL9jnhXOxUqn0/t3bxUVFzFqEu2djl3r1p08ey+frtWzt/fxZyvKgBZOmzlLgBwGVgJCF6qhefbe8vNxe330vG7lwLlZbS/twVKRQKHz08IFLvfqV2uGe0JBySTkReTZuumvHNiKytrF1rlM3dN+hzRvWxsWeMjY2mbdwifxXhGoCIQvVTlZmxo3rV0N2h8v/5R59MLz/4GFGRkY/Dhp6KPLA5OlzKrXP1es2v3e8obvnqjUbv6pcUHEIWaguJBLJzetXdHR0A+fO/Gn4SFe3hrKXysvLeTwec1yrgbvn6RPHuCsT1A1CFqqL58+SF/wxW9/A4Ls+Pwx4+8QATU3Nxcv/Yh7zeLwVf63nokBQTwhZqC5q1XYKjz7JdRVQ7aB3AQAAixCyAAAsQsgCALAIIQsAwCKELAAAixCyAAAsQsgCALAIIQsAwCKELAAAixCyAAAsQsgCALAIIQscE6YJ6ugNdNbrLy0y4bqW6m7//v3t27d3dnZu2bLlli1b5F9KSUnx9/d3dXV1d3efMWNGQUEBV0WqHDSIAc4ICyhsTvmjuHatBe2ISHhEGm1U3n2apoaCfio1Cgs08/M0ios0c16Xm5opZqfq6+DBgxMmTFi5cqWbm9u1a9d+/fVXc3NzPz8/Inr16pWXl5ePj8+aNWuys7NXrlwZGxt77tw5LS0EyKfhewTckEpp7xRx0hWp3BDvyl6JljZ1m6qpkC9h9ecf/Lu3pDye3tXLz3YcUMg+1VjXrl1PnDjh5uZGRB4eHocPHz5z5gwTsgsXLmzSpMm2bduYLXv27Ono6BgaGvrTTz9xWLCqwHIBcCPpslSWsJllV3LFD5jH8bslBZnSD7+vErLGTpTo6JKWdubkmQrZoXrj8/lMwjJevHjRoMGbe55HREQMHPjfrc/09fV/+OGHgwcPVnWJqgkzWeDGsxsS5oFx3fSQuB4apD3E6Z60yERSTmn3pUaWCrila5mdQ+akGdppL4VNmn/93qqJuLi4pKSk6OhoLy8vf39/IiopKXn58qWLi4v8ZrVr1z537hxHNaoYhKwKOxYVJhQWc13FF8oRSY07ERFp6Zd+b/U9jzQEeoeoXJuIrj3k3U9X6Bfbt0OBO2vfpYexidqu8MbFxV29ejUxMTE9Pf3p06cuLi6FhYVExOfz5TcTCAQ49vWZELIqrGvPPlyX8OWSLku3jxIzj4vLGuhomORpOhORhjb9MlPL0EIBM1n4ArNnz2YeTJw4cdCgQZcvXzYxMdHQ0KgQqVlZWWZmavubRrGwJgvcqN2c59jiTZJaaDcVaDozj736ayBhOZGamspMWhm9e/e+fv16eXm5pqamm5vbzZs35Te+e/eup6dnldeokhCywA0ej35crlWvnVye8iStBml0maCYUwugsvr167dy5UrZ04SEhJo1a2pqahLRoEGD1q9fX1z8Zm3q8ePHYWFhAwYM4KZQVYPlAuAM34gGBGvt23R8U1C4RCruMsC129RJXBdVfS1cuNDX1/fRo0fu7u5Pnz4NCQkJDg5mXpo4cWJMTEyLFi369OmTnZ29Z88ef3//Tp06cVuwqkDIAsf0rAoeC3cSEU9/Ite1VGvt27dPSEgICQm5f/++lZXViRMnWrduzbzE5/NPnDgRGhp64cIFXV3d7du3+/r6clutCkHIAsAbderUmT9//ntf0tHR8ff3Z07qgkrBmiwAAIsQsgAALELIAgCwCCELAMAihCwAAIsQsgAALELIAgCwCCELAMAihCwAAIsQsgAALELIAgCwCCELAMAihCwAAIsQsgAALELIAgCwCCELAMAihCwAAIsQsgAALELIAgCwCCELAMAihCwAAItwt1oAbixZ+Med2wlEpK2js2HLDm1tHa4rAlYgZAE4UFhQsG3zhpISEfM07sypjl18uC0JWILlAgAOHIk5KEtYIjoUGcZhMcAqhCwAB6Iiw4jIuU7dLt16ENHxo9FCoZDrooAVCFmAqvY6O+v8uVgi6t7T79vePxBRcVHRqeNHuK4LWIGQBahq0QfDy8ViIvLx/bZjFx99fX0iioo8wHVdwAqELEBVOxR5gIjsHWq5NXDX09Nr264jEZ0+ebwgP5/r0kDxELIAVSot9eX1q5eJqEfP75gRH99viai0tOTYkWguKwN24BQugCoVfTBcIpEQUXZ25vq1wURUWFDAvBQVeaBvvwFcFgcsQMgCVKmDEfuZB/v37Kzw0rm4M9lZmeYWllVeFLAIIQtQdVKSn965dZOIrG1sLSxryMaLi4qePnlULhYfiTk0aOhw7goExUPIAlSdg+FvprHBa/9t0bK1bDw/P6+5u0tZWemhiP0IWTWDA18AVSfqYBgRWVjWaNrcS35cIDBu07YdEV29fOlVWio3xQE7ELIAVeTpk0cZr14ZG5v08uujqalZ4VXfb/sYG5sYGQlO4qoE9YLlAoAq4uTscuN+8ode7dtvAE4tUEuYyQIAsAghCwDAIoQsAACLELIA6uzJVTq6lsrFb54+vkxH1pBUymlN1QwOfAGos9cv6M6pN49FhRSzmnT1SSohXsWzG4AtmMkCqLOmvaimK905TUSUfJPEJdR9AmkgYasQQhZAnWloku8k4hsQERXnUev+5ODOdU3VDEIWQM0ZmVPXX4lHZO1MXn25rqb6wZqswrx4/mzXjm1cV6F6bifcYB7cu3sb38DKys3N+ZzNXFrSkJVkYk08HtsVQUUIWcWo5WDfrHnzh/ducV2I6kl98Yx58Do7E9/AyurWrbuW1mf9L7asxXYt8H48Kc7mAE7t2bOnf//+RDRjxoygoCCuywFQMKzJAgCwCCELAMAihCwAAIsQsgAALELIAgCwCCELAMAihCxb8jJIKuG6CKUkLCBR4Se2KS+jgqwqqUYF5b4iwomXqgMhq3iScjobQv+OoYSjXJeilCKDaMt4Srr+wQ2yX9D/ptLWCSQpr8KyVMSrR7R5LEUs+fQvKlASCFkFK8iiPXPpSiRZ16E6Xp/evhpq0Zsk5RS2iOJ2vCdG756h0OmUk0atfkSzqPewrE31venJFfrfVEp7xHU18BlwWa0ipT2ifX9QWSmZWJOBCZ3cxHVBysqmDqU9psvhlHSDdJr9F6VH1tDd06SlTTZ1KfUBRT7gsEalVqM2ZaXQrlnkM57c2nFdDXwUQlaRcl5SWQkRUW465aZzXY2SkxIR5aaRZdl/P4TM1ExcRi8Rr58kJSJ69Qghq+wQsork1p60+XT0HyopphbfkfdA4mE95h3FeRSzmlISqIYj9ZpKR2NLZC8NWkzH1tPD8ySwoJ6TyaYuh2Uqr0eX3voZAyWHDFAwl5Y0KIhq1KbL4XTrONfVKKVDyyglgRr50MDFZGL91ks6+tRzMnX8mYpyaV8gDny9x6vHdHAZaWnTD39Q28H4La4CMJNVPFNbGrCY7pwkp2Zcl6KUWv5AknJybPLBDRr3oJqulPUMB77ew8KBOgynem3IwITrUuDzIGRZoaVNjXy4LkJZ1fL89DY1HKmGI/ulqCAtHWriy3URUBn4YwMAgEUIWQAAFiFk1UdycvJPP/3k5ubm7u4+ceLEvLw82Uvl5eXBwcGtWrVydXX98ccfb968yWGdSuXBgwcDBw50dXX19PScMWNGUVGR7KWysrKgoKDmzZu7ubkNHjz4wQOcVgZfAiGrJkQiUZs2bSwsLLZt27Zy5cqzZ8+OGDFC9uqIESM2bNgwbty45cuXW1hYeHt7X7/+4ctaq43c3Fxvb29nZ+eQkJCgoKCDBw9OnDhR9mq/fv127949derUJUuW6OjotGzZ8uHDhxxWCyoKB77UBJ/Pj4iIaN68OfNUJBINGzaMeXzlypVdu3Y9evTI3t6eiHx9fcvLy6dPn37ixAmuqlUSJiYmhw8fln3TsrKy5s2bxzw+ceLEyZMnnz59amFhQUS9evUqLi6eM2fO/v37uaoWVBRmsupDFhZElJqa6ubmxjyOiIj45ptvmIRl+Pv7x8bGyq8nVFsVvmmurq7M4/Dw8G7dujEJy/D39z9y5EhpaWlVlwgqDjNZtfLs2bNLly49fPjwxIkTW7duZQafPHlSt+5b107Vrl1bLBanpKR4eHhwUaZyefLkydWrV+/evXvu3LmQkBDZYNOmTeU3q127dlFR0atXrxwcHLgoE1QVQlatPH/+fP/+/WlpaampqfHx8XXq1CGiwsJCOzs7+c2MjY2JqKCggJsqlcyTJ0/279+fmpqamZl55coV5ntVWFiop6cnvxm+afBlELJqpU2bNm3atCGi+Ph4b2/vJk2auLq6mpqaVoiGrKwsIjIzM+OmSiXTtWvXrl27EtHx48d79uz5+PFje3t7U1PT/Px8+c2Yb5qpqSk3VYLKwpqsmigrK0tJSZE99fLysrOzu3LlChG5u7snJCTIb3z37l0DAwNHR6W4psrQ0NDJycnJyanqQ7+kpOT58+eyp126dNHX179x4wa975t27949S0tLa2vrinsB+DgpqIUNGza4u7uXlJQwT9PT03V1dU+dOiWVSp8+faqrq3v+/Hnmiq6MZwAAAc1JREFUpbKyMh8fn8GDB3NWq9JYunRpy5YtxWIx8zQ5OZnH412/fl0qlSYkJOjo6Ny6dYt5iTlDbty4cZzVCiqLJ5XibkHqoLCw0NvbW1dXt3fv3qWlpaGhoZaWlrGxsZqamkQUHBw8b968oUOHmpqaHj16NCsr6+zZs7a2tlxXzbHs7OxWrVrZ2Nj4+voWFRWFhIS4urpGR0fzeDwimj9//urVq3/66Sd9ff2YmJjS0tKzZ89ijQUqCyGrPoqKirZu3Xrjxg0tLa0mTZr4+/vr6OjIXj1//vy+ffuys7MbN27s7++PtUVGfn7+5s2bb926paen16JFi8GDB2tp/Xeg4tSpU2FhYfn5+c2bNx82bJiRkRGHpYKKQsgCALAIB74AAFiEkAUAYBFCFgCARQhZAAAWIWQBAFiEkAUAYBFCFgCARQhZAAAWIWQBAFiEkAUAYBFCFgCARQhZAAAWIWQBAFiEkAUAYBFCFgCARQhZAAAWIWQBAFiEkAUAYBFCFgCARQhZAAAWIWQBAFiEkAUAYBFCFgCARQhZAAAWIWQBAFiEkAUAYBFCFgCARQhZAAAWIWQBAFiEkAUAYBFCFgCARQhZAAAWIWQBAFj0f3N9OkIp3+U0AAAAAElFTkSuQmCC" width="345" alt="Step 1 dimension diagram" style="display:block;margin:0 auto;">
+        <p style="font-size:0.85em; color:#555; margin-top:0.25rem;"><em>Figure S1 — Dimension summary for all parts</em></p>
+      </div>
+
+      <h4>Part A — Base Rectangle (60 × 30 mm)</h4>
+      <div class="math-block">$$A_A = 60 \times 30 = 1{,}800\ \text{mm}^2$$</div>
+      <p>Centroid: $\bar{x}_A = 0$ (on the y-axis), $\bar{y}_A = -15\ \text{mm}$ (below x-axis)</p>
+      <div class="math-block">$$d_x = |\bar{y}_A| = 15\ \text{mm} \qquad d_y = |\bar{x}_A| = 0\ \text{mm}$$</div>
+
+      <h4>Part B — Upper-Right Rectangle (30 × 50 mm)</h4>
+      <div class="math-block">$$A_B = 30 \times 50 = 1{,}500\ \text{mm}^2$$</div>
+      <p>Centroid: $\bar{x}_B = +15\ \text{mm}$ (right of y-axis), $\bar{y}_B = +25\ \text{mm}$ (above x-axis)</p>
+      <div class="math-block">$$d_x = |\bar{y}_B| = 25\ \text{mm} \qquad d_y = |\bar{x}_B| = 15\ \text{mm}$$</div>
+
+      <h4>Part C — Top-Left Right Triangle (base 30 mm, height 50 mm)</h4>
+      <p>The right angle sits at the origin C. The triangle centroid lies at $\tfrac{1}{3}$ of base and $\tfrac{1}{3}$ of height from the right-angle vertex:</p>
+      <div class="math-block">$$A_C = \tfrac{1}{2} \times 30 \times 50 = 750\ \text{mm}^2$$</div>
+      <div class="math-block">$$\bar{x}_C = -\frac{30}{3} = -10\ \text{mm} \qquad \bar{y}_C = +\frac{50}{3} \approx +16.67\ \text{mm}$$</div>
+      <div class="math-block">$$d_x = |\bar{y}_C| = \frac{50}{3}\ \text{mm} \qquad d_y = |\bar{x}_C| = 10\ \text{mm}$$</div>
+
+      <div class="callout note">
+        <p><strong>Triangle centroid rule:</strong> For a right triangle with legs $b$ (horizontal) and $h$ (vertical) and the right angle at the origin, the centroid is at $\left(-\tfrac{b}{3},\ +\tfrac{h}{3}\right)$ — measured from the right-angle vertex along each leg.</p>
+      </div>
+    </div>
+  </details>
+</div>
+
+<!-- ─── STEP 2 ─── -->
+<div class="step">
+  <div class="step-heading">
+    <div class="step-num">2</div>
+    <div class="step-title">Centroidal Second Moments $\bar{I}$</div>
+    <div class="try-hint">Try it first, then reveal ↓</div>
+  </div>
+  <details>
+    <summary><span class="step-label">Step 2</span> Apply the centroidal second moment formulas ($\bar{I}_x$, $\bar{I}_y$) for each part</summary>
+    <div class="step-body">
+      <p>The centroidal second moments $\bar{I}$ are calculated about each part's own centroidal axis before applying the parallel axis shift.</p>
+      <div class="callout info">
+        <p><strong>Formulas:</strong> &nbsp; Rectangle: $\bar{I}_x = \dfrac{bh^3}{12}$, &nbsp; $\bar{I}_y = \dfrac{hb^3}{12}$ &nbsp;&nbsp;|&nbsp;&nbsp; Right triangle: $\bar{I}_x = \dfrac{bh^3}{36}$, &nbsp; $\bar{I}_y = \dfrac{hb^3}{36}$</p>
+        <p style="margin:4px 0">where $b$ is the dimension along the x-direction and $h$ is the dimension along the y-direction.</p>
+      </div>
+
+      <h4>Part A — Base Rectangle ($b = 60$, $h = 30$)</h4>
+      <div class="math-block">$$\bar{I}_{x,A} = \frac{60 \times 30^3}{12} = \frac{60 \times 27{,}000}{12} = 135{,}000\ \text{mm}^4$$</div>
+      <div class="math-block">$$\bar{I}_{y,A} = \frac{30 \times 60^3}{12} = \frac{30 \times 216{,}000}{12} = 540{,}000\ \text{mm}^4$$</div>
+
+      <h4>Part B — Upper-Right Rectangle ($b = 30$, $h = 50$)</h4>
+      <div class="math-block">$$\bar{I}_{x,B} = \frac{30 \times 50^3}{12} = \frac{30 \times 125{,}000}{12} = 312{,}500\ \text{mm}^4$$</div>
+      <div class="math-block">$$\bar{I}_{y,B} = \frac{50 \times 30^3}{12} = \frac{50 \times 27{,}000}{12} = 112{,}500\ \text{mm}^4$$</div>
+
+      <h4>Part C — Right Triangle ($b = 30$, $h = 50$)</h4>
+      <div class="math-block">$$\bar{I}_{x,C} = \frac{30 \times 50^3}{36} = \frac{3{,}750{,}000}{36} = 104{,}167\ \text{mm}^4$$</div>
+      <div class="math-block">$$\bar{I}_{y,C} = \frac{50 \times 30^3}{36} = \frac{1{,}350{,}000}{36} = 37{,}500\ \text{mm}^4$$</div>
+    </div>
+  </details>
+</div>
+
+<!-- ─── STEP 3 ─── -->
+<div class="step">
+  <div class="step-heading">
+    <div class="step-num">3</div>
+    <div class="step-title">Apply Parallel Axis Theorem — $I_x$</div>
+    <div class="try-hint">Try it first, then reveal ↓</div>
+  </div>
+  <details>
+    <summary><span class="step-label">Step 3</span> Use $I_x = \bar{I}_x + A d_x^2$ for each part, then sum to get the total $I_x$</summary>
+    <div class="step-body">
+      <p>For each part: &nbsp; $I_{x} = \bar{I}_x + A\,d_x^2$, &nbsp; where $d_x = |\bar{y}|$ is the vertical distance from the part centroid to the x-axis.</p>
+
+      <h4>Part A &nbsp;($d_x = 15\ \text{mm}$)</h4>
+      <div class="math-block">$$I_{x,A} = 135{,}000 + 1{,}800 \times 15^2 = 135{,}000 + 405{,}000 = 540{,}000\ \text{mm}^4$$</div>
+
+      <h4>Part B &nbsp;($d_x = 25\ \text{mm}$)</h4>
+      <div class="math-block">$$I_{x,B} = 312{,}500 + 1{,}500 \times 25^2 = 312{,}500 + 937{,}500 = 1{,}250{,}000\ \text{mm}^4$$</div>
+
+      <h4>Part C &nbsp;($d_x = 50/3\ \text{mm}$)</h4>
+      <div class="math-block">$$I_{x,C} = 104{,}167 + 750 \times \left(\frac{50}{3}\right)^2 = 104{,}167 + 750 \times \frac{2{,}500}{9} = 104{,}167 + 208{,}333 = 312{,}500\ \text{mm}^4$$</div>
+
+      <h4>Total $I_x$</h4>
+      <div class="math-block">$$I_x = 540{,}000 + 1{,}250{,}000 + 312{,}500 = \mathbf{2{,}102{,}500\ \text{mm}^4}$$</div>
+    </div>
+  </details>
+</div>
+
+<!-- ─── STEP 4 ─── -->
+<div class="step">
+  <div class="step-heading">
+    <div class="step-num">4</div>
+    <div class="step-title">Apply Parallel Axis Theorem — $I_y$</div>
+    <div class="try-hint">Try it first, then reveal ↓</div>
+  </div>
+  <details>
+    <summary><span class="step-label">Step 4</span> Use $I_y = \bar{I}_y + A d_y^2$ for each part, then sum to get the total $I_y$</summary>
+    <div class="step-body">
+      <p>For each part: &nbsp; $I_{y} = \bar{I}_y + A\,d_y^2$, &nbsp; where $d_y = |\bar{x}|$ is the horizontal distance from the part centroid to the y-axis.</p>
+
+      <h4>Part A &nbsp;($d_y = 0$)</h4>
+      <p>The centroid of Part A lies <em>on</em> the y-axis — no parallel axis shift needed.</p>
+      <div class="math-block">$$I_{y,A} = 540{,}000 + 1{,}800 \times 0^2 = 540{,}000\ \text{mm}^4$$</div>
+
+      <h4>Part B &nbsp;($d_y = 15\ \text{mm}$)</h4>
+      <div class="math-block">$$I_{y,B} = 112{,}500 + 1{,}500 \times 15^2 = 112{,}500 + 337{,}500 = 450{,}000\ \text{mm}^4$$</div>
+
+      <h4>Part C &nbsp;($d_y = 10\ \text{mm}$)</h4>
+      <div class="math-block">$$I_{y,C} = 37{,}500 + 750 \times 10^2 = 37{,}500 + 75{,}000 = 112{,}500\ \text{mm}^4$$</div>
+
+      <h4>Total $I_y$</h4>
+      <div class="math-block">$$I_y = 540{,}000 + 450{,}000 + 112{,}500 = \mathbf{1{,}102{,}500\ \text{mm}^4}$$</div>
+    </div>
+  </details>
+</div>
+
+<!-- ─── STEP 5 — Summary Table ─── -->
+<div class="step">
+  <div class="step-heading">
+    <div class="step-num">5</div>
+    <div class="step-title">Summary Table</div>
+    <div class="try-hint">Full calculation breakdown</div>
+  </div>
+  <details>
+    <summary><span class="step-label">Step 5</span> Complete the full summary table of areas, distances, and second moments</summary>
+    <div class="step-body">
+      <p><strong>$I_x$ contributions</strong></p>
+      <table>
+        <thead>
+          <tr>
+            <th>Part</th>
+            <th>$A$ (mm²)</th>
+            <th>$d_x = |\bar{y}|$ (mm)</th>
+            <th>$\bar{I}_x$ (mm⁴)</th>
+            <th>$Ad_x^2$ (mm⁴)</th>
+            <th>$I_x$ contribution (mm⁴)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="left">A — Base rect</td><td>1,800</td><td>15</td><td>135,000</td><td>405,000</td><td>540,000</td></tr>
+          <tr><td class="left">B — Upper rect</td><td>1,500</td><td>25</td><td>312,500</td><td>937,500</td><td>1,250,000</td></tr>
+          <tr><td class="left">C — Triangle</td><td>750</td><td>50/3 ≈ 16.67</td><td>104,167</td><td>208,333</td><td>312,500</td></tr>
+          <tr class="total"><td class="left">Total</td><td>4,050</td><td>—</td><td>—</td><td>—</td><td>2,102,500</td></tr>
+        </tbody>
+      </table>
+
+      <p style="margin-top:18px"><strong>$I_y$ contributions</strong></p>
+      <table>
+        <thead>
+          <tr>
+            <th>Part</th>
+            <th>$A$ (mm²)</th>
+            <th>$d_y = |\bar{x}|$ (mm)</th>
+            <th>$\bar{I}_y$ (mm⁴)</th>
+            <th>$Ad_y^2$ (mm⁴)</th>
+            <th>$I_y$ contribution (mm⁴)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="left">A — Base rect</td><td>1,800</td><td>0</td><td>540,000</td><td>0</td><td>540,000</td></tr>
+          <tr><td class="left">B — Upper rect</td><td>1,500</td><td>15</td><td>112,500</td><td>337,500</td><td>450,000</td></tr>
+          <tr><td class="left">C — Triangle</td><td>750</td><td>10</td><td>37,500</td><td>75,000</td><td>112,500</td></tr>
+          <tr class="total"><td class="left">Total</td><td>4,050</td><td>—</td><td>—</td><td>—</td><td>1,102,500</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </details>
+</div>
+
+<!-- ═══════════════════════════ METHOD 2 ═══════════════════════════ -->
+<div class="method-header">
+  <span class="method-badge">Method 2</span>
+  Full Rectangle Minus Corner Triangle
+</div>
+
+<p>Instead of three parts, treat the shape as one large bounding rectangle with a triangular corner <em>removed</em>.</p>
+
+<!-- Method 2 decomposition diagram -->
+<div class="decomp-wrap">
+  <div class="decomp-svg-box">
+    <!--
+      Scale 2.5 px/mm. Origin C at SVG (130, 195).
+      Full rect (60×80): x=55–205, y=70–270
+      Corner triangle to subtract: vertices (-30,0),(-30,50),(0,50)
+        → SVG: (55,195),(55,70),(130,70)
+      Centroid full rect (0,10)   → SVG (130, 170)
+      Centroid tri    (-20,33.33) → SVG (80, 112)
+    -->
+    <svg viewBox="0 0 270 300" width="230" style="font-family:Arial,sans-serif">
+      <!-- ① Full bounding rectangle (dashed outline + light fill) -->
+      <rect x="55" y="70" width="150" height="200"
+            fill="#93c5fd" fill-opacity="0.25" stroke="#1a3c6e" stroke-width="1.5" stroke-dasharray="5,3"/>
+      <!-- Actual composite shape on top (stronger fill) -->
+      <polygon points="55,270 205,270 205,70 130,70 55,195"
+               fill="#93c5fd" fill-opacity="0.50" stroke="none"/>
+      <!-- ② Corner triangle to subtract (red) -->
+      <polygon points="55,195 55,70 130,70"
+               fill="#fca5a5" fill-opacity="0.75" stroke="#b91c1c" stroke-width="1.5" stroke-dasharray="4,2"/>
+      <!-- Redraw composite shape outline on top cleanly -->
+      <polygon points="55,270 205,270 205,70 130,70 55,195"
+               fill="none" stroke="#1a3c6e" stroke-width="1.8"/>
+      <!-- Axes -->
+      <line x1="30" y1="195" x2="235" y2="195" stroke="#1a3c6e" stroke-width="1.4" marker-end="url(#ah-blue)"/>
+      <text x="238" y="199" font-size="11" fill="#1a3c6e" font-style="italic">x</text>
+      <line x1="130" y1="280" x2="130" y2="50" stroke="#1a3c6e" stroke-width="1.4" marker-end="url(#ah-blue)"/>
+      <text x="124" y="47" font-size="11" fill="#1a3c6e" font-style="italic">y</text>
+      <circle cx="130" cy="195" r="3.5" fill="#1a3c6e"/>
+      <text x="136" y="210" font-size="11" fill="#1a3c6e" font-weight="bold">C</text>
+      <!-- Part labels -->
+      <!-- ① Full rect label in lower-right solid area -->
+      <text x="172" y="245" font-size="13" fill="#1e40af" font-weight="bold" text-anchor="middle">①</text>
+      <text x="172" y="258" font-size="10" fill="#1e40af" text-anchor="middle">Full rect</text>
+      <!-- ② Triangle label inside red region -->
+      <text x="84" y="130" font-size="13" fill="#b91c1c" font-weight="bold" text-anchor="middle">②</text>
+      <text x="84" y="143" font-size="10" fill="#b91c1c" text-anchor="middle">subtract</text>
+      <!-- Minus sign between shapes -->
+      <text x="21" y="175" font-size="20" fill="#b91c1c" font-weight="bold" text-anchor="middle">−</text>
+    </svg>
+    <div style="font-size:12px;color:#555;margin-top:4px;font-style:italic">Fig. M2 — Subtraction approach</div>
+  </div>
+
+  <div class="decomp-desc">
+    <p>Two shapes only:</p>
+    <ul>
+      <li><strong>① Full bounding rectangle</strong> — $60 \times 80\ \text{mm}$, centroid at $(0,\ +10)\ \text{mm}$ &nbsp;(add)</li>
+      <li><strong>② Corner triangle</strong> — base $30\ \text{mm}$, height $50\ \text{mm}$, right angle at top-left corner $(-30,\ 50)$, centroid at $(-20,\ 33.3)\ \text{mm}$ &nbsp;(subtract)</li>
+    </ul>
+    <p style="font-size:13px;color:#555">The red region is <em>subtracted</em>. The dashed outline shows the full $60 \times 80\ \text{mm}$ bounding rectangle.</p>
+  </div>
+</div>
+
+<div class="callout warn">
+  <p><strong>Note:</strong> The triangle removed in Method 2 is <em>not</em> the same as Part C in Method 1. They share the same dimensions ($30 \times 50$) but occupy <em>opposite</em> corners of the top-left region. Method 1's triangle has its right angle at C (the origin); Method 2's triangle has its right angle at the top-left corner $(-30,\ 50)$.</p>
+</div>
+
+<div class="steps">
+
+<!-- Step 1 M2 -->
+<div class="step">
+  <div class="step-heading">
+    <div class="step-num">1</div>
+    <div class="step-title">Define the Two Shapes</div>
+    <div class="try-hint">Try it first, then reveal ↓</div>
+  </div>
+  <details>
+    <summary><span class="step-label">Step 1</span> Identify the bounding rectangle and the triangle to subtract</summary>
+    <div class="step-body">
+      <h4>Full bounding rectangle — $60 \times 80\ \text{mm}$ (spans $y = -30$ to $y = +50$)</h4>
+      <div class="math-block">$$A_\text{rect} = 60 \times 80 = 4{,}800\ \text{mm}^2 \qquad \bar{x}_\text{rect} = 0\ \text{mm}, \quad \bar{y}_\text{rect} = +10\ \text{mm}$$</div>
+
+      <h4>Corner triangle to remove — base $30\ \text{mm}$, height $50\ \text{mm}$, right angle at $(-30,\ 50)$</h4>
+      <div class="math-block">$$A_\text{tri} = \tfrac{1}{2} \times 30 \times 50 = 750\ \text{mm}^2 \qquad \bar{x}_\text{tri} = -20\ \text{mm}, \quad \bar{y}_\text{tri} = +\frac{100}{3} \approx 33.33\ \text{mm}$$</div>
+    </div>
+  </details>
+</div>
+
+<!-- Step 2 M2 -->
+<div class="step">
+  <div class="step-heading">
+    <div class="step-num">2</div>
+    <div class="step-title">Calculate $I_x$ by Subtraction</div>
+    <div class="try-hint">Try it first, then reveal ↓</div>
+  </div>
+  <details>
+    <summary><span class="step-label">Step 2</span> Calculate $I_x$ for the full rectangle, then subtract the triangle contribution</summary>
+    <div class="step-body">
+      <h4>Full rectangle ($d_x = |\bar{y}_\text{rect}| = 10\ \text{mm}$)</h4>
+      <div class="math-block">$$I_{x,\text{rect}} = \frac{60 \times 80^3}{12} + 4{,}800 \times 10^2 = 2{,}560{,}000 + 480{,}000 = 3{,}040{,}000\ \text{mm}^4$$</div>
+
+      <h4>Corner triangle ($d_x = |\bar{y}_\text{tri}| = 100/3\ \text{mm}$)</h4>
+      <div class="math-block">$$I_{x,\text{tri}} = \frac{30 \times 50^3}{36} + 750 \times \left(\frac{100}{3}\right)^2 = 104{,}167 + 833{,}333 = 937{,}500\ \text{mm}^4$$</div>
+
+      <h4>Subtract</h4>
+      <div class="math-block">$$I_x = 3{,}040{,}000 - 937{,}500 = \mathbf{2{,}102{,}500\ \text{mm}^4}$$</div>
+    </div>
+  </details>
+</div>
+
+<!-- Step 3 M2 -->
+<div class="step">
+  <div class="step-heading">
+    <div class="step-num">3</div>
+    <div class="step-title">Calculate $I_y$ by Subtraction</div>
+    <div class="try-hint">Try it first, then reveal ↓</div>
+  </div>
+  <details>
+    <summary><span class="step-label">Step 3</span> Calculate $I_y$ for the full rectangle, then subtract the triangle contribution</summary>
+    <div class="step-body">
+      <h4>Full rectangle ($d_y = |\bar{x}_\text{rect}| = 0$ — centred on y-axis)</h4>
+      <div class="math-block">$$I_{y,\text{rect}} = \frac{80 \times 60^3}{12} + 0 = 1{,}440{,}000\ \text{mm}^4$$</div>
+
+      <h4>Corner triangle ($d_y = |\bar{x}_\text{tri}| = 20\ \text{mm}$)</h4>
+      <div class="math-block">$$I_{y,\text{tri}} = \frac{50 \times 30^3}{36} + 750 \times 20^2 = 37{,}500 + 300{,}000 = 337{,}500\ \text{mm}^4$$</div>
+
+      <h4>Subtract</h4>
+      <div class="math-block">$$I_y = 1{,}440{,}000 - 337{,}500 = \mathbf{1{,}102{,}500\ \text{mm}^4}$$</div>
+    </div>
+  </details>
+</div>
+
+</div><!-- end Method 2 steps -->
+
+<!-- ══ BOTH METHODS AGREE ══ -->
+<div class="callout agree" style="margin-top:30px">
+  <p><strong>Both methods yield the same result:</strong></p>
+  <p style="font-size:16px;font-weight:600;margin-top:6px">
+    $I_x = 210.25 \times 10^4\ \text{mm}^4$ &nbsp;&nbsp;&nbsp; $I_y = 110.25 \times 10^4\ \text{mm}^4$
+  </p>
+  <p style="font-size:13.5px;margin-top:8px;color:#374151">
+    However you slice the shape, $I_x$ and $I_y$ about the same reference axes cannot change. Checking both methods is the strongest verification in composite area problems.
+  </p>
+</div>
+
+<!-- ═══════════════════════════ FOOTER ═══════════════════════════ -->
+<div class="footer">MCEN2002 – Fundamentals of Mechanical Design &nbsp;·&nbsp; Tutorial 1.4 &nbsp;·&nbsp; Curtin University</div>
+
+</div><!-- .page -->
+</body>
+</html>

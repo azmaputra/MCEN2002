@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>T1.3 – Rotating Disk Balance</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css"/>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]})"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+body{font-family:'Segoe UI',Arial,sans-serif;font-size:15px;line-height:1.75;color:#1a1a1a;background:#f5f6f8;margin:0;padding:24px 16px 56px}
+.page{max-width:840px;margin:0 auto;background:#fff;border-radius:10px;box-shadow:0 2px 14px rgba(0,0,0,.10);padding:40px 52px 52px}
+
+.uni-header{text-align:center;border-bottom:2px solid #1a3c6e;padding-bottom:16px;margin-bottom:32px}
+.uni-header p{margin:0;line-height:1.4;font-size:13.5px;color:#555}
+.uni-header h2{margin:8px 0 0;font-size:20px;color:#1a3c6e}
+
+h3{color:#1a3c6e;border-left:4px solid #1a3c6e;padding-left:10px;margin:28px 0 10px;font-size:15.5px}
+
+.steps{margin-bottom:4px}
+.step{margin-bottom:10px}
+.step details{border:1px solid #d1d9e8;border-radius:8px;overflow:hidden;margin-top:6px}
+.step details summary{
+  list-style:none;cursor:pointer;padding:11px 15px;
+  background:#f0f4fb;color:#1a3c6e;font-weight:600;font-size:14.5px;
+  display:flex;align-items:center;gap:10px;user-select:none;
+}
+.step details summary::-webkit-details-marker{display:none}
+.step details summary::before{content:'▶';font-size:11px;color:#f97316;transition:transform 0.2s;flex-shrink:0}
+.step details[open] summary::before{transform:rotate(90deg)}
+.step details summary .step-label{font-size:12px;font-weight:500;color:#f97316;margin-right:4px}
+.step details[open] summary{background:#e8eef9;border-bottom:1px solid #d1d9e8}
+.step-body{padding:16px 20px}
+
+.step-heading{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.step-num{background:#1a3c6e;color:#fff;font-size:12px;font-weight:700;border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.step-title{font-size:15px;font-weight:600;color:#1a3c6e}
+.try-hint{font-size:12.5px;color:#6b7280;font-style:italic;margin-left:auto}
+
+.callout{border-radius:6px;padding:13px 18px;margin:14px 0;font-size:14.5px}
+.callout p{margin:4px 0}
+.info{background:#eef4ff;border-left:4px solid #3b82f6}
+.given{background:#f0fdf4;border-left:4px solid #22c55e}
+.answer{background:#fff7ed;border-left:4px solid #f97316;font-size:15.5px;font-weight:600}
+.note{background:#faf5ff;border-left:4px solid #a855f7;font-size:14px}
+.find{background:#fef9c3;border-left:4px solid #eab308;font-size:14.5px}
+
+.math-display{background:#f8f9fb;border:1px solid #e2e6ef;border-radius:6px;padding:13px 18px;margin:10px 0;overflow-x:auto;text-align:center}
+
+table{width:100%;border-collapse:collapse;margin:14px 0;font-size:14px}
+th{background:#1a3c6e;color:#fff;padding:9px 12px;text-align:center;font-weight:600}
+td{padding:8px 12px;text-align:center;border-bottom:1px solid #e5e7eb;vertical-align:middle}
+td.left{text-align:left}
+tr:nth-child(even) td{background:#f8f9fb}
+tr.total td{font-weight:700;background:#eef4ff;border-top:2px solid #1a3c6e}
+
+.diagram-wrap{text-align:center;margin:20px 0 6px}
+.diagram-wrap figcaption{font-size:13px;color:#555;margin-top:6px;font-style:italic}
+
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:12px 0}
+@media(max-width:560px){.two-col{grid-template-columns:1fr}}
+
+.footer{margin-top:40px;border-top:1px solid #e5e7eb;padding-top:12px;font-size:12px;color:#999;text-align:center}
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- ══ HEADER ══ -->
+<div class="uni-header">
+  <p>Curtin University &nbsp;·&nbsp; School of Civil and Mechanical Engineering</p>
+  <p>MCEN2002 – Fundamentals of Mechanical Design</p>
+  <p style="margin-top:8px"><strong>Dr Azma Putra Azis</strong></p>
+  <h2>Tutorial 1.3 &nbsp;–&nbsp; Rotating Disk Balance</h2>
+</div>
+
+<!-- ══ PROBLEM STATEMENT ══ -->
+<h3 style="border-left-color:#6366f1;color:#6366f1">Problem Statement</h3>
+<p>
+  The circular disk rotates about an axis (out of the page) through its centre O.
+  It has <strong>two holes of diameter $d$</strong>, both at radius $r$ from the centre:
+  one on the negative $x$-axis and one on the negative $y$-axis.
+  A <strong>third hole of diameter $D$</strong> is to be drilled at the same radius $r$
+  at an angle $\theta$ from the positive $x$-axis (measured anti-clockwise),
+  so that the disk is in balance — that is, the mass centre remains at $O(0,\ 0)$.
+</p>
+<p>Determine <strong>$D$</strong> (in terms of $d$) and the angular position <strong>$\theta$</strong> of the third hole.</p>
+
+<div class="callout given">
+  <p><strong>Given answer:</strong> &nbsp; $\theta = 45°$ &nbsp;&nbsp; $D = \sqrt[4]{2}\;d \approx 1.189\,d$</p>
+</div>
+
+<!-- ══ PROBLEM DIAGRAM ══ -->
+<div class="diagram-wrap">
+<figure>
+<!--
+  SVG layout:  centre O at (210, 210)
+  Disk radius: 130px
+  Dashed ring (radius r): 90px
+  Holes: all at 90px from centre
+    Hole 1 (d): at 180° → (210-90, 210) = (120, 210),  r_hole ≈ 14px
+    Hole 2 (d): at 270° → (210, 210+90) = (210, 300),  r_hole ≈ 14px
+    Hole 3 (D): at  45° → (210+90cos45°, 210-90sin45°) = (274, 146), r_hole ≈ 17px  (D > d)
+-->
+<svg viewBox="0 0 430 430" width="100%" style="max-width:430px;font-family:Arial,sans-serif">
+  <defs>
+    <marker id="ah"  markerWidth="7" markerHeight="7" refX="6"  refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="#333"/></marker>
+    <marker id="ahr" markerWidth="7" markerHeight="7" refX="1"  refY="3.5" orient="auto"><path d="M7,0 L0,3.5 L7,7 Z" fill="#333"/></marker>
+  </defs>
+
+  <!-- Large disk -->
+  <circle cx="210" cy="210" r="130" fill="#5eead4" fill-opacity="0.55" stroke="#0e7490" stroke-width="1.8"/>
+
+  <!-- Dashed ring at radius r -->
+  <circle cx="210" cy="210" r="90" fill="none" stroke="#0e7490" stroke-width="1.2" stroke-dasharray="6,4"/>
+
+  <!-- Coordinate axes -->
+  <line x1="60"  y1="210" x2="360" y2="210" stroke="#1a1a1a" stroke-width="2"   marker-end="url(#ah)"/>
+  <line x1="210" y1="370" x2="210" y2="60"  stroke="#1a1a1a" stroke-width="2"   marker-end="url(#ah)"/>
+  <text x="365"  y="215"  font-size="14" fill="#1a1a1a" font-style="italic">x</text>
+  <text x="203"  y="56"   font-size="14" fill="#1a1a1a" font-style="italic">y</text>
+  <text x="198"  y="224"  font-size="11" fill="#555">O</text>
+
+  <!-- Hole 1: diameter d, centre at (-r, 0) = (120, 210) -->
+  <circle cx="120" cy="210" r="14" fill="white" stroke="#0e7490" stroke-width="1.5" stroke-dasharray="3,2"/>
+  <text x="120" y="194" font-size="13" fill="#1a1a1a" font-style="italic" text-anchor="middle">d</text>
+
+  <!-- Hole 2: diameter d, centre at (0, -r) = (210, 300) -->
+  <circle cx="210" cy="300" r="14" fill="white" stroke="#0e7490" stroke-width="1.5" stroke-dasharray="3,2"/>
+  <text x="228" y="308" font-size="13" fill="#1a1a1a" font-style="italic" text-anchor="start">d</text>
+
+  <!-- Hole 3: diameter D (unknown), centre at 45° = (274, 146) -->
+  <circle cx="274" cy="146" r="17" fill="white" stroke="#0e7490" stroke-width="1.5" stroke-dasharray="3,2"/>
+  <text x="292" y="140" font-size="13" fill="#1a1a1a" font-style="italic" text-anchor="start">D</text>
+
+  <!-- Radius line r from O to centre of Hole 3 (274, 146), with arrowhead -->
+  <line x1="210" y1="210" x2="274" y2="146" stroke="#1a1a1a" stroke-width="1.3" marker-end="url(#ah)"/>
+  <text x="228" y="182" font-size="13" fill="#1a1a1a" font-style="italic">r</text>
+
+  <!-- Angle arc for θ at origin -->
+  <!-- Arc from 0° to 45°, radius 38px -->
+  <path d="M 248,210 A 38,38 0 0,0 236.9,183.1" fill="none" stroke="#1a1a1a" stroke-width="1.2"/>
+  <text x="252" y="202" font-size="13" fill="#1a1a1a" font-style="italic">θ</text>
+
+  <!-- Dotted line from O to hole 1 and hole 2 (to show they are at radius r) -->
+  <line x1="210" y1="210" x2="134" y2="210" stroke="#0e7490" stroke-width="1" stroke-dasharray="4,3" opacity="0.6"/>
+  <line x1="210" y1="210" x2="210" y2="286" stroke="#0e7490" stroke-width="1" stroke-dasharray="4,3" opacity="0.6"/>
+</svg>
+<figcaption>
+  Figure 1.3 — Disk with two existing holes (diameter $d$) and unknown third hole (diameter $D$ at angle $\theta$).
+  All holes lie at radius $r$ from centre O.
+</figcaption>
+</figure>
+</div>
+
+<!-- ══ METHOD ══ -->
+<div class="callout info">
+  <p><strong>Key Principle: Balance Condition</strong></p>
+  <p>
+    Recall the composite centroid formulae — the centroid of a body made up of parts is:
+  </p>
+  <div class="math-display">
+    $$\bar{x} = \dfrac{\sum A_i\,\bar{x}_i}{\sum A_i} \qquad \bar{y} = \dfrac{\sum A_i\,\bar{y}_i}{\sum A_i}$$
+  </div>
+  <p>
+    For the disk to be balanced, we <strong>force</strong> the centroid to sit at the origin:
+    $\bar{x} = 0$ and $\bar{y} = 0$.
+    Since the total area $\sum A_i \neq 0$, the only way these fractions can equal zero
+    is if the <strong>numerators are zero</strong>:
+  </p>
+  <div class="math-display">
+    $$\sum A_i\,\bar{x}_i = 0 \qquad \sum A_i\,\bar{y}_i = 0$$
+  </div>
+  <p style="font-size:13.5px;color:#374151">
+    These are the two equations we solve. Each hole area $A_i$ is positive; the sign of its
+    centroid coordinate $(\bar{x}_i,\,\bar{y}_i)$ carries the directional information.
+  </p>
+</div>
+
+<!-- ══ STEPS ══ -->
+<div class="steps">
+
+<!-- ─ Step 1 ─ -->
+<div class="step">
+  <div class="step-heading">
+    <div class="step-num">1</div>
+    <div class="step-title">Identify Areas and Centroid Positions of Each Hole</div>
+    <div class="try-hint">Try it first, then reveal ↓</div>
+  </div>
+  <details>
+    <summary><span class="step-label">Step 1</span> Show solution</summary>
+    <div class="step-body">
+      <p>All three holes lie at radius $r$ from O. Let the third hole be at angle $\theta$ from the positive $x$-axis (anti-clockwise). The centroid of each hole coincides with its centre.</p>
+
+      <table>
+        <thead>
+          <tr>
+            <th style="text-align:left">Hole</th>
+            <th>Area $A_i$</th>
+            <th>Centre $\bar{x}_i$</th>
+            <th>Centre $\bar{y}_i$</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="left">① Hole 1 &nbsp;(diameter $d$, on $-x$ axis)</td>
+            <td>$\dfrac{\pi d^2}{4}$</td>
+            <td>$-r$</td>
+            <td>$0$</td>
+          </tr>
+          <tr>
+            <td class="left">② Hole 2 &nbsp;(diameter $d$, on $-y$ axis)</td>
+            <td>$\dfrac{\pi d^2}{4}$</td>
+            <td>$0$</td>
+            <td>$-r$</td>
+          </tr>
+          <tr>
+            <td class="left">③ Hole 3 &nbsp;(diameter $D$, at angle $\theta$)</td>
+            <td>$\dfrac{\pi D^2}{4}$</td>
+            <td>$r\cos\theta$</td>
+            <td>$r\sin\theta$</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </details>
+</div>
+
+<!-- ─ Step 2 ─ -->
+<div class="step">
+  <div class="step-heading">
+    <div class="step-num">2</div>
+    <div class="step-title">Apply the Balance Condition (x and y equations)</div>
+    <div class="try-hint">Try it first, then reveal ↓</div>
+  </div>
+  <details>
+    <summary><span class="step-label">Step 2</span> Show solution</summary>
+    <div class="step-body">
+      <p>Substitute into $\sum A_i \bar{x}_i = 0$ and $\sum A_i \bar{y}_i = 0$. The factor $\dfrac{\pi r}{4}$ cancels throughout.</p>
+
+      <p><strong>x-equation:</strong></p>
+      <div class="math-display">
+        $$\frac{\pi d^2}{4}(-r) + \frac{\pi d^2}{4}(0) + \frac{\pi D^2}{4}(r\cos\theta) = 0$$
+        $$-d^2 + D^2\cos\theta = 0$$
+        $$\boxed{D^2\cos\theta = d^2} \tag{1}$$
+      </div>
+
+      <p><strong>y-equation:</strong></p>
+      <div class="math-display">
+        $$\frac{\pi d^2}{4}(0) + \frac{\pi d^2}{4}(-r) + \frac{\pi D^2}{4}(r\sin\theta) = 0$$
+        $$-d^2 + D^2\sin\theta = 0$$
+        $$\boxed{D^2\sin\theta = d^2} \tag{2}$$
+      </div>
+
+      <div class="callout note">
+        <p>Notice that equations (1) and (2) have identical right-hand sides — this means $D^2\cos\theta = D^2\sin\theta$, which immediately tells us something about $\theta$.</p>
+      </div>
+    </div>
+  </details>
+</div>
+
+<!-- ─ Step 3 ─ -->
+<div class="step">
+  <div class="step-heading">
+    <div class="step-num">3</div>
+    <div class="step-title">Solve for the Angle $\theta$</div>
+    <div class="try-hint">Try it first, then reveal ↓</div>
+  </div>
+  <details>
+    <summary><span class="step-label">Step 3</span> Show solution</summary>
+    <div class="step-body">
+      <p>Divide equation (2) by equation (1):</p>
+      <div class="math-display">
+        $$\frac{D^2\sin\theta}{D^2\cos\theta} = \frac{d^2}{d^2}$$
+        $$\tan\theta = 1$$
+        $$\therefore \quad \theta = 45°$$
+      </div>
+      <p>The third hole is positioned at <strong>45°</strong> above the positive $x$-axis (in the first quadrant), which is consistent with the figure.</p>
+    </div>
+  </details>
+</div>
+
+<!-- ─ Step 4 ─ -->
+<div class="step">
+  <div class="step-heading">
+    <div class="step-num">4</div>
+    <div class="step-title">Solve for the Diameter $D$</div>
+    <div class="try-hint">Try it first, then reveal ↓</div>
+  </div>
+  <details>
+    <summary><span class="step-label">Step 4</span> Show solution</summary>
+    <div class="step-body">
+      <p>Substitute $\theta = 45°$ into equation (1):</p>
+      <div class="math-display">
+        $$D^2 \cos 45° = d^2$$
+        $$D^2 \cdot \frac{1}{\sqrt{2}} = d^2$$
+        $$D^2 = d^2\sqrt{2}$$
+        $$D = d \cdot \left(\sqrt{2}\right)^{1/2} = d \cdot 2^{1/4}$$
+        $$\therefore \quad D = \sqrt[4]{2}\; d \approx 1.189\, d$$
+      </div>
+
+      <div class="callout note">
+        <p><strong>Verification using equation (2):</strong></p>
+        <div class="math-display">
+          $$D^2\sin 45° = d^2\sqrt{2} \cdot \frac{1}{\sqrt{2}} = d^2 \checkmark$$
+        </div>
+      </div>
+
+      <div class="callout answer">
+        <p><strong>Answer:</strong></p>
+        <p style="margin-top:6px">$\theta = 45°$</p>
+        <p>$D = \sqrt[4]{2}\;d = 2^{1/4}\,d \approx 1.189\,d$</p>
+      </div>
+
+      <p style="font-size:14px;color:#374151;margin-top:12px">
+        <strong>Physical interpretation:</strong>
+        A single hole of diameter $D = \sqrt[4]{2}\,d \approx 1.19d$ at $\theta = 45°$
+        has exactly enough area at exactly the right angular position to counterbalance
+        the combined effect of the two smaller holes. Note that $D > d$ because one hole
+        must compensate for the combined pull of two holes — but the 45° placement means
+        the single hole contributes equally to both the $x$ and $y$ balance.
+      </p>
+
+      <!-- Summary of Results (hidden inside Step 4) -->
+      <div class="callout given" style="margin-top:18px">
+        <p><strong>Summary of Results</strong></p>
+        <div class="two-col" style="margin-top:10px">
+          <div style="background:#fff;border:1px solid #d1fae5;border-radius:6px;padding:12px 16px;text-align:center">
+            <div style="font-size:12px;color:#059669;font-weight:600;margin-bottom:4px;text-transform:uppercase;letter-spacing:0.05em">Angular Position</div>
+            <div style="font-size:1.4rem">$\theta = 45°$</div>
+          </div>
+          <div style="background:#fff;border:1px solid #d1fae5;border-radius:6px;padding:12px 16px;text-align:center">
+            <div style="font-size:12px;color:#059669;font-weight:600;margin-bottom:4px;text-transform:uppercase;letter-spacing:0.05em">Hole Diameter</div>
+            <div style="font-size:1.4rem">$D = \sqrt[4]{2}\;d \approx 1.189\,d$</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </details>
+</div>
+
+</div><!-- end steps -->
+
+<!-- ══ FOOTER ══ -->
+<div class="footer">
+  MCEN2002 – Fundamentals of Mechanical Design &nbsp;·&nbsp; Curtin University &nbsp;·&nbsp; Dr Azma Putra Azis
+</div>
+
+</div><!-- end .page -->
+</body>
+</html>
