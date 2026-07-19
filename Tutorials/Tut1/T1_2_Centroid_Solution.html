@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>T1.2 – Centroid of Composite Area</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css"/>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]})"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+body{font-family:'Segoe UI',Arial,sans-serif;font-size:15px;line-height:1.75;color:#1a1a1a;background:#f5f6f8;margin:0;padding:24px 16px 56px}
+.page{max-width:840px;margin:0 auto;background:#fff;border-radius:10px;box-shadow:0 2px 14px rgba(0,0,0,.10);padding:40px 52px 52px}
+
+/* Header */
+.uni-header{text-align:center;border-bottom:2px solid #1a3c6e;padding-bottom:16px;margin-bottom:32px}
+.uni-header p{margin:0;line-height:1.4;font-size:13.5px;color:#555}
+.uni-header h2{margin:8px 0 0;font-size:20px;color:#1a3c6e}
+
+/* Section headings */
+h3{color:#1a3c6e;border-left:4px solid #1a3c6e;padding-left:10px;margin:28px 0 10px;font-size:15.5px}
+
+/* Method header band */
+.method-header{
+  background:#1a3c6e;color:#fff;
+  padding:11px 18px;border-radius:7px;
+  margin:36px 0 16px;font-size:15px;font-weight:700;
+  display:flex;align-items:center;gap:12px;
+}
+.method-badge{
+  background:#f97316;color:#fff;font-size:12px;font-weight:700;
+  border-radius:4px;padding:2px 10px;letter-spacing:0.04em;flex-shrink:0;
+}
+
+/* Step list */
+.steps{margin-bottom:4px}
+.step{margin-bottom:10px}
+
+/* Toggle (details/summary) */
+.step details{border:1px solid #d1d9e8;border-radius:8px;overflow:hidden;margin-top:6px}
+.step details summary{
+  list-style:none;cursor:pointer;padding:11px 15px;
+  background:#f0f4fb;color:#1a3c6e;font-weight:600;font-size:14.5px;
+  display:flex;align-items:center;gap:10px;user-select:none;
+}
+.step details summary::-webkit-details-marker{display:none}
+.step details summary::before{content:'▶';font-size:11px;color:#f97316;transition:transform 0.2s;flex-shrink:0}
+.step details[open] summary::before{transform:rotate(90deg)}
+.step details summary .step-label{font-size:12px;font-weight:500;color:#f97316;margin-right:4px}
+.step details[open] summary{background:#e8eef9;border-bottom:1px solid #d1d9e8}
+.step-body{padding:16px 20px}
+
+.step-heading{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.step-num{
+  background:#1a3c6e;color:#fff;font-size:12px;font-weight:700;
+  border-radius:50%;width:26px;height:26px;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.step-title{font-size:15px;font-weight:600;color:#1a3c6e}
+.try-hint{font-size:12.5px;color:#6b7280;font-style:italic;margin-left:auto}
+
+/* Callouts */
+.callout{border-radius:6px;padding:13px 18px;margin:14px 0;font-size:14.5px}
+.callout p{margin:4px 0}
+.info{background:#eef4ff;border-left:4px solid #3b82f6}
+.given{background:#f0fdf4;border-left:4px solid #22c55e}
+.answer{background:#fff7ed;border-left:4px solid #f97316;font-size:15.5px;font-weight:600}
+.note{background:#faf5ff;border-left:4px solid #a855f7;font-size:14px}
+.agree{background:#ecfdf5;border-left:4px solid #10b981;font-size:15px}
+
+/* Math display */
+.math-display{background:#f8f9fb;border:1px solid #e2e6ef;border-radius:6px;padding:13px 18px;margin:10px 0;overflow-x:auto;text-align:center}
+
+/* Table */
+table{width:100%;border-collapse:collapse;margin:14px 0;font-size:14px}
+th{background:#1a3c6e;color:#fff;padding:9px 12px;text-align:center;font-weight:600}
+td{padding:8px 12px;text-align:center;border-bottom:1px solid #e5e7eb;vertical-align:middle}
+td.left{text-align:left}
+tr:nth-child(even) td{background:#f8f9fb}
+tr.total td{font-weight:700;background:#eef4ff;border-top:2px solid #1a3c6e}
+tr.void-row td{color:#b91c1c}
+tr.void-row td.left{color:#b91c1c}
+
+/* Diagram */
+.diagram-wrap{text-align:center;margin:20px 0 6px}
+.diagram-wrap figcaption{font-size:13px;color:#555;margin-top:6px;font-style:italic}
+
+/* Method decomp SVG wrapper */
+.decomp-wrap{display:flex;align-items:flex-start;gap:20px;flex-wrap:wrap;margin:14px 0 18px}
+.decomp-svg-box{flex:0 0 auto;text-align:center}
+.decomp-desc{flex:1;min-width:200px;font-size:14px;color:#333;line-height:1.8;padding-top:4px}
+.decomp-desc ul{margin:6px 0 6px 20px}
+.decomp-desc li{margin-bottom:4px}
+
+.footer{margin-top:40px;border-top:1px solid #e5e7eb;padding-top:12px;font-size:12px;color:#999;text-align:center}
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- ══ UNIVERSITY HEADER ══ -->
+<div class="uni-header">
+  <p>Curtin University &nbsp;·&nbsp; School of Civil and Mechanical Engineering</p>
+  <p>MCEN2002 – Fundamentals of Mechanical Design</p>
+  <p style="margin-top:8px"><strong>Dr Azma Putra Azis</strong></p>
+  <h2>Tutorial 1.2 &nbsp;–&nbsp; Centroid of a Composite Area</h2>
+</div>
+
+<!-- ══ PROBLEM STATEMENT ══ -->
+<h3 style="border-left-color:#6366f1;color:#6366f1">Problem Statement</h3>
+<p>Find the centroidal coordinates $\bar{x}$ and $\bar{y}$ of the composite shape shown below.
+The shape is a <strong>channel section (U-channel)</strong> with a <strong>circular hole</strong> in the right arm.
+All dimensions in millimetres (mm).</p>
+
+<div class="callout given">
+  <p><strong>Given answer:</strong> &nbsp; $\bar{x} = 217.1\ \text{mm}$ &nbsp;&nbsp; $\bar{y} = 198.5\ \text{mm}$</p>
+</div>
+
+<!-- ══ PROBLEM DIAGRAM ══ -->
+<div class="diagram-wrap">
+<figure>
+<svg viewBox="0 0 560 430" width="100%" style="max-width:560px;font-family:Arial,sans-serif">
+  <defs>
+    <marker id="ah"  markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="#444"/></marker>
+    <marker id="ahr" markerWidth="7" markerHeight="7" refX="1" refY="3.5" orient="auto"><path d="M7,0 L0,3.5 L7,7 Z" fill="#444"/></marker>
+    <marker id="ahB"  markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="#666"/></marker>
+    <marker id="ahrB" markerWidth="7" markerHeight="7" refX="1" refY="3.5" orient="auto"><path d="M7,0 L0,3.5 L7,7 Z" fill="#666"/></marker>
+  </defs>
+
+  <!-- Axes -->
+  <line x1="35" y1="380" x2="370" y2="380" stroke="#333" stroke-width="1.6" marker-end="url(#ah)"/>
+  <line x1="55" y1="400" x2="55" y2="75" stroke="#333" stroke-width="1.6" marker-end="url(#ah)"/>
+  <text x="375" y="385" font-size="14" fill="#333" font-style="italic">x</text>
+  <text x="48" y="72" font-size="14" fill="#333" font-style="italic">y</text>
+  <text x="36" y="395" font-size="11" fill="#666">O</text>
+
+  <!-- U-channel shape -->
+  <!-- x: left=55, L-inner=148, R-inner=242, right=335  |  y: top=100, void-floor=287, bottom=380  (scale 0.622) -->
+  <path d="M55,380 L335,380 L335,100 L242,100 L242,287 L148,287 L148,100 L55,100 Z"
+        fill="#93c5fd" fill-opacity="0.45" stroke="#1a3c6e" stroke-width="2"/>
+
+  <!-- Circular hole -->
+  <circle cx="289" cy="193" r="31" fill="white" stroke="#1a3c6e" stroke-width="1.8"/>
+
+  <!-- Part labels -->
+  <text x="102" y="200" font-size="13" fill="#1e40af" font-weight="bold" text-anchor="middle">①</text>
+  <text x="102" y="214" font-size="11" fill="#1e40af" text-anchor="middle">Left arm</text>
+  <text x="195" y="345" font-size="13" fill="#1e40af" font-weight="bold" text-anchor="middle">②</text>
+  <text x="195" y="359" font-size="11" fill="#1e40af" text-anchor="middle">Base</text>
+  <text x="289" y="122" font-size="13" fill="#1e40af" font-weight="bold" text-anchor="middle">③</text>
+  <text x="289" y="136" font-size="11" fill="#1e40af" text-anchor="middle">Right arm</text>
+  <!-- ④ hole: diameter arrow at centre y=193, label above; ④ text slightly below centre -->
+  <line x1="258" y1="193" x2="320" y2="193" stroke="#666" stroke-width="1" marker-start="url(#ahrB)" marker-end="url(#ahB)"/>
+  <text x="289" y="187" font-size="11" fill="#555" text-anchor="middle">⌀ 100</text>
+  <text x="289" y="206" font-size="10" fill="#888" text-anchor="middle">④ hole</text>
+
+  <!-- Dimension lines -->
+  <!-- Total width 450 -->
+  <line x1="55" y1="408" x2="335" y2="408" stroke="#555" stroke-width="1" marker-start="url(#ahr)" marker-end="url(#ah)"/>
+  <text x="195" y="422" font-size="12" fill="#333" text-anchor="middle">450</text>
+  <!-- Total height 450 -->
+  <line x1="26" y1="100" x2="26" y2="380" stroke="#555" stroke-width="1" marker-start="url(#ahr)" marker-end="url(#ah)"/>
+  <text x="16" y="245" font-size="12" fill="#333" text-anchor="middle" transform="rotate(-90,16,245)">450</text>
+  <!-- Width segments at top -->
+  <line x1="55"  y1="86" x2="148" y2="86" stroke="#555" stroke-width="1" marker-start="url(#ahr)" marker-end="url(#ah)"/>
+  <text x="101"  y="79" font-size="11" fill="#333" text-anchor="middle">150</text>
+  <line x1="148" y1="86" x2="242" y2="86" stroke="#555" stroke-width="1" marker-start="url(#ahr)" marker-end="url(#ah)"/>
+  <text x="195"  y="79" font-size="11" fill="#333" text-anchor="middle">150</text>
+  <line x1="242" y1="86" x2="335" y2="86" stroke="#555" stroke-width="1" marker-start="url(#ahr)" marker-end="url(#ah)"/>
+  <text x="288"  y="79" font-size="11" fill="#333" text-anchor="middle">150</text>
+  <!-- Right side: 150 top (arm top → circle centre), 150 bottom (circle centre → void floor) -->
+  <line x1="350" y1="100" x2="350" y2="193" stroke="#555" stroke-width="1" stroke-dasharray="3,2" marker-start="url(#ahr)" marker-end="url(#ah)"/>
+  <text x="368"  y="152" font-size="11" fill="#333" text-anchor="middle">150</text>
+  <line x1="350" y1="193" x2="350" y2="287" stroke="#555" stroke-width="1" stroke-dasharray="3,2" marker-start="url(#ahr)" marker-end="url(#ah)"/>
+  <text x="368"  y="245" font-size="11" fill="#333" text-anchor="middle">150</text>
+  <!-- 75 mm from inner right edge to circle centre -->
+  <line x1="242" y1="300" x2="289" y2="300" stroke="#555" stroke-width="1" marker-start="url(#ahr)" marker-end="url(#ah)"/>
+  <text x="265"  y="314" font-size="11" fill="#333" text-anchor="middle">75</text>
+  <!-- Dashed reference lines for circle centre -->
+  <line x1="289" y1="193" x2="350" y2="193" stroke="#aaa" stroke-width="0.8" stroke-dasharray="4,3"/>
+  <line x1="289" y1="193" x2="289" y2="300" stroke="#aaa" stroke-width="0.8" stroke-dasharray="4,3"/>
+  <!-- Centroid marker -->
+  <!-- x̄=217.1 → SVG x=55+217.1×0.622=190  |  ȳ=198.5 → SVG y=380−198.5×0.622=257 -->
+  <circle cx="190" cy="257" r="5" fill="#f97316" stroke="white" stroke-width="2"/>
+  <line x1="179" y1="257" x2="201" y2="257" stroke="#f97316" stroke-width="1.5"/>
+  <line x1="190" y1="246" x2="190" y2="268" stroke="#f97316" stroke-width="1.5"/>
+  <text x="196" y="251" font-size="10" fill="#f97316">C(217.1, 198.5)</text>
+</svg>
+<figcaption>Figure 1.2 — Channel section with circular hole. Origin O at bottom-left corner.</figcaption>
+</figure>
+</div>
+
+<!-- ══ COMPOSITE FORMULA ══ -->
+<div class="callout info">
+  <p><strong>Composite Area Method</strong></p>
+  <div class="math-display">
+    $$\bar{x} = \frac{\sum A_i\,\bar{x}_i}{\sum A_i} \qquad \bar{y} = \frac{\sum A_i\,\bar{y}_i}{\sum A_i}$$
+  </div>
+  <p>Voids (holes and cutouts) are treated as <strong>negative areas</strong>. Two methods are shown below — both yield the same result.</p>
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     METHOD 1 — Three Rectangles + Hole
+══════════════════════════════════════════ -->
+<div class="method-header">
+  <span class="method-badge">Method 1</span>
+  Decompose into Three Rectangles and a Circular Hole
+</div>
+
+<!-- Method 1 decomposition diagram -->
+<div class="decomp-wrap">
+  <div class="decomp-svg-box">
+    <!--
+      Scale 0.5: 450mm → 225px.  Origin at (45, 265).
+      Column width: 75px  |  Bottom bar: 75px  |  Arm height: 150px
+      x: 45, 120, 195, 270  |  y: 40, 190, 265
+      Circle: cx=45+375×0.5=233, cy=265−300×0.5=115, r=25
+    -->
+    <svg viewBox="0 0 320 290" width="270" style="font-family:Arial,sans-serif">
+      <!-- U-shape -->
+      <path d="M45,265 L270,265 L270,40 L195,40 L195,190 L120,190 L120,40 L45,40 Z"
+            fill="#93c5fd" fill-opacity="0.35" stroke="#1a3c6e" stroke-width="1.8"/>
+      <!-- Separator line at void floor (y=190 = 150 mm from bottom) -->
+      <line x1="45" y1="190" x2="120" y2="190" stroke="#1a3c6e" stroke-width="1.2" stroke-dasharray="4,3"/>
+      <line x1="195" y1="190" x2="270" y2="190" stroke="#1a3c6e" stroke-width="1.2" stroke-dasharray="4,3"/>
+      <!-- Vertical separator: show base extends full width (dashed hint) -->
+      <line x1="120" y1="190" x2="120" y2="265" stroke="#1a3c6e" stroke-width="1" stroke-dasharray="3,3" opacity="0.4"/>
+      <line x1="195" y1="190" x2="195" y2="265" stroke="#1a3c6e" stroke-width="1" stroke-dasharray="3,3" opacity="0.4"/>
+      <!-- Circle hole -->
+      <circle cx="233" cy="115" r="25" fill="white" stroke="#1a3c6e" stroke-width="1.6"/>
+      <!-- Part labels -->
+      <!-- ① Left arm: x=45–120, y=40–190. Centre (82, 115). -->
+      <text x="82"  y="109" font-size="14" fill="#1e40af" font-weight="bold" text-anchor="middle">①</text>
+      <text x="82"  y="124" font-size="10" fill="#1e40af" text-anchor="middle">Left arm</text>
+      <!-- ② Base: x=45–270, y=190–265. Centre (157, 228). -->
+      <text x="157" y="222" font-size="14" fill="#1e40af" font-weight="bold" text-anchor="middle">②</text>
+      <text x="157" y="237" font-size="10" fill="#1e40af" text-anchor="middle">Base</text>
+      <!-- ③ Right arm: x=195–270, y=40–190. Place ABOVE circle (circle top ≈ y=90). -->
+      <text x="233" y="62"  font-size="14" fill="#1e40af" font-weight="bold" text-anchor="middle">③</text>
+      <text x="233" y="76"  font-size="10" fill="#1e40af" text-anchor="middle">Right arm</text>
+      <!-- ④ hole: circle centre (233,115). Label slightly below centre. -->
+      <text x="233" y="122" font-size="10" fill="#888"    text-anchor="middle">④ hole</text>
+    </svg>
+    <div style="font-size:12px;color:#555;margin-top:4px;font-style:italic">Fig. M1 — Four-part decomposition</div>
+  </div>
+
+  <div class="decomp-desc">
+    <p>Split the U-channel into three solid rectangles, then subtract the circular hole:</p>
+    <ul>
+      <li><strong>① Left arm</strong> — $150 \times 300\ \text{mm}$</li>
+      <li><strong>② Base</strong> — $450 \times 150\ \text{mm}$ (full-width bottom strip)</li>
+      <li><strong>③ Right arm</strong> — $150 \times 300\ \text{mm}$</li>
+      <li><strong>④ Hole</strong> — circle $r = 50\ \text{mm}$ &nbsp;(subtract)</li>
+    </ul>
+    <p style="font-size:13px;color:#555">The dashed lines show where the base ② meets the two arms.</p>
+  </div>
+</div>
+
+<!-- Method 1 Steps -->
+<div class="steps">
+
+<div class="step">
+  <div class="step-heading">
+    <div class="step-num">1</div>
+    <div class="step-title">Locate the Centroid of Each Part</div>
+    <div class="try-hint">Try it first, then reveal ↓</div>
+  </div>
+  <details>
+    <summary><span class="step-label">Step 1</span> Show solution</summary>
+    <div class="step-body">
+      <p>Origin O is at the <strong>bottom-left corner</strong>. The void floor (bottom of the opening) is at $y = 150\ \text{mm}$, so the arms each span $300\ \text{mm}$ above it.</p>
+      <p><strong>① Left arm</strong> — $150 \times 300\ \text{mm}$, spanning $x = 0 \to 150$, $y = 150 \to 450$:</p>
+      <div class="math-display">$$\bar{x}_1 = \dfrac{0+150}{2} = 75\ \text{mm} \qquad \bar{y}_1 = \dfrac{150+450}{2} = 300\ \text{mm}$$</div>
+      <p><strong>② Base</strong> — $450 \times 150\ \text{mm}$, spanning $x = 0 \to 450$, $y = 0 \to 150$:</p>
+      <div class="math-display">$$\bar{x}_2 = \dfrac{0+450}{2} = 225\ \text{mm} \qquad \bar{y}_2 = \dfrac{0+150}{2} = 75\ \text{mm}$$</div>
+      <p><strong>③ Right arm</strong> — $150 \times 300\ \text{mm}$, spanning $x = 300 \to 450$, $y = 150 \to 450$:</p>
+      <div class="math-display">$$\bar{x}_3 = \dfrac{300+450}{2} = 375\ \text{mm} \qquad \bar{y}_3 = \dfrac{150+450}{2} = 300\ \text{mm}$$</div>
+      <p><strong>④ Circular hole</strong> — $r = 50\ \text{mm}$, centre located $75\ \text{mm}$ from the inner face of the right arm at $x = 300$, and midway between the void floor and the arm top:</p>
+      <div class="math-display">$$\bar{x}_4 = 300 + 75 = 375\ \text{mm} \qquad \bar{y}_4 = 150 + 150 = 300\ \text{mm}$$</div>
+    </div>
+  </details>
+</div>
+
+<div class="step">
+  <div class="step-heading">
+    <div class="step-num">2</div>
+    <div class="step-title">Complete the Centroid Table</div>
+    <div class="try-hint">Try it first, then reveal ↓</div>
+  </div>
+  <details>
+    <summary><span class="step-label">Step 2</span> Show solution</summary>
+    <div class="step-body">
+      <table>
+        <thead>
+          <tr>
+            <th style="text-align:left;min-width:165px">Part</th>
+            <th>$A_i$ (mm²)</th>
+            <th>$\bar{x}_i$ (mm)</th>
+            <th>$\bar{y}_i$ (mm)</th>
+            <th>$A_i\bar{x}_i$ (mm³)</th>
+            <th>$A_i\bar{y}_i$ (mm³)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="left">① Left arm 150×300</td>
+            <td>+45,000</td><td>75</td><td>300</td>
+            <td>+3,375,000</td><td>+13,500,000</td>
+          </tr>
+          <tr>
+            <td class="left">② Base 450×150</td>
+            <td>+67,500</td><td>225</td><td>75</td>
+            <td>+15,187,500</td><td>+5,062,500</td>
+          </tr>
+          <tr>
+            <td class="left">③ Right arm 150×300</td>
+            <td>+45,000</td><td>375</td><td>300</td>
+            <td>+16,875,000</td><td>+13,500,000</td>
+          </tr>
+          <tr class="void-row">
+            <td class="left">④ Hole &nbsp;$r=50$</td>
+            <td>−7,854</td><td>375</td><td>300</td>
+            <td>−2,945,250</td><td>−2,356,200</td>
+          </tr>
+          <tr class="total">
+            <td class="left">Σ (net)</td>
+            <td>149,646</td><td>—</td><td>—</td>
+            <td>32,492,250</td><td>29,706,300</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="callout note">
+        <p>$A_4 = \pi r^2 = \pi(50)^2 = 7{,}854\ \text{mm}^2$ (negative — hole is subtracted)</p>
+      </div>
+    </div>
+  </details>
+</div>
+
+<div class="step">
+  <div class="step-heading">
+    <div class="step-num">3</div>
+    <div class="step-title">Apply the Centroid Formula</div>
+    <div class="try-hint">Try it first, then reveal ↓</div>
+  </div>
+  <details>
+    <summary><span class="step-label">Step 3</span> Show solution</summary>
+    <div class="step-body">
+      <div class="math-display">
+        $$\bar{x} = \frac{32{,}492{,}250}{149{,}646} = \mathbf{217.1\ mm}$$
+      </div>
+      <div class="math-display">
+        $$\bar{y} = \frac{29{,}706{,}300}{149{,}646} = \mathbf{198.5\ mm}$$
+      </div>
+      <div class="callout answer">
+        <p>$\bar{x} = 217.1\ \text{mm}$ &nbsp;&nbsp; $\bar{y} = 198.5\ \text{mm}$ &nbsp; ✓</p>
+      </div>
+    </div>
+  </details>
+</div>
+
+</div><!-- end Method 1 steps -->
+
+
+<!-- ══════════════════════════════════════════
+     METHOD 2 — Full Rectangle − Void − Hole
+══════════════════════════════════════════ -->
+<div class="method-header">
+  <span class="method-badge">Method 2</span>
+  Full Rectangle Minus Rectangular Void Minus Circular Hole
+</div>
+
+<!-- Method 2 decomposition diagram -->
+<div class="decomp-wrap">
+  <div class="decomp-svg-box">
+    <!--
+      Same coordinate system as Method 1 SVG (scale 0.5).
+      ① Full 450×450 rect: x=45–270, y=40–265  (whole bounding box)
+      ② Void 150×300 rect: x=120–195, y=40–190  (the gap between arms)
+      ③ Circle: cx=233, cy=115, r=25
+    -->
+    <svg viewBox="0 0 320 290" width="270" style="font-family:Arial,sans-serif">
+      <!-- ① Full bounding rectangle (dashed outline) -->
+      <rect x="45" y="40" width="225" height="225" fill="#93c5fd" fill-opacity="0.25"
+            stroke="#1a3c6e" stroke-width="1.5" stroke-dasharray="5,3"/>
+      <!-- U-shape on top (actual material, stronger fill) -->
+      <path d="M45,265 L270,265 L270,40 L195,40 L195,190 L120,190 L120,40 L45,40 Z"
+            fill="#93c5fd" fill-opacity="0.55" stroke="none"/>
+      <!-- ② Void rectangle (subtracted) — red fill -->
+      <rect x="120" y="40" width="75" height="150" fill="#fca5a5" fill-opacity="0.65"
+            stroke="#b91c1c" stroke-width="1.5" stroke-dasharray="4,2"/>
+      <!-- ③ Circle (subtracted) — red fill -->
+      <circle cx="233" cy="115" r="25" fill="#fca5a5" fill-opacity="0.75"
+              stroke="#b91c1c" stroke-width="1.6"/>
+      <!-- Border of full rect and U-shape outline on top -->
+      <path d="M45,265 L270,265 L270,40 L195,40 L195,190 L120,190 L120,40 L45,40 Z"
+            fill="none" stroke="#1a3c6e" stroke-width="1.8"/>
+      <!-- Part labels -->
+      <!-- ① Full rect: label in lower-left solid area -->
+      <text x="82"  y="233" font-size="14" fill="#1e40af" font-weight="bold" text-anchor="middle">①</text>
+      <text x="82"  y="247" font-size="10" fill="#1e40af" text-anchor="middle">Full rect</text>
+      <!-- ② Void rect: inside the red rectangle -->
+      <text x="157" y="109" font-size="14" fill="#b91c1c" font-weight="bold" text-anchor="middle">②</text>
+      <text x="157" y="123" font-size="10" fill="#b91c1c" text-anchor="middle">void</text>
+      <!-- ③ Circle: inside the circle -->
+      <text x="233" y="119" font-size="14" fill="#b91c1c" font-weight="bold" text-anchor="middle">③</text>
+    </svg>
+    <div style="font-size:12px;color:#555;margin-top:4px;font-style:italic">Fig. M2 — Subtraction approach</div>
+  </div>
+
+  <div class="decomp-desc">
+    <p>Start with a complete bounding rectangle and subtract two voids:</p>
+    <ul>
+      <li><strong>① Full rectangle</strong> — $450 \times 450\ \text{mm}$ &nbsp;(add)</li>
+      <li><strong>② Rectangular void</strong> — $150 \times 300\ \text{mm}$, the gap between the arms &nbsp;(subtract)</li>
+      <li><strong>③ Circular hole</strong> — $r = 50\ \text{mm}$ &nbsp;(subtract)</li>
+    </ul>
+    <p style="font-size:13px;color:#555">Red regions are <em>subtracted</em>. The dashed outline shows the full $450\times450$ bounding rectangle.</p>
+  </div>
+</div>
+
+<!-- Method 2 Steps -->
+<div class="steps">
+
+<div class="step">
+  <div class="step-heading">
+    <div class="step-num">1</div>
+    <div class="step-title">Locate the Centroid of Each Part</div>
+    <div class="try-hint">Try it first, then reveal ↓</div>
+  </div>
+  <details>
+    <summary><span class="step-label">Step 1</span> Show solution</summary>
+    <div class="step-body">
+      <p><strong>① Full rectangle</strong> — $450 \times 450\ \text{mm}$, spanning $x = 0 \to 450$, $y = 0 \to 450$:</p>
+      <div class="math-display">$$\bar{x}_1 = \frac{450}{2} = 225\ \text{mm} \qquad \bar{y}_1 = \frac{450}{2} = 225\ \text{mm}$$</div>
+      <p><strong>② Rectangular void</strong> — $150 \times 300\ \text{mm}$, spanning $x = 150 \to 300$, $y = 150 \to 450$ (the gap between the arms):</p>
+      <div class="math-display">$$\bar{x}_2 = 150 + \frac{150}{2} = 225\ \text{mm} \qquad \bar{y}_2 = 150 + \frac{300}{2} = 300\ \text{mm}$$</div>
+      <p><strong>③ Circular hole</strong> — $r = 50\ \text{mm}$, centre $75\ \text{mm}$ from inner face of right arm at $x = 300$, midway between void floor and arm top:</p>
+      <div class="math-display">$$\bar{x}_3 = 300 + 75 = 375\ \text{mm} \qquad \bar{y}_3 = 150 + 150 = 300\ \text{mm}$$</div>
+    </div>
+  </details>
+</div>
+
+<div class="step">
+  <div class="step-heading">
+    <div class="step-num">2</div>
+    <div class="step-title">Complete the Centroid Table</div>
+    <div class="try-hint">Try it first, then reveal ↓</div>
+  </div>
+  <details>
+    <summary><span class="step-label">Step 2</span> Show solution</summary>
+    <div class="step-body">
+      <table>
+        <thead>
+          <tr>
+            <th style="text-align:left;min-width:185px">Part</th>
+            <th>$A_i$ (mm²)</th>
+            <th>$\bar{x}_i$ (mm)</th>
+            <th>$\bar{y}_i$ (mm)</th>
+            <th>$A_i\bar{x}_i$ (mm³)</th>
+            <th>$A_i\bar{y}_i$ (mm³)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="left">① Full rect 450×450</td>
+            <td>+202,500</td><td>225</td><td>225</td>
+            <td>+45,562,500</td><td>+45,562,500</td>
+          </tr>
+          <tr class="void-row">
+            <td class="left">② Rect. void 150×300</td>
+            <td>−45,000</td><td>225</td><td>300</td>
+            <td>−10,125,000</td><td>−13,500,000</td>
+          </tr>
+          <tr class="void-row">
+            <td class="left">③ Hole &nbsp;$r=50$</td>
+            <td>−7,854</td><td>375</td><td>300</td>
+            <td>−2,945,250</td><td>−2,356,200</td>
+          </tr>
+          <tr class="total">
+            <td class="left">Σ (net)</td>
+            <td>149,646</td><td>—</td><td>—</td>
+            <td>32,492,250</td><td>29,706,300</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </details>
+</div>
+
+<div class="step">
+  <div class="step-heading">
+    <div class="step-num">3</div>
+    <div class="step-title">Apply the Centroid Formula</div>
+    <div class="try-hint">Try it first, then reveal ↓</div>
+  </div>
+  <details>
+    <summary><span class="step-label">Step 3</span> Show solution</summary>
+    <div class="step-body">
+      <div class="math-display">
+        $$\bar{x} = \frac{32{,}492{,}250}{149{,}646} = \mathbf{217.1\ mm}$$
+      </div>
+      <div class="math-display">
+        $$\bar{y} = \frac{29{,}706{,}300}{149{,}646} = \mathbf{198.5\ mm}$$
+      </div>
+      <div class="callout answer">
+        <p>$\bar{x} = 217.1\ \text{mm}$ &nbsp;&nbsp; $\bar{y} = 198.5\ \text{mm}$ &nbsp; ✓</p>
+      </div>
+    </div>
+  </details>
+</div>
+
+</div><!-- end Method 2 steps -->
+
+
+<!-- ══ BOTH METHODS AGREE ══ -->
+<div class="callout agree" style="margin-top:30px">
+  <p><strong>Both methods yield the same result:</strong></p>
+  <p style="font-size:16px;font-weight:600;margin-top:6px">
+    $\bar{x} = 217.1\ \text{mm}$ &nbsp;&nbsp;&nbsp; $\bar{y} = 198.5\ \text{mm}$
+  </p>
+  <p style="font-size:13.5px;margin-top:8px;color:#374151">
+    The centroid lies below and to the left of the geometric centre $(225,\ 225)\ \text{mm}$,
+    because the circular hole removes material from the upper-right area of the shape.
+  </p>
+</div>
+
+<!-- ══ FOOTER ══ -->
+<div class="footer">
+  MCEN2002 – Fundamentals of Mechanical Design &nbsp;·&nbsp; Curtin University &nbsp;·&nbsp; Dr Azma Putra Azis
+</div>
+
+</div><!-- end .page -->
+</body>
+</html>
