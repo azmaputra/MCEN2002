@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Section 1.4 Polar Moment of Area — Fundamentals of Mechanical Design</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,600;0,700;1,400&family=IBM+Plex+Serif:wght@400;600&display=swap');
+
+  :root {
+    --bg: #f5f7fa;
+    --surface: #ffffff;
+    --surface2: #eef1f6;
+    --border: #d0d7e3;
+    --accent: #1a6fc4;
+    --accent2: #d95f1a;
+    --accent3: #1a9e6a;
+    --accent4: #b07d10;
+    --text: #1a2030;
+    --text-muted: #4a5a78;
+    --text-dim: #8898b8;
+    --danger: #c0392b;
+    --mono: 'IBM Plex Mono', monospace;
+    --sans: 'IBM Plex Sans', sans-serif;
+    --serif: 'IBM Plex Serif', serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  .page-wrap { max-width: 960px; margin: 0 auto; padding: 40px 24px 100px; }
+
+  /* ── Sub-chapter header ── */
+  .chapter-header {
+    border-left: 4px solid var(--accent);
+    padding: 32px 40px;
+    background: var(--surface);
+    border-radius: 0 12px 12px 0;
+    margin-bottom: 48px;
+    position: relative;
+    overflow: hidden;
+  }
+  .chapter-header::before {
+    content: '';
+    position: absolute; top: 0; right: 0;
+    width: 300px; height: 100%;
+    background: radial-gradient(ellipse at right center, rgba(79,156,249,0.07) 0%, transparent 70%);
+  }
+  .chapter-tag {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .chapter-group {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--text-muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  h1.chapter-title {
+    font-family: var(--serif);
+    font-size: 2.6rem;
+    font-weight: 700;
+    line-height: 1 !important;
+    color: var(--text);
+    margin-bottom: 1rem !important;
+  }
+  .chapter-subtitle {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    max-width: 580px;
+    line-height: 1.5;
+    margin-top: 12px;
+    margin-bottom: 24px;
+  }
+  .topic-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+  .pill {
+    font-family: var(--mono); font-size: 11px; padding: 4px 12px; border-radius: 20px;
+    border: 1px solid var(--border); color: var(--text-muted); background: var(--bg);
+  }
+  .pill.active { border-color: var(--accent); color: var(--accent); }
+  .pill.done { border-color: var(--accent3); color: var(--accent3); }
+
+  .section-label {
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--text-dim); margin-bottom: 6px;
+  }
+  h2 { font-family: var(--serif); font-size: 1.55rem; font-weight: 600; color: var(--text); margin-bottom: 14px; }
+  h3 { font-family: var(--sans); font-size: 1.1rem; font-weight: 600; color: var(--accent); margin-bottom: 10px; margin-top: 28px; }
+  h4 { font-family: var(--mono); font-size: 0.9rem; font-weight: 600; color: var(--accent4); margin-bottom: 8px; margin-top: 20px; letter-spacing: 0.05em; }
+  p { margin-bottom: 14px; color: var(--text); }
+  strong { color: var(--text); font-weight: 600; }
+  em { color: var(--text-muted); font-style: italic; }
+
+  .concept-block {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+    padding: 32px; margin-bottom: 32px; position: relative;
+  }
+  .concept-block::before {
+    content: attr(data-num); position: absolute; top: -1px; right: 20px;
+    font-family: var(--mono); font-size: 10px; color: var(--accent); background: var(--surface);
+    padding: 0 8px; border: 1px solid var(--border); border-top: none;
+    border-radius: 0 0 6px 6px; letter-spacing: 0.1em;
+  }
+
+  .why-box {
+    background: linear-gradient(135deg, rgba(79,156,249,0.08), rgba(79,156,249,0.03));
+    border: 1px solid rgba(79,156,249,0.25); border-left: 3px solid var(--accent);
+    border-radius: 8px; padding: 20px 24px; margin-bottom: 24px;
+  }
+  .why-box .why-label { font-family: var(--mono); font-size: 10px; color: var(--accent); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 8px; }
+  .why-box p { margin-bottom: 0; font-size: 0.95rem; }
+
+  .eq-box {
+    background: var(--surface2); border: 1px solid var(--border); border-left: 3px solid var(--accent);
+    border-radius: 8px; padding: 20px 24px; margin: 18px 0;
+  }
+  .eq-box .eq-label { font-size: 10px; color: var(--text-dim); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 10px; font-family: var(--mono); }
+  .eq-main { font-size: 1.1rem; margin-bottom: 14px; line-height: 2.0; text-align: center; }
+  .eq-vars { border-top: 1px solid var(--border); padding-top: 12px; text-align: left; }
+  .eq-var { display: grid; grid-template-columns: 80px 1fr; gap: 10px; font-size: 0.82rem; color: var(--text-muted); margin-bottom: 10px; align-items: baseline; text-align: left; }
+  .eq-var .sym { color: var(--accent); font-size: 0.95rem; font-style: normal; font-family: 'IBM Plex Sans', sans-serif; text-align: left; }
+  .eq-var .desc { display: block; text-align: left; }
+  .eq-var .desc em { color: var(--text-muted); font-style: italic; }
+
+  .info-callout {
+    background: rgba(192,57,43,0.06); border: 1px solid rgba(192,57,43,0.25); border-left: 3px solid var(--danger);
+    border-radius: 8px; padding: 16px 22px; margin: 18px 0; font-size: 0.93rem; color: var(--text-muted);
+  }
+  .info-callout strong { color: var(--danger); }
+
+  ul.content-list { padding-left: 20px; margin-bottom: 14px; }
+  ul.content-list li { margin-bottom: 6px; color: var(--text-muted); font-size: 0.93rem; }
+
+  /* ── Interactive animation block ── */
+  .anim-block { border: 1px solid var(--border); border-radius: 10px; overflow: hidden; margin: 18px 0; }
+  .anim-header { display: flex; align-items: center; gap: 6px; padding: 10px 16px; background: var(--text); }
+  .anim-dot { width: 8px; height: 8px; border-radius: 50%; }
+  .anim-title { font-family: var(--mono); font-size: 11px; color: #cdd6e8; margin-left: 6px; letter-spacing: 0.05em; }
+  .anim-content { padding: 0; }
+
+  /* ── Derivation stepper (course-standard embedded derivation format) ── */
+  .deriv-wrap { margin: 18px 0; }
+  .deriv-toggle-header {
+    display: flex; align-items: center; gap: 12px; cursor: pointer; user-select: none;
+    background: #fffbf0; border: 1px dashed #c8d4e8; border-radius: 8px; padding: 14px 20px;
+  }
+  .deriv-toggle-header .icon { font-size: 1.3rem; }
+  .deriv-toggle-header .labels { display: flex; flex-direction: column; gap: 2px; }
+  .deriv-toggle-header .opt-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.12em; color: #8a6800; text-transform: uppercase; }
+  .deriv-toggle-header .opt-title { font-weight: 700; font-size: 1rem; color: #1e2535; }
+  .deriv-toggle-header .chev { margin-left: auto; color: #8a6800; transition: transform 0.2s; }
+  .deriv-toggle-header.open .chev { transform: rotate(180deg); }
+  .deriv-body { display: none; background: #f7f9fc; border: 1px solid #c8d4e8; border-top: none; border-radius: 0 0 8px 8px; padding: 28px; }
+  .deriv-body.open { display: block; }
+
+  #derivPips { display: flex; gap: 6px; margin-bottom: 48px; flex-wrap: wrap; }
+  .deriv-pip { width: 22px; height: 6px; border-radius: 3px; cursor: pointer; }
+
+  .deriv-step-label { font-weight: 700; color: #1a4fa8; font-family: var(--mono); text-transform: uppercase; margin-bottom: 6px; font-size: 0.78rem; letter-spacing: 0.08em; }
+  .deriv-step-title { font-weight: 700; font-size: 1.5rem; color: #1e2535; margin-bottom: 20px; font-family: var(--sans); }
+  .deriv-step-body { margin-bottom: 28px; font-size: 0.98rem; color: var(--text); }
+  .deriv-step-body p { font-size: 0.98rem; }
+
+  .deriv-formula-box { margin-top: 28px; margin-bottom: 12px; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 18px 22px; text-align: center; overflow-x: auto; max-width: 100%; }
+
+  .deriv-nav { display: flex; align-items: center; justify-content: space-between; margin-top: 32px; margin-bottom: 0; border-top: 1px solid #d8e0ee; padding-top: 20px; }
+  .deriv-nav-btn { width: 31px; height: 31px; border-radius: 6px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 14px; font-family: var(--mono); }
+  .deriv-nav-btn.back { background: #fff; border: 1px solid var(--accent); color: var(--accent); }
+  .deriv-nav-btn.next { background: var(--accent); border: 1px solid var(--accent); color: #fff; box-shadow: 0 2px 6px rgba(26,111,196,0.35); }
+  .deriv-nav-btn.disabled { opacity: 0.35; cursor: not-allowed; box-shadow: none; }
+  .deriv-step-counter { flex: 1; text-align: center; font-family: var(--mono); font-size: 12px; color: var(--text-dim); }
+
+  .MathJax { font-size: 0.968em !important; }
+
+  /* ── Procedure pager (paginated, sliding) ── */
+  .proc-pager { margin-top: 10px; }
+  .proc-viewport { overflow: hidden; border-radius: 8px; transition: height 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+  .proc-track { display: flex; align-items: flex-start; transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+  .proc-page { flex: 0 0 100%; box-sizing: border-box; padding: 4px 2px 8px; }
+  .proc-image { margin-top: 20px; text-align: center; max-width: 400px; margin-left: auto; margin-right: auto; }
+  .proc-pip { width: 22px; height: 6px; border-radius: 3px; cursor: pointer; }
+
+  /* ── Interactive J comparison widget ── */
+  .jwidget-controls { padding: 16px 20px; background: var(--bg); border-top: 1px solid var(--border); display: flex; flex-wrap: wrap; gap: 24px; align-items: center; }
+  .jwidget-controls label { font-family: var(--mono); font-size: 11px; color: var(--text-muted); display: block; margin-bottom: 4px; }
+  .jwidget-controls input[type="range"] { width: 100%; accent-color: var(--accent); }
+  .jwidget-result { padding: 14px 20px; background: var(--surface); border-top: 1px solid var(--border); font-family: var(--mono); font-size: 12px; color: var(--text); line-height: 2; white-space: pre-wrap; }
+
+  @media (max-width: 640px) {
+    .chapter-header { padding: 24px; }
+    h1.chapter-title { font-size: 1.9rem; }
+    .concept-block { padding: 22px; }
+  }
+</style>
+
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']] },
+    svg: { fontCache: 'global' }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+
+<div class="page-wrap">
+
+  <div class="chapter-header">
+    <div class="chapter-tag">MCEN2002 · FUNDAMENTALS OF MECHANICAL DESIGN</div>
+    <div class="chapter-group">Chapter 1 Properties of Plane Area</div>
+    <h1 class="chapter-title">Polar Moment of Area</h1>
+    <p class="chapter-subtitle">How area resists twisting rather than bending — and why it costs you nothing extra to compute once you already have \(I_x\) and \(I_y\).</p>
+    <div class="topic-pills">
+      <span class="pill done">Section 1.1 First Moment &amp; Centroid</span>
+      <span class="pill done">Section 1.2 Second Moment of Area</span>
+      <span class="pill done">Section 1.3 Parallel Axis Theorem</span>
+      <span class="pill active">Section 1.4 Polar Moment</span>
+      <span class="pill">Section 1.5 Summary</span>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       BUILDING ON SECTION 1.3
+  ══════════════════════════════════════════════ -->
+  <div class="concept-block" data-num="BUILDING ON SECTION 1.3">
+    <div class="why-box">
+      <div class="why-label">⬅️ Where you left off</div>
+      <p>In Section 1.3 you learned how \(I_x\) and \(I_y\) describe a section's resistance to <em>bending</em> about a horizontal or vertical axis — and how the Parallel Axis Theorem lets you build up the total for any composite shape. But a shaft under torsion isn't bending about an axis in the plane of the cross-section; it's twisting about the axis running <em>through</em> the section, perpendicular to it. That calls for a different distance — not \(y\) or \(x\) alone, but the full radial distance \(r\) from the centroid. The quantity that captures this is the polar moment of area, \(J\).</p>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       CONCEPT: POLAR MOMENT OF AREA
+  ══════════════════════════════════════════════ -->
+  <div class="concept-block" data-num="CONCEPT">
+    <div class="section-label">Core Concept</div>
+    <h2>Resistance to twisting: the polar moment \(J\)</h2>
+
+    <div class="why-box">
+      <div class="why-label">🎯 Why this concept</div>
+      <p>When a shaft is twisted, shear stress at any point depends on how far that point sits from the shaft's centre — not from a horizontal or vertical axis, but radially in every direction at once. \(J\) quantifies how area is distributed around the centroid <em>as a point</em>, rather than around a line. You'll use \(J\) directly in Chapter 4 to compute shear stress and angle of twist in rotating shafts, and again wherever torsional stiffness matters — drive shafts, fasteners, and torsion springs.</p>
+    </div>
+
+    <p>For any area element \(dA\) at coordinates \((x, y)\), its radial distance from the centroid is \(r\), where \(r^2 = x^2 + y^2\) by Pythagoras. The polar moment of area is defined the same way \(I_x\) and \(I_y\) were in Section 1.2 — a squared-distance integral over the area — except the distance used is \(r\) rather than \(x\) or \(y\):</p>
+
+    <div class="eq-box">
+      <div class="eq-label">Polar Moment of Area — Definition</div>
+      <div class="eq-main">\[J = \int r^2\, dA\]</div>
+      <div class="eq-vars">
+        <div class="eq-var"><span class="sym">\(J\)</span><span class="desc">Polar moment of area about the centroid (units \(\text{mm}^4\) or \(\text{m}^4\))</span></div>
+        <div class="eq-var"><span class="sym">\(r\)</span><span class="desc">Radial distance from the centroid to the area element \(dA\)</span></div>
+      </div>
+    </div>
+
+    <p>Because \(r^2 = x^2 + y^2\), this integral splits cleanly into two pieces you already know how to compute — no new integration required. This relationship is called the <strong>Perpendicular Axis Theorem</strong>:</p>
+
+    <div class="eq-box">
+      <div class="eq-label">Perpendicular Axis Theorem</div>
+      <div class="eq-main">\[J = I_x + I_y\]</div>
+      <div class="eq-vars">
+        <div class="eq-var"><span class="sym">\(I_x\)</span><span class="desc">Second moment of area about the centroidal \(x\)-axis — from Section 1.2</span></div>
+        <div class="eq-var"><span class="sym">\(I_y\)</span><span class="desc">Second moment of area about the centroidal \(y\)-axis — from Section 1.2</span></div>
+      </div>
+    </div>
+
+    <div class="info-callout">
+      ⚠️ <strong>The theorem only holds about the same centroidal point.</strong> \(I_x\) and \(I_y\) must both be taken about axes that pass through the section's own centroid and lie in the plane of the section. If you've already shifted \(I_x\) or \(I_y\) to some other axis using the Parallel Axis Theorem, you cannot add them to get \(J\) about that same offset point unless you apply the parallel axis shift to \(J\) itself, using the same offset distance in both directions.
+    </div>
+
+    <h3>Where does \(J = I_x + I_y\) come from?</h3>
+    <p>Like the Parallel Axis Theorem, this isn't an approximation — it drops straight out of the definition of \(J\) once you substitute \(r^2 = x^2 + y^2\). The derivation is short.</p>
+
+    <div class="deriv-wrap">
+      <div class="deriv-toggle-header" id="derivToggleHeader">
+        <span class="icon">💡</span>
+        <div class="labels">
+          <span class="opt-label">Optional — want to know more?</span>
+          <span class="opt-title">Derivation of the Perpendicular Axis Theorem</span>
+        </div>
+        <span class="chev">▾</span>
+      </div>
+      <div class="deriv-body" id="derivBody">
+        <div id="derivPips"></div>
+        <div id="derivStepContent"></div>
+        <div class="deriv-nav">
+          <div class="deriv-nav-btn back" id="derivBack">◀</div>
+          <div class="deriv-step-counter" id="derivCounter"></div>
+          <div class="deriv-nav-btn next" id="derivNext">▶</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       STANDARD RESULTS
+  ══════════════════════════════════════════════ -->
+  <div class="concept-block" data-num="STANDARD RESULTS">
+    <div class="section-label">Standard Results</div>
+    <h2>\(J\) for solid and hollow circular sections</h2>
+    <p>Circular sections are by far the most common shape you'll compute \(J\) for, since shafts are almost always round or tubular. Both results follow directly from \(J = I_x + I_y\) applied to the standard circle formulas from Section 1.2, where \(I_x = I_y = \pi d^4/64\) for a solid circle by symmetry.</p>
+
+    <div class="eq-box">
+      <div class="eq-label">Solid Circular Section</div>
+      <div class="eq-main">\[J = \frac{\pi d^4}{32} = \frac{\pi r^4}{2}\]</div>
+      <div class="eq-vars">
+        <div class="eq-var"><span class="sym">\(d\)</span><span class="desc">Diameter of the solid shaft</span></div>
+        <div class="eq-var"><span class="sym">\(r\)</span><span class="desc">Radius of the solid shaft, \(r = d/2\)</span></div>
+      </div>
+    </div>
+
+    <div class="eq-box">
+      <div class="eq-label">Hollow Circular Section (Annulus)</div>
+      <div class="eq-main">\[J = \frac{\pi \left(d_o^4 - d_i^4\right)}{32}\]</div>
+      <div class="eq-vars">
+        <div class="eq-var"><span class="sym">\(d_o\)</span><span class="desc">Outer diameter</span></div>
+        <div class="eq-var"><span class="sym">\(d_i\)</span><span class="desc">Inner diameter</span></div>
+      </div>
+    </div>
+
+    <p>Notice the hollow-section formula is just the solid formula for the outer diameter, minus the solid formula for the inner diameter — the same subtraction logic you used for holes when finding centroids in Section 1.1 and composite \(I_x\) in Section 1.3.</p>
+
+    <div class="info-callout">
+      💡 <strong>Why are shafts round, not square?</strong> For a given cross-sectional area, a hollow circular shaft maximises \(J\) because every bit of material sits far from the centre, at a large and roughly uniform radial distance. A solid square shaft is comparatively inefficient — its corner material is close to the centroid along the diagonal but the section carries a lot of area near the middle that contributes little to \(J\). This is also why gaining strength "for free" by hollowing out a shaft works so well: material removed from near the centre barely reduces \(J\), while removing the same area from the outer edge would cost you dearly.
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       RADIUS OF GYRATION
+  ══════════════════════════════════════════════ -->
+  <div class="concept-block" data-num="RADIUS OF GYRATION">
+    <div class="section-label">Related Property</div>
+    <h2>The polar radius of gyration \(k\)</h2>
+
+    <div class="why-box">
+      <div class="why-label">🎯 Why this concept</div>
+      <p>Values of \(J\) are large numbers in \(\text{mm}^4\) — useful for calculation, but hard to interpret and awkward to compare between sections of different sizes. The <strong>radius of gyration</strong> condenses \(J\) and the area \(A\) into a single <em>length</em> that tells you how far from the centroid the section's area is effectively concentrated. The same construction returns in Chapter 6, where \(k_x = \sqrt{I_x/A}\) governs column buckling through the slenderness ratio — so it's worth meeting the idea now, in its simplest polar form.</p>
+    </div>
+
+    <p>Imagine squeezing the entire area \(A\) into a thin ring at some radius \(k\) from the centroid, chosen so that the ring has exactly the same polar moment as the real section. Since all of the ring's area sits at the single distance \(k\), its polar moment is simply \(A k^2\). Setting this equal to the real section's \(J\) defines the polar radius of gyration:</p>
+
+    <div class="eq-box">
+      <div class="eq-label">Polar Radius of Gyration</div>
+      <div class="eq-main">\[k = \sqrt{\frac{J}{A}} \qquad\Longleftrightarrow\qquad J = A k^2\]</div>
+      <div class="eq-vars">
+        <div class="eq-var"><span class="sym">\(k\)</span><span class="desc">Polar radius of gyration about the centroid (units \(\text{mm}\) or \(\text{m}\) — a <em>length</em>, not \(\text{mm}^4\))</span></div>
+        <div class="eq-var"><span class="sym">\(J\)</span><span class="desc">Polar moment of area about the centroid</span></div>
+        <div class="eq-var"><span class="sym">\(A\)</span><span class="desc">Cross-sectional area</span></div>
+      </div>
+    </div>
+
+    <p>A larger \(k\) means the section's material sits farther from the centre on average — exactly the quality that makes a section torsionally efficient. Two sections with equal area but different \(k\) will have very different \(J\): the one with the larger \(k\) wins, at no extra material cost.</p>
+
+    <div class="info-callout">
+      ⚠️ <strong>\(k\) is not a physical radius of the section.</strong> It is an <em>effective</em> (root-mean-square) distance — no actual boundary of the shape needs to lie at \(r = k\). For a solid circular shaft, \(k = r/\sqrt{2} \approx 0.707\,r\), which is <em>less</em> than the outer radius because material fills the section all the way in to the centre. Watch the units too: \(k\) is in \(\text{mm}\), not \(\text{mm}^4\) — quoting \(J\) where \(k\) is asked for (or vice versa) is a common slip.
+    </div>
+
+    <h3>Quick check with two typical shafts</h3>
+    <p>Applying \(k = \sqrt{J/A}\) to a solid \(60\text{ mm}\) shaft and an \(80/50\text{ mm}\) hollow shaft — the same two sections solved in full in the worked examples below:</p>
+
+    <div class="deriv-formula-box">
+      \[\begin{aligned}
+      \textbf{Solid, } d = 60\text{ mm:}\quad
+      A &= \frac{\pi d^2}{4} = 2827\ \text{mm}^2, \qquad
+      k = \sqrt{\frac{1.27\times10^{6}}{2827}} = 21.2\ \text{mm} \\[8pt]
+      \textbf{Hollow, } d_o = 80,\ d_i = 50\text{ mm:}\quad
+      A &= \frac{\pi\left(d_o^2 - d_i^2\right)}{4} = 3063\ \text{mm}^2, \qquad
+      k = \sqrt{\frac{3.41\times10^{6}}{3063}} = 33.4\ \text{mm}
+      \end{aligned}\]
+    </div>
+
+    <p>The comparison is telling. The solid shaft's \(k\) is \(0.707\) of its \(30\text{ mm}\) outer radius, but the hollow shaft's \(k\) is \(0.83\) of its \(40\text{ mm}\) outer radius — its material sits proportionally farther out, which is the structural-efficiency argument from the callout above expressed as a single number.</p>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       WORKED EXAMPLE 1: SOLID SHAFT
+  ══════════════════════════════════════════════ -->
+  <div class="concept-block" data-num="EXAMPLE 01">
+    <div class="section-label">Worked Example</div>
+    <h2>Polar moment of a solid shaft</h2>
+    <p>A solid circular shaft has diameter \(d = 60\text{ mm}\). Find its polar moment of area \(J\).</p>
+
+    <div class="deriv-formula-box">
+      \[\begin{aligned}
+      J &= \frac{\pi d^4}{32} \\
+      &= \frac{\pi \times 60^4}{32} \\
+      &= \frac{\pi \times 12{,}960{,}000}{32} \\
+      &= 1.27\times10^{6}\ \text{mm}^4
+      \end{aligned}\]
+    </div>
+    <p>You could equally have found this via \(I_x = I_y = \pi d^4/64 = 0.636\times10^{6}\text{ mm}^4\) and summed them — \(J = I_x + I_y = 1.27\times10^{6}\text{ mm}^4\), the same result, confirming the Perpendicular Axis Theorem holds for the standard circle formula too.</p>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       WORKED EXAMPLE 2: HOLLOW SHAFT (PAGINATED)
+  ══════════════════════════════════════════════ -->
+  <div class="concept-block" data-num="EXAMPLE 02">
+    <div class="section-label">Worked Example · Hollow Section</div>
+    <h2>Hollow shaft: \(J\) by subtraction</h2>
+    <p>Treat the hollow shaft as a solid outer circle with a solid inner circle removed — the same subtraction approach you used for holes in Section 1.1 and Section 1.3.</p>
+
+    <div class="proc-pager">
+      <div class="proc-viewport">
+        <div class="proc-track" id="exTrack">
+
+          <div class="proc-page">
+            <div class="section-label">Page 1 · The problem</div>
+            <p>A hollow circular shaft has an outer diameter \(d_o = 80\text{ mm}\) and an inner diameter \(d_i = 50\text{ mm}\). Find the polar moment of area \(J\) for the cross-section.</p>
+            <ul class="content-list">
+              <li>Treat this as a solid \(80\text{ mm}\) shaft, with a solid \(50\text{ mm}\) shaft's worth of area removed from the centre</li>
+              <li>Both circles share the same centroid, so no parallel axis shift is needed — this is a pure subtraction</li>
+            </ul>
+          </div>
+
+          <div class="proc-page">
+            <div class="section-label">Page 2 · Compute each solid circle's \(J\)</div>
+            <p>Find \(J\) for the full outer circle and for the circle representing the removed material, using the solid-circle formula for each:</p>
+            <div class="deriv-formula-box">
+              \[\begin{aligned}
+              J_{outer} &= \frac{\pi d_o^4}{32} = \frac{\pi \times 80^4}{32} = 4.02\times10^{6}\ \text{mm}^4 \\[6pt]
+              J_{inner} &= \frac{\pi d_i^4}{32} = \frac{\pi \times 50^4}{32} = 0.61\times10^{6}\ \text{mm}^4
+              \end{aligned}\]
+            </div>
+          </div>
+
+          <div class="proc-page">
+            <div class="section-label">Page 3 · Subtract</div>
+            <p>The hollow section's \(J\) is the outer solid circle's \(J\) minus the removed inner circle's \(J\):</p>
+            <div class="deriv-formula-box">
+              \[\begin{aligned}
+              J &= J_{outer} - J_{inner} \\
+              &= 4.02\times10^{6} - 0.61\times10^{6} \\
+              &= 3.41\times10^{6}\ \text{mm}^4
+              \end{aligned}\]
+            </div>
+            <p>The hollow shaft retains about \(85\%\) of the solid \(80\text{ mm}\) shaft's \(J\), while using only about \(61\%\) of its material — this trade-off is exactly what the interactive comparison below lets you explore.</p>
+          </div>
+
+        </div>
+      </div>
+      <div class="deriv-nav">
+        <div class="deriv-nav-btn back" id="exBack">◀</div>
+        <div id="exPips" style="display:flex; gap:6px; flex:1; justify-content:center;"></div>
+        <div class="deriv-step-counter" id="exCounter" style="flex:none; min-width:50px;"></div>
+        <div class="deriv-nav-btn next" id="exNext">▶</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       INTERACTIVE: SOLID vs HOLLOW
+  ══════════════════════════════════════════════ -->
+  <div class="concept-block" data-num="INTERACTIVE">
+    <div class="section-label">Interactive</div>
+    <h2>Comparing \(J\) — solid vs. hollow shaft</h2>
+    <p>Adjust the outer diameter and wall thickness below. Watch how removing material from near the centre barely reduces \(J\), while the shaft's mass (proportional to area) drops much faster — the structural-efficiency argument made concrete.</p>
+
+    <div class="anim-block">
+      <div class="anim-header">
+        <div class="anim-dot" style="background:#c0392b"></div>
+        <div class="anim-dot" style="background:#b07d10"></div>
+        <div class="anim-dot" style="background:#1a9e6a"></div>
+        <div class="anim-title">interactive-01 · Polar Moment — Solid vs Hollow</div>
+      </div>
+      <div class="anim-content">
+        <canvas id="polarCanvas" style="width:100%;background:var(--surface);display:block;"></canvas>
+        <div class="jwidget-controls">
+          <div style="flex:1;min-width:180px;">
+            <label>OUTER DIAMETER (mm)</label>
+            <input type="range" id="p_od" min="40" max="160" value="100">
+            <span id="p_od_v" style="font-family:var(--mono);font-size:12px;color:var(--accent);">100</span>
+          </div>
+          <div style="flex:1;min-width:180px;">
+            <label>WALL THICKNESS (mm) — hollow only</label>
+            <input type="range" id="p_t" min="2" max="40" value="10">
+            <span id="p_t_v" style="font-family:var(--mono);font-size:12px;color:var(--accent2);">10</span>
+          </div>
+        </div>
+        <div id="polar_result" class="jwidget-result"></div>
+      </div>
+    </div>
+
+    <div class="info-callout" style="border-left-color:var(--accent3);background:rgba(26,158,106,0.06);border-color:rgba(26,158,106,0.25);">
+      💡 <strong style="color:var(--accent3);">Diagram note:</strong> this interactive uses simple in-file circles rather than the course's usual Tumult Hype exports. If you'd like matching hand-built diagrams for this section — a radial-element diagram showing \(r\), \(x\), \(y\) on a cross-section, and a static solid-vs-hollow comparison graphic — flag it and I can describe exactly what to build, or embed real SVGs once you export them.
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       BRIDGE TO SECTION 1.5
+  ══════════════════════════════════════════════ -->
+  <div class="concept-block" data-num="BRIDGE TO SECTION 1.5">
+    <div class="why-box">
+      <div class="why-label">➡️ Coming up next</div>
+      <p>You now have all three section properties this chapter set out to build: the <strong>centroid</strong>, the <strong>second moment of area</strong> \(I_x\) and \(I_y\) (with the Parallel Axis Theorem to shift them), and the <strong>polar moment of area</strong> \(J\). Section 1.5 pulls these together into a single summary — what each quantity means physically, how they relate to one another, and where you'll use each one as the course moves into bending stress, torsion, and buckling.</p>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// ────────────────────────────────────────
+// DERIVATION STEPPER — course-standard embedded derivation
+// ────────────────────────────────────────
+(function() {
+  const DERIV_STEPS = [
+    {
+      label: 'Step 1 — Setup',
+      title: 'Split the radial distance into \\(x\\) and \\(y\\)',
+      body: `<p>Take an area element \\(dA\\) at position \\((x, y)\\), measured from the section's own centroid. By Pythagoras, its radial distance from the centroid is:</p>
+             <div class="deriv-formula-box">\\[r^2 = x^2 + y^2\\]</div>`
+    },
+    {
+      label: 'Step 2 — Substitute',
+      title: 'Substitute into the definition of \\(J\\)',
+      body: `<p>Starting from the definition \\(J = \\int r^2\\, dA\\), replace \\(r^2\\) with \\(x^2 + y^2\\):</p>
+             <div class="deriv-formula-box">\\[J = \\int (x^2 + y^2)\\, dA = \\int x^2\\, dA + \\int y^2\\, dA\\]</div>
+             <p>The integral splits cleanly because integration is additive — there's no cross term to worry about here, unlike the Parallel Axis Theorem derivation in Section 1.3, since \\(x\\) and \\(y\\) are already independent coordinates rather than an offset distance.</p>`
+    },
+    {
+      label: 'Step 3 — Result',
+      title: 'Identify both terms',
+      body: `<p>Each surviving integral is a quantity you already know by name from Section 1.2:</p>
+             <div class="deriv-formula-box">\\[\\int y^2\\, dA = I_x \\qquad\\qquad \\int x^2\\, dA = I_y\\]</div>
+             <p>Substituting back gives the Perpendicular Axis Theorem, exact for any planar shape:</p>
+             <div class="deriv-formula-box">\\[J = I_x + I_y\\]</div>
+             <p>Nothing here required knowing the shape in advance — this holds for any cross-section, as long as \\(I_x\\) and \\(I_y\\) are both taken about the same centroidal point.</p>`
+    }
+  ];
+
+  let current = 0;
+  const pipsEl = document.getElementById('derivPips');
+  const contentEl = document.getElementById('derivStepContent');
+  const counterEl = document.getElementById('derivCounter');
+  const backBtn = document.getElementById('derivBack');
+  const nextBtn = document.getElementById('derivNext');
+  const toggleHeader = document.getElementById('derivToggleHeader');
+  const body = document.getElementById('derivBody');
+
+  function renderPips() {
+    pipsEl.innerHTML = '';
+    pipsEl.style.cssText = 'display:flex; gap:6px; margin-bottom:48px; flex-wrap:wrap;';
+    DERIV_STEPS.forEach((s, i) => {
+      const pip = document.createElement('div');
+      pip.className = 'deriv-pip';
+      let bg = '#dde1ea';
+      if (i === current) bg = '#1a4fa8';
+      else if (i < current) bg = '#0e7490';
+      pip.style.cssText = `width:22px;height:6px;border-radius:3px;cursor:pointer;background:${bg} !important;`;
+      pip.addEventListener('click', () => { current = i; render(); });
+      pipsEl.appendChild(pip);
+    });
+  }
+
+  function renderStep() {
+    const s = DERIV_STEPS[current];
+    contentEl.innerHTML = `
+      <div class="deriv-step-label" style="font-weight:700 !important;color:#1a4fa8 !important;font-family:'IBM Plex Mono',monospace !important;text-transform:uppercase !important;margin-bottom:6px !important;font-size:0.78rem !important;letter-spacing:0.08em !important;">${s.label}</div>
+      <div class="deriv-step-title" style="font-weight:700 !important;font-size:1.5rem !important;color:#1e2535 !important;margin-bottom:20px !important;">${s.title}</div>
+      <div class="deriv-step-body" style="margin-bottom:28px !important;">${s.body}</div>
+    `;
+    counterEl.textContent = `${current + 1} / ${DERIV_STEPS.length}`;
+    backBtn.classList.toggle('disabled', current === 0);
+    nextBtn.classList.toggle('disabled', current === DERIV_STEPS.length - 1);
+    if (window.MathJax && window.MathJax.typesetPromise) {
+      window.MathJax.typesetPromise([contentEl]);
+    }
+  }
+
+  function render() { renderPips(); renderStep(); }
+
+  backBtn.addEventListener('click', () => { if (current > 0) { current--; render(); } });
+  nextBtn.addEventListener('click', () => { if (current < DERIV_STEPS.length - 1) { current++; render(); } });
+
+  toggleHeader.addEventListener('click', () => {
+    const isOpen = body.classList.toggle('open');
+    toggleHeader.classList.toggle('open', isOpen);
+    if (isOpen && window.MathJax && window.MathJax.typesetPromise) {
+      window.MathJax.typesetPromise([contentEl]);
+    }
+  });
+
+  window.derivNav = { jumpTo: (i) => { current = i; render(); } };
+  render();
+})();
+
+// ────────────────────────────────────────
+// SHARED CANVAS HELPER
+// ────────────────────────────────────────
+function setupCanvas(canvas, logicalH) {
+  const dpr = window.devicePixelRatio || 1;
+  const w = canvas.parentElement.clientWidth;
+  canvas.width = w * dpr;
+  canvas.height = logicalH * dpr;
+  canvas.style.height = logicalH + 'px';
+  const ctx = canvas.getContext('2d');
+  ctx.scale(dpr, dpr);
+  canvas._lw = w; canvas._lh = logicalH;
+  return ctx;
+}
+
+// ────────────────────────────────────────
+// SLIDING PAGER — reusable for worked examples
+// ────────────────────────────────────────
+function initSlider(trackId, pipsId, counterId, backId, nextId) {
+  const track = document.getElementById(trackId);
+  const viewport = track.parentElement;
+  const numPages = track.children.length;
+  const pipsEl = document.getElementById(pipsId);
+  const counterEl = document.getElementById(counterId);
+  const backBtn = document.getElementById(backId);
+  const nextBtn = document.getElementById(nextId);
+  let page = 0;
+
+  function syncHeight() {
+    viewport.style.height = track.children[page].offsetHeight + 'px';
+  }
+
+  function renderPips() {
+    pipsEl.innerHTML = '';
+    for (let i = 0; i < numPages; i++) {
+      const pip = document.createElement('div');
+      pip.className = 'proc-pip';
+      let bg = '#dde1ea';
+      if (i === page) bg = '#1a4fa8';
+      else if (i < page) bg = '#0e7490';
+      pip.style.cssText = `width:22px;height:6px;border-radius:3px;cursor:pointer;background:${bg} !important;`;
+      pip.addEventListener('click', () => { page = i; render(); });
+      pipsEl.appendChild(pip);
+    }
+  }
+
+  function render() {
+    track.style.transform = `translateX(-${page * 100}%)`;
+    renderPips();
+    counterEl.textContent = `${page + 1} / ${numPages}`;
+    backBtn.classList.toggle('disabled', page === 0);
+    nextBtn.classList.toggle('disabled', page === numPages - 1);
+    syncHeight();
+    if (window.MathJax && window.MathJax.typesetPromise) {
+      window.MathJax.typesetPromise([track]).then(syncHeight);
+    }
+  }
+
+  window.addEventListener('resize', syncHeight);
+
+  backBtn.addEventListener('click', () => { if (page > 0) { page--; render(); } });
+  nextBtn.addEventListener('click', () => { if (page < numPages - 1) { page++; render(); } });
+
+  render();
+}
+
+initSlider('exTrack', 'exPips', 'exCounter', 'exBack', 'exNext');
+
+// ────────────────────────────────────────
+// INTERACTIVE: POLAR MOMENT — SOLID vs HOLLOW
+// ────────────────────────────────────────
+(function() {
+  const canvas = document.getElementById('polarCanvas');
+  let ctx = setupCanvas(canvas, 340);
+
+  function heatColor(t) {
+    // t in [0,1]: 0 = near centre (muted), 1 = outer edge (accent blue)
+    const c1 = [238, 241, 246];   // --surface2
+    const c2 = [26, 111, 196];    // --accent
+    const r = Math.round(c1[0] + (c2[0] - c1[0]) * t);
+    const g = Math.round(c1[1] + (c2[1] - c1[1]) * t);
+    const b = Math.round(c1[2] + (c2[2] - c1[2]) * t);
+    return `rgb(${r},${g},${b})`;
+  }
+
+  function drawCircleHeat(cx, cy, R_out, R_in, scale) {
+    const maxR2 = R_out * R_out;
+    const steps = 50;
+    const dr = R_out / steps;
+    for (let i = steps; i >= 0; i--) {
+      const r = i * dr;
+      if (r < R_in) {
+        ctx.fillStyle = '#f5f7fa';
+      } else {
+        const t2 = (r * r) / maxR2;
+        ctx.fillStyle = heatColor(t2);
+      }
+      ctx.beginPath();
+      ctx.arc(cx, cy, r * scale, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.strokeStyle = '#1a2030'; ctx.lineWidth = 1.5;
+    ctx.beginPath(); ctx.arc(cx, cy, R_out * scale, 0, Math.PI * 2); ctx.stroke();
+    if (R_in > 0) {
+      ctx.strokeStyle = '#8898b8'; ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.arc(cx, cy, R_in * scale, 0, Math.PI * 2); ctx.stroke();
+    }
+  }
+
+  function draw() {
+    const od = +document.getElementById('p_od').value;
+    const t  = +document.getElementById('p_t').value;
+    const id_val = Math.max(0, od - 2 * t);
+    const W = canvas._lw, H = canvas._lh;
+    ctx.clearRect(0, 0, W, H);
+
+    const scale = Math.min((W * 0.22) / od, (H * 0.68) / od, 3);
+    const cx1 = W * 0.24, cy = H * 0.46;
+    const cx2 = W * 0.62, cyr = H * 0.46;
+
+    drawCircleHeat(cx1, cy, od / 2, 0, scale);
+    ctx.fillStyle = '#4a5a78'; ctx.font = '11px IBM Plex Mono, monospace'; ctx.textAlign = 'center';
+    ctx.fillText('SOLID', cx1, cy + (od / 2) * scale + 22);
+    ctx.fillText(`d = ${od} mm`, cx1, cy + (od / 2) * scale + 36);
+
+    drawCircleHeat(cx2, cyr, od / 2, id_val / 2, scale);
+    ctx.fillStyle = '#4a5a78'; ctx.textAlign = 'center';
+    ctx.fillText('HOLLOW', cx2, cyr + (od / 2) * scale + 22);
+    ctx.fillText(`d_o=${od}, d_i=${id_val.toFixed(0)} mm`, cx2, cyr + (od / 2) * scale + 36);
+    ctx.textAlign = 'left';
+
+    const Js = Math.PI * Math.pow(od, 4) / 32;
+    const Jh = id_val > 0 ? Math.PI * (Math.pow(od, 4) - Math.pow(id_val, 4)) / 32 : Js;
+    const As = Math.PI * od * od / 4;
+    const Ah = id_val > 0 ? Math.PI * (od * od - id_val * id_val) / 4 : As;
+    const jRatio = (Jh / Js) * 100;
+    const aRatio = (Ah / As) * 100;
+
+    document.getElementById('p_od_v').textContent = od;
+    document.getElementById('p_t_v').textContent = t;
+
+    document.getElementById('polar_result').innerHTML =
+      `SOLID:   J = π×${od}⁴/32 = ${(Js/1e6).toFixed(2)}×10⁶ mm⁴   Area = ${As.toFixed(0)} mm²\n` +
+      `HOLLOW:  J = π(${od}⁴ − ${id_val.toFixed(0)}⁴)/32 = ${(Jh/1e6).toFixed(2)}×10⁶ mm⁴   Area = ${Ah.toFixed(0)} mm²\n` +
+      `Hollow retains ${jRatio.toFixed(1)}% of J while using only ${aRatio.toFixed(1)}% of the solid's area.`;
+  }
+
+  ['p_od', 'p_t'].forEach(id => {
+    document.getElementById(id).addEventListener('input', draw);
+  });
+  new ResizeObserver(() => { ctx = setupCanvas(canvas, 340); draw(); }).observe(canvas.parentElement);
+  draw();
+})();
+</script>
+
+</body>
+</html>

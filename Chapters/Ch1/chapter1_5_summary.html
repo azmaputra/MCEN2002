@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Section 1.5 Summary — Fundamentals of Mechanical Design</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,600;0,700;1,400&family=IBM+Plex+Serif:wght@400;600&display=swap');
+
+  :root {
+    --bg: #f5f7fa;
+    --surface: #ffffff;
+    --surface2: #eef1f6;
+    --border: #d0d7e3;
+    --accent: #1a6fc4;
+    --accent2: #d95f1a;
+    --accent3: #1a9e6a;
+    --accent4: #b07d10;
+    --text: #1a2030;
+    --text-muted: #4a5a78;
+    --text-dim: #8898b8;
+    --danger: #c0392b;
+    --mono: 'IBM Plex Mono', monospace;
+    --sans: 'IBM Plex Sans', sans-serif;
+    --serif: 'IBM Plex Serif', serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  .page-wrap { max-width: 960px; margin: 0 auto; padding: 40px 24px 100px; }
+
+  /* ── Sub-chapter header ── */
+  .chapter-header {
+    border-left: 4px solid var(--accent);
+    padding: 32px 40px;
+    background: var(--surface);
+    border-radius: 0 12px 12px 0;
+    margin-bottom: 48px;
+    position: relative;
+    overflow: hidden;
+  }
+  .chapter-header::before {
+    content: '';
+    position: absolute; top: 0; right: 0;
+    width: 300px; height: 100%;
+    background: radial-gradient(ellipse at right center, rgba(79,156,249,0.07) 0%, transparent 70%);
+  }
+  .chapter-tag {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .chapter-group {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--text-muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  h1.chapter-title {
+    font-family: var(--serif);
+    font-size: 2.6rem;
+    font-weight: 700;
+    line-height: 1 !important;
+    color: var(--text);
+    margin-bottom: 1rem !important;
+  }
+  .chapter-subtitle {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    max-width: 580px;
+    line-height: 1.5;
+    margin-top: 12px;
+    margin-bottom: 24px;
+  }
+  .topic-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+  .pill {
+    font-family: var(--mono); font-size: 11px; padding: 4px 12px; border-radius: 20px;
+    border: 1px solid var(--border); color: var(--text-muted); background: var(--bg);
+  }
+  .pill.active { border-color: var(--accent); color: var(--accent); }
+  .pill.done { border-color: var(--accent3); color: var(--accent3); }
+
+  .section-label {
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--text-dim); margin-bottom: 6px;
+  }
+  h2 { font-family: var(--serif); font-size: 1.55rem; font-weight: 600; color: var(--text); margin-bottom: 14px; }
+  h3 { font-family: var(--sans); font-size: 1.1rem; font-weight: 600; color: var(--accent); margin-bottom: 10px; margin-top: 28px; }
+  h4 { font-family: var(--mono); font-size: 0.9rem; font-weight: 600; color: var(--accent4); margin-bottom: 8px; margin-top: 20px; letter-spacing: 0.05em; }
+  p { margin-bottom: 14px; color: var(--text); }
+  strong { color: var(--text); font-weight: 600; }
+  em { color: var(--text-muted); font-style: italic; }
+
+  .concept-block {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+    padding: 32px; margin-bottom: 32px; position: relative;
+  }
+  .concept-block::before {
+    content: attr(data-num); position: absolute; top: -1px; right: 20px;
+    font-family: var(--mono); font-size: 10px; color: var(--accent); background: var(--surface);
+    padding: 0 8px; border: 1px solid var(--border); border-top: none;
+    border-radius: 0 0 6px 6px; letter-spacing: 0.1em;
+  }
+
+  .why-box {
+    background: linear-gradient(135deg, rgba(79,156,249,0.08), rgba(79,156,249,0.03));
+    border: 1px solid rgba(79,156,249,0.25); border-left: 3px solid var(--accent);
+    border-radius: 8px; padding: 20px 24px; margin-bottom: 24px;
+  }
+  .why-box .why-label { font-family: var(--mono); font-size: 10px; color: var(--accent); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 8px; }
+  .why-box p { margin-bottom: 0; font-size: 0.95rem; }
+
+  .eq-box {
+    background: var(--surface2); border: 1px solid var(--border); border-left: 3px solid var(--accent);
+    border-radius: 8px; padding: 20px 24px; margin: 18px 0;
+  }
+  .eq-box .eq-label { font-size: 10px; color: var(--text-dim); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 10px; font-family: var(--mono); }
+  .eq-main { font-size: 1.1rem; margin-bottom: 14px; line-height: 2.0; text-align: center; }
+  .eq-vars { border-top: 1px solid var(--border); padding-top: 12px; text-align: left; }
+  .eq-var { display: grid; grid-template-columns: 80px 1fr; gap: 10px; font-size: 0.82rem; color: var(--text-muted); margin-bottom: 10px; align-items: baseline; text-align: left; }
+  .eq-var .sym { color: var(--accent); font-size: 0.95rem; font-style: normal; font-family: 'IBM Plex Sans', sans-serif; text-align: left; }
+  .eq-var .desc { display: block; text-align: left; }
+  .eq-var .desc em { color: var(--text-muted); font-style: italic; }
+
+  .info-callout {
+    background: rgba(192,57,43,0.06); border: 1px solid rgba(192,57,43,0.25); border-left: 3px solid var(--danger);
+    border-radius: 8px; padding: 16px 22px; margin: 18px 0; font-size: 0.93rem; color: var(--text-muted);
+  }
+  .info-callout strong { color: var(--danger); }
+
+  ul.content-list { padding-left: 20px; margin-bottom: 14px; }
+  ul.content-list li { margin-bottom: 6px; color: var(--text-muted); font-size: 0.93rem; }
+
+  /* ── Summary table ── */
+  .summary-table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 0.88rem; }
+  .summary-table th {
+    text-align: left; font-family: var(--mono); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--text-dim); border-bottom: 2px solid var(--border); padding: 10px 12px;
+  }
+  .summary-table td { padding: 12px; border-bottom: 1px solid var(--border); color: var(--text); vertical-align: top; }
+  .summary-table td:first-child { font-weight: 600; white-space: nowrap; }
+  .summary-table tr:last-child td { border-bottom: none; }
+
+  /* ── Derivation stepper (course-standard embedded derivation format) ── */
+  .deriv-wrap { margin: 18px 0; }
+  .deriv-toggle-header {
+    display: flex; align-items: center; gap: 12px; cursor: pointer; user-select: none;
+    background: #fffbf0; border: 1px dashed #c8d4e8; border-radius: 8px; padding: 14px 20px;
+  }
+  .deriv-toggle-header .icon { font-size: 1.3rem; }
+  .deriv-toggle-header .labels { display: flex; flex-direction: column; gap: 2px; }
+  .deriv-toggle-header .opt-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.12em; color: #8a6800; text-transform: uppercase; }
+  .deriv-toggle-header .opt-title { font-weight: 700; font-size: 1rem; color: #1e2535; }
+  .deriv-toggle-header .chev { margin-left: auto; color: #8a6800; transition: transform 0.2s; }
+  .deriv-toggle-header.open .chev { transform: rotate(180deg); }
+  .deriv-body { display: none; background: #f7f9fc; border: 1px solid #c8d4e8; border-top: none; border-radius: 0 0 8px 8px; padding: 28px; }
+  .deriv-body.open { display: block; }
+
+  .deriv-formula-box { margin-top: 28px; margin-bottom: 12px; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 18px 22px; text-align: center; overflow-x: auto; max-width: 100%; }
+
+  .deriv-nav { display: flex; align-items: center; justify-content: space-between; margin-top: 32px; margin-bottom: 0; border-top: 1px solid #d8e0ee; padding-top: 20px; }
+  .deriv-nav-btn { width: 31px; height: 31px; border-radius: 6px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 14px; font-family: var(--mono); }
+  .deriv-nav-btn.back { background: #fff; border: 1px solid var(--accent); color: var(--accent); }
+  .deriv-nav-btn.next { background: var(--accent); border: 1px solid var(--accent); color: #fff; box-shadow: 0 2px 6px rgba(26,111,196,0.35); }
+  .deriv-nav-btn.disabled { opacity: 0.35; cursor: not-allowed; box-shadow: none; }
+  .deriv-step-counter { flex: 1; text-align: center; font-family: var(--mono); font-size: 12px; color: var(--text-dim); }
+
+  .MathJax { font-size: 0.968em !important; }
+
+  /* ── Procedure pager (paginated, sliding) ── */
+  .proc-pager { margin-top: 10px; }
+  .proc-viewport { overflow: hidden; border-radius: 8px; transition: height 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+  .proc-track { display: flex; align-items: flex-start; transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+  .proc-page { flex: 0 0 100%; box-sizing: border-box; padding: 4px 2px 8px; }
+  .proc-image { margin-top: 20px; text-align: center; max-width: 400px; margin-left: auto; margin-right: auto; }
+  .proc-pip { width: 22px; height: 6px; border-radius: 3px; cursor: pointer; }
+
+  @media (max-width: 640px) {
+    .chapter-header { padding: 24px; }
+    h1.chapter-title { font-size: 1.9rem; }
+    .concept-block { padding: 22px; }
+    .summary-table { font-size: 0.8rem; }
+  }
+</style>
+
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']] },
+    svg: { fontCache: 'global' }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+</head>
+<body>
+
+<div class="page-wrap">
+
+  <div class="chapter-header">
+    <div class="chapter-tag">MCEN2002 · FUNDAMENTALS OF MECHANICAL DESIGN</div>
+    <div class="chapter-group">Chapter 1 Properties of Plane Area</div>
+    <h1 class="chapter-title">Chapter Summary</h1>
+    <p class="chapter-subtitle">Pulling centroid, second moment of area, and polar moment of area together — what each one means, how they relate, and a capstone example that computes all three for a single shape.</p>
+    <div class="topic-pills">
+      <span class="pill done">Section 1.1 First Moment &amp; Centroid</span>
+      <span class="pill done">Section 1.2 Second Moment of Area</span>
+      <span class="pill done">Section 1.3 Parallel Axis Theorem</span>
+      <span class="pill done">Section 1.4 Polar Moment</span>
+      <span class="pill active">Section 1.5 Summary</span>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       BUILDING ON SECTION 1.4
+  ══════════════════════════════════════════════ -->
+  <div class="concept-block" data-num="BUILDING ON SECTION 1.4">
+    <div class="why-box">
+      <div class="why-label">⬅️ Where you left off</div>
+      <p>In Section 1.4 you found that the polar moment of area \(J\) — a section's resistance to twisting — costs nothing extra to compute once you already have \(I_x\) and \(I_y\): \(J = I_x + I_y\). That closes out the three quantities this chapter set out to build. Before moving on, it's worth stepping back and seeing how centroid, \(I\), and \(J\) fit together as one connected toolkit, rather than three separate procedures.</p>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       WHAT YOU NOW KNOW
+  ══════════════════════════════════════════════ -->
+  <div class="concept-block" data-num="SUMMARY">
+    <div class="section-label">Chapter Summary</div>
+    <h2>What you now know — and why it matters</h2>
+    <p>You've established the geometric foundation on which the rest of this course's structural analysis is built. Every one of these came from the same idea — an integral over the cross-sectional area, weighted by some power of distance — just applied to a different distance and a different power:</p>
+
+    <table class="summary-table">
+      <thead>
+        <tr>
+          <th>Property</th>
+          <th>Symbol</th>
+          <th>Definition</th>
+          <th>Physical meaning</th>
+          <th>Used in</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Centroid</td>
+          <td>\(\bar x, \bar y\)</td>
+          <td>\(\bar y = \dfrac{\int y\, dA}{A}\)</td>
+          <td>Geometric balance point; the reference every other calculation in this chapter is measured from</td>
+          <td>Foundational — every later property depends on it</td>
+        </tr>
+        <tr>
+          <td>Second Moment of Area</td>
+          <td>\(I_x, I_y\)</td>
+          <td>\(I_x = \int y^2\, dA\)</td>
+          <td>Resistance to bending; how far area is spread from the neutral axis</td>
+          <td>Ch. 3 (bending stress), Ch. 6 (buckling)</td>
+        </tr>
+        <tr>
+          <td>Polar Moment of Area</td>
+          <td>\(J\)</td>
+          <td>\(J = \int r^2\, dA\)<br>\(= I_x + I_y\)</td>
+          <td>Resistance to torsion; how far area is spread from the centroid point</td>
+          <td>Ch. 4 (torsion, shear stress and angle of twist)</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>Notice the pattern: distance to the first power gives you the centroid (Section 1.1); distance squared, measured vertically or horizontally, gives \(I_x\) or \(I_y\) (Section 1.2); distance squared, measured radially, gives \(J\) (Section 1.4). Same idea, different distance.</p>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       KEY RELATIONSHIPS
+  ══════════════════════════════════════════════ -->
+  <div class="concept-block" data-num="KEY RELATIONSHIPS">
+    <div class="section-label">Key Relationships</div>
+    <h2>The four ideas worth carrying forward</h2>
+    <ul class="content-list">
+      <li><strong>Parallel Axis Theorem</strong> (Section 1.3): \(I_x = \bar I_x + Ad^2\) — always apply about the composite centroid, and only once you know where that centroid actually is</li>
+      <li><strong>Perpendicular Axis Theorem</strong> (Section 1.4): \(J = I_x + I_y\) — only valid when \(I_x\) and \(I_y\) are taken about the same centroidal point</li>
+      <li><strong>Material far from the reference contributes disproportionately</strong> — because every one of these quantities involves a squared distance, doubling an offset quadruples its contribution. This is the mathematical reason I-beam flanges and hollow shaft walls are structurally efficient</li>
+      <li><strong>Holes are negative area</strong> (Section 1.1) — a hole subtracts from \(A\), \(Q\), \(I_x\), \(I_y\), and \(J\) alike; treat it as a "negative" sub-component in every composite calculation, using the same procedure as any other piece</li>
+    </ul>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       PUTTING IT TOGETHER: CAPSTONE EXAMPLE
+  ══════════════════════════════════════════════ -->
+  <div class="concept-block" data-num="CAPSTONE EXAMPLE">
+    <div class="section-label">Worked Example · Everything Together</div>
+    <h2>One shape, all three properties</h2>
+    <p>An L-shaped angle bracket is built from two rectangles: a vertical leg \(20\text{ mm} \times 100\text{ mm}\), and a horizontal leg \(60\text{ mm} \times 20\text{ mm}\) attached to its base, so the overall bracket spans \(80\text{ mm}\) wide by \(100\text{ mm}\) tall. Find the centroid, \(I_x\), \(I_y\), and \(J\) about the composite centroid — using every tool from this chapter in one pass.</p>
+
+    <div class="proc-pager">
+      <div class="proc-viewport">
+        <div class="proc-track" id="capTrack">
+
+          <div class="proc-page">
+            <div class="section-label">Page 1 · The problem</div>
+            <p>Split the bracket into two non-overlapping rectangles, measuring all positions from the bottom-left corner of the bracket:</p>
+            <ul class="content-list">
+              <li><strong>Rectangle A (vertical leg):</strong> width \(20\text{ mm}\), height \(100\text{ mm}\), spanning \(x: 0\text{–}20\), \(y: 0\text{–}100\)</li>
+              <li><strong>Rectangle B (horizontal leg):</strong> width \(60\text{ mm}\), height \(20\text{ mm}\), spanning \(x: 20\text{–}80\), \(y: 0\text{–}20\)</li>
+            </ul>
+            <div class="deriv-formula-box">
+              \[A_1 = 20 \times 100 = 2000\text{ mm}^2 \qquad A_2 = 60 \times 20 = 1200\text{ mm}^2\]
+            </div>
+            <p>Each rectangle's own centroid, measured from the bottom-left corner of the bracket:</p>
+            <div class="deriv-formula-box">
+              \[(x_1, y_1) = (10, 50) \qquad (x_2, y_2) = (50, 10)\]
+            </div>
+          </div>
+
+          <div class="proc-page">
+            <div class="section-label">Page 2 · Composite centroid (Section 1.1)</div>
+            <p>Apply the weighted-average centroid formula in both directions:</p>
+            <div class="deriv-formula-box">
+              \[\begin{aligned}
+              \bar x &= \frac{A_1 x_1 + A_2 x_2}{A_1+A_2} = \frac{2000(10)+1200(50)}{3200} = 25\text{ mm} \\[6pt]
+              \bar y &= \frac{A_1 y_1 + A_2 y_2}{A_1+A_2} = \frac{2000(50)+1200(10)}{3200} = 35\text{ mm}
+              \end{aligned}\]
+            </div>
+            <p>The composite centroid sits at \((\bar x, \bar y) = (25, 35)\text{ mm}\) — everything from here on is measured relative to this point.</p>
+          </div>
+
+          <div class="proc-page">
+            <div class="section-label">Page 3 · \(I_x\) and \(I_y\) via the Parallel Axis Theorem (Section 1.3)</div>
+            <p>For each rectangle, find its own \(\bar I_x\) and \(\bar I_y\), the offset \(d\) to the composite centroid in each direction, then apply \(I = \bar I + Ad^2\):</p>
+            <div class="deriv-formula-box">
+              \[\begin{aligned}
+              \bar I_{x,1} &= \frac{20(100)^3}{12} = 1{,}666{,}667\text{ mm}^4 & d_{y,1} &= |50-35| = 15\text{ mm} \\
+              I_{x,1} &= 1{,}666{,}667 + 2000(15)^2 = 2{,}116{,}667\text{ mm}^4 \\[10pt]
+              \bar I_{x,2} &= \frac{60(20)^3}{12} = 40{,}000\text{ mm}^4 & d_{y,2} &= |10-35| = 25\text{ mm} \\
+              I_{x,2} &= 40{,}000 + 1200(25)^2 = 790{,}000\text{ mm}^4
+              \end{aligned}\]
+            </div>
+            <div class="deriv-formula-box">
+              \[I_x = I_{x,1}+I_{x,2} = 2{,}116{,}667+790{,}000 = 2{,}906{,}667\text{ mm}^4\]
+            </div>
+            <p>The same procedure, rotated 90°, gives \(I_y\):</p>
+            <div class="deriv-formula-box">
+              \[\begin{aligned}
+              \bar I_{y,1} &= \frac{100(20)^3}{12} = 66{,}667\text{ mm}^4 & d_{x,1} &= |10-25| = 15\text{ mm} \\
+              I_{y,1} &= 66{,}667 + 2000(15)^2 = 516{,}667\text{ mm}^4 \\[10pt]
+              \bar I_{y,2} &= \frac{20(60)^3}{12} = 360{,}000\text{ mm}^4 & d_{x,2} &= |50-25| = 25\text{ mm} \\
+              I_{y,2} &= 360{,}000 + 1200(25)^2 = 1{,}110{,}000\text{ mm}^4
+              \end{aligned}\]
+            </div>
+            <div class="deriv-formula-box">
+              \[I_y = I_{y,1}+I_{y,2} = 516{,}667+1{,}110{,}000 = 1{,}626{,}667\text{ mm}^4\]
+            </div>
+          </div>
+
+          <div class="proc-page">
+            <div class="section-label">Page 4 · \(J\) via the Perpendicular Axis Theorem (Section 1.4)</div>
+            <p>With \(I_x\) and \(I_y\) both about the composite centroid, \(J\) is a single addition — no new integration, no new procedure:</p>
+            <div class="deriv-formula-box">
+              \[J = I_x + I_y = 2{,}906{,}667 + 1{,}626{,}667 = 4{,}533{,}334\text{ mm}^4\]
+            </div>
+            <p><strong>Full result for this bracket, about its own composite centroid:</strong></p>
+            <div class="deriv-formula-box">
+              \[(\bar x, \bar y) = (25, 35)\text{ mm} \qquad I_x = 2.91\times10^{6}\text{ mm}^4 \qquad I_y = 1.63\times10^{6}\text{ mm}^4 \qquad J = 4.53\times10^{6}\text{ mm}^4\]
+            </div>
+            <p>Every one of these came from the same two sub-components and the same weighted-sum logic — the centroid locates the reference point, the Parallel Axis Theorem builds up \(I_x\) and \(I_y\) about it, and the Perpendicular Axis Theorem gets \(J\) for free once \(I_x\) and \(I_y\) are known. That's the whole toolkit from this chapter, used once, in sequence.</p>
+          </div>
+
+        </div>
+      </div>
+      <div class="deriv-nav">
+        <div class="deriv-nav-btn back" id="capBack">◀</div>
+        <div id="capPips" style="display:flex; gap:6px; flex:1; justify-content:center;"></div>
+        <div class="deriv-step-counter" id="capCounter" style="flex:none; min-width:50px;"></div>
+        <div class="deriv-nav-btn next" id="capNext">▶</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       COMMON MISTAKES RECAP
+  ══════════════════════════════════════════════ -->
+  <div class="concept-block" data-num="RECAP">
+    <div class="section-label">Common Mistakes — Recap</div>
+    <h2>What tends to go wrong</h2>
+    <div class="info-callout">
+      ⚠️ <strong>Applying \(Ad^2\) before finding the composite centroid.</strong> \(d\) is only meaningful once you know where the composite centroid actually is — find it first, every time (Section 1.1, Section 1.3).
+    </div>
+    <div class="info-callout">
+      ⚠️ <strong>Stopping at the composite centroidal \(I\) when the question asks about a different axis.</strong> "About the base" or "about an edge" needs one more parallel-axis shift beyond the composite centroid result (Section 1.3).
+    </div>
+    <div class="info-callout">
+      ⚠️ <strong>Adding \(I_x\) and \(I_y\) that were taken about different points.</strong> The Perpendicular Axis Theorem only holds when both are about the same centroidal point (Section 1.4).
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       BRIDGE TO CHAPTER 2
+  ══════════════════════════════════════════════ -->
+  <div class="concept-block" data-num="BRIDGE TO CHAPTER 2">
+    <div class="why-box">
+      <div class="why-label">➡️ Coming up next</div>
+      <p>Chapter 1 has been entirely geometric — everything so far describes a cross-section's shape, independent of what it's made of or what's being done to it. That changes starting next chapter, where these same quantities — \(A\), \(\bar y\), \(I_x\), \(I_y\), and \(J\) — start appearing directly inside real stress and deflection equations. Nothing about the geometry work changes; you're about to see why it was worth doing.</p>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// ────────────────────────────────────────
+// SLIDING PAGER — reusable for the capstone worked example
+// ────────────────────────────────────────
+function initSlider(trackId, pipsId, counterId, backId, nextId) {
+  const track = document.getElementById(trackId);
+  const viewport = track.parentElement;
+  const numPages = track.children.length;
+  const pipsEl = document.getElementById(pipsId);
+  const counterEl = document.getElementById(counterId);
+  const backBtn = document.getElementById(backId);
+  const nextBtn = document.getElementById(nextId);
+  let page = 0;
+
+  function syncHeight() {
+    viewport.style.height = track.children[page].offsetHeight + 'px';
+  }
+
+  function renderPips() {
+    pipsEl.innerHTML = '';
+    for (let i = 0; i < numPages; i++) {
+      const pip = document.createElement('div');
+      pip.className = 'proc-pip';
+      let bg = '#dde1ea';
+      if (i === page) bg = '#1a4fa8';
+      else if (i < page) bg = '#0e7490';
+      pip.style.cssText = `width:22px;height:6px;border-radius:3px;cursor:pointer;background:${bg} !important;`;
+      pip.addEventListener('click', () => { page = i; render(); });
+      pipsEl.appendChild(pip);
+    }
+  }
+
+  function render() {
+    track.style.transform = `translateX(-${page * 100}%)`;
+    renderPips();
+    counterEl.textContent = `${page + 1} / ${numPages}`;
+    backBtn.classList.toggle('disabled', page === 0);
+    nextBtn.classList.toggle('disabled', page === numPages - 1);
+    syncHeight();
+    if (window.MathJax && window.MathJax.typesetPromise) {
+      window.MathJax.typesetPromise([track]).then(syncHeight);
+    }
+  }
+
+  window.addEventListener('resize', syncHeight);
+
+  backBtn.addEventListener('click', () => { if (page > 0) { page--; render(); } });
+  nextBtn.addEventListener('click', () => { if (page < numPages - 1) { page++; render(); } });
+
+  render();
+}
+
+initSlider('capTrack', 'capPips', 'capCounter', 'capBack', 'capNext');
+</script>
+
+</body>
+</html>
