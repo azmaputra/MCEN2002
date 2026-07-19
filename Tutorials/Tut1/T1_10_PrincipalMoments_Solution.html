@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>T1.10 – Principal Moments of Inertia (Composite Z-Section)</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css"/>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]})"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+body{font-family:'Segoe UI',Arial,sans-serif;font-size:15px;line-height:1.75;color:#1a1a1a;background:#f5f6f8;margin:0;padding:24px 16px 56px}
+.page{max-width:860px;margin:0 auto;background:#fff;border-radius:10px;box-shadow:0 2px 14px rgba(0,0,0,.10);padding:40px 52px 52px}
+
+/* Header */
+.uni-header{text-align:center;border-bottom:2px solid #1a3c6e;padding-bottom:16px;margin-bottom:32px}
+.uni-header p{margin:0;line-height:1.4;font-size:13.5px;color:#555}
+.uni-header h2{margin:8px 0 0;font-size:20px;color:#1a3c6e}
+
+/* Section headings */
+h3{color:#1a3c6e;border-left:4px solid #1a3c6e;padding-left:10px;margin:28px 0 10px;font-size:15.5px}
+h4{color:#1a3c6e;font-size:14.5px;margin:18px 0 6px}
+
+/* Steps */
+.step{margin-bottom:10px}
+.step details{border:1px solid #d1d9e8;border-radius:8px;overflow:hidden;margin-top:6px}
+.step details summary{
+  list-style:none;cursor:pointer;padding:11px 15px;
+  background:#f0f4fb;color:#1a3c6e;font-weight:500;font-size:14.5px;
+  display:flex;align-items:center;gap:10px;user-select:none;
+}
+.step details summary::-webkit-details-marker{display:none}
+.step details summary::before{display:none}
+.step details summary::after{content:'▼';font-size:11px;color:#f97316;transition:transform 0.2s;flex-shrink:0;margin-left:auto;padding-left:8px}
+.step details[open] summary::after{transform:rotate(180deg)}
+.step details summary .step-label{font-size:12px;font-weight:500;color:#f97316;margin-right:4px}
+.step details[open] summary{background:#e8eef9;border-bottom:1px solid #d1d9e8}
+.step-body{padding:16px 20px}
+.step-heading{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.step-num{background:#1a3c6e;color:#fff;font-size:12px;font-weight:700;border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.step-title{font-size:15px;font-weight:600;color:#1a3c6e}
+.try-hint{font-size:12.5px;color:#6b7280;font-style:italic;margin-left:auto}
+
+/* Callouts */
+.callout{border-radius:6px;padding:13px 18px;margin:14px 0;font-size:14.5px}
+.callout p{margin:4px 0}
+.info{background:#eef4ff;border-left:4px solid #3b82f6}
+.given{background:#f0fdf4;border-left:4px solid #22c55e}
+.answer{background:#fff7ed;border-left:4px solid #f97316;font-size:16px;font-weight:600}
+.note{background:#faf5ff;border-left:4px solid #a855f7;font-size:14px}
+.warn{background:#fffbeb;border-left:4px solid #f59e0b;font-size:14px}
+
+/* Math display */
+.math-block{background:#f8f9fb;border:1px solid #e2e6ef;border-radius:6px;padding:14px 20px;margin:12px 0;overflow-x:auto;text-align:center}
+
+/* Table */
+table{width:100%;border-collapse:collapse;margin:18px 0;font-size:13.5px}
+th{background:#1a3c6e;color:#fff;padding:9px 10px;text-align:center;font-weight:600;font-size:13px}
+td{padding:8px 10px;text-align:center;border-bottom:1px solid #e5e7eb;vertical-align:middle}
+td.left{text-align:left;font-weight:600}
+tr:nth-child(even) td{background:#f8f9fb}
+tr.total td{font-weight:700;background:#eef4ff;border-top:2px solid #1a3c6e}
+
+/* Diagram */
+.diagram-wrap{text-align:center;margin:24px 0 8px}
+.diagram-wrap figcaption{font-size:13px;color:#555;margin-top:8px;font-style:italic}
+
+.footer{margin-top:40px;border-top:1px solid #e5e7eb;padding-top:12px;font-size:12px;color:#999;text-align:center}
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- ═══════════════════════════ HEADER ═══════════════════════════ -->
+<div class="uni-header">
+  <p>Curtin University &nbsp;·&nbsp; School of Civil and Mechanical Engineering</p>
+  <p>MCEN2002 – Fundamentals of Mechanical Design</p>
+  <p style="margin-top:8px"><strong>Dr Azma Putra Azis</strong></p>
+  <h2>Tutorial 1.10 &nbsp;–&nbsp; Principal Moments of Inertia: Composite Z-Section</h2>
+</div>
+
+<!-- ═══════════════════════════ PROBLEM ═══════════════════════════ -->
+<h3>Problem Statement</h3>
+<p>Determine the <strong>principal moments of inertia</strong> with respect to the centroidal axes through <strong>C</strong> of the composite shaded area. Find the angle <strong>α</strong> measured from the <strong>x</strong> axis to the axis of <strong>maximum</strong> moment of inertia.</p>
+
+<div class="callout given">
+  <p><strong>Given answer:</strong> &nbsp; $I_{min} = 0.505\,a^4$ &nbsp;&nbsp;&nbsp; $I_{max} = 6.165\,a^4$ &nbsp;&nbsp;&nbsp; $\alpha = 112.5°$</p>
+</div>
+
+<!-- Diagram -->
+<div class="diagram-wrap">
+<figure>
+<svg viewBox="0 0 480 330" width="420" xmlns="http://www.w3.org/2000/svg" font-family="Arial,sans-serif" font-size="13">
+  <!-- C is at (240,160); scale: a = 60px -->
+  <!-- Axes -->
+  <line x1="80" y1="160" x2="430" y2="160" stroke="#222" stroke-width="1.8" stroke-dasharray="6,4"/>
+  <polygon points="430,160 422,156 422,164" fill="#222"/>
+  <line x1="240" y1="30" x2="240" y2="290" stroke="#222" stroke-width="1.8" stroke-dasharray="6,4"/>
+  <polygon points="240,30 236,38 244,38" fill="#222"/>
+  <text x="435" y="164" font-size="14" font-weight="bold" fill="#222">x</text>
+  <text x="245" y="26" font-size="14" font-weight="bold" fill="#222">y</text>
+
+  <!-- Rectangle 1 (upper right): x 240..360, y 100..160 -->
+  <rect x="240" y="100" width="120" height="60" fill="#7fe3ec" fill-opacity="0.85" stroke="#1a3c6e" stroke-width="2"/>
+  <!-- Rectangle 2 (lower left): x 120..240, y 160..220 -->
+  <rect x="120" y="160" width="120" height="60" fill="#7fe3ec" fill-opacity="0.85" stroke="#1a3c6e" stroke-width="2"/>
+
+  <!-- C marker -->
+  <circle cx="240" cy="160" r="4" fill="#222"/>
+  <text x="222" y="153" font-size="14" font-weight="bold" fill="#222">C</text>
+
+  <!-- Dims: 2a top of rect 1 -->
+  <line x1="240" y1="88" x2="360" y2="88" stroke="#555" stroke-width="1"/>
+  <line x1="240" y1="82" x2="240" y2="94" stroke="#555" stroke-width="1"/>
+  <line x1="360" y1="82" x2="360" y2="94" stroke="#555" stroke-width="1"/>
+  <text x="290" y="82" font-size="13" font-style="italic" fill="#333">2a</text>
+  <!-- a on right side of rect 1 -->
+  <line x1="374" y1="100" x2="374" y2="160" stroke="#555" stroke-width="1"/>
+  <line x1="368" y1="100" x2="380" y2="100" stroke="#555" stroke-width="1"/>
+  <line x1="368" y1="160" x2="380" y2="160" stroke="#555" stroke-width="1"/>
+  <text x="380" y="134" font-size="13" font-style="italic" fill="#333">a</text>
+  <!-- 2a above rect 2 (left of C) -->
+  <line x1="120" y1="148" x2="240" y2="148" stroke="#555" stroke-width="1"/>
+  <line x1="120" y1="142" x2="120" y2="154" stroke="#555" stroke-width="1"/>
+  <text x="170" y="142" font-size="13" font-style="italic" fill="#333">2a</text>
+  <!-- a on left of rect 2 -->
+  <line x1="106" y1="160" x2="106" y2="220" stroke="#555" stroke-width="1"/>
+  <line x1="100" y1="160" x2="112" y2="160" stroke="#555" stroke-width="1"/>
+  <line x1="100" y1="220" x2="112" y2="220" stroke="#555" stroke-width="1"/>
+  <text x="88" y="194" font-size="13" font-style="italic" fill="#333">a</text>
+
+  <!-- Centroid markers of each rectangle -->
+  <circle cx="300" cy="130" r="3" fill="#f97316"/>
+  <text x="306" y="127" font-size="11" fill="#f97316">C₁ (a, a/2)</text>
+  <circle cx="180" cy="190" r="3" fill="#f97316"/>
+  <text x="128" y="207" font-size="11" fill="#f97316">C₂ (−a, −a/2)</text>
+
+  <!-- Principal axis indication -->
+  <line x1="290" y1="280" x2="190" y2="40" stroke="#a855f7" stroke-width="1.5" stroke-dasharray="5,4"/>
+  <text x="150" y="45" font-size="11.5" fill="#a855f7">axis of I_max (α = 112.5°)</text>
+  <path d="M 285 160 A 45 45 0 0 1 222 118" fill="none" stroke="#a855f7" stroke-width="1.3"/>
+  <polygon points="222,118 231,119 227,127" fill="#a855f7"/>
+  <text x="272" y="122" font-size="11.5" fill="#a855f7">α</text>
+</svg>
+<figcaption>Two identical 2a × a rectangles arranged point-symmetrically about C. The purple dashed line is the principal axis of maximum moment of inertia.</figcaption>
+</figure>
+</div>
+
+<!-- ═══════════════════════════ STEP 1 ═══════════════════════════ -->
+<h3>Solution</h3>
+
+<div class="step">
+  <div class="step-heading">
+    <div class="step-num">1</div>
+    <div class="step-title">Confirm the centroid and set up the composite geometry</div>
+    <div class="try-hint">Try it first, then reveal ↓</div>
+  </div>
+  <details>
+    <summary><span class="step-label">Step 1</span> Locate each rectangle's centroid relative to C</summary>
+    <div class="step-body">
+      <p>The shaded area consists of <strong>two identical rectangles</strong>, each of width $2a$ and height $a$, with area:</p>
+      <div class="math-block">$$A_1 = A_2 = 2a \times a = 2a^2 \qquad A_{total} = 4a^2$$</div>
+      <p>Measuring from C, the rectangle centroids are located at:</p>
+      <div class="callout info">
+        <p><strong>Rectangle 1 (upper right):</strong> &nbsp; $\bar{x}_1 = +a$, &nbsp; $\bar{y}_1 = +\dfrac{a}{2}$</p>
+        <p style="margin-top:8px"><strong>Rectangle 2 (lower left):</strong> &nbsp; $\bar{x}_2 = -a$, &nbsp; $\bar{y}_2 = -\dfrac{a}{2}$</p>
+      </div>
+      <p>Because the two centroids are equal and opposite ($A_1\bar{x}_1 + A_2\bar{x}_2 = 0$ and likewise for $y$), the shape is <strong>point-symmetric about C</strong> — confirming that C is indeed the centroid of the composite area. No centroid calculation is needed; we can apply the parallel axis theorem directly about the x–y axes through C.</p>
+    </div>
+  </details>
+</div>
+
+<!-- ═══════════════════════════ STEP 2 ═══════════════════════════ -->
+<div class="step">
+  <div class="step-heading">
+    <div class="step-num">2</div>
+    <div class="step-title">Calculate $I_x$ and $I_y$ about the centroidal axes</div>
+    <div class="try-hint">Try it first, then reveal ↓</div>
+  </div>
+  <details>
+    <summary><span class="step-label">Step 2</span> Apply the parallel axis theorem to each rectangle</summary>
+    <div class="step-body">
+      <p>By symmetry the two rectangles contribute identically, so compute one and double it.</p>
+
+      <p><strong>About the x-axis</strong> (rectangle: $b = 2a$, $h = a$, transfer distance $d_y = a/2$):</p>
+      <div class="math-block">$$I_x^{(1)} = \frac{b h^3}{12} + A\,d_y^2 = \frac{(2a)(a)^3}{12} + 2a^2\left(\frac{a}{2}\right)^2 = \frac{a^4}{6} + \frac{a^4}{2} = \frac{2a^4}{3}$$</div>
+      <div class="math-block">$$I_x = 2 \times \frac{2a^4}{3} = \frac{4a^4}{3} = 1.333\,a^4$$</div>
+
+      <p><strong>About the y-axis</strong> (transfer distance $d_x = a$):</p>
+      <div class="math-block">$$I_y^{(1)} = \frac{h b^3}{12} + A\,d_x^2 = \frac{(a)(2a)^3}{12} + 2a^2(a)^2 = \frac{2a^4}{3} + 2a^4 = \frac{8a^4}{3}$$</div>
+      <div class="math-block">$$I_y = 2 \times \frac{8a^4}{3} = \frac{16a^4}{3} = 5.333\,a^4$$</div>
+
+      <div class="callout answer">
+        <p>$$I_x = 1.333\,a^4 \qquad I_y = 5.333\,a^4$$</p>
+      </div>
+
+      <div class="callout note">
+        <p><strong>Sanity check:</strong> $I_y > I_x$ makes physical sense — the area is spread much further horizontally (total span $4a$) than vertically (total span $2a$).</p>
+      </div>
+    </div>
+  </details>
+</div>
+
+<!-- ═══════════════════════════ STEP 3 ═══════════════════════════ -->
+<div class="step">
+  <div class="step-heading">
+    <div class="step-num">3</div>
+    <div class="step-title">Calculate the product of inertia $I_{xy}$</div>
+    <div class="try-hint">Try it first, then reveal ↓</div>
+  </div>
+  <details>
+    <summary><span class="step-label">Step 3</span> Apply the parallel axis theorem for the product of inertia</summary>
+    <div class="step-body">
+      <p>For each rectangle, the product of inertia about its <em>own</em> centroidal axes is zero (a rectangle has two axes of symmetry), so only the <strong>transfer term</strong> remains:</p>
+      <div class="math-block">$$I_{xy} = \sum \left( \bar{I}_{xy} + A\,\bar{x}\,\bar{y} \right) = \sum A\,\bar{x}\,\bar{y}$$</div>
+
+      <p><strong>Rectangle 1:</strong></p>
+      <div class="math-block">$$I_{xy}^{(1)} = 2a^2 \times (+a) \times \left(+\frac{a}{2}\right) = +a^4$$</div>
+
+      <p><strong>Rectangle 2:</strong></p>
+      <div class="math-block">$$I_{xy}^{(2)} = 2a^2 \times (-a) \times \left(-\frac{a}{2}\right) = +a^4$$</div>
+
+      <div class="callout answer">
+        <p>$$I_{xy} = a^4 + a^4 = 2\,a^4$$</p>
+      </div>
+
+      <div class="callout note">
+        <p><strong>Note the signs:</strong> both rectangles sit in quadrants where $\bar{x}$ and $\bar{y}$ have the <em>same</em> sign (1st and 3rd quadrants), so both contributions are <strong>positive</strong> — they add rather than cancel. A non-zero $I_{xy}$ is exactly why the x–y axes are <em>not</em> the principal axes for this Z-shaped section.</p>
+      </div>
+    </div>
+  </details>
+</div>
+
+<!-- ═══════════════════════════ STEP 4 ═══════════════════════════ -->
+<div class="step">
+  <div class="step-heading">
+    <div class="step-num">4</div>
+    <div class="step-title">Calculate the principal moments of inertia</div>
+    <div class="try-hint">Try it first, then reveal ↓</div>
+  </div>
+  <details>
+    <summary><span class="step-label">Step 4</span> Use the principal moment (Mohr's circle) equations</summary>
+    <div class="step-body">
+      <p>The principal moments of inertia are the centre of Mohr's circle plus/minus its radius:</p>
+      <div class="math-block">$$I_{max,\,min} = \frac{I_x + I_y}{2} \pm \sqrt{\left(\frac{I_x - I_y}{2}\right)^2 + I_{xy}^2}$$</div>
+
+      <p><strong>Centre (average):</strong></p>
+      <div class="math-block">$$\frac{I_x + I_y}{2} = \frac{1.333 + 5.333}{2}\,a^4 = \frac{10}{3}\,a^4 = 3.333\,a^4$$</div>
+
+      <p><strong>Radius:</strong></p>
+      <div class="math-block">$$R = \sqrt{\left(\frac{1.333 - 5.333}{2}\right)^2 + (2)^2}\;a^4 = \sqrt{(-2)^2 + 2^2}\;a^4 = 2\sqrt{2}\,a^4 = 2.828\,a^4$$</div>
+
+      <p><strong>Principal moments:</strong></p>
+      <div class="math-block">$$I_{max} = (3.333 + 2.828)\,a^4 = 6.162\,a^4 \qquad I_{min} = (3.333 - 2.828)\,a^4 = 0.505\,a^4$$</div>
+
+      <div class="callout answer">
+        <p>$$I_{max} = 6.16\,a^4 \qquad I_{min} = 0.505\,a^4$$</p>
+      </div>
+
+      <div class="callout note">
+        <p><strong>Check:</strong> $I_{max} + I_{min} = I_x + I_y = 6.667\,a^4$ — the polar moment about C is invariant under axis rotation. (The quoted answer of $6.165\,a^4$ carries a small rounding error; the exact value is $\frac{10}{3} + 2\sqrt{2} = 6.162\,a^4$.)</p>
+      </div>
+    </div>
+  </details>
+</div>
+
+<!-- ═══════════════════════════ STEP 5 ═══════════════════════════ -->
+<div class="step">
+  <div class="step-heading">
+    <div class="step-num">5</div>
+    <div class="step-title">Find the angle α to the axis of maximum moment of inertia</div>
+    <div class="try-hint">Try it first, then reveal ↓</div>
+  </div>
+  <details>
+    <summary><span class="step-label">Step 5</span> Solve for the principal angle and identify which root is the maximum</summary>
+    <div class="step-body">
+      <p>The orientation of the principal axes follows from:</p>
+      <div class="math-block">$$\tan 2\theta_p = \frac{-2 I_{xy}}{I_x - I_y} = \frac{-2(2)}{1.333 - 5.333} = \frac{-4}{-4} = 1$$</div>
+      <div class="math-block">$$2\theta_p = 45° \;\;\text{or}\;\; 225° \qquad \Rightarrow \qquad \theta_p = 22.5° \;\;\text{or}\;\; 112.5°$$</div>
+
+      <p>The two roots are 90° apart — one gives $I_{max}$, the other $I_{min}$. <strong>You must check which is which.</strong> Substitute $\theta = 112.5°$ into the transformation equation:</p>
+      <div class="math-block">$$I_{\theta} = \frac{I_x + I_y}{2} + \frac{I_x - I_y}{2}\cos 2\theta - I_{xy}\sin 2\theta$$</div>
+      <div class="math-block">$$I_{112.5°} = 3.333 + (-2)(\cos 225°) - 2(\sin 225°)$$
+$$= 3.333 + 1.414 + 1.414 = 6.16\,a^4 = I_{max} \; ✓$$</div>
+      <p>(Substituting $\theta = 22.5°$ gives $0.505\,a^4 = I_{min}$.)</p>
+
+      <div class="callout answer">
+        <p>$$\alpha = 112.5° \;\; \text{(from the x-axis to the axis of } I_{max})$$</p>
+      </div>
+
+      <div class="callout note">
+        <p><strong>Physical intuition:</strong> the axis of $I_{max}$ should be roughly <em>perpendicular</em> to the direction along which the area is stretched out. The Z-section stretches from lower-left to upper-right (≈ 22.5° zone), so the material lies far from an axis at 112.5° — giving the largest moment of inertia. Since $I_{xy} > 0$, the maximum axis is always found rotating from the axis of the <em>larger</em> of $I_x, I_y$ (here the y-axis) toward the negative $I_{xy}$ direction.</p>
+      </div>
+    </div>
+  </details>
+</div>
+
+<!-- ═══════════════════════════ SUMMARY TABLE ═══════════════════════════ -->
+<div class="step">
+  <div class="step-heading">
+    <div class="step-num">6</div>
+    <div class="step-title">Summary Table</div>
+  </div>
+  <details>
+    <summary><span class="step-label">Step 6</span> Review the complete summary of all terms and final answers</summary>
+    <div class="step-body">
+<table>
+  <thead>
+    <tr>
+      <th>Quantity</th>
+      <th>Formula</th>
+      <th>Per rectangle</th>
+      <th>Composite (× 2)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="left">$I_x$</td>
+      <td>$\frac{bh^3}{12} + A d_y^2$</td>
+      <td>$\frac{2}{3}a^4$</td>
+      <td>$\frac{4}{3}a^4 = 1.333\,a^4$</td>
+    </tr>
+    <tr>
+      <td class="left">$I_y$</td>
+      <td>$\frac{hb^3}{12} + A d_x^2$</td>
+      <td>$\frac{8}{3}a^4$</td>
+      <td>$\frac{16}{3}a^4 = 5.333\,a^4$</td>
+    </tr>
+    <tr>
+      <td class="left">$I_{xy}$</td>
+      <td>$A\,\bar{x}\,\bar{y}$</td>
+      <td>$a^4$</td>
+      <td>$2\,a^4$</td>
+    </tr>
+    <tr class="total">
+      <td class="left">$I_{max}$</td>
+      <td colspan="2">$\frac{I_x+I_y}{2} + R$, &nbsp; $R = 2\sqrt{2}\,a^4$</td>
+      <td><strong>$6.16\,a^4$ &nbsp; at α = 112.5°</strong></td>
+    </tr>
+    <tr class="total">
+      <td class="left">$I_{min}$</td>
+      <td colspan="2">$\frac{I_x+I_y}{2} - R$</td>
+      <td><strong>$0.505\,a^4$ &nbsp; at 22.5°</strong></td>
+    </tr>
+  </tbody>
+</table>
+    </div>
+  </details>
+</div>
+
+<div class="callout warn">
+  <p><strong>Common mistake 1:</strong> Forgetting the transfer term $A\bar{x}\bar{y}$ for the product of inertia, or assuming $I_{xy}=0$ "because each rectangle is symmetric." Symmetry of each <em>part</em> makes only its <em>centroidal</em> $\bar{I}_{xy}$ zero — the transfer terms still contribute, and here they are the entire $I_{xy}$.</p>
+  <p style="margin-top:8px"><strong>Common mistake 2:</strong> Reporting $\theta_p = 22.5°$ as the answer. $\tan 2\theta_p$ gives two roots 90° apart; always substitute back (or use Mohr's circle) to determine which root corresponds to $I_{max}$. Here 22.5° is the <em>minimum</em> axis.</p>
+</div>
+
+<div class="footer">MCEN2002 – Fundamentals of Mechanical Design &nbsp;|&nbsp; Tutorial 1.10 &nbsp;|&nbsp; Curtin University</div>
+</div>
+</body>
+</html>

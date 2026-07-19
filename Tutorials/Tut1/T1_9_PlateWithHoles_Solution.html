@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>T1.9 – Plate with Three Circular Holes</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css"/>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]})"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+body{font-family:'Segoe UI',Arial,sans-serif;font-size:15px;line-height:1.75;color:#1a1a1a;background:#f5f6f8;margin:0;padding:24px 16px 56px}
+.page{max-width:860px;margin:0 auto;background:#fff;border-radius:10px;box-shadow:0 2px 14px rgba(0,0,0,.10);padding:40px 52px 52px}
+
+/* Header */
+.uni-header{text-align:center;border-bottom:2px solid #1a3c6e;padding-bottom:16px;margin-bottom:32px}
+.uni-header p{margin:0;line-height:1.4;font-size:13.5px;color:#555}
+.uni-header h2{margin:8px 0 0;font-size:20px;color:#1a3c6e}
+
+/* Section headings */
+h3{color:#1a3c6e;border-left:4px solid #1a3c6e;padding-left:10px;margin:28px 0 10px;font-size:15.5px}
+h4{color:#1a3c6e;font-size:14.5px;margin:18px 0 6px}
+
+/* Steps */
+.step{margin-bottom:10px}
+.step details{border:1px solid #d1d9e8;border-radius:8px;overflow:hidden;margin-top:6px}
+.step details summary{
+  list-style:none;cursor:pointer;padding:11px 15px;
+  background:#f0f4fb;color:#1a3c6e;font-weight:500;font-size:14.5px;
+  display:flex;align-items:center;gap:10px;user-select:none;
+}
+.step details summary::-webkit-details-marker{display:none}
+.step details summary::before{display:none}
+.step details summary::after{content:'▼';font-size:11px;color:#f97316;transition:transform 0.2s;flex-shrink:0;margin-left:auto;padding-left:8px}
+.step details[open] summary::after{transform:rotate(180deg)}
+.step details summary .step-label{font-size:12px;font-weight:500;color:#f97316;margin-right:4px}
+.step details[open] summary{background:#e8eef9;border-bottom:1px solid #d1d9e8}
+.step-body{padding:16px 20px}
+.step-heading{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.step-num{background:#1a3c6e;color:#fff;font-size:12px;font-weight:700;border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.step-title{font-size:15px;font-weight:600;color:#1a3c6e}
+.try-hint{font-size:12.5px;color:#6b7280;font-style:italic;margin-left:auto}
+
+/* Callouts */
+.callout{border-radius:6px;padding:13px 18px;margin:14px 0;font-size:14.5px}
+.callout p{margin:4px 0}
+.info{background:#eef4ff;border-left:4px solid #3b82f6}
+.given{background:#f0fdf4;border-left:4px solid #22c55e}
+.answer{background:#fff7ed;border-left:4px solid #f97316;font-size:16px;font-weight:600}
+.note{background:#faf5ff;border-left:4px solid #a855f7;font-size:14px}
+.warn{background:#fffbeb;border-left:4px solid #f59e0b;font-size:14px}
+
+/* Math display */
+.math-block{background:#f8f9fb;border:1px solid #e2e6ef;border-radius:6px;padding:14px 20px;margin:12px 0;overflow-x:auto;text-align:center}
+
+/* Table */
+table{width:100%;border-collapse:collapse;margin:18px 0;font-size:13.5px}
+th{background:#1a3c6e;color:#fff;padding:9px 10px;text-align:center;font-weight:600;font-size:13px}
+td{padding:8px 10px;text-align:center;border-bottom:1px solid #e5e7eb;vertical-align:middle}
+td.left{text-align:left;font-weight:600}
+tr:nth-child(even) td{background:#f8f9fb}
+tr.total td{font-weight:700;background:#eef4ff;border-top:2px solid #1a3c6e}
+
+/* Diagram */
+.diagram-wrap{text-align:center;margin:24px 0 8px}
+.diagram-wrap figcaption{font-size:13px;color:#555;margin-top:8px;font-style:italic}
+
+.footer{margin-top:40px;border-top:1px solid #e5e7eb;padding-top:12px;font-size:12px;color:#999;text-align:center}
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- ═══════════════════════════ HEADER ═══════════════════════════ -->
+<div class="uni-header">
+  <p>Curtin University &nbsp;·&nbsp; School of Civil and Mechanical Engineering</p>
+  <p>MCEN2002 – Fundamentals of Mechanical Design</p>
+  <p style="margin-top:8px"><strong>Dr Azma Putra Azis</strong></p>
+  <h2>Tutorial 1.9 &nbsp;–&nbsp; Rectangular Plate with Three Circular Holes</h2>
+</div>
+
+<!-- ═══════════════════════════ PROBLEM ═══════════════════════════ -->
+<h3>Problem Statement</h3>
+<p>Determine $I_x$, $I_y$ and $I_{xy}$ for the rectangular plate with three identical circular holes.</p>
+
+<div class="callout given">
+  <p><strong>Given answer:</strong> &nbsp; $I_x = 244 \times 10^6\ \text{mm}^4$ &nbsp;&nbsp; $I_y = 980 \times 10^6\ \text{mm}^4$ &nbsp;&nbsp; $I_{xy} = -14.14 \times 10^6\ \text{mm}^4$</p>
+</div>
+
+<!-- Diagram -->
+<div class="diagram-wrap">
+<figure>
+<svg viewBox="0 0 540 320" width="470" xmlns="http://www.w3.org/2000/svg" font-family="Arial,sans-serif" font-size="12">
+  <!-- Origin at (265,155), scale 0.9 px/mm. Plate: x -200..200, y -100..100 → px 85..445, py 65..245 -->
+  <rect x="85" y="65" width="360" height="180" fill="#7fe3ec" fill-opacity="0.75" stroke="#1a3c6e" stroke-width="2"/>
+
+  <!-- Axes -->
+  <line x1="60" y1="155" x2="490" y2="155" stroke="#222" stroke-width="1.4" stroke-dasharray="7,4"/>
+  <polygon points="490,155 482,151 482,159" fill="#222"/>
+  <line x1="265" y1="30" x2="265" y2="275" stroke="#222" stroke-width="1.4" stroke-dasharray="7,4"/>
+  <polygon points="265,30 261,38 269,38" fill="#222"/>
+  <text x="495" y="159" font-size="14" font-weight="bold" fill="#222">x</text>
+  <text x="270" y="27" font-size="14" font-weight="bold" fill="#222">y</text>
+
+  <!-- Holes r=30 → 27px: H1 (-100,50)→(175,110); H2 (100,50)→(355,110); H3 (-100,-50)→(175,200) -->
+  <circle cx="175" cy="110" r="27" fill="#fff" stroke="#1a3c6e" stroke-width="1.8"/>
+  <circle cx="355" cy="110" r="27" fill="#fff" stroke="#1a3c6e" stroke-width="1.8"/>
+  <circle cx="175" cy="200" r="27" fill="#fff" stroke="#1a3c6e" stroke-width="1.8"/>
+  <line x1="175" y1="110" x2="194" y2="129" stroke="#333" stroke-width="1"/>
+  <text x="196" y="140" fill="#333" font-size="11.5">30</text>
+  <line x1="355" y1="110" x2="374" y2="129" stroke="#333" stroke-width="1"/>
+  <text x="376" y="140" fill="#333" font-size="11.5">30</text>
+  <line x1="175" y1="200" x2="194" y2="219" stroke="#333" stroke-width="1"/>
+  <text x="196" y="230" fill="#333" font-size="11.5">30</text>
+
+  <!-- Hole centre labels -->
+  <circle cx="175" cy="110" r="2.5" fill="#f97316"/>
+  <text x="118" y="99" fill="#f97316" font-size="10.5">H₁ (−100, 50)</text>
+  <circle cx="355" cy="110" r="2.5" fill="#f97316"/>
+  <text x="365" y="99" fill="#f97316" font-size="10.5">H₂ (100, 50)</text>
+  <circle cx="175" cy="200" r="2.5" fill="#f97316"/>
+  <text x="112" y="238" fill="#f97316" font-size="10.5">H₃ (−100, −50)</text>
+
+  <!-- Dims: 100 + 100 top -->
+  <line x1="175" y1="47" x2="265" y2="47" stroke="#555" stroke-width="1"/>
+  <line x1="265" y1="47" x2="355" y2="47" stroke="#555" stroke-width="1"/>
+  <line x1="175" y1="41" x2="175" y2="53" stroke="#555" stroke-width="1"/>
+  <line x1="265" y1="41" x2="265" y2="53" stroke="#555" stroke-width="1"/>
+  <line x1="355" y1="41" x2="355" y2="53" stroke="#555" stroke-width="1"/>
+  <text x="205" y="42" fill="#333">100</text>
+  <text x="295" y="42" fill="#333">100</text>
+  <line x1="175" y1="53" x2="175" y2="80" stroke="#555" stroke-width="0.8" stroke-dasharray="3,3"/>
+  <line x1="355" y1="53" x2="355" y2="80" stroke="#555" stroke-width="0.8" stroke-dasharray="3,3"/>
+
+  <!-- Dims: 50 / 50 left -->
+  <line x1="62" y1="110" x2="62" y2="155" stroke="#555" stroke-width="1"/>
+  <line x1="56" y1="110" x2="68" y2="110" stroke="#555" stroke-width="1"/>
+  <line x1="62" y1="155" x2="62" y2="200" stroke="#555" stroke-width="1"/>
+  <line x1="56" y1="200" x2="68" y2="200" stroke="#555" stroke-width="1"/>
+  <text x="34" y="137" fill="#333" font-size="11.5">50</text>
+  <text x="34" y="184" fill="#333" font-size="11.5">50</text>
+  <line x1="68" y1="110" x2="145" y2="110" stroke="#555" stroke-width="0.8" stroke-dasharray="3,3"/>
+  <line x1="68" y1="200" x2="145" y2="200" stroke="#555" stroke-width="0.8" stroke-dasharray="3,3"/>
+
+  <!-- Dim: 400 bottom -->
+  <line x1="85" y1="263" x2="445" y2="263" stroke="#555" stroke-width="1"/>
+  <line x1="85" y1="257" x2="85" y2="269" stroke="#555" stroke-width="1"/>
+  <line x1="445" y1="257" x2="445" y2="269" stroke="#555" stroke-width="1"/>
+  <text x="252" y="281" fill="#333" font-size="11.5">400</text>
+
+  <!-- Dim: 200 right -->
+  <line x1="462" y1="65" x2="462" y2="245" stroke="#555" stroke-width="1"/>
+  <line x1="456" y1="65" x2="468" y2="65" stroke="#555" stroke-width="1"/>
+  <line x1="456" y1="245" x2="468" y2="245" stroke="#555" stroke-width="1"/>
+  <text x="468" y="120" fill="#333" font-size="11.5">200</text>
+
+  <text x="380" y="305" font-size="11" fill="#888" font-style="italic">Dimensions in millimetres</text>
+</svg>
+<figcaption>Plate 400 × 200 mm centred on the x–y axes, with three identical holes of radius 30 mm at H₁(−100, 50), H₂(100, 50) and H₃(−100, −50).</figcaption>
+</figure>
+</div>
+
+<!-- ═══════════════════════════ STEP 1 ═══════════════════════════ -->
+<h3>Solution</h3>
+
+<div class="step">
+  <div class="step-heading">
+    <div class="step-num">1</div>
+    <div class="step-title">Set up the composite: solid plate minus three holes</div>
+    <div class="try-hint">Try it first, then reveal ↓</div>
+  </div>
+  <details>
+    <summary><span class="step-label">Step 1</span> Treat the holes as negative areas</summary>
+    <div class="step-body">
+      <p>The section is a solid rectangle with material <em>removed</em>. Compute each property for the full plate, then <strong>subtract</strong> the contribution of each hole (treated as a full circle, including its own parallel-axis transfer term):</p>
+      <div class="math-block">$$I = I_{plate} - \sum_{i=1}^{3} \left( \bar{I}_{hole} + A_{hole}\,d_i^{\,2} \right)$$</div>
+      <p>Properties common to all three holes ($r = 30$ mm):</p>
+      <div class="callout info">
+        <p><strong>Hole area:</strong> &nbsp; $A = \pi r^2 = \pi (30)^2 = 2\,827\text{ mm}^2$</p>
+        <p style="margin-top:8px"><strong>Hole centroidal moment (any axis through its centre):</strong> &nbsp; $\bar{I} = \dfrac{\pi r^4}{4} = \dfrac{\pi (30)^4}{4} = 0.636 \times 10^6\text{ mm}^4$</p>
+        <p style="margin-top:8px"><strong>Hole centres:</strong> &nbsp; $H_1(-100,\,50)$, &nbsp; $H_2(100,\,50)$, &nbsp; $H_3(-100,\,-50)$</p>
+      </div>
+      <p>The plate is centred on the x–y axes, so its own centroidal formulas apply directly with no transfer term. Note that all three holes sit at $|\bar{y}| = 50$ mm and $|\bar{x}| = 100$ mm — their $I_x$ and $I_y$ contributions are identical; only the <em>signs</em> matter for $I_{xy}$.</p>
+    </div>
+  </details>
+</div>
+
+<!-- ═══════════════════════════ STEP 2 ═══════════════════════════ -->
+<div class="step">
+  <div class="step-heading">
+    <div class="step-num">2</div>
+    <div class="step-title">Calculate $I_x$</div>
+    <div class="try-hint">Try it first, then reveal ↓</div>
+  </div>
+  <details>
+    <summary><span class="step-label">Step 2</span> Plate minus three identical hole contributions about the x-axis</summary>
+    <div class="step-body">
+      <p><strong>Solid plate</strong> ($b = 400$, $h = 200$, centroid on the x-axis):</p>
+      <div class="math-block">$$I_x^{plate} = \frac{b h^3}{12} = \frac{400 \times 200^3}{12} = 266.67 \times 10^6\text{ mm}^4$$</div>
+
+      <p><strong>Each hole</strong> (every centre is $d_y = 50$ mm from the x-axis):</p>
+      <div class="math-block">$$I_x^{hole} = \frac{\pi r^4}{4} + A\,d_y^2 = 0.636 \times 10^6 + 2\,827 \times 50^2 = 7.705 \times 10^6\text{ mm}^4$$</div>
+
+      <p><strong>Composite:</strong></p>
+      <div class="math-block">$$I_x = 266.67 \times 10^6 - 3 \times 7.705 \times 10^6 = 243.6 \times 10^6\text{ mm}^4$$</div>
+
+      <div class="callout answer">
+        <p>$$I_x = 244 \times 10^6\text{ mm}^4$$</p>
+      </div>
+
+      <div class="callout note">
+        <p><strong>Note:</strong> the holes remove only about 9% of $I_x$ even though they remove material — because they sit relatively close to the x-axis ($d_y = 50$ mm out of a 100 mm half-depth), where material contributes least.</p>
+      </div>
+    </div>
+  </details>
+</div>
+
+<!-- ═══════════════════════════ STEP 3 ═══════════════════════════ -->
+<div class="step">
+  <div class="step-heading">
+    <div class="step-num">3</div>
+    <div class="step-title">Calculate $I_y$</div>
+    <div class="try-hint">Try it first, then reveal ↓</div>
+  </div>
+  <details>
+    <summary><span class="step-label">Step 3</span> Plate minus three identical hole contributions about the y-axis</summary>
+    <div class="step-body">
+      <p><strong>Solid plate:</strong></p>
+      <div class="math-block">$$I_y^{plate} = \frac{h b^3}{12} = \frac{200 \times 400^3}{12} = 1\,066.67 \times 10^6\text{ mm}^4$$</div>
+
+      <p><strong>Each hole</strong> (every centre is $d_x = 100$ mm from the y-axis):</p>
+      <div class="math-block">$$I_y^{hole} = \frac{\pi r^4}{4} + A\,d_x^2 = 0.636 \times 10^6 + 2\,827 \times 100^2 = 28.91 \times 10^6\text{ mm}^4$$</div>
+
+      <p><strong>Composite:</strong></p>
+      <div class="math-block">$$I_y = 1\,066.67 \times 10^6 - 3 \times 28.91 \times 10^6 = 979.9 \times 10^6\text{ mm}^4$$</div>
+
+      <div class="callout answer">
+        <p>$$I_y = 980 \times 10^6\text{ mm}^4$$</p>
+      </div>
+    </div>
+  </details>
+</div>
+
+<!-- ═══════════════════════════ STEP 4 ═══════════════════════════ -->
+<div class="step">
+  <div class="step-heading">
+    <div class="step-num">4</div>
+    <div class="step-title">Calculate $I_{xy}$ — watch the signs</div>
+    <div class="try-hint">Try it first, then reveal ↓</div>
+  </div>
+  <details>
+    <summary><span class="step-label">Step 4</span> Only the unpaired hole contributes</summary>
+    <div class="step-body">
+      <p>The plate is symmetric about both axes, so $I_{xy}^{plate} = 0$. Each circular hole is symmetric about its own centroidal axes, so its $\bar{I}_{xy} = 0$ and only the transfer term $A\bar{x}\bar{y}$ remains. Subtracting the holes:</p>
+      <div class="math-block">$$I_{xy} = 0 - \sum_{i=1}^{3} A\,\bar{x}_i\,\bar{y}_i$$</div>
+
+      <p><strong>Evaluate each hole</strong> ($A\times 100 \times 50 = 2\,827 \times 5\,000 = 14.137 \times 10^6$ mm⁴, with quadrant signs):</p>
+      <div class="math-block">$$
+\begin{aligned}
+H_1(-100,\,50):&\quad A\bar{x}\bar{y} = -14.137 \times 10^6 &&\text{(2nd quadrant, −)}\\
+H_2(100,\,50):&\quad A\bar{x}\bar{y} = +14.137 \times 10^6 &&\text{(1st quadrant, +)}\\
+H_3(-100,\,-50):&\quad A\bar{x}\bar{y} = +14.137 \times 10^6 &&\text{(3rd quadrant, +)}
+\end{aligned}$$</div>
+
+      <p>$H_1$ and $H_2$ are mirror images across the y-axis, so their terms <strong>cancel</strong>. Only $H_3$ survives:</p>
+      <div class="math-block">$$I_{xy} = -\left( -14.137 + 14.137 + 14.137 \right) \times 10^6 = -14.137 \times 10^6\text{ mm}^4$$</div>
+
+      <div class="callout answer">
+        <p>$$I_{xy} = -14.14 \times 10^6\text{ mm}^4$$</p>
+      </div>
+
+      <div class="callout note">
+        <p><strong>Physical insight:</strong> if the plate had a fourth hole at $(100, -50)$, the pattern would be symmetric and $I_{xy}$ would vanish. The non-zero $I_{xy}$ comes entirely from the <em>missing symmetry partner</em> of $H_3$ — removing material in the 3rd quadrant (a positive $A\bar{x}\bar{y}$ region) drives the composite $I_{xy}$ negative.</p>
+      </div>
+    </div>
+  </details>
+</div>
+
+<!-- ═══════════════════════════ SUMMARY TABLE ═══════════════════════════ -->
+<div class="step">
+  <div class="step-heading">
+    <div class="step-num">5</div>
+    <div class="step-title">Summary Table</div>
+  </div>
+  <details>
+    <summary><span class="step-label">Step 5</span> Review the complete composite tabulation</summary>
+    <div class="step-body">
+<table>
+  <thead>
+    <tr>
+      <th>Part</th>
+      <th>$I_x$ (10⁶ mm⁴)</th>
+      <th>$I_y$ (10⁶ mm⁴)</th>
+      <th>$I_{xy}$ (10⁶ mm⁴)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="left">Plate 400 × 200</td>
+      <td>+266.67</td>
+      <td>+1 066.67</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td class="left">Hole H₁ (−100, 50)</td>
+      <td>−7.70</td>
+      <td>−28.91</td>
+      <td>+14.14</td>
+    </tr>
+    <tr>
+      <td class="left">Hole H₂ (100, 50)</td>
+      <td>−7.70</td>
+      <td>−28.91</td>
+      <td>−14.14</td>
+    </tr>
+    <tr>
+      <td class="left">Hole H₃ (−100, −50)</td>
+      <td>−7.70</td>
+      <td>−28.91</td>
+      <td>−14.14</td>
+    </tr>
+    <tr class="total">
+      <td class="left">Composite</td>
+      <td><strong>244</strong></td>
+      <td><strong>980</strong></td>
+      <td><strong>−14.14</strong></td>
+    </tr>
+  </tbody>
+</table>
+      <p style="font-size:13px;color:#555">Hole rows show <em>contributions to the composite</em> (hole values with sign reversed, since material is removed).</p>
+    </div>
+  </details>
+</div>
+
+<div class="callout warn">
+  <p><strong>Common mistake 1:</strong> Subtracting only $A d^2$ for each hole and forgetting the hole's own centroidal term $\pi r^4/4$. It is small here (0.64 vs 7.07 ×10⁶ for $I_x$) but not negligible, and omitting it is conceptually wrong — the removed material had both terms.</p>
+  <p style="margin-top:8px"><strong>Common mistake 2:</strong> For $I_{xy}$, a double sign error: each hole's transfer term carries the quadrant sign of its centre <em>and</em> a minus sign because the area is removed. Track both — here two of the three hole terms cancel each other, and the answer's sign comes from the lone lower-left hole.</p>
+</div>
+
+<div class="footer">MCEN2002 – Fundamentals of Mechanical Design &nbsp;|&nbsp; Tutorial 1.9 &nbsp;|&nbsp; Curtin University</div>
+</div>
+</body>
+</html>

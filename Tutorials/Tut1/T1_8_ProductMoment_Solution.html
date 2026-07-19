@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>T1.8 – Product Moment of Area (Four Shapes)</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css"/>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]})"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+body{font-family:'Segoe UI',Arial,sans-serif;font-size:15px;line-height:1.75;color:#1a1a1a;background:#f5f6f8;margin:0;padding:24px 16px 56px}
+.page{max-width:860px;margin:0 auto;background:#fff;border-radius:10px;box-shadow:0 2px 14px rgba(0,0,0,.10);padding:40px 52px 52px}
+
+/* Header */
+.uni-header{text-align:center;border-bottom:2px solid #1a3c6e;padding-bottom:16px;margin-bottom:32px}
+.uni-header p{margin:0;line-height:1.4;font-size:13.5px;color:#555}
+.uni-header h2{margin:8px 0 0;font-size:20px;color:#1a3c6e}
+
+/* Section headings */
+h3{color:#1a3c6e;border-left:4px solid #1a3c6e;padding-left:10px;margin:28px 0 10px;font-size:15.5px}
+h4{color:#1a3c6e;font-size:14.5px;margin:18px 0 6px}
+
+/* Steps */
+.step{margin-bottom:10px}
+.step details{border:1px solid #d1d9e8;border-radius:8px;overflow:hidden;margin-top:6px}
+.step details summary{
+  list-style:none;cursor:pointer;padding:11px 15px;
+  background:#f0f4fb;color:#1a3c6e;font-weight:500;font-size:14.5px;
+  display:flex;align-items:center;gap:10px;user-select:none;
+}
+.step details summary::-webkit-details-marker{display:none}
+.step details summary::before{display:none}
+.step details summary::after{content:'▼';font-size:11px;color:#f97316;transition:transform 0.2s;flex-shrink:0;margin-left:auto;padding-left:8px}
+.step details[open] summary::after{transform:rotate(180deg)}
+.step details summary .step-label{font-size:12px;font-weight:500;color:#f97316;margin-right:4px}
+.step details[open] summary{background:#e8eef9;border-bottom:1px solid #d1d9e8}
+.step-body{padding:16px 20px}
+.step-heading{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.step-num{background:#1a3c6e;color:#fff;font-size:12px;font-weight:700;border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.step-title{font-size:15px;font-weight:600;color:#1a3c6e}
+.try-hint{font-size:12.5px;color:#6b7280;font-style:italic;margin-left:auto}
+
+/* Callouts */
+.callout{border-radius:6px;padding:13px 18px;margin:14px 0;font-size:14.5px}
+.callout p{margin:4px 0}
+.info{background:#eef4ff;border-left:4px solid #3b82f6}
+.given{background:#f0fdf4;border-left:4px solid #22c55e}
+.answer{background:#fff7ed;border-left:4px solid #f97316;font-size:16px;font-weight:600}
+.note{background:#faf5ff;border-left:4px solid #a855f7;font-size:14px}
+.warn{background:#fffbeb;border-left:4px solid #f59e0b;font-size:14px}
+
+/* Math display */
+.math-block{background:#f8f9fb;border:1px solid #e2e6ef;border-radius:6px;padding:14px 20px;margin:12px 0;overflow-x:auto;text-align:center}
+
+/* Table */
+table{width:100%;border-collapse:collapse;margin:18px 0;font-size:13.5px}
+th{background:#1a3c6e;color:#fff;padding:9px 10px;text-align:center;font-weight:600;font-size:13px}
+td{padding:8px 10px;text-align:center;border-bottom:1px solid #e5e7eb;vertical-align:middle}
+td.left{text-align:left;font-weight:600}
+tr:nth-child(even) td{background:#f8f9fb}
+tr.total td{font-weight:700;background:#eef4ff;border-top:2px solid #1a3c6e}
+
+/* Diagram */
+.diagram-wrap{text-align:center;margin:24px 0 8px}
+.diagram-wrap figcaption{font-size:13px;color:#555;margin-top:8px;font-style:italic}
+
+.footer{margin-top:40px;border-top:1px solid #e5e7eb;padding-top:12px;font-size:12px;color:#999;text-align:center}
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- ═══════════════════════════ HEADER ═══════════════════════════ -->
+<div class="uni-header">
+  <p>Curtin University &nbsp;·&nbsp; School of Civil and Mechanical Engineering</p>
+  <p>MCEN2002 – Fundamentals of Mechanical Design</p>
+  <p style="margin-top:8px"><strong>Dr Azma Putra Azis</strong></p>
+  <h2>Tutorial 1.8 &nbsp;–&nbsp; Product Moment of Area: Four Shapes</h2>
+</div>
+
+<!-- ═══════════════════════════ PROBLEM ═══════════════════════════ -->
+<h3>Problem Statement</h3>
+<p>Determine the <strong>product moment of area</strong> $I_{xy}$ for each of the shaded areas about the <strong>x</strong> and <strong>y</strong> axes.</p>
+
+<div class="callout given">
+  <p><strong>Given answer:</strong> &nbsp; (a) and (c) $I_{xy} = 9.60 \times 10^6\ \text{mm}^4$ &nbsp;&nbsp; (b) $I_{xy} = -4.71 \times 10^6\ \text{mm}^4$ &nbsp;&nbsp; (d) $I_{xy} = -2.98 \times 10^6\ \text{mm}^4$</p>
+</div>
+
+<!-- Diagram -->
+<div class="diagram-wrap">
+<figure>
+<svg viewBox="0 0 500 400" width="440" xmlns="http://www.w3.org/2000/svg" font-family="Arial,sans-serif" font-size="12">
+  <!-- Origin at (215,190), scale 1.5 px/mm -->
+  <!-- Axes -->
+  <line x1="30" y1="190" x2="470" y2="190" stroke="#222" stroke-width="1.6" stroke-dasharray="7,4"/>
+  <polygon points="470,190 462,186 462,194" fill="#222"/>
+  <line x1="215" y1="25" x2="215" y2="375" stroke="#222" stroke-width="1.6" stroke-dasharray="7,4"/>
+  <polygon points="215,25 211,33 219,33" fill="#222"/>
+  <text x="475" y="194" font-size="14" font-weight="bold" fill="#222">x</text>
+  <text x="220" y="22" font-size="14" font-weight="bold" fill="#222">y</text>
+
+  <!-- (a) rectangle: x 20..100, y 30..70  → px 245..365, py 85..145 -->
+  <rect x="245" y="85" width="120" height="60" fill="#7fe3ec" fill-opacity="0.85" stroke="#1a3c6e" stroke-width="2"/>
+  <circle cx="305" cy="115" r="3" fill="#f97316"/>
+  <text x="311" y="111" font-size="11" fill="#f97316">C (60, 50)</text>
+  <text x="352" y="80" font-size="12" font-style="italic" fill="#333">(a)</text>
+
+  <!-- (b) circle: r=25, center (-60,40) → (125,130) r=37.5 -->
+  <circle cx="125" cy="130" r="37.5" fill="#7fe3ec" fill-opacity="0.85" stroke="#1a3c6e" stroke-width="2"/>
+  <circle cx="125" cy="130" r="3" fill="#f97316"/>
+  <text x="46" y="120" font-size="11" fill="#f97316">C (−60, 40)</text>
+  <line x1="125" y1="130" x2="99" y2="103" stroke="#333" stroke-width="1"/>
+  <text x="82" y="98" font-size="12" fill="#333">25</text>
+  <text x="128" y="82" font-size="12" font-style="italic" fill="#333">(b)</text>
+
+  <!-- (c) rectangle: x -85..-35, y 0..-80 → px 87.5..162.5, py 190..310 -->
+  <rect x="87.5" y="190" width="75" height="120" fill="#7fe3ec" fill-opacity="0.85" stroke="#1a3c6e" stroke-width="2"/>
+  <circle cx="125" cy="250" r="3" fill="#f97316"/>
+  <text x="90" y="268" font-size="11" fill="#f97316">C (−60, −40)</text>
+  <text x="168" y="205" font-size="12" font-style="italic" fill="#333">(c)</text>
+
+  <!-- (d) semicircle: r=25, flat edge y=-40 (py 250), center x=60 (px 305), bulge down -->
+  <path d="M 267.5 250 A 37.5 37.5 0 0 0 342.5 250 Z" fill="#7fe3ec" fill-opacity="0.85" stroke="#1a3c6e" stroke-width="2"/>
+  <circle cx="305" cy="265.9" r="3" fill="#f97316"/>
+  <text x="311" y="272" font-size="11" fill="#f97316">C (60, −50.6)</text>
+  <line x1="305" y1="250" x2="331.5" y2="276.5" stroke="#333" stroke-width="1"/>
+  <text x="336" y="288" font-size="12" fill="#333">25</text>
+  <text x="348" y="240" font-size="12" font-style="italic" fill="#333">(d)</text>
+
+  <!-- shared vertical centrelines -->
+  <line x1="125" y1="88" x2="125" y2="314" stroke="#888" stroke-width="0.9" stroke-dasharray="8,3,2,3"/>
+  <line x1="305" y1="80" x2="305" y2="272" stroke="#888" stroke-width="0.9" stroke-dasharray="8,3,2,3"/>
+
+  <!-- Dims: 60 + 60 top -->
+  <line x1="125" y1="45" x2="215" y2="45" stroke="#555" stroke-width="1"/>
+  <line x1="215" y1="45" x2="305" y2="45" stroke="#555" stroke-width="1"/>
+  <line x1="125" y1="39" x2="125" y2="51" stroke="#555" stroke-width="1"/>
+  <line x1="215" y1="39" x2="215" y2="51" stroke="#555" stroke-width="1"/>
+  <line x1="305" y1="39" x2="305" y2="51" stroke="#555" stroke-width="1"/>
+  <text x="160" y="40" fill="#333">60</text>
+  <text x="252" y="40" fill="#333">60</text>
+
+  <!-- Dim: 50 (rect a centroid height) -->
+  <line x1="228" y1="115" x2="242" y2="115" stroke="#555" stroke-width="1"/>
+  <text x="222" y="158" fill="#333" font-size="11.5">50</text>
+  <line x1="235" y1="115" x2="235" y2="190" stroke="#555" stroke-width="0.9" stroke-dasharray="3,3"/>
+
+  <!-- Dim: 40 circle centre height -->
+  <line x1="70" y1="130" x2="70" y2="190" stroke="#555" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="63" y1="130" x2="77" y2="130" stroke="#555" stroke-width="1"/>
+  <line x1="63" y1="190" x2="77" y2="190" stroke="#555" stroke-width="1"/>
+  <text x="48" y="165" fill="#333" font-size="11.5">40</text>
+
+  <!-- Dims rect (a): 80 wide, 40 tall -->
+  <line x1="382" y1="85" x2="382" y2="145" stroke="#555" stroke-width="1"/>
+  <line x1="376" y1="85" x2="388" y2="85" stroke="#555" stroke-width="1"/>
+  <line x1="376" y1="145" x2="388" y2="145" stroke="#555" stroke-width="1"/>
+  <text x="388" y="120" fill="#333" font-size="11.5">40</text>
+  <line x1="245" y1="163" x2="365" y2="163" stroke="#555" stroke-width="1"/>
+  <line x1="245" y1="157" x2="245" y2="169" stroke="#555" stroke-width="1"/>
+  <line x1="365" y1="157" x2="365" y2="169" stroke="#555" stroke-width="1"/>
+  <text x="298" y="180" fill="#333" font-size="11.5">80</text>
+
+  <!-- Dim: 40 from x-axis down to semicircle flat edge -->
+  <line x1="382" y1="190" x2="382" y2="250" stroke="#555" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="376" y1="190" x2="388" y2="190" stroke="#555" stroke-width="1"/>
+  <line x1="376" y1="250" x2="388" y2="250" stroke="#555" stroke-width="1"/>
+  <text x="388" y="224" fill="#333" font-size="11.5">40</text>
+  <line x1="342.5" y1="250" x2="376" y2="250" stroke="#555" stroke-width="0.9" stroke-dasharray="3,3"/>
+
+  <!-- Dims rect (c): 80 tall, 50 wide -->
+  <line x1="66" y1="190" x2="66" y2="310" stroke="#555" stroke-width="1"/>
+  <line x1="60" y1="190" x2="72" y2="190" stroke="#555" stroke-width="1"/>
+  <line x1="60" y1="310" x2="72" y2="310" stroke="#555" stroke-width="1"/>
+  <text x="42" y="255" fill="#333" font-size="11.5">80</text>
+  <line x1="87.5" y1="328" x2="162.5" y2="328" stroke="#555" stroke-width="1"/>
+  <line x1="87.5" y1="322" x2="87.5" y2="334" stroke="#555" stroke-width="1"/>
+  <line x1="162.5" y1="322" x2="162.5" y2="334" stroke="#555" stroke-width="1"/>
+  <text x="118" y="346" fill="#333" font-size="11.5">50</text>
+
+  <text x="330" y="372" font-size="11" fill="#888" font-style="italic">Dimensions in millimetres</text>
+</svg>
+<figcaption>The four shaded areas with centroid coordinates (orange) inferred from the dimensions. Circle (b) and rectangle (c) share the vertical centreline x = −60; rectangle (a) and semicircle (d) share x = +60.</figcaption>
+</figure>
+</div>
+
+<!-- ═══════════════════════════ STEP 1 ═══════════════════════════ -->
+<h3>Solution</h3>
+
+<div class="step">
+  <div class="step-heading">
+    <div class="step-num">1</div>
+    <div class="step-title">Set up the method: parallel axis theorem for $I_{xy}$</div>
+    <div class="try-hint">Try it first, then reveal ↓</div>
+  </div>
+  <details>
+    <summary><span class="step-label">Step 1</span> Why every shape here reduces to a single transfer term</summary>
+    <div class="step-body">
+      <p>The parallel axis theorem for the product moment of area is:</p>
+      <div class="math-block">$$I_{xy} = \bar{I}_{xy} + A\,\bar{x}\,\bar{y}$$</div>
+      <p>where $\bar{I}_{xy}$ is the product moment about the shape's <em>own centroidal</em> axes, and $(\bar{x}, \bar{y})$ is the shape's centroid measured from the x–y axes.</p>
+      <div class="callout info">
+        <p><strong>Key observation:</strong> every shape in this problem — rectangle, circle, and semicircle — has <em>at least one axis of symmetry</em> parallel to x or y. Any such axis of symmetry makes $\bar{I}_{xy} = 0$. So for all four shapes:</p>
+        <p style="text-align:center;margin-top:8px">$$I_{xy} = A\,\bar{x}\,\bar{y}$$</p>
+      </div>
+      <p>The whole problem therefore comes down to two things: the <strong>area</strong> of each shape, and the <strong>signed coordinates</strong> of its centroid. The sign of $I_{xy}$ follows the quadrant: positive in the 1st and 3rd quadrants ($\bar{x}\bar{y} > 0$), negative in the 2nd and 4th ($\bar{x}\bar{y} < 0$).</p>
+    </div>
+  </details>
+</div>
+
+<!-- ═══════════════════════════ STEP 2 ═══════════════════════════ -->
+<div class="step">
+  <div class="step-heading">
+    <div class="step-num">2</div>
+    <div class="step-title">Shape (a): rectangle in the first quadrant</div>
+    <div class="try-hint">Try it first, then reveal ↓</div>
+  </div>
+  <details>
+    <summary><span class="step-label">Step 2</span> Rectangle 80 × 40 mm, centroid at (60, 50)</summary>
+    <div class="step-body">
+      <p>The rectangle is 80 mm wide and 40 mm tall. From the dimensions, its centroid lies 60 mm right of the y-axis and 50 mm above the x-axis:</p>
+      <div class="math-block">$$A = 80 \times 40 = 3\,200\text{ mm}^2 \qquad \bar{x} = +60\text{ mm}, \quad \bar{y} = +50\text{ mm}$$</div>
+      <div class="math-block">$$I_{xy} = A\,\bar{x}\,\bar{y} = 3\,200 \times 60 \times 50 = 9\,600\,000\text{ mm}^4$$</div>
+      <div class="callout answer">
+        <p>$$I_{xy}^{(a)} = +9.60 \times 10^6\text{ mm}^4$$</p>
+      </div>
+      <div class="callout note">
+        <p><strong>Sign check:</strong> the area sits entirely in the 1st quadrant ($\bar{x} > 0$, $\bar{y} > 0$), so $I_{xy}$ must be positive. ✓</p>
+      </div>
+    </div>
+  </details>
+</div>
+
+<!-- ═══════════════════════════ STEP 3 ═══════════════════════════ -->
+<div class="step">
+  <div class="step-heading">
+    <div class="step-num">3</div>
+    <div class="step-title">Shape (b): circle in the second quadrant</div>
+    <div class="try-hint">Try it first, then reveal ↓</div>
+  </div>
+  <details>
+    <summary><span class="step-label">Step 3</span> Circle r = 25 mm, centre at (−60, 40)</summary>
+    <div class="step-body">
+      <p>A circle's centroid is its centre. With radius 25 mm, centre 60 mm left of the y-axis and 40 mm above the x-axis:</p>
+      <div class="math-block">$$A = \pi r^2 = \pi (25)^2 = 1\,963.5\text{ mm}^2 \qquad \bar{x} = -60\text{ mm}, \quad \bar{y} = +40\text{ mm}$$</div>
+      <div class="math-block">$$I_{xy} = A\,\bar{x}\,\bar{y} = 1\,963.5 \times (-60) \times 40 = -4\,712\,400\text{ mm}^4$$</div>
+      <div class="callout answer">
+        <p>$$I_{xy}^{(b)} = -4.71 \times 10^6\text{ mm}^4$$</p>
+      </div>
+      <div class="callout note">
+        <p><strong>Sign check:</strong> 2nd quadrant ($\bar{x} < 0$, $\bar{y} > 0$) → negative. ✓ Note how sensitive $I_{xy}$ is to the centroid position: if the centre were at $\bar{y} = 50$ mm instead of 40 mm, the result would change to $-5.89 \times 10^6$ mm⁴ — a 25% difference from a 10 mm shift. Always read the datum of each dimension carefully.</p>
+      </div>
+    </div>
+  </details>
+</div>
+
+<!-- ═══════════════════════════ STEP 4 ═══════════════════════════ -->
+<div class="step">
+  <div class="step-heading">
+    <div class="step-num">4</div>
+    <div class="step-title">Shape (c): rectangle in the third quadrant</div>
+    <div class="try-hint">Try it first, then reveal ↓</div>
+  </div>
+  <details>
+    <summary><span class="step-label">Step 4</span> Rectangle 50 × 80 mm, centroid at (−60, −40)</summary>
+    <div class="step-body">
+      <p>This rectangle is 50 mm wide and 80 mm tall, with its top edge on the x-axis and its vertical centreline shared with circle (b) at $x = -60$ mm. Its centroid is therefore 40 mm below the x-axis:</p>
+      <div class="math-block">$$A = 50 \times 80 = 4\,000\text{ mm}^2 \qquad \bar{x} = -60\text{ mm}, \quad \bar{y} = -40\text{ mm}$$</div>
+      <div class="math-block">$$I_{xy} = A\,\bar{x}\,\bar{y} = 4\,000 \times (-60) \times (-40) = 9\,600\,000\text{ mm}^4$$</div>
+      <div class="callout answer">
+        <p>$$I_{xy}^{(c)} = +9.60 \times 10^6\text{ mm}^4$$</p>
+      </div>
+      <div class="callout note">
+        <p><strong>Note:</strong> (a) and (c) give the same value even though the shapes differ — a coincidence of $A\bar{x}\bar{y}$: $3200 \times 3000 = 4000 \times 2400$. And in the 3rd quadrant the two negative coordinates multiply to give a <em>positive</em> product, just like the 1st quadrant.</p>
+      </div>
+    </div>
+  </details>
+</div>
+
+<!-- ═══════════════════════════ STEP 5 ═══════════════════════════ -->
+<div class="step">
+  <div class="step-heading">
+    <div class="step-num">5</div>
+    <div class="step-title">Shape (d): semicircle in the fourth quadrant</div>
+    <div class="try-hint">Try it first, then reveal ↓</div>
+  </div>
+  <details>
+    <summary><span class="step-label">Step 5</span> Semicircle r = 25 mm — don't forget the 4r/3π centroid offset</summary>
+    <div class="step-body">
+      <p>The semicircle has radius 25 mm with its <strong>flat edge facing up</strong>, 40 mm below the x-axis, and bulging downward. Its diameter midpoint is on the line $x = +60$ mm.</p>
+      <p>A semicircle's centroid does <em>not</em> lie on the flat edge — it sits a distance $\dfrac{4r}{3\pi}$ from the flat edge, toward the curved side:</p>
+      <div class="math-block">$$\frac{4r}{3\pi} = \frac{4 \times 25}{3\pi} = 10.61\text{ mm}$$</div>
+      <p>Since the shape bulges <em>downward</em>, the centroid sits 10.61 mm <em>below</em> the flat edge:</p>
+      <div class="math-block">$$\bar{y} = -(40 + 10.61) = -50.61\text{ mm} \qquad \bar{x} = +60\text{ mm}$$</div>
+      <p>The semicircle is symmetric about the vertical line through its centroid, so $\bar{I}_{xy} = 0$ and only the transfer term remains:</p>
+      <div class="math-block">$$A = \frac{\pi r^2}{2} = \frac{\pi (25)^2}{2} = 981.7\text{ mm}^2$$</div>
+      <div class="math-block">$$I_{xy} = A\,\bar{x}\,\bar{y} = 981.7 \times 60 \times (-50.61) = -2\,981\,000\text{ mm}^4$$</div>
+      <div class="callout answer">
+        <p>$$I_{xy}^{(d)} = -2.98 \times 10^6\text{ mm}^4$$</p>
+      </div>
+      <div class="callout note">
+        <p><strong>Sign check:</strong> 4th quadrant ($\bar{x} > 0$, $\bar{y} < 0$) → negative. ✓</p>
+      </div>
+    </div>
+  </details>
+</div>
+
+<!-- ═══════════════════════════ SUMMARY TABLE ═══════════════════════════ -->
+<div class="step">
+  <div class="step-heading">
+    <div class="step-num">6</div>
+    <div class="step-title">Summary Table</div>
+  </div>
+  <details>
+    <summary><span class="step-label">Step 6</span> Review all four shapes side by side</summary>
+    <div class="step-body">
+<table>
+  <thead>
+    <tr>
+      <th>Shape</th>
+      <th>Area (mm²)</th>
+      <th>$\bar{x}$ (mm)</th>
+      <th>$\bar{y}$ (mm)</th>
+      <th>Quadrant</th>
+      <th>$I_{xy} = A\bar{x}\bar{y}$ (mm⁴)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="left">(a) Rectangle 80 × 40</td>
+      <td>3 200</td>
+      <td>+60</td>
+      <td>+50</td>
+      <td>1st (+)</td>
+      <td><strong>+9.60 × 10⁶</strong></td>
+    </tr>
+    <tr>
+      <td class="left">(b) Circle r = 25</td>
+      <td>1 963.5</td>
+      <td>−60</td>
+      <td>+40</td>
+      <td>2nd (−)</td>
+      <td><strong>−4.71 × 10⁶</strong></td>
+    </tr>
+    <tr>
+      <td class="left">(c) Rectangle 50 × 80</td>
+      <td>4 000</td>
+      <td>−60</td>
+      <td>−40</td>
+      <td>3rd (+)</td>
+      <td><strong>+9.60 × 10⁶</strong></td>
+    </tr>
+    <tr>
+      <td class="left">(d) Semicircle r = 25</td>
+      <td>981.7</td>
+      <td>+60</td>
+      <td>−50.61</td>
+      <td>4th (−)</td>
+      <td><strong>−2.98 × 10⁶</strong></td>
+    </tr>
+  </tbody>
+</table>
+    </div>
+  </details>
+</div>
+
+<div class="callout warn">
+  <p><strong>Common mistake 1:</strong> Assuming $I_{xy} = 0$ "because the shape is symmetric." Symmetry makes only the <em>centroidal</em> $\bar{I}_{xy}$ zero. About axes that don't pass through the centroid, the transfer term $A\bar{x}\bar{y}$ is generally non-zero — here it is the <em>entire</em> answer for every shape.</p>
+  <p style="margin-top:8px"><strong>Common mistake 2:</strong> Dropping the signs of $\bar{x}$ and $\bar{y}$. Unlike $I_x$ and $I_y$ (always positive), $I_{xy}$ can be negative — the quadrant of the centroid sets the sign.</p>
+  <p style="margin-top:8px"><strong>Common mistake 3:</strong> For the semicircle, using the flat-edge distance (40 mm) as $\bar{y}$ and forgetting the $4r/3\pi = 10.61$ mm centroid offset. That error would give $-2.36 \times 10^6$ instead of $-2.98 \times 10^6$ mm⁴.</p>
+</div>
+
+<div class="footer">MCEN2002 – Fundamentals of Mechanical Design &nbsp;|&nbsp; Tutorial 1.8 &nbsp;|&nbsp; Curtin University</div>
+</div>
+</body>
+</html>
