@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>T2.6 – Shear Force and Bending Moment Diagrams</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css"/>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]})"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+body{font-family:'Segoe UI',Arial,sans-serif;font-size:15px;line-height:1.75;color:#1a1a1a;background:#f5f6f8;margin:0;padding:24px 16px 56px}
+.page{max-width:860px;margin:0 auto;background:#fff;border-radius:10px;box-shadow:0 2px 14px rgba(0,0,0,.10);padding:40px 52px 52px}
+.uni-header{text-align:center;border-bottom:2px solid #1a3c6e;padding-bottom:16px;margin-bottom:32px}
+.uni-header p{margin:0;line-height:1.4;font-size:13.5px;color:#555}
+.uni-header h2{margin:8px 0 0;font-size:20px;color:#1a3c6e}
+h3{color:#1a3c6e;border-left:4px solid #1a3c6e;padding-left:10px;margin:28px 0 10px;font-size:15.5px}
+h4{color:#1a3c6e;font-size:14.5px;margin:18px 0 6px}
+.step{margin-bottom:10px}
+.step details{border:1px solid #d1d9e8;border-radius:8px;overflow:hidden;margin-top:6px}
+.step details summary{list-style:none;cursor:pointer;padding:11px 15px;background:#f0f4fb;color:#1a3c6e;font-weight:500;font-size:14.5px;display:flex;align-items:center;gap:10px;user-select:none}
+.step details summary::-webkit-details-marker{display:none}
+.step details summary::after{content:'▼';font-size:11px;color:#f97316;transition:transform 0.2s;flex-shrink:0;margin-left:auto;padding-left:8px}
+.step details[open] summary::after{transform:rotate(180deg)}
+.step details summary .step-label{font-size:12px;font-weight:500;color:#f97316;margin-right:4px}
+.step details[open] summary{background:#e8eef9;border-bottom:1px solid #d1d9e8}
+.step-body{padding:16px 20px}
+.step-heading{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.step-num{background:#1a3c6e;color:#fff;font-size:12px;font-weight:700;border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.step-title{font-size:15px;font-weight:600;color:#1a3c6e}
+.try-hint{font-size:12.5px;color:#6b7280;font-style:italic;margin-left:auto}
+.callout{border-radius:6px;padding:13px 18px;margin:14px 0;font-size:14.5px}
+.callout p{margin:4px 0}
+.info{background:#eef4ff;border-left:4px solid #3b82f6}
+.given{background:#f0fdf4;border-left:4px solid #22c55e}
+.answer{background:#fff7ed;border-left:4px solid #f97316;font-size:16px;font-weight:600}
+.note{background:#faf5ff;border-left:4px solid #a855f7;font-size:14px}
+.warn{background:#fffbeb;border-left:4px solid #f59e0b;font-size:14px}
+.math-block{background:#f8f9fb;border:1px solid #e2e6ef;border-radius:6px;padding:14px 20px;margin:12px 0;overflow-x:auto;text-align:center}
+.diagram-wrap{text-align:center;margin:24px 0 8px}
+.diagram-wrap figure{margin:0}
+.diagram-wrap figcaption{font-size:13px;color:#555;margin-top:2px;font-style:italic}
+.footer{margin-top:40px;border-top:1px solid #e5e7eb;padding-top:12px;font-size:12px;color:#999;text-align:center}
+</style>
+</head>
+<body>
+<div class="page">
+
+<div class="uni-header">
+  <p>Curtin University &nbsp;·&nbsp; School of Civil and Mechanical Engineering</p>
+  <p>MCEN2002 – Fundamentals of Mechanical Design</p>
+  <p style="margin-top:8px"><strong>Dr Azma Putra Azis</strong></p>
+  <h2>Tutorial 2.6 &nbsp;–&nbsp; Shear Force and Bending Moment Diagrams</h2>
+</div>
+
+<h3>Problem Statement</h3>
+<p>Draw the shear force and bending moment diagrams for the beam and find the <strong>magnitude and position of the maximum bending moment</strong>.</p>
+
+<div class="callout given">
+  <p><strong>Given answer:</strong> &nbsp; $M_{\max} = 4.5\ \text{kN·m}$ at $x = 1\ \text{m}$</p>
+</div>
+
+<div class="diagram-wrap">
+<figure>
+<!--
+  Scale: 340/2 = 170 px/m. x=0 at x_px=40, x=2m at x_px=380.
+  Key x_px:
+    x=0:    40  (left free end)
+    x=0.2m: 74  (left roller)
+    x=1.0m: 210 (midspan)
+    x=1.8m: 346 (right roller)
+    x=2.0m: 380 (right free end)
+  Beam: y=94–106
+-->
+<svg viewBox="0 0 450 175" width="450" xmlns="http://www.w3.org/2000/svg" font-family="Arial,sans-serif" font-size="13">
+
+  <!-- Beam -->
+  <rect x="40" y="94" width="340" height="12" fill="#7eaecf" stroke="#1a3c6e" stroke-width="1.5"/>
+
+  <!-- UDL over entire beam (x=40 to x=380), arrows pointing down -->
+  <line x1="40"  y1="58" x2="380" y2="58" stroke="#c0392b" stroke-width="1.5"/>
+  <!-- arrows at intervals -->
+  <line x1="40"  y1="58" x2="40"  y2="93" stroke="#c0392b" stroke-width="1.2"/>
+  <line x1="68"  y1="58" x2="68"  y2="93" stroke="#c0392b" stroke-width="1.2"/>
+  <line x1="96"  y1="58" x2="96"  y2="93" stroke="#c0392b" stroke-width="1.2"/>
+  <line x1="124" y1="58" x2="124" y2="93" stroke="#c0392b" stroke-width="1.2"/>
+  <line x1="152" y1="58" x2="152" y2="93" stroke="#c0392b" stroke-width="1.2"/>
+  <line x1="180" y1="58" x2="180" y2="93" stroke="#c0392b" stroke-width="1.2"/>
+  <line x1="210" y1="58" x2="210" y2="93" stroke="#c0392b" stroke-width="1.2"/>
+  <line x1="238" y1="58" x2="238" y2="93" stroke="#c0392b" stroke-width="1.2"/>
+  <line x1="266" y1="58" x2="266" y2="93" stroke="#c0392b" stroke-width="1.2"/>
+  <line x1="296" y1="58" x2="296" y2="93" stroke="#c0392b" stroke-width="1.2"/>
+  <line x1="324" y1="58" x2="324" y2="93" stroke="#c0392b" stroke-width="1.2"/>
+  <line x1="352" y1="58" x2="352" y2="93" stroke="#c0392b" stroke-width="1.2"/>
+  <line x1="380" y1="58" x2="380" y2="93" stroke="#c0392b" stroke-width="1.2"/>
+  <polygon points="40,94  35,81  45,81"  fill="#c0392b"/>
+  <polygon points="68,94  63,81  73,81"  fill="#c0392b"/>
+  <polygon points="96,94  91,81  101,81" fill="#c0392b"/>
+  <polygon points="124,94 119,81 129,81" fill="#c0392b"/>
+  <polygon points="152,94 147,81 157,81" fill="#c0392b"/>
+  <polygon points="180,94 175,81 185,81" fill="#c0392b"/>
+  <polygon points="210,94 205,81 215,81" fill="#c0392b"/>
+  <polygon points="238,94 233,81 243,81" fill="#c0392b"/>
+  <polygon points="266,94 261,81 271,81" fill="#c0392b"/>
+  <polygon points="296,94 291,81 301,81" fill="#c0392b"/>
+  <polygon points="324,94 319,81 329,81" fill="#c0392b"/>
+  <polygon points="352,94 347,81 357,81" fill="#c0392b"/>
+  <polygon points="380,94 375,81 385,81" fill="#c0392b"/>
+  <text x="210" y="50" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="bold">15 kN/m</text>
+
+  <!-- Left roller at x=74 (0.2m) -->
+  <circle cx="74" cy="115" r="10" fill="#dbe4f0" stroke="#1a3c6e" stroke-width="1.5"/>
+  <line x1="54" y1="128" x2="94" y2="128" stroke="#1a3c6e" stroke-width="1.5"/>
+  <line x1="58" y1="134" x2="64" y2="128" stroke="#1a3c6e" stroke-width="1"/>
+  <line x1="68" y1="134" x2="74" y2="128" stroke="#1a3c6e" stroke-width="1"/>
+  <line x1="78" y1="134" x2="84" y2="128" stroke="#1a3c6e" stroke-width="1"/>
+  <line x1="88" y1="134" x2="94" y2="128" stroke="#1a3c6e" stroke-width="1"/>
+
+  <!-- Right roller at x=346 (1.8m) -->
+  <circle cx="346" cy="115" r="10" fill="#dbe4f0" stroke="#1a3c6e" stroke-width="1.5"/>
+  <line x1="326" y1="128" x2="366" y2="128" stroke="#1a3c6e" stroke-width="1.5"/>
+  <line x1="330" y1="134" x2="336" y2="128" stroke="#1a3c6e" stroke-width="1"/>
+  <line x1="340" y1="134" x2="346" y2="128" stroke="#1a3c6e" stroke-width="1"/>
+  <line x1="350" y1="134" x2="356" y2="128" stroke="#1a3c6e" stroke-width="1"/>
+  <line x1="360" y1="134" x2="366" y2="128" stroke="#1a3c6e" stroke-width="1"/>
+
+  <!-- x-direction indicator -->
+  <line x1="40" y1="154" x2="68" y2="154" stroke="#333" stroke-width="1.2"/>
+  <polygon points="68,154 61,150 61,158" fill="#333"/>
+  <text x="75" y="158" font-size="12" fill="#333" font-style="italic">x</text>
+
+  <!-- Dimension lines -->
+  <line x1="40"  y1="143" x2="380" y2="143" stroke="#555" stroke-width="1"/>
+  <line x1="40"  y1="138" x2="40"  y2="148" stroke="#555" stroke-width="1"/>
+  <line x1="74"  y1="138" x2="74"  y2="148" stroke="#555" stroke-width="1"/>
+  <line x1="346" y1="138" x2="346" y2="148" stroke="#555" stroke-width="1"/>
+  <line x1="380" y1="138" x2="380" y2="148" stroke="#555" stroke-width="1"/>
+  <text x="57"  y="161" font-size="12" fill="#333" text-anchor="middle">0.2</text>
+  <text x="210" y="161" font-size="12" fill="#333" text-anchor="middle">2 m total</text>
+  <text x="363" y="161" font-size="12" fill="#333" text-anchor="middle">0.2</text>
+
+</svg>
+<figcaption>Beam of total span 2 m with two roller supports at $x=0.2$ m and $x=1.8$ m. UDL 15 kN/m over the entire span. The 0.2 m overhangs on each side are unsupported (free ends).</figcaption>
+</figure>
+</div>
+
+<div class="callout info">
+  <p><strong>Overhanging beam:</strong> This beam has free ends that overhang past each support. The overhanging portions act like short cantilevers, creating <em>hogging</em> (negative) bending moments at the roller supports. The maximum <em>sagging</em> (positive) moment occurs at midspan. Expect the BMD to dip negative at the supports.</p>
+</div>
+
+<h3>Solution</h3>
+
+<!-- STEP 1 -->
+<div class="step">
+  <div class="step-heading">
+    <div class="step-num">1</div>
+    <div class="step-title">Find the support reactions</div>
+    <div class="try-hint">Try it first, then reveal ↓</div>
+  </div>
+  <details>
+    <summary><span class="step-label">Step 1</span> Use symmetry — the geometry and loading are symmetric about midspan $x = 1$ m</summary>
+    <div class="step-body">
+      <p>The total UDL resultant is $15 \times 2 = 30\ \text{kN}$ downward. By symmetry of both the loading and the support positions:</p>
+      <div class="math-block">$$R_L = R_R = \frac{30}{2} = \mathbf{15\ \text{kN} \uparrow}$$</div>
+      <div class="callout note">
+        <p><strong>Verify with $\sum M$:</strong> Taking moments about the left roller at $x=0.2$ m:
+        $15 \times 2 \times (1 - 0.2) - R_R \times 1.6 = 30(0.8) - 15(1.6) = 24 - 24 = 0$ ✓</p>
+      </div>
+    </div>
+  </details>
+</div>
+
+<!-- STEP 2: SFD -->
+<div class="step">
+  <div class="step-heading">
+    <div class="step-num">2</div>
+    <div class="step-title">Construct the shear force diagram $V(x)$</div>
+    <div class="try-hint">Try it first, then reveal ↓</div>
+  </div>
+  <details>
+    <summary><span class="step-label">Step 2</span> UDL across the full span — $V$ is linear throughout, with jumps at each roller</summary>
+    <div class="step-body">
+
+      <h4>① Left overhang ($0 \le x \le 0.2\ \text{m}$):</h4>
+      <div class="math-block">$$V(x) = -15x$$
+      $$V(0) = 0,\qquad V(0.2^-) = -3\ \text{kN}$$</div>
+
+      <h4>② Jump at left roller ($x = 0.2\ \text{m}$):</h4>
+      <div class="math-block">$$V(0.2^+) = -3 + 15 = +12\ \text{kN}$$</div>
+
+      <h4>③ Between rollers ($0.2 \le x \le 1.8\ \text{m}$):</h4>
+      <div class="math-block">$$V(x) = -3 + 15 - 15(x - 0.2) = 12 - 15(x - 0.2)$$
+      $$V(0.2^+) = +12\ \text{kN},\qquad V(1.8^-) = 12 - 15(1.6) = -12\ \text{kN}$$</div>
+      <p>By symmetry, $V = 0$ at midspan:</p>
+      <div class="math-block">$$12 - 15(x - 0.2) = 0 \implies x = 0.2 + 0.8 = \mathbf{1.0\ \text{m}} \quad\checkmark$$</div>
+
+      <h4>④ Jump at right roller, then right overhang ($1.8 \le x \le 2\ \text{m}$):</h4>
+      <div class="math-block">$$V(1.8^+) = -12 + 15 = +3\ \text{kN}$$
+      $$V(x) = 3 - 15(x-1.8),\qquad V(2) = 3 - 3 = 0 \quad\checkmark$$</div>
+
+      <div class="diagram-wrap">
+      <figure>
+      <!--
+        viewBox="0 0 420 220", width="735"
+        Scale: 170px/m. x=0 at x_px=40, x=2m at x_px=380.
+        x_px: 0.2m→74, 1.0m→210, 1.8m→346, 2.0m→380
+        Zero y=135. Scale: 9px/kN.
+        +12→y=27, +3→y=108, -3→y=162, -12→y=243 (out of 220) → use 7px/kN
+        +12→y=51, +3→y=114, -3→y=156, -12→y=219 → fits ✓
+      -->
+      <svg viewBox="0 0 420 220" width="735" xmlns="http://www.w3.org/2000/svg" font-family="Arial,sans-serif" font-size="12">
+        <line x1="40" y1="135" x2="395" y2="135" stroke="#888" stroke-width="1"/>
+        <line x1="40" y1="20"  x2="40"  y2="210" stroke="#888" stroke-width="1"/>
+        <line x1="74"  y1="130" x2="74"  y2="140" stroke="#888" stroke-width="1"/>
+        <line x1="210" y1="130" x2="210" y2="140" stroke="#888" stroke-width="1"/>
+        <line x1="346" y1="130" x2="346" y2="140" stroke="#888" stroke-width="1"/>
+        <line x1="380" y1="130" x2="380" y2="140" stroke="#888" stroke-width="1"/>
+        <text x="74"  y="153" text-anchor="middle" fill="#555">0.2</text>
+        <text x="210" y="153" text-anchor="middle" fill="#555">1.0</text>
+        <text x="346" y="153" text-anchor="middle" fill="#555">1.8</text>
+        <text x="380" y="153" text-anchor="middle" fill="#555">2</text>
+        <text x="393" y="153" fill="#555">x (m)</text>
+        <text x="10"  y="24"  fill="#555">V (kN)</text>
+
+        <!-- V curve: 7px/kN, zero y=135
+             +12→y=51, +3→y=114, -3→y=156, -12→y=219 -->
+        <!-- shading -->
+        <!-- Neg: left overhang (tiny) -->
+        <polygon points="40,135 74,156 74,135" fill="#c0392b" fill-opacity="0.15"/>
+        <!-- Pos: left jump up to 0 crossing at midspan -->
+        <polygon points="74,135 74,51 210,135" fill="#3b82f6" fill-opacity="0.15"/>
+        <!-- Neg: midspan to right roller -->
+        <polygon points="210,135 346,219 346,135" fill="#c0392b" fill-opacity="0.15"/>
+        <!-- Pos: right overhang (small triangle) -->
+        <polygon points="346,135 346,114 380,135" fill="#3b82f6" fill-opacity="0.15"/>
+
+        <!-- V segments -->
+        <!-- left overhang: (40,135)→(74,156) -->
+        <line x1="40"  y1="135" x2="74"  y2="156" stroke="#1a3c6e" stroke-width="2.5"/>
+        <!-- jump at left roller: (74,156)→(74,51) dashed -->
+        <line x1="74"  y1="156" x2="74"  y2="51"  stroke="#1a3c6e" stroke-width="1.5" stroke-dasharray="4,3"/>
+        <!-- between rollers: (74,51)→(346,219) -->
+        <line x1="74"  y1="51"  x2="346" y2="219" stroke="#1a3c6e" stroke-width="2.5"/>
+        <!-- jump at right roller: (346,219)→(346,114) dashed -->
+        <line x1="346" y1="219" x2="346" y2="114" stroke="#1a3c6e" stroke-width="1.5" stroke-dasharray="4,3"/>
+        <!-- right overhang: (346,114)→(380,135) -->
+        <line x1="346" y1="114" x2="380" y2="135" stroke="#1a3c6e" stroke-width="2.5"/>
+
+        <!-- gridlines + labels -->
+        <!-- +12 (y=51): first at x=74 → flush to jump, no separate gridline needed -->
+        <!-- +3 (y=114): first at x=346 → gridline x=40→346 -->
+        <line x1="40" y1="114" x2="346" y2="114" stroke="#1a3c6e" stroke-width="1" stroke-dasharray="3,3"/>
+        <!-- -3 (y=156): first at x=74 → gridline x=40→74 -->
+        <line x1="40" y1="156" x2="74"  y2="156" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,3"/>
+        <!-- -12 (y=219): first at x=346 → gridline x=40→346 -->
+        <line x1="40" y1="219" x2="346" y2="219" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,3"/>
+
+        <text x="34" y="54"  text-anchor="end" fill="#1a3c6e" font-weight="bold">+12</text>
+        <text x="34" y="117" text-anchor="end" fill="#1a3c6e" font-weight="bold">+3</text>
+        <text x="34" y="159" text-anchor="end" fill="#c0392b" font-weight="bold">−3</text>
+        <text x="34" y="210" text-anchor="end" fill="#c0392b" font-weight="bold">−12</text>
+
+        <!-- orange marker at V=0: (210,135) -->
+        <circle cx="210" cy="135" r="3.5" fill="#f97316"/>
+        <line x1="210" y1="135" x2="210" y2="207" stroke="#f97316" stroke-width="1" stroke-dasharray="3,3"/>
+        <text x="210" y="214" text-anchor="middle" fill="#f97316" font-weight="bold" font-size="11">x = 1.0 m</text>
+      </svg>
+      <figcaption>Shear force diagram — small negative overhang regions, large shear jumps at the rollers, linear decrease through zero at midspan, and symmetric small positive overhangs at the right end.</figcaption>
+      </figure>
+      </div>
+    </div>
+  </details>
+</div>
+
+<!-- STEP 3: BMD -->
+<div class="step">
+  <div class="step-heading">
+    <div class="step-num">3</div>
+    <div class="step-title">Construct the bending moment diagram $M(x)$</div>
+    <div class="try-hint">Try it first, then reveal ↓</div>
+  </div>
+  <details>
+    <summary><span class="step-label">Step 3</span> UDL throughout gives a parabolic BMD — negative (hogging) at the rollers, positive (sagging) at midspan</summary>
+    <div class="step-body">
+
+      <h4>① Left overhang ($0 \le x \le 0.2\ \text{m}$):</h4>
+      <div class="math-block">$$M(x) = -\frac{15x^2}{2} = -7.5x^2$$
+      $$M(0) = 0,\qquad M(0.2) = -7.5(0.04) = -0.3\ \text{kN·m}$$</div>
+
+      <h4>② Between rollers ($0.2 \le x \le 1.8\ \text{m}$):</h4>
+      <div class="math-block">$$M(x) = -7.5x^2 + 15(x - 0.2) = -7.5x^2 + 15x - 3$$</div>
+      <p>At midspan ($x = 1.0$ m, where $V = 0$):</p>
+      <div class="math-block">$$M(1.0) = -7.5(1) + 15(1) - 3 = -7.5 + 15 - 3 = \mathbf{4.5\ \text{kN·m}} \quad\checkmark$$</div>
+      <p>At right roller ($x = 1.8$ m), by symmetry:</p>
+      <div class="math-block">$$M(1.8) = -0.3\ \text{kN·m} \quad\text{(symmetric to left roller)}$$</div>
+
+      <h4>③ Right overhang ($1.8 \le x \le 2\ \text{m}$):</h4>
+      <div class="math-block">$$M(x) = -7.5(2-x)^2, \qquad M(2) = 0 \quad\checkmark$$</div>
+
+      <div class="diagram-wrap">
+      <figure>
+      <!--
+        viewBox="0 0 420 240", width="735"
+        Scale: 170px/m. x_px: 0.2m→74, 1.0m→210, 1.8m→346, 2.0m→380
+        Zero y=200. Scale: 30px/kN·m (positive up, negative down).
+        +4.5 kN·m → y=200-135=65
+        -0.3 kN·m → y=200+9=209
+        viewBox bottom: 230 needed.
+
+        Bezier control points (quadratic):
+        Left overhang parabola: P0=(40,200), P2=(74,209)
+          mid at t=0.5: x=0.1m (x_px=57), M=-0.075 kN·m → y=200+2.25=202
+          CP: 2(57,202)-0.5(40,200)-0.5(74,209)=(114,404)-(20,100)-(37,104.5)=(57,199.5)≈(57,200)
+          So barely any curve — use Q 57,200 for the left/right overhangs.
+
+        Main span parabola: P0=(74,209), P2=(346,209) (symmetric, same y)
+          mid at x=1.0m (x_px=210), M=4.5 kN·m → y=65
+          CP_y: (74+346)/2=210=x; (209+2×CP+209)/4=65 → 418+2CP=260 → CP=-79
+          So CP=(210,-79) — outside viewBox but valid.
+
+        Sub-parabola for the right overhang: mirror of left.
+      -->
+      <svg viewBox="0 0 420 240" width="735" xmlns="http://www.w3.org/2000/svg" font-family="Arial,sans-serif" font-size="12">
+        <line x1="40" y1="200" x2="395" y2="200" stroke="#888" stroke-width="1"/>
+        <line x1="40" y1="20"  x2="40"  y2="230" stroke="#888" stroke-width="1"/>
+        <line x1="74"  y1="195" x2="74"  y2="205" stroke="#888" stroke-width="1"/>
+        <line x1="210" y1="195" x2="210" y2="205" stroke="#888" stroke-width="1"/>
+        <line x1="346" y1="195" x2="346" y2="205" stroke="#888" stroke-width="1"/>
+        <line x1="380" y1="195" x2="380" y2="205" stroke="#888" stroke-width="1"/>
+        <text x="74"  y="218" text-anchor="middle" fill="#555">0.2</text>
+        <text x="210" y="218" text-anchor="middle" fill="#555">1.0</text>
+        <text x="346" y="218" text-anchor="middle" fill="#555">1.8</text>
+        <text x="380" y="218" text-anchor="middle" fill="#555">2</text>
+        <text x="393" y="218" fill="#555">x (m)</text>
+        <text x="10"  y="24"  fill="#555">M (kN·m)</text>
+
+        <!-- BMD shading -->
+        <!-- Negative overhangs (red) -->
+        <path d="M 40,200 Q 57,200 74,209 L 74,200 Z" fill="#c0392b" fill-opacity="0.15"/>
+        <path d="M 346,209 Q 363,200 380,200 L 380,200 346,200 Z" fill="#c0392b" fill-opacity="0.15"/>
+        <!-- Negative at roller level inside main span -->
+        <!-- M crosses zero at ~x=0.225m and x=1.775m -->
+        <!-- For shading: approximate zero crossing at ~x=74 (support) to x=77(ish)—tiny region, skip for clarity -->
+        <!-- Positive main span region (sagging) -->
+        <path d="M 74,200 L 74,209 Q 210,-79 346,209 L 346,200 Z" fill="#3b82f6" fill-opacity="0.12"/>
+
+        <!-- BMD curves -->
+        <!-- Left overhang: nearly straight but parabolic (40,200)→(74,209) -->
+        <path d="M 40,200 Q 57,200 74,209" fill="none" stroke="#1a3c6e" stroke-width="2.5"/>
+        <!-- Main span parabola: (74,209)→(346,209), CP=(210,-79) -->
+        <path d="M 74,209 Q 210,-79 346,209" fill="none" stroke="#1a3c6e" stroke-width="2.5"/>
+        <!-- Right overhang: (346,209)→(380,200) -->
+        <path d="M 346,209 Q 363,200 380,200" fill="none" stroke="#1a3c6e" stroke-width="2.5"/>
+
+        <!-- gridlines + labels -->
+        <!-- +4.5 (y=65): gridline x=40→210 -->
+        <line x1="40" y1="65"  x2="210" y2="65"  stroke="#1a3c6e" stroke-width="1" stroke-dasharray="3,3"/>
+        <!-- -0.3 (y=209): gridline x=40→74 -->
+        <line x1="40" y1="209" x2="74"  y2="209" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,3"/>
+
+        <text x="34" y="68"  text-anchor="end" fill="#1a3c6e" font-weight="bold">+4.5</text>
+        <text x="34" y="212" text-anchor="end" fill="#c0392b" font-weight="bold">−0.3</text>
+
+        <!-- orange marker at M_max: (210,65) -->
+        <circle cx="210" cy="65" r="3.5" fill="#f97316"/>
+        <line x1="210" y1="65" x2="210" y2="230" stroke="#f97316" stroke-width="1" stroke-dasharray="3,3"/>
+        <text x="210" y="237" text-anchor="middle" fill="#f97316" font-weight="bold" font-size="11">M&#x2098;&#x2090;&#x2093; = 4.5 kN·m</text>
+      </svg>
+      <figcaption>Bending moment diagram — parabolic throughout. The free ends give $M=0$ at both tips; the rollers have $M=-0.3$ kN·m (hogging); the midspan maximum is $M_{\max}=+4.5$ kN·m (sagging) at $x=1.0$ m.</figcaption>
+      </figure>
+      </div>
+
+      <div class="callout answer">
+        <p>$M_{\max} = 4.5\ \text{kN·m}$ at $x = 1.0\ \text{m}$ (midspan)</p>
+      </div>
+    </div>
+  </details>
+</div>
+
+<!-- STEP 4: SUMMARY -->
+<div class="step">
+  <div class="step-heading">
+    <div class="step-num">4</div>
+    <div class="step-title">Summary</div>
+  </div>
+  <details>
+    <summary><span class="step-label">Step 4</span> Beam FBD, shear force diagram, and bending moment diagram — aligned</summary>
+    <div class="step-body">
+
+      <div class="diagram-wrap">
+      <figure>
+      <!--
+        viewBox="0 0 480 700", width="735"
+        Scale: 300/2=150px/m. x=0 at x_px=90, x=2m at x_px=390.
+        Key x_px: 0m→90, 0.2m→120, 1.0m→240, 1.8m→360, 2.0m→390
+        Guide lines at: 120, 360 (roller positions; also 240 midspan optional)
+
+        FBD: beam y=100–112
+        SFD: zero y=370, scale 7px/kN
+          +12→y=286, +3→y=349, -3→y=391, -12→y=454
+        BMD: zero y=590, scale 30px/kN·m
+          +4.5→y=455, -0.3→y=599
+      -->
+      <svg viewBox="0 0 480 780" width="735" xmlns="http://www.w3.org/2000/svg" font-family="Arial,sans-serif" font-size="13">
+
+        <!-- guide lines at rollers and midspan -->
+        <line x1="120" y1="112" x2="120" y2="730" stroke="#aab4c8" stroke-width="1" stroke-dasharray="4,4"/>
+        <line x1="240" y1="112" x2="240" y2="730" stroke="#aab4c8" stroke-width="1" stroke-dasharray="4,4"/>
+        <line x1="360" y1="112" x2="360" y2="730" stroke="#aab4c8" stroke-width="1" stroke-dasharray="4,4"/>
+
+        <!-- ══ BEAM FBD ══ -->
+        <rect x="90" y="100" width="300" height="12" fill="#7eaecf" fill-opacity="0.7" stroke="#1a3c6e" stroke-width="1.5"/>
+
+        <!-- UDL over full beam -->
+        <line x1="90"  y1="64" x2="390" y2="64" stroke="#c0392b" stroke-width="1.5"/>
+        <line x1="90"  y1="64" x2="90"  y2="99" stroke="#c0392b" stroke-width="1.2"/>
+        <line x1="120" y1="64" x2="120" y2="99" stroke="#c0392b" stroke-width="1.2"/>
+        <line x1="165" y1="64" x2="165" y2="99" stroke="#c0392b" stroke-width="1.2"/>
+        <line x1="210" y1="64" x2="210" y2="99" stroke="#c0392b" stroke-width="1.2"/>
+        <line x1="255" y1="64" x2="255" y2="99" stroke="#c0392b" stroke-width="1.2"/>
+        <line x1="315" y1="64" x2="315" y2="99" stroke="#c0392b" stroke-width="1.2"/>
+        <line x1="360" y1="64" x2="360" y2="99" stroke="#c0392b" stroke-width="1.2"/>
+        <line x1="390" y1="64" x2="390" y2="99" stroke="#c0392b" stroke-width="1.2"/>
+        <polygon points="90,100  85,87  95,87"  fill="#c0392b"/>
+        <polygon points="120,100 115,87 125,87" fill="#c0392b"/>
+        <polygon points="165,100 160,87 170,87" fill="#c0392b"/>
+        <polygon points="210,100 205,87 215,87" fill="#c0392b"/>
+        <polygon points="255,100 250,87 260,87" fill="#c0392b"/>
+        <polygon points="315,100 310,87 320,87" fill="#c0392b"/>
+        <polygon points="360,100 355,87 365,87" fill="#c0392b"/>
+        <polygon points="390,100 385,87 395,87" fill="#c0392b"/>
+        <text x="240" y="56" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="bold">15 kN/m</text>
+
+        <!-- Left roller at x=120 (0.2m) -->
+        <circle cx="120" cy="122" r="10" fill="#dbe4f0" stroke="#1a3c6e" stroke-width="1.5"/>
+        <line x1="100" y1="134" x2="140" y2="134" stroke="#1a3c6e" stroke-width="1.5"/>
+        <line x1="104" y1="140" x2="110" y2="134" stroke="#1a3c6e" stroke-width="1"/>
+        <line x1="114" y1="140" x2="120" y2="134" stroke="#1a3c6e" stroke-width="1"/>
+        <line x1="124" y1="140" x2="130" y2="134" stroke="#1a3c6e" stroke-width="1"/>
+        <line x1="134" y1="140" x2="140" y2="134" stroke="#1a3c6e" stroke-width="1"/>
+
+        <!-- Right roller at x=360 (1.8m) -->
+        <circle cx="360" cy="122" r="10" fill="#dbe4f0" stroke="#1a3c6e" stroke-width="1.5"/>
+        <line x1="340" y1="134" x2="380" y2="134" stroke="#1a3c6e" stroke-width="1.5"/>
+        <line x1="344" y1="140" x2="350" y2="134" stroke="#1a3c6e" stroke-width="1"/>
+        <line x1="354" y1="140" x2="360" y2="134" stroke="#1a3c6e" stroke-width="1"/>
+        <line x1="364" y1="140" x2="370" y2="134" stroke="#1a3c6e" stroke-width="1"/>
+        <line x1="374" y1="140" x2="380" y2="134" stroke="#1a3c6e" stroke-width="1"/>
+
+        <!-- x direction -->
+        <line x1="90" y1="156" x2="125" y2="156" stroke="#333" stroke-width="1.2"/>
+        <polygon points="125,156 118,152 118,160" fill="#333"/>
+        <text x="133" y="160" font-size="12" fill="#333" font-style="italic">x</text>
+
+        <!-- Reaction arrows (upward at rollers) -->
+        <line x1="120" y1="178" x2="120" y2="136" stroke="#1a6fc4" stroke-width="2.2"/>
+        <polygon points="120,134 114,144 126,144" fill="#1a6fc4"/>
+        <text x="120" y="197" font-size="12" fill="#1a6fc4" text-anchor="middle" font-weight="bold">R&#x1D38;=15 kN</text>
+
+        <line x1="360" y1="178" x2="360" y2="136" stroke="#1a6fc4" stroke-width="2.2"/>
+        <polygon points="360,134 354,144 366,144" fill="#1a6fc4"/>
+        <text x="360" y="197" font-size="12" fill="#1a6fc4" text-anchor="middle" font-weight="bold">R&#x1D3F;=15 kN</text>
+
+        <!-- Dimension lines -->
+        <line x1="90"  y1="215" x2="390" y2="215" stroke="#555" stroke-width="1"/>
+        <line x1="90"  y1="210" x2="90"  y2="220" stroke="#555" stroke-width="1"/>
+        <line x1="120" y1="210" x2="120" y2="220" stroke="#555" stroke-width="1"/>
+        <line x1="360" y1="210" x2="360" y2="220" stroke="#555" stroke-width="1"/>
+        <line x1="390" y1="210" x2="390" y2="220" stroke="#555" stroke-width="1"/>
+        <text x="105" y="231" font-size="12" fill="#333" text-anchor="middle">0.2</text>
+        <text x="240" y="231" font-size="12" fill="#333" text-anchor="middle">1.6 m (between supports)</text>
+        <text x="375" y="231" font-size="12" fill="#333" text-anchor="middle">0.2</text>
+
+        <!-- ══ SFD ══ -->
+        <text x="18" y="340" font-size="14" fill="#1a3c6e" font-weight="bold">SFD</text>
+        <line x1="90"  y1="370" x2="410" y2="370" stroke="#888" stroke-width="1"/>
+        <line x1="90"  y1="255" x2="90"  y2="465" stroke="#888" stroke-width="1"/>
+        <text x="90"  y="247" font-size="12" fill="#555">V (kN)</text>
+        <line x1="120" y1="365" x2="120" y2="375" stroke="#888" stroke-width="1"/>
+        <line x1="240" y1="365" x2="240" y2="375" stroke="#888" stroke-width="1"/>
+        <line x1="360" y1="365" x2="360" y2="375" stroke="#888" stroke-width="1"/>
+        <line x1="390" y1="365" x2="390" y2="375" stroke="#888" stroke-width="1"/>
+        <text x="120" y="390" font-size="12" fill="#555" text-anchor="middle">0.2</text>
+        <text x="240" y="390" font-size="12" fill="#555" text-anchor="middle">1.0</text>
+        <text x="360" y="390" font-size="12" fill="#555" text-anchor="middle">1.8</text>
+        <text x="390" y="390" font-size="12" fill="#555" text-anchor="middle">2</text>
+        <text x="413" y="390" fill="#555">x (m)</text>
+
+        <!-- SFD: zero y=370, 7px/kN
+             +12→286, +3→349, -3→391, -12→454 -->
+        <polygon points="90,370 120,391 120,370" fill="#c0392b" fill-opacity="0.15"/>
+        <polygon points="120,370 120,286 240,370" fill="#3b82f6" fill-opacity="0.15"/>
+        <polygon points="240,370 360,454 360,370" fill="#c0392b" fill-opacity="0.15"/>
+        <polygon points="360,370 360,349 390,370" fill="#3b82f6" fill-opacity="0.15"/>
+
+        <line x1="90"  y1="370" x2="120" y2="391" stroke="#1a3c6e" stroke-width="2.5"/>
+        <line x1="120" y1="391" x2="120" y2="286" stroke="#1a3c6e" stroke-width="1.5" stroke-dasharray="4,3"/>
+        <line x1="120" y1="286" x2="360" y2="454" stroke="#1a3c6e" stroke-width="2.5"/>
+        <line x1="360" y1="454" x2="360" y2="349" stroke="#1a3c6e" stroke-width="1.5" stroke-dasharray="4,3"/>
+        <line x1="360" y1="349" x2="390" y2="370" stroke="#1a3c6e" stroke-width="2.5"/>
+
+        <!-- gridlines + labels SFD -->
+        <!-- +12(y=286): flush after jump at x=120; gridline x=90→120 minimal → skip -->
+        <!-- +3(y=349): first at x=360 → gridline -->
+        <line x1="90" y1="349" x2="360" y2="349" stroke="#1a3c6e" stroke-width="1" stroke-dasharray="3,3"/>
+        <!-- -3(y=391): first at x=120 → gridline x=90→120 -->
+        <line x1="90" y1="391" x2="120" y2="391" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,3"/>
+        <!-- -12(y=454): first at x=360 → gridline x=90→360 -->
+        <line x1="90" y1="454" x2="360" y2="454" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,3"/>
+
+        <text x="84" y="289" font-size="12" fill="#1a3c6e" text-anchor="end" font-weight="bold">+12</text>
+        <text x="84" y="352" font-size="12" fill="#1a3c6e" text-anchor="end" font-weight="bold">+3</text>
+        <text x="84" y="394" font-size="12" fill="#c0392b" text-anchor="end" font-weight="bold">−3</text>
+        <text x="84" y="457" font-size="12" fill="#c0392b" text-anchor="end" font-weight="bold">−12</text>
+
+        <circle cx="240" cy="370" r="3.5" fill="#f97316"/>
+
+        <!-- ══ BMD ══ -->
+        <text x="18" y="610" font-size="14" fill="#1a3c6e" font-weight="bold">BMD</text>
+        <line x1="90"  y1="660" x2="410" y2="660" stroke="#888" stroke-width="1"/>
+        <line x1="90"  y1="538" x2="90"  y2="720" stroke="#888" stroke-width="1"/>
+        <text x="90"  y="530" font-size="12" fill="#555">M (kN·m)</text>
+        <line x1="120" y1="655" x2="120" y2="665" stroke="#888" stroke-width="1"/>
+        <line x1="240" y1="655" x2="240" y2="665" stroke="#888" stroke-width="1"/>
+        <line x1="360" y1="655" x2="360" y2="665" stroke="#888" stroke-width="1"/>
+        <line x1="390" y1="655" x2="390" y2="665" stroke="#888" stroke-width="1"/>
+        <text x="120" y="678" font-size="12" fill="#555" text-anchor="middle">0.2</text>
+        <text x="240" y="678" font-size="12" fill="#555" text-anchor="middle">1.0</text>
+        <text x="360" y="678" font-size="12" fill="#555" text-anchor="middle">1.8</text>
+        <text x="390" y="678" font-size="12" fill="#555" text-anchor="middle">2</text>
+        <text x="413" y="678" fill="#555">x (m)</text>
+
+        <!-- BMD: zero y=660, scale 30px/kN·m
+             +4.5→y=525, -0.3→y=669
+             Bezier CP (main span): (669+2*CP+669)/4=525 → CP=381
+        -->
+        <!-- shading: negative overhangs -->
+        <path d="M 90,660 Q 105,660 120,669 L 120,660 Z" fill="#c0392b" fill-opacity="0.15"/>
+        <path d="M 360,669 Q 375,660 390,660 L 390,660 360,660 Z" fill="#c0392b" fill-opacity="0.15"/>
+        <!-- shading: positive main span -->
+        <path d="M 120,660 L 120,669 Q 240,381 360,669 L 360,660 Z" fill="#3b82f6" fill-opacity="0.12"/>
+
+        <!-- BMD curves -->
+        <path d="M 90,660 Q 105,660 120,669" fill="none" stroke="#1a3c6e" stroke-width="2.5"/>
+        <path d="M 120,669 Q 240,381 360,669" fill="none" stroke="#1a3c6e" stroke-width="2.5"/>
+        <path d="M 360,669 Q 375,660 390,660" fill="none" stroke="#1a3c6e" stroke-width="2.5"/>
+
+        <!-- gridlines + labels BMD -->
+        <!-- +4.5 (y=525): gridline x=90→240 -->
+        <line x1="90" y1="525" x2="240" y2="525" stroke="#1a3c6e" stroke-width="1" stroke-dasharray="3,3"/>
+        <!-- -0.3 (y=669): gridline x=90→120 -->
+        <line x1="90" y1="669" x2="120" y2="669" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,3"/>
+
+        <text x="84" y="528" font-size="12" fill="#1a3c6e" text-anchor="end" font-weight="bold">+4.5</text>
+        <text x="84" y="672" font-size="12" fill="#c0392b" text-anchor="end" font-weight="bold">−0.3</text>
+
+      </svg>
+      <figcaption>Beam FBD, shear force diagram, and bending moment diagram. The symmetric overhangs create equal hogging moments at both supports; the positive maximum occurs at midspan.</figcaption>
+      </figure>
+      </div>
+
+      <div class="callout answer">
+        <p>$M_{\max} = 4.5\ \text{kN·m}$ at $x = 1.0\ \text{m}$ (midspan)</p>
+      </div>
+    </div>
+  </details>
+</div>
+
+<div class="callout warn">
+  <p><strong>Common mistakes:</strong></p>
+  <p style="margin-top:6px">① <strong>Placing supports at the beam ends</strong> — the rollers are at $x=0.2$ m and $x=1.8$ m, not at the ends. The 0.2 m overhangs are free, so $M=0$ at both ends, but $M \ne 0$ at the support positions.</p>
+  <p style="margin-top:6px">② <strong>Expecting only positive moments</strong> — the overhanging portions act like short cantilevers and produce hogging ($-$ve) moments just inside the supports. Always check $M$ at the support locations when overhangs are present.</p>
+  <p style="margin-top:6px">③ <strong>Drawing the BMD as piecewise linear</strong> — the UDL extends over the full 2 m span, so the entire BMD is parabolic. There are no straight-line segments anywhere on this diagram.</p>
+</div>
+
+<div class="footer">MCEN2002 – Fundamentals of Mechanical Design &nbsp;|&nbsp; Tutorial 2.6 &nbsp;|&nbsp; Curtin University</div>
+</div>
+</body>
+</html>

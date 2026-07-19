@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>T2.3 – Shear Force and Bending Moment Diagrams</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css"/>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]})"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+body{font-family:'Segoe UI',Arial,sans-serif;font-size:15px;line-height:1.75;color:#1a1a1a;background:#f5f6f8;margin:0;padding:24px 16px 56px}
+.page{max-width:860px;margin:0 auto;background:#fff;border-radius:10px;box-shadow:0 2px 14px rgba(0,0,0,.10);padding:40px 52px 52px}
+.uni-header{text-align:center;border-bottom:2px solid #1a3c6e;padding-bottom:16px;margin-bottom:32px}
+.uni-header p{margin:0;line-height:1.4;font-size:13.5px;color:#555}
+.uni-header h2{margin:8px 0 0;font-size:20px;color:#1a3c6e}
+h3{color:#1a3c6e;border-left:4px solid #1a3c6e;padding-left:10px;margin:28px 0 10px;font-size:15.5px}
+h4{color:#1a3c6e;font-size:14.5px;margin:18px 0 6px}
+.step{margin-bottom:10px}
+.step details{border:1px solid #d1d9e8;border-radius:8px;overflow:hidden;margin-top:6px}
+.step details summary{list-style:none;cursor:pointer;padding:11px 15px;background:#f0f4fb;color:#1a3c6e;font-weight:500;font-size:14.5px;display:flex;align-items:center;gap:10px;user-select:none}
+.step details summary::-webkit-details-marker{display:none}
+.step details summary::after{content:'▼';font-size:11px;color:#f97316;transition:transform 0.2s;flex-shrink:0;margin-left:auto;padding-left:8px}
+.step details[open] summary::after{transform:rotate(180deg)}
+.step details summary .step-label{font-size:12px;font-weight:500;color:#f97316;margin-right:4px}
+.step details[open] summary{background:#e8eef9;border-bottom:1px solid #d1d9e8}
+.step-body{padding:16px 20px}
+.step-heading{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.step-num{background:#1a3c6e;color:#fff;font-size:12px;font-weight:700;border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.step-title{font-size:15px;font-weight:600;color:#1a3c6e}
+.try-hint{font-size:12.5px;color:#6b7280;font-style:italic;margin-left:auto}
+.callout{border-radius:6px;padding:13px 18px;margin:14px 0;font-size:14.5px}
+.callout p{margin:4px 0}
+.info{background:#eef4ff;border-left:4px solid #3b82f6}
+.given{background:#f0fdf4;border-left:4px solid #22c55e}
+.answer{background:#fff7ed;border-left:4px solid #f97316;font-size:16px;font-weight:600}
+.note{background:#faf5ff;border-left:4px solid #a855f7;font-size:14px}
+.warn{background:#fffbeb;border-left:4px solid #f59e0b;font-size:14px}
+.math-block{background:#f8f9fb;border:1px solid #e2e6ef;border-radius:6px;padding:14px 20px;margin:12px 0;overflow-x:auto;text-align:center}
+.diagram-wrap{text-align:center;margin:24px 0 8px}
+.diagram-wrap figure{margin:0}
+.diagram-wrap figcaption{font-size:13px;color:#555;margin-top:2px;font-style:italic}
+.footer{margin-top:40px;border-top:1px solid #e5e7eb;padding-top:12px;font-size:12px;color:#999;text-align:center}
+</style>
+</head>
+<body>
+<div class="page">
+
+<div class="uni-header">
+  <p>Curtin University &nbsp;·&nbsp; School of Civil and Mechanical Engineering</p>
+  <p>MCEN2002 – Fundamentals of Mechanical Design</p>
+  <p style="margin-top:8px"><strong>Dr Azma Putra Azis</strong></p>
+  <h2>Tutorial 2.3 &nbsp;–&nbsp; Shear Force and Bending Moment Diagrams</h2>
+</div>
+
+<h3>Problem Statement</h3>
+<p>Draw the shear force and bending moment diagrams for the loaded beam and find the <strong>maximum magnitude $M$ of the bending moment</strong>.</p>
+
+<div class="callout given">
+  <p><strong>Given answer:</strong> &nbsp; $M_{\max} = \dfrac{5Pl}{6}$</p>
+</div>
+
+<div class="diagram-wrap">
+<figure>
+<!--
+  Scale: 100 px/l. A (pin) at x=40, x=l at x=140, x=2l at x=240, B (roller) at x=340.
+  Beam: y=94 to y=106. UDL (P/l N/m) over x=40 to x=140. Point load P at x=240.
+-->
+<svg viewBox="0 0 420 200" width="420" xmlns="http://www.w3.org/2000/svg" font-family="Arial,sans-serif" font-size="13">
+
+  <!-- Beam -->
+  <rect x="40" y="94" width="300" height="12" fill="#7eaecf" stroke="#1a3c6e" stroke-width="1.5"/>
+
+  <!-- UDL arrows: P/l N/m over 0 to l -->
+  <line x1="40" y1="50" x2="140" y2="50" stroke="#c0392b" stroke-width="1.5"/>
+  <line x1="40" y1="50" x2="40" y2="93" stroke="#c0392b" stroke-width="1.2"/>
+  <line x1="60" y1="50" x2="60" y2="93" stroke="#c0392b" stroke-width="1.2"/>
+  <line x1="80" y1="50" x2="80" y2="93" stroke="#c0392b" stroke-width="1.2"/>
+  <line x1="100" y1="50" x2="100" y2="93" stroke="#c0392b" stroke-width="1.2"/>
+  <line x1="120" y1="50" x2="120" y2="93" stroke="#c0392b" stroke-width="1.2"/>
+  <line x1="140" y1="50" x2="140" y2="93" stroke="#c0392b" stroke-width="1.2"/>
+  <polygon points="40,94 35,82 45,82" fill="#c0392b"/>
+  <polygon points="60,94 55,82 65,82" fill="#c0392b"/>
+  <polygon points="80,94 75,82 85,82" fill="#c0392b"/>
+  <polygon points="100,94 95,82 105,82" fill="#c0392b"/>
+  <polygon points="120,94 115,82 125,82" fill="#c0392b"/>
+  <polygon points="140,94 135,82 145,82" fill="#c0392b"/>
+  <text x="90" y="44" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="bold">P/l &nbsp; N/m</text>
+
+  <!-- Point load P at x=240 -->
+  <line x1="240" y1="50" x2="240" y2="93" stroke="#c0392b" stroke-width="2.2"/>
+  <polygon points="240,94 234,81 246,81" fill="#c0392b"/>
+  <text x="240" y="44" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="bold">P</text>
+
+  <!-- Pin at A -->
+  <polygon points="40,106 28,128 52,128" fill="#dbe4f0" stroke="#1a3c6e" stroke-width="1.5"/>
+  <line x1="20" y1="128" x2="60" y2="128" stroke="#1a3c6e" stroke-width="1.5"/>
+  <line x1="24" y1="134" x2="30" y2="128" stroke="#1a3c6e" stroke-width="1"/>
+  <line x1="34" y1="134" x2="40" y2="128" stroke="#1a3c6e" stroke-width="1"/>
+  <line x1="44" y1="134" x2="50" y2="128" stroke="#1a3c6e" stroke-width="1"/>
+  <line x1="54" y1="134" x2="60" y2="128" stroke="#1a3c6e" stroke-width="1"/>
+  <text x="40" y="148" font-size="13" fill="#1a3c6e" text-anchor="middle" font-weight="bold">A</text>
+
+  <!-- Roller at B -->
+  <circle cx="340" cy="115" r="10" fill="#dbe4f0" stroke="#1a3c6e" stroke-width="1.5"/>
+  <line x1="320" y1="128" x2="360" y2="128" stroke="#1a3c6e" stroke-width="1.5"/>
+  <line x1="324" y1="134" x2="330" y2="128" stroke="#1a3c6e" stroke-width="1"/>
+  <line x1="334" y1="134" x2="340" y2="128" stroke="#1a3c6e" stroke-width="1"/>
+  <line x1="344" y1="134" x2="350" y2="128" stroke="#1a3c6e" stroke-width="1"/>
+  <line x1="354" y1="134" x2="360" y2="128" stroke="#1a3c6e" stroke-width="1"/>
+  <text x="340" y="148" font-size="13" fill="#1a3c6e" text-anchor="middle" font-weight="bold">B</text>
+
+  <!-- Dimension lines -->
+  <line x1="40" y1="162" x2="140" y2="162" stroke="#555" stroke-width="1"/>
+  <line x1="40" y1="157" x2="40" y2="167" stroke="#555" stroke-width="1"/>
+  <line x1="140" y1="157" x2="140" y2="167" stroke="#555" stroke-width="1"/>
+  <text x="90" y="178" font-size="12" fill="#333" text-anchor="middle" font-style="italic">l</text>
+
+  <line x1="140" y1="162" x2="240" y2="162" stroke="#555" stroke-width="1"/>
+  <line x1="240" y1="157" x2="240" y2="167" stroke="#555" stroke-width="1"/>
+  <text x="190" y="178" font-size="12" fill="#333" text-anchor="middle" font-style="italic">l</text>
+
+  <line x1="240" y1="162" x2="340" y2="162" stroke="#555" stroke-width="1"/>
+  <line x1="340" y1="157" x2="340" y2="167" stroke="#555" stroke-width="1"/>
+  <text x="290" y="178" font-size="12" fill="#333" text-anchor="middle" font-style="italic">l</text>
+
+</svg>
+<figcaption>Simply supported beam: pin at $A$, roller at $B$ (span $3l$). Uniform distributed load $P/l$ N/m over $[0,\,l]$; concentrated load $P$ at $x = 2l$.</figcaption>
+</figure>
+</div>
+
+<div class="callout info">
+  <p><strong>Strategy:</strong> Replace the UDL with an equivalent point load to find reactions, then build $V(x)$ segment by segment (noting the UDL makes $V$ linear within $[0,l]$) and integrate to get $M(x)$ (parabolic in $[0,l]$, linear elsewhere).</p>
+</div>
+
+<h3>Solution</h3>
+
+<!-- ═══════════════════ STEP 1 ═══════════════════ -->
+<div class="step">
+  <div class="step-heading">
+    <div class="step-num">1</div>
+    <div class="step-title">Find the support reactions</div>
+    <div class="try-hint">Try it first, then reveal ↓</div>
+  </div>
+  <details>
+    <summary><span class="step-label">Step 1</span> Replace UDL with equivalent point load, then apply $\sum M_A = 0$ and $\sum F_y = 0$</summary>
+    <div class="step-body">
+      <p>The UDL of intensity $P/l$ over length $l$ is equivalent to a single downward force of magnitude $(P/l)\times l = P$, acting at the centroid of the UDL region, which is at $x = l/2$.</p>
+      <p>Taking moments about $A$ (CCW positive), with $R_B$ acting upward at $x = 3l$:</p>
+      <div class="math-block">$$\sum M_A = 0:\quad R_B(3l) - P\!\left(\frac{l}{2}\right) - P(2l) = 0$$
+      $$R_B = \frac{\tfrac{Pl}{2} + 2Pl}{3l} = \frac{\tfrac{5Pl}{2}}{3l} = \mathbf{\frac{5P}{6} \uparrow}$$</div>
+      <div class="math-block">$$\sum F_y = 0:\quad R_A + \frac{5P}{6} = P + P = 2P \implies \mathbf{R_A = \frac{7P}{6} \uparrow}$$</div>
+
+      <div class="callout answer">
+        <p>$R_A = \dfrac{7P}{6}\ \uparrow$ &nbsp;&nbsp;&nbsp; $R_B = \dfrac{5P}{6}\ \uparrow$</p>
+      </div>
+      <div class="callout note">
+        <p><strong>Check:</strong> Total upward = $7P/6 + 5P/6 = 12P/6 = 2P$ = total downward ($P + P$). ✓</p>
+      </div>
+    </div>
+  </details>
+</div>
+
+<!-- ═══════════════════ STEP 2: SFD ═══════════════════ -->
+<div class="step">
+  <div class="step-heading">
+    <div class="step-num">2</div>
+    <div class="step-title">Construct the shear force diagram $V(x)$</div>
+    <div class="try-hint">Try it first, then reveal ↓</div>
+  </div>
+  <details>
+    <summary><span class="step-label">Step 2</span> UDL makes $V$ linear in $[0,l]$; constant elsewhere; point load causes jump at $x=2l$</summary>
+    <div class="step-body">
+
+      <h4>① From $A$ to $x = l$ (UDL region):</h4>
+      <div class="math-block">$$V(x) = R_A - \frac{P}{l}\,x = \frac{7P}{6} - \frac{P}{l}\,x$$
+      $$V(0) = \frac{7P}{6}, \qquad V(l) = \frac{7P}{6} - P = \frac{P}{6}$$</div>
+
+      <h4>② From $x = l$ to $x = 2l$ (no load):</h4>
+      <div class="math-block">$$V = \frac{P}{6} \quad \text{(constant)}$$</div>
+
+      <h4>③ Jump at $x = 2l$ (point load $P$ downward):</h4>
+      <div class="math-block">$$V(2l^+) = \frac{P}{6} - P = -\frac{5P}{6}$$</div>
+
+      <h4>④ From $x = 2l$ to $B$ (no load):</h4>
+      <div class="math-block">$$V = -\frac{5P}{6} \quad \text{(constant)}$$</div>
+      <p>At $B$, $R_B = 5P/6$ restores $V$ to zero. ✓</p>
+
+      <div class="diagram-wrap">
+      <figure>
+      <!--
+        viewBox="0 0 420 220", width="735"
+        Scale: 100 px/l. A at x=40, l at x=140, 2l at x=240, B(3l) at x=340.
+        Zero line: y=140. Scale: 60 px per P.
+        +7P/6 (70px above) → y=70
+        +P/6  (10px above) → y=130
+        -5P/6 (50px below) → y=190
+      -->
+      <svg viewBox="0 0 420 220" width="735" xmlns="http://www.w3.org/2000/svg" font-family="Arial,sans-serif" font-size="12">
+        <!-- axes -->
+        <line x1="40" y1="140" x2="360" y2="140" stroke="#888" stroke-width="1"/>
+        <line x1="40" y1="20" x2="40" y2="205" stroke="#888" stroke-width="1"/>
+        <!-- x-axis ticks -->
+        <line x1="40"  y1="135" x2="40"  y2="145" stroke="#888" stroke-width="1"/>
+        <line x1="140" y1="135" x2="140" y2="145" stroke="#888" stroke-width="1"/>
+        <line x1="240" y1="135" x2="240" y2="145" stroke="#888" stroke-width="1"/>
+        <line x1="340" y1="135" x2="340" y2="145" stroke="#888" stroke-width="1"/>
+        <text x="140" y="158" text-anchor="middle" fill="#555" font-style="italic">l</text>
+        <text x="240" y="158" text-anchor="middle" fill="#555" font-style="italic">2l</text>
+        <text x="340" y="158" text-anchor="middle" fill="#555" font-style="italic">3l</text>
+        <text x="355" y="158" fill="#555">x</text>
+        <text x="10"  y="24"  fill="#555">V</text>
+        <text x="40"  y="170" text-anchor="middle" fill="#555" font-size="11">A</text>
+        <text x="340" y="170" text-anchor="middle" fill="#555" font-size="11">B</text>
+
+        <!-- V curve: scale 60px/P -->
+        <!-- A to l: linear (40,70)→(140,130) -->
+        <line x1="40"  y1="70"  x2="140" y2="130" stroke="#1a3c6e" stroke-width="2.5"/>
+        <!-- l to 2l: constant P/6, y=130 -->
+        <line x1="140" y1="130" x2="240" y2="130" stroke="#1a3c6e" stroke-width="2.5"/>
+        <!-- jump at 2l: dashed (130→190) -->
+        <line x1="240" y1="130" x2="240" y2="190" stroke="#1a3c6e" stroke-width="1.5" stroke-dasharray="4,3"/>
+        <!-- 2l to B: constant -5P/6, y=190 -->
+        <line x1="240" y1="190" x2="340" y2="190" stroke="#1a3c6e" stroke-width="2.5"/>
+        <!-- close at B -->
+        <line x1="340" y1="190" x2="340" y2="140" stroke="#1a3c6e" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+        <!-- shading -->
+        <!-- positive: A→l (triangle+rect) merged polygon -->
+        <polygon points="40,140 40,70 140,130 240,130 240,140" fill="#3b82f6" fill-opacity="0.15"/>
+        <!-- negative: 2l→B -->
+        <polygon points="240,140 240,190 340,190 340,140" fill="#c0392b" fill-opacity="0.15"/>
+
+        <!-- y-axis gridlines + labels -->
+        <!-- +7P/6: starts at A, flush on axis → no separate gridline -->
+        <!-- +P/6: first at x=140 (end of linear). Gridline x=40→140 -->
+        <line x1="40" y1="130" x2="140" y2="130" stroke="#1a3c6e" stroke-width="1" stroke-dasharray="3,3"/>
+        <!-- -5P/6: first at x=240. Gridline x=40→240 -->
+        <line x1="40" y1="190" x2="240" y2="190" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,3"/>
+
+        <text x="34" y="73"  text-anchor="end" fill="#1a3c6e" font-weight="bold">7P/6</text>
+        <text x="34" y="133" text-anchor="end" fill="#1a3c6e" font-weight="bold">P/6</text>
+        <text x="34" y="193" text-anchor="end" fill="#c0392b" font-weight="bold">−5P/6</text>
+      </svg>
+      <figcaption>Shear force diagram — linear decrease in the UDL zone $[0,l]$, constant $+P/6$ in $[l, 2l]$, jumps to $-5P/6$ at the point load, constant to $B$.</figcaption>
+      </figure>
+      </div>
+
+      <div class="callout note">
+        <p>$V$ does not pass through zero smoothly anywhere — it jumps from $+P/6$ to $-5P/6$ <em>at</em> $x = 2l$ via the point load discontinuity. This tells us $M_{\max}$ occurs at $x = 2l$.</p>
+      </div>
+    </div>
+  </details>
+</div>
+
+<!-- ═══════════════════ STEP 3: BMD ═══════════════════ -->
+<div class="step">
+  <div class="step-heading">
+    <div class="step-num">3</div>
+    <div class="step-title">Construct the bending moment diagram $M(x)$</div>
+    <div class="try-hint">Try it first, then reveal ↓</div>
+  </div>
+  <details>
+    <summary><span class="step-label">Step 3</span> Parabola in $[0,l]$, two linear segments from $l$ to $B$ — maximum at $x = 2l$</summary>
+    <div class="step-body">
+
+      <h4>① From $A$ to $x = l$ (UDL region, parabolic):</h4>
+      <div class="math-block">$$M(x) = R_A\,x - \frac{P}{l}\cdot\frac{x^2}{2} = \frac{7P}{6}\,x - \frac{P}{2l}\,x^2$$
+      $$M(l) = \frac{7Pl}{6} - \frac{Pl}{2} = \frac{7Pl}{6} - \frac{3Pl}{6} = \frac{2Pl}{3}$$</div>
+
+      <h4>② From $x = l$ to $x = 2l$ (no distributed load, linear):</h4>
+      <div class="math-block">$$M(x) = \frac{7P}{6}\,x - P\!\left(x - \frac{l}{2}\right) = \frac{P}{6}\,x + \frac{Pl}{2}$$
+      $$M(2l) = \frac{P}{6}(2l) + \frac{Pl}{2} = \frac{Pl}{3} + \frac{Pl}{2} = \frac{2Pl}{6} + \frac{3Pl}{6} = \boxed{\frac{5Pl}{6}} \quad \checkmark$$</div>
+
+      <h4>③ From $x = 2l$ to $B$ (linear, slope $= -5P/6$):</h4>
+      <div class="math-block">$$M(x) = -\frac{5P}{6}\,x + \frac{5Pl}{2} \implies M(3l) = -\frac{15Pl}{6} + \frac{15Pl}{6} = 0 \quad \checkmark$$</div>
+
+      <div class="diagram-wrap">
+      <figure>
+      <!--
+        viewBox="0 0 420 240", width="735"
+        Scale: 100 px/l. A at x=40, l at x=140, 2l at x=240, B(3l) at x=340.
+        Zero line: y=210. Scale: 120 px per Pl.
+        2Pl/3  (80px) → y=130
+        5Pl/6 (100px) → y=110
+        Parabola: M 40,210 Q 90,140 140,130
+        Mid-span check: M(l/2)=11Pl/24=55px → y=155. Bezier at t=0.5: (90,155) ✓
+      -->
+      <svg viewBox="0 0 420 240" width="735" xmlns="http://www.w3.org/2000/svg" font-family="Arial,sans-serif" font-size="12">
+        <!-- axes: zero at y=210 -->
+        <line x1="40" y1="210" x2="360" y2="210" stroke="#888" stroke-width="1"/>
+        <line x1="40" y1="20"  x2="40" y2="215" stroke="#888" stroke-width="1"/>
+        <!-- x-axis ticks -->
+        <line x1="40"  y1="205" x2="40"  y2="215" stroke="#888" stroke-width="1"/>
+        <line x1="140" y1="205" x2="140" y2="215" stroke="#888" stroke-width="1"/>
+        <line x1="240" y1="205" x2="240" y2="215" stroke="#888" stroke-width="1"/>
+        <line x1="340" y1="205" x2="340" y2="215" stroke="#888" stroke-width="1"/>
+        <text x="140" y="228" text-anchor="middle" fill="#555" font-style="italic">l</text>
+        <text x="240" y="228" text-anchor="middle" fill="#555" font-style="italic">2l</text>
+        <text x="340" y="228" text-anchor="middle" fill="#555" font-style="italic">3l</text>
+        <text x="355" y="228" fill="#555">x</text>
+        <text x="10"  y="24"  fill="#555">M</text>
+        <text x="40"  y="230" text-anchor="middle" fill="#555" font-size="10">A</text>
+        <text x="340" y="230" text-anchor="middle" fill="#555" font-size="10">B</text>
+
+        <!-- BMD shading (all sagging/positive) -->
+        <!-- Parabolic region A to l -->
+        <path d="M 40,210 Q 90,140 140,130 L 140,210 Z" fill="#3b82f6" fill-opacity="0.12"/>
+        <!-- Linear l to 2l -->
+        <polygon points="140,210 140,130 240,110 240,210" fill="#3b82f6" fill-opacity="0.12"/>
+        <!-- Linear 2l to B -->
+        <polygon points="240,210 240,110 340,210" fill="#3b82f6" fill-opacity="0.12"/>
+
+        <!-- BMD curves -->
+        <!-- parabolic: A(40,210) → Q(90,140) → l(140,130) -->
+        <path d="M 40,210 Q 90,140 140,130" fill="none" stroke="#1a3c6e" stroke-width="2.5"/>
+        <!-- linear l to 2l: (140,130)→(240,110) -->
+        <line x1="140" y1="130" x2="240" y2="110" stroke="#1a3c6e" stroke-width="2.5"/>
+        <!-- linear 2l to B: (240,110)→(340,210) -->
+        <line x1="240" y1="110" x2="340" y2="210" stroke="#1a3c6e" stroke-width="2.5"/>
+
+        <!-- y-axis gridlines + labels -->
+        <!-- 2Pl/3 (y=130): first at x=140 → gridline x=40 to x=140 -->
+        <line x1="40" y1="130" x2="140" y2="130" stroke="#1a3c6e" stroke-width="1" stroke-dasharray="3,3"/>
+        <!-- 5Pl/6 (y=110): first at x=240 → gridline x=40 to x=240 -->
+        <line x1="40" y1="110" x2="240" y2="110" stroke="#1a3c6e" stroke-width="1" stroke-dasharray="3,3"/>
+
+        <text x="34" y="113" text-anchor="end" fill="#1a3c6e" font-weight="bold">5Pl/6</text>
+        <text x="34" y="133" text-anchor="end" fill="#1a3c6e" font-weight="bold">2Pl/3</text>
+
+        <!-- orange marker at M_max: x=2l (x_px=240), y=110 -->
+        <circle cx="240" cy="110" r="3.5" fill="#f97316"/>
+        <line x1="240" y1="110" x2="240" y2="235" stroke="#f97316" stroke-width="1" stroke-dasharray="3,3"/>
+        <text x="240" y="240" text-anchor="middle" fill="#f97316" font-weight="bold" font-size="11">M&#x2098;&#x2090;&#x2093; = 5Pl/6</text>
+      </svg>
+      <figcaption>Bending moment diagram — parabolic in $[0,l]$, two linear segments from $l$ to $B$. Maximum $5Pl/6$ occurs at $x = 2l$, where the shear changes sign through the point load.</figcaption>
+      </figure>
+      </div>
+
+      <div class="callout answer">
+        <p>$M_{\max} = \dfrac{5Pl}{6}$ at $x = 2l$</p>
+      </div>
+    </div>
+  </details>
+</div>
+
+<!-- ═══════════════════ STEP 4: SUMMARY ═══════════════════ -->
+<div class="step">
+  <div class="step-heading">
+    <div class="step-num">4</div>
+    <div class="step-title">Summary</div>
+  </div>
+  <details>
+    <summary><span class="step-label">Step 4</span> Beam free-body diagram, shear force diagram, and bending moment diagram — aligned</summary>
+    <div class="step-body">
+
+      <div class="diagram-wrap">
+      <figure>
+      <!--
+        viewBox="0 0 480 730", width="735"
+        Scale: 100 px/l. A at x=100, l at x=200, 2l at x=300, B(3l) at x=400.
+
+        FBD: beam y=100-112. UDL over x=100 to x=200. P at x=300.
+        R_A=7P/6 ↑ at x=100. R_B=5P/6 ↑ at x=400.
+
+        SFD: zero at y=380, scale 60px/P.
+          +7P/6→y=310, +P/6→y=370, -5P/6→y=430.
+
+        BMD: zero at y=625, scale 120px/Pl.
+          2Pl/3 (80px)→y=545, 5Pl/6 (100px)→y=525.
+          Parabola bezier: M 100,625 Q 150,555 200,545
+          (mid t=0.5: x=l/2, M=11Pl/24=55px, y=570; CP=(150,555))
+      -->
+      <svg viewBox="0 0 480 730" width="735" xmlns="http://www.w3.org/2000/svg" font-family="Arial,sans-serif" font-size="13">
+
+        <!-- vertical guide lines at A, l, 2l, B -->
+        <line x1="100" y1="112" x2="100" y2="680" stroke="#aab4c8" stroke-width="1" stroke-dasharray="4,4"/>
+        <line x1="200" y1="112" x2="200" y2="680" stroke="#aab4c8" stroke-width="1" stroke-dasharray="4,4"/>
+        <line x1="300" y1="112" x2="300" y2="680" stroke="#aab4c8" stroke-width="1" stroke-dasharray="4,4"/>
+        <line x1="400" y1="112" x2="400" y2="680" stroke="#aab4c8" stroke-width="1" stroke-dasharray="4,4"/>
+
+        <!-- ══ BEAM FBD ══ -->
+        <rect x="100" y="100" width="300" height="12" fill="#7eaecf" fill-opacity="0.7" stroke="#1a3c6e" stroke-width="1.5"/>
+
+        <!-- UDL over x=100 to x=200 -->
+        <line x1="100" y1="62" x2="200" y2="62" stroke="#c0392b" stroke-width="1.5"/>
+        <line x1="100" y1="62" x2="100" y2="99" stroke="#c0392b" stroke-width="1.2"/>
+        <line x1="125" y1="62" x2="125" y2="99" stroke="#c0392b" stroke-width="1.2"/>
+        <line x1="150" y1="62" x2="150" y2="99" stroke="#c0392b" stroke-width="1.2"/>
+        <line x1="175" y1="62" x2="175" y2="99" stroke="#c0392b" stroke-width="1.2"/>
+        <line x1="200" y1="62" x2="200" y2="99" stroke="#c0392b" stroke-width="1.2"/>
+        <polygon points="100,100 95,88 105,88" fill="#c0392b"/>
+        <polygon points="125,100 120,88 130,88" fill="#c0392b"/>
+        <polygon points="150,100 145,88 155,88" fill="#c0392b"/>
+        <polygon points="175,100 170,88 180,88" fill="#c0392b"/>
+        <polygon points="200,100 195,88 205,88" fill="#c0392b"/>
+        <text x="150" y="55" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="bold">P/l N/m</text>
+
+        <!-- Point load P at x=300 -->
+        <line x1="300" y1="50" x2="300" y2="99" stroke="#c0392b" stroke-width="2.2"/>
+        <polygon points="300,100 294,87 306,87" fill="#c0392b"/>
+        <text x="300" y="44" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="bold">P</text>
+
+        <!-- Pin at A -->
+        <polygon points="100,112 88,134 112,134" fill="#dbe4f0" stroke="#1a3c6e" stroke-width="1.5"/>
+        <line x1="80" y1="134" x2="120" y2="134" stroke="#1a3c6e" stroke-width="1.5"/>
+        <line x1="84" y1="140" x2="90" y2="134" stroke="#1a3c6e" stroke-width="1"/>
+        <line x1="94" y1="140" x2="100" y2="134" stroke="#1a3c6e" stroke-width="1"/>
+        <line x1="104" y1="140" x2="110" y2="134" stroke="#1a3c6e" stroke-width="1"/>
+        <line x1="114" y1="140" x2="120" y2="134" stroke="#1a3c6e" stroke-width="1"/>
+        <text x="78" y="110" font-size="14" fill="#1a3c6e" text-anchor="end" font-weight="bold">A</text>
+
+        <!-- Roller at B -->
+        <circle cx="400" cy="122" r="10" fill="#dbe4f0" stroke="#1a3c6e" stroke-width="1.5"/>
+        <line x1="380" y1="134" x2="420" y2="134" stroke="#1a3c6e" stroke-width="1.5"/>
+        <line x1="384" y1="140" x2="390" y2="134" stroke="#1a3c6e" stroke-width="1"/>
+        <line x1="394" y1="140" x2="400" y2="134" stroke="#1a3c6e" stroke-width="1"/>
+        <line x1="404" y1="140" x2="410" y2="134" stroke="#1a3c6e" stroke-width="1"/>
+        <line x1="414" y1="140" x2="420" y2="134" stroke="#1a3c6e" stroke-width="1"/>
+        <text x="422" y="110" font-size="14" fill="#1a3c6e" text-anchor="start" font-weight="bold">B</text>
+
+        <!-- x direction indicator -->
+        <line x1="100" y1="164" x2="142" y2="164" stroke="#333" stroke-width="1.2"/>
+        <polygon points="142,164 135,160 135,168" fill="#333"/>
+        <text x="150" y="168" font-size="12" fill="#333" font-style="italic">x</text>
+
+        <!-- Reaction arrows -->
+        <line x1="100" y1="178" x2="100" y2="136" stroke="#1a6fc4" stroke-width="2.2"/>
+        <polygon points="100,134 94,144 106,144" fill="#1a6fc4"/>
+        <text x="100" y="197" font-size="12" fill="#1a6fc4" text-anchor="middle" font-weight="bold">R<tspan font-size="9" baseline-shift="-4">A</tspan>=7P/6</text>
+
+        <line x1="400" y1="178" x2="400" y2="136" stroke="#1a6fc4" stroke-width="2.2"/>
+        <polygon points="400,134 394,144 406,144" fill="#1a6fc4"/>
+        <text x="400" y="197" font-size="12" fill="#1a6fc4" text-anchor="middle" font-weight="bold">R<tspan font-size="9" baseline-shift="-4">B</tspan>=5P/6</text>
+
+        <!-- Dimension line -->
+        <line x1="100" y1="215" x2="400" y2="215" stroke="#555" stroke-width="1"/>
+        <line x1="100" y1="210" x2="100" y2="220" stroke="#555" stroke-width="1"/>
+        <line x1="200" y1="210" x2="200" y2="220" stroke="#555" stroke-width="1"/>
+        <line x1="300" y1="210" x2="300" y2="220" stroke="#555" stroke-width="1"/>
+        <line x1="400" y1="210" x2="400" y2="220" stroke="#555" stroke-width="1"/>
+        <text x="150" y="231" font-size="12" fill="#333" text-anchor="middle" font-style="italic">l</text>
+        <text x="250" y="231" font-size="12" fill="#333" text-anchor="middle" font-style="italic">l</text>
+        <text x="350" y="231" font-size="12" fill="#333" text-anchor="middle" font-style="italic">l</text>
+
+        <!-- ══ SFD ══ -->
+        <text x="18" y="348" font-size="14" fill="#1a3c6e" font-weight="bold">SFD</text>
+        <line x1="100" y1="380" x2="420" y2="380" stroke="#888" stroke-width="1"/>
+        <line x1="100" y1="255" x2="100" y2="445" stroke="#888" stroke-width="1"/>
+        <text x="100" y="248" font-size="12" fill="#555">V</text>
+        <line x1="200" y1="375" x2="200" y2="385" stroke="#888" stroke-width="1"/>
+        <line x1="300" y1="375" x2="300" y2="385" stroke="#888" stroke-width="1"/>
+        <line x1="400" y1="375" x2="400" y2="385" stroke="#888" stroke-width="1"/>
+        <text x="200" y="400" font-size="12" fill="#555" text-anchor="middle" font-style="italic">l</text>
+        <text x="300" y="400" font-size="12" fill="#555" text-anchor="middle" font-style="italic">2l</text>
+        <text x="400" y="400" font-size="12" fill="#555" text-anchor="middle" font-style="italic">3l</text>
+        <text x="425" y="400" font-size="12" fill="#555" font-style="italic">x</text>
+
+        <!-- SFD shading -->
+        <polygon points="100,380 100,310 200,370 300,370 300,380" fill="#3b82f6" fill-opacity="0.15"/>
+        <polygon points="300,380 300,430 400,430 400,380" fill="#c0392b" fill-opacity="0.15"/>
+
+        <!-- SFD curves: scale 60px/P, zero y=380 -->
+        <!-- A to l: linear (100,310)→(200,370) -->
+        <line x1="100" y1="310" x2="200" y2="370" stroke="#1a3c6e" stroke-width="2.5"/>
+        <!-- l to 2l: horizontal y=370 -->
+        <line x1="200" y1="370" x2="300" y2="370" stroke="#1a3c6e" stroke-width="2.5"/>
+        <!-- jump at 2l -->
+        <line x1="300" y1="370" x2="300" y2="430" stroke="#1a3c6e" stroke-width="1.5" stroke-dasharray="4,3"/>
+        <!-- 2l to B: y=430 -->
+        <line x1="300" y1="430" x2="400" y2="430" stroke="#1a3c6e" stroke-width="2.5"/>
+        <!-- close at B -->
+        <line x1="400" y1="430" x2="400" y2="380" stroke="#1a3c6e" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+        <!-- SFD y-axis gridlines + labels -->
+        <!-- +P/6: first at x=200 → gridline x=100 to x=200 -->
+        <line x1="100" y1="370" x2="200" y2="370" stroke="#1a3c6e" stroke-width="1" stroke-dasharray="3,3"/>
+        <!-- -5P/6: first at x=300 → gridline x=100 to x=300 -->
+        <line x1="100" y1="430" x2="300" y2="430" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,3"/>
+        <text x="94" y="313" font-size="13" fill="#1a3c6e" text-anchor="end" font-weight="bold">7P/6</text>
+        <text x="94" y="373" font-size="13" fill="#1a3c6e" text-anchor="end" font-weight="bold">P/6</text>
+        <text x="94" y="433" font-size="13" fill="#c0392b" text-anchor="end" font-weight="bold">−5P/6</text>
+
+        <!-- ══ BMD ══ -->
+        <text x="18" y="528" font-size="14" fill="#1a3c6e" font-weight="bold">BMD</text>
+        <line x1="100" y1="625" x2="420" y2="625" stroke="#888" stroke-width="1"/>
+        <line x1="100" y1="450" x2="100" y2="632" stroke="#888" stroke-width="1"/>
+        <text x="100" y="442" font-size="12" fill="#555">M</text>
+        <line x1="200" y1="620" x2="200" y2="630" stroke="#888" stroke-width="1"/>
+        <line x1="300" y1="620" x2="300" y2="630" stroke="#888" stroke-width="1"/>
+        <line x1="400" y1="620" x2="400" y2="630" stroke="#888" stroke-width="1"/>
+        <text x="200" y="645" font-size="12" fill="#555" text-anchor="middle" font-style="italic">l</text>
+        <text x="300" y="645" font-size="12" fill="#555" text-anchor="middle" font-style="italic">2l</text>
+        <text x="400" y="645" font-size="12" fill="#555" text-anchor="middle" font-style="italic">3l</text>
+        <text x="425" y="645" font-size="12" fill="#555" font-style="italic">x</text>
+
+        <!-- BMD shading -->
+        <path d="M 100,625 Q 150,555 200,545 L 200,625 Z" fill="#3b82f6" fill-opacity="0.12"/>
+        <polygon points="200,625 200,545 300,525 300,625" fill="#3b82f6" fill-opacity="0.12"/>
+        <polygon points="300,625 300,525 400,625" fill="#3b82f6" fill-opacity="0.12"/>
+
+        <!-- BMD curves -->
+        <!-- parabolic A to l: M 100,625 Q 150,555 200,545 -->
+        <path d="M 100,625 Q 150,555 200,545" fill="none" stroke="#1a3c6e" stroke-width="2.5"/>
+        <!-- linear l to 2l -->
+        <line x1="200" y1="545" x2="300" y2="525" stroke="#1a3c6e" stroke-width="2.5"/>
+        <!-- linear 2l to B -->
+        <line x1="300" y1="525" x2="400" y2="625" stroke="#1a3c6e" stroke-width="2.5"/>
+
+        <!-- BMD y-axis gridlines + labels -->
+        <!-- 2Pl/3 (y=545): first at x=200 → gridline x=100 to x=200 -->
+        <line x1="100" y1="545" x2="200" y2="545" stroke="#1a3c6e" stroke-width="1" stroke-dasharray="3,3"/>
+        <!-- 5Pl/6 (y=525): first at x=300 → gridline x=100 to x=300 -->
+        <line x1="100" y1="525" x2="300" y2="525" stroke="#1a3c6e" stroke-width="1" stroke-dasharray="3,3"/>
+        <!-- nudge labels to avoid 20px collision: 5Pl/6 nudged up, 2Pl/3 nudged down -->
+        <text x="94" y="519" font-size="13" fill="#1a3c6e" text-anchor="end" font-weight="bold">5Pl/6</text>
+        <text x="94" y="553" font-size="13" fill="#1a3c6e" text-anchor="end" font-weight="bold">2Pl/3</text>
+
+      </svg>
+      <figcaption>Beam FBD, shear force diagram, and bending moment diagram aligned — dashed guides trace how the end of the UDL at $x=l$ and the point load at $x=2l$ produce kinks and jumps in both diagrams.</figcaption>
+      </figure>
+      </div>
+
+      <div class="callout answer">
+        <p>$M_{\max} = \dfrac{5Pl}{6}$ at $x = 2l$</p>
+      </div>
+    </div>
+  </details>
+</div>
+
+<div class="callout warn">
+  <p><strong>Common mistakes:</strong></p>
+  <p style="margin-top:6px">① <strong>Taking the UDL moment arm as $l$ instead of $l/2$</strong> — the resultant of the UDL acts at its <em>centroid</em>, halfway along its length ($x = l/2$), not at $x = l$.</p>
+  <p style="margin-top:6px">② <strong>Drawing $V(x)$ as constant in the UDL region</strong> — a UDL gives a <em>linearly varying</em> $V$, not a step. Only point loads and support reactions produce step changes.</p>
+  <p style="margin-top:6px">③ <strong>Drawing the BMD as linear in the UDL region</strong> — since $V$ is linear there, $M$ must be <em>parabolic</em> ($dM/dx = V$). Forgetting this leads to an incorrect triangular BMD shape in $[0,l]$.</p>
+</div>
+
+<div class="footer">MCEN2002 – Fundamentals of Mechanical Design &nbsp;|&nbsp; Tutorial 2.3 &nbsp;|&nbsp; Curtin University</div>
+</div>
+</body>
+</html>

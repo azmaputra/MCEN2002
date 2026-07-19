@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>T2.1 – Shear Force and Bending Moment Diagrams</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css"/>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]})"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+body{font-family:'Segoe UI',Arial,sans-serif;font-size:15px;line-height:1.75;color:#1a1a1a;background:#f5f6f8;margin:0;padding:24px 16px 56px}
+.page{max-width:860px;margin:0 auto;background:#fff;border-radius:10px;box-shadow:0 2px 14px rgba(0,0,0,.10);padding:40px 52px 52px}
+
+/* Header */
+.uni-header{text-align:center;border-bottom:2px solid #1a3c6e;padding-bottom:16px;margin-bottom:32px}
+.uni-header p{margin:0;line-height:1.4;font-size:13.5px;color:#555}
+.uni-header h2{margin:8px 0 0;font-size:20px;color:#1a3c6e}
+
+/* Section headings */
+h3{color:#1a3c6e;border-left:4px solid #1a3c6e;padding-left:10px;margin:28px 0 10px;font-size:15.5px}
+h4{color:#1a3c6e;font-size:14.5px;margin:18px 0 6px}
+
+/* Steps */
+.step{margin-bottom:10px}
+.step details{border:1px solid #d1d9e8;border-radius:8px;overflow:hidden;margin-top:6px}
+.step details summary{
+  list-style:none;cursor:pointer;padding:11px 15px;
+  background:#f0f4fb;color:#1a3c6e;font-weight:500;font-size:14.5px;
+  display:flex;align-items:center;gap:10px;user-select:none;
+}
+.step details summary::-webkit-details-marker{display:none}
+.step details summary::before{display:none}
+.step details summary::after{content:'▼';font-size:11px;color:#f97316;transition:transform 0.2s;flex-shrink:0;margin-left:auto;padding-left:8px}
+.step details[open] summary::after{transform:rotate(180deg)}
+.step details summary .step-label{font-size:12px;font-weight:500;color:#f97316;margin-right:4px}
+.step details[open] summary{background:#e8eef9;border-bottom:1px solid #d1d9e8}
+.step-body{padding:16px 20px}
+.step-heading{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.step-num{background:#1a3c6e;color:#fff;font-size:12px;font-weight:700;border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.step-title{font-size:15px;font-weight:600;color:#1a3c6e}
+.try-hint{font-size:12.5px;color:#6b7280;font-style:italic;margin-left:auto}
+
+/* Callouts */
+.callout{border-radius:6px;padding:13px 18px;margin:14px 0;font-size:14.5px}
+.callout p{margin:4px 0}
+.info{background:#eef4ff;border-left:4px solid #3b82f6}
+.given{background:#f0fdf4;border-left:4px solid #22c55e}
+.answer{background:#fff7ed;border-left:4px solid #f97316;font-size:16px;font-weight:600}
+.note{background:#faf5ff;border-left:4px solid #a855f7;font-size:14px}
+.warn{background:#fffbeb;border-left:4px solid #f59e0b;font-size:14px}
+
+/* Math display */
+.math-block{background:#f8f9fb;border:1px solid #e2e6ef;border-radius:6px;padding:14px 20px;margin:12px 0;overflow-x:auto;text-align:center}
+
+/* Table */
+table{width:100%;border-collapse:collapse;margin:18px 0;font-size:13.5px}
+th{background:#1a3c6e;color:#fff;padding:9px 10px;text-align:center;font-weight:600;font-size:13px}
+td{padding:8px 10px;text-align:center;border-bottom:1px solid #e5e7eb;vertical-align:middle}
+td.left{text-align:left;font-weight:600}
+tr:nth-child(even) td{background:#f8f9fb}
+tr.total td{font-weight:700;background:#eef4ff;border-top:2px solid #1a3c6e}
+tr.subtotal td{font-style:italic;background:#f0fdf4;border-top:1px dashed #22c55e}
+
+/* Diagram */
+.diagram-wrap{text-align:center;margin:24px 0 8px}
+.diagram-wrap figure{margin:0}
+.diagram-wrap figcaption{font-size:13px;color:#555;margin-top:2px;font-style:italic}
+
+.footer{margin-top:40px;border-top:1px solid #e5e7eb;padding-top:12px;font-size:12px;color:#999;text-align:center}
+
+/* Decomp layout */
+.decomp-wrap{display:flex;align-items:flex-start;gap:28px;flex-wrap:wrap;margin:16px 0}
+.decomp-svg-box{flex:0 0 auto;text-align:center}
+.decomp-desc{flex:1;min-width:200px;font-size:14px;line-height:1.8;padding-top:8px}
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- ═══════════════════════════ HEADER ═══════════════════════════ -->
+<div class="uni-header">
+  <p>Curtin University &nbsp;·&nbsp; School of Civil and Mechanical Engineering</p>
+  <p>MCEN2002 – Fundamentals of Mechanical Design</p>
+  <p style="margin-top:8px"><strong>Dr Azma Putra Azis</strong></p>
+  <h2>Tutorial 2.1 &nbsp;–&nbsp; Shear Force and Bending Moment Diagrams</h2>
+</div>
+
+<!-- ═══════════════════════════ PROBLEM ═══════════════════════════ -->
+<h3>Problem Statement</h3>
+<p>Draw the <strong>shear force</strong> and <strong>bending moment diagrams</strong> for the loaded beam shown below. What are the values of the shear force and bending moment at the middle of the beam?</p>
+
+<div class="callout given">
+  <p><strong>Given answer:</strong> &nbsp; $V = -400\ \text{N}$ &nbsp;&nbsp;&nbsp; $M = 3400\ \text{N}\cdot\text{m}$</p>
+</div>
+
+<!-- Diagram -->
+<div class="diagram-wrap">
+<figure>
+<svg viewBox="0 0 420 200" width="420" xmlns="http://www.w3.org/2000/svg" font-family="Arial,sans-serif" font-size="13">
+
+  <!-- Beam: A at x=40 (0m), load at x=140 (1m), moment at x=240 (2m), B at x=340 (3m). Scale 100px/m -->
+  <rect x="40" y="94" width="300" height="12" fill="#7eaecf" stroke="#1a3c6e" stroke-width="1.5"/>
+
+  <!-- Support A: pin (triangle) -->
+  <polygon points="40,106 28,128 52,128" fill="#dbe4f0" stroke="#1a3c6e" stroke-width="1.5"/>
+  <line x1="20" y1="128" x2="60" y2="128" stroke="#1a3c6e" stroke-width="1.5"/>
+  <line x1="24" y1="134" x2="30" y2="128" stroke="#1a3c6e" stroke-width="1"/>
+  <line x1="34" y1="134" x2="40" y2="128" stroke="#1a3c6e" stroke-width="1"/>
+  <line x1="44" y1="134" x2="50" y2="128" stroke="#1a3c6e" stroke-width="1"/>
+  <line x1="54" y1="134" x2="60" y2="128" stroke="#1a3c6e" stroke-width="1"/>
+  <text x="40" y="150" font-size="13" fill="#1a3c6e" text-anchor="middle" font-weight="bold">A</text>
+
+  <!-- Support B: roller (circle) -->
+  <circle cx="340" cy="115" r="10" fill="#dbe4f0" stroke="#1a3c6e" stroke-width="1.5"/>
+  <line x1="320" y1="128" x2="360" y2="128" stroke="#1a3c6e" stroke-width="1.5"/>
+  <line x1="324" y1="134" x2="330" y2="128" stroke="#1a3c6e" stroke-width="1"/>
+  <line x1="334" y1="134" x2="340" y2="128" stroke="#1a3c6e" stroke-width="1"/>
+  <line x1="344" y1="134" x2="350" y2="128" stroke="#1a3c6e" stroke-width="1"/>
+  <line x1="354" y1="134" x2="360" y2="128" stroke="#1a3c6e" stroke-width="1"/>
+  <text x="340" y="150" font-size="13" fill="#1a3c6e" text-anchor="middle" font-weight="bold">B</text>
+
+  <!-- 4 kN point load at x=140 (1m) -->
+  <line x1="140" y1="40" x2="140" y2="93" stroke="#c0392b" stroke-width="2.2"/>
+  <polygon points="140,93 134,80 146,80" fill="#c0392b"/>
+  <text x="140" y="32" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="bold">4 kN</text>
+
+  <!-- 2800 N.m applied moment at x=240 (2m), centered on the beam -->
+  <path d="M 251.6,86.2 A 18,18 0 1,1 228.4,86.2" fill="none" stroke="#c0392b" stroke-width="2.2"/>
+  <polygon points="236.1,79.8 232.3,90.8 224.6,81.6" fill="#c0392b"/>
+  <text x="240" y="68" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="bold">2800 N·m</text>
+
+  <!-- centroid marker at C = 240 (mid decorative, not used) -->
+  <circle cx="240" cy="100" r="2.5" fill="#1a3c6e"/>
+
+  <!-- Dimension line: A to load -->
+  <line x1="40" y1="160" x2="140" y2="160" stroke="#555" stroke-width="1"/>
+  <line x1="40" y1="155" x2="40" y2="165" stroke="#555" stroke-width="1"/>
+  <line x1="140" y1="155" x2="140" y2="165" stroke="#555" stroke-width="1"/>
+  <text x="90" y="176" font-size="12" fill="#333" text-anchor="middle">1 m</text>
+
+  <!-- Dimension line: load to moment -->
+  <line x1="140" y1="160" x2="240" y2="160" stroke="#555" stroke-width="1"/>
+  <line x1="240" y1="155" x2="240" y2="165" stroke="#555" stroke-width="1"/>
+  <text x="190" y="176" font-size="12" fill="#333" text-anchor="middle">1 m</text>
+
+  <!-- Dimension line: moment to B -->
+  <line x1="240" y1="160" x2="340" y2="160" stroke="#555" stroke-width="1"/>
+  <line x1="340" y1="155" x2="340" y2="165" stroke="#555" stroke-width="1"/>
+  <text x="290" y="176" font-size="12" fill="#333" text-anchor="middle">1 m</text>
+
+</svg>
+<figcaption>Simply supported beam: pin at A, roller at B, 4 kN point load at 1 m, 2800 N·m applied moment at 2 m.</figcaption>
+</figure>
+</div>
+
+<!-- ═══════════════════════════ STRATEGY ═══════════════════════════ -->
+<div class="callout info">
+  <p><strong>Strategy:</strong> Find the support reactions using overall equilibrium ($\sum F_y = 0$, $\sum M = 0$), then build $V(x)$ and $M(x)$ segment by segment, remembering that a point force causes a <strong>jump in the shear diagram</strong> and a concentrated applied moment causes a <strong>jump in the bending moment diagram</strong> (but not in the shear diagram).</p>
+</div>
+
+<h3>Solution</h3>
+
+<!-- ═══════════════════════════ STEP 1 ═══════════════════════════ -->
+<div class="step">
+  <div class="step-heading">
+    <div class="step-num">1</div>
+    <div class="step-title">Find the support reactions</div>
+    <div class="try-hint">Try it first, then reveal ↓</div>
+  </div>
+  <details>
+    <summary><span class="step-label">Step 1</span> Apply $\sum M_A = 0$ and $\sum F_y = 0$</summary>
+    <div class="step-body">
+      <p>Take moments about A (counter-clockwise positive). The 4&nbsp;kN load acts 1&nbsp;m from A, the roller reaction $R_B$ acts 3&nbsp;m from A, and the applied 2800&nbsp;N·m moment (shown counter-clockwise in the figure) acts anywhere along the beam — its effect is the same regardless of location:</p>
+
+      <div class="math-block">$$\sum M_A = 0: \quad R_B(3) - 4(1) + 2.8 = 0$$
+$$R_B = \frac{4(1) - 2.8}{3} = \frac{1.2}{3} = 0.4\text{ kN} = 400\text{ N}$$</div>
+
+      <p>Then, summing vertical forces:</p>
+
+      <div class="math-block">$$\sum F_y = 0: \quad R_A + R_B = 4\text{ kN}$$
+$$R_A = 4 - 0.4 = 3.6\text{ kN} = 3600\text{ N}$$</div>
+
+      <div class="callout answer">
+        <p>$R_A = 3.6\text{ kN (up)}$ &nbsp;&nbsp;&nbsp; $R_B = 0.4\text{ kN (up)}$</p>
+      </div>
+
+      <div class="callout note">
+        <p><strong>Check:</strong> Both reactions come out positive, so both act upward as assumed — the load and applied moment are held in equilibrium by a much larger reaction at A than at B, since A is close to the 4&nbsp;kN load.</p>
+      </div>
+    </div>
+  </details>
+</div>
+
+<!-- ═══════════════════════════ STEP 2 ═══════════════════════════ -->
+<div class="step">
+  <div class="step-heading">
+    <div class="step-num">2</div>
+    <div class="step-title">Construct the shear force diagram $V(x)$</div>
+    <div class="try-hint">Try it first, then reveal ↓</div>
+  </div>
+  <details>
+    <summary><span class="step-label">Step 2</span> Track $V(x)$ segment by segment — jumps occur only at point forces</summary>
+    <div class="step-body">
+      <p>Starting from A and moving right, $V(x)$ equals the sum of vertical forces encountered so far (reactions up, loads down). The concentrated moment does <strong>not</strong> change $V$.</p>
+
+      <h4>① From A to the load ($0 \le x < 1$):</h4>
+      <div class="math-block">$$V(x) = R_A = 3.6\text{ kN}$$</div>
+
+      <h4>② From the load to B ($1 < x \le 3$):</h4>
+      <div class="math-block">$$V(x) = R_A - 4 = 3.6 - 4 = -0.4\text{ kN} = -400\text{ N}$$</div>
+
+      <p>This value stays constant across the applied-moment location at $x = 2$&nbsp;m — moments create no shear jump. At $x = 3$&nbsp;m, $R_B = 0.4$&nbsp;kN restores $V$ to zero, closing the diagram.</p>
+
+      <div class="diagram-wrap">
+      <figure>
+      <svg viewBox="0 0 420 220" width="735" xmlns="http://www.w3.org/2000/svg" font-family="Arial,sans-serif" font-size="12">
+        <!-- axes -->
+        <line x1="40" y1="140" x2="380" y2="140" stroke="#888" stroke-width="1"/>
+        <line x1="40" y1="20" x2="40" y2="200" stroke="#888" stroke-width="1"/>
+        <!-- x gridlines / labels at 0,1,2,3 m -->
+        <line x1="40" y1="135" x2="40" y2="145" stroke="#888" stroke-width="1"/>
+        <line x1="140" y1="135" x2="140" y2="145" stroke="#888" stroke-width="1"/>
+        <line x1="240" y1="135" x2="240" y2="145" stroke="#888" stroke-width="1"/>
+        <line x1="340" y1="135" x2="340" y2="145" stroke="#888" stroke-width="1"/>
+        <text x="140" y="158" text-anchor="middle" fill="#555">1</text>
+        <text x="240" y="158" text-anchor="middle" fill="#555">2</text>
+        <text x="340" y="158" text-anchor="middle" fill="#555">3</text>
+        <text x="360" y="158" fill="#555">x (m)</text>
+        <text x="10" y="24" fill="#555">V (kN)</text>
+
+        <!-- V curve: 3.6 from 0-1 (y=140-72=68), drop to -0.4 (y=140+8=148) from 1-3, back to 0 at x=3 -->
+        <line x1="40" y1="68" x2="140" y2="68" stroke="#1a3c6e" stroke-width="2.5"/>
+        <line x1="140" y1="68" x2="140" y2="148" stroke="#1a3c6e" stroke-width="1.5" stroke-dasharray="4,3"/>
+        <line x1="140" y1="148" x2="340" y2="148" stroke="#1a3c6e" stroke-width="2.5"/>
+        <line x1="340" y1="148" x2="340" y2="140" stroke="#1a3c6e" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+        <!-- shading -->
+        <polygon points="40,140 40,68 140,68 140,140" fill="#3b82f6" fill-opacity="0.15"/>
+        <polygon points="140,140 140,148 340,148 340,140" fill="#c0392b" fill-opacity="0.15"/>
+
+        <!-- y-axis gridlines + value labels -->
+        <line x1="40" y1="148" x2="140" y2="148" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,3"/>
+        <text x="34" y="71" text-anchor="end" fill="#1a3c6e" font-weight="bold">3.6</text>
+        <text x="34" y="151" text-anchor="end" fill="#c0392b" font-weight="bold">−0.4</text>
+
+        <!-- mid-span marker at x=1.5m (190px) -->
+        <circle cx="190" cy="148" r="3.5" fill="#f97316"/>
+        <line x1="190" y1="148" x2="190" y2="200" stroke="#f97316" stroke-width="1" stroke-dasharray="3,3"/>
+        <text x="190" y="212" text-anchor="middle" fill="#f97316" font-weight="bold">mid-span</text>
+      </svg>
+      <figcaption>Shear force diagram — constant +3.6 kN, drops to −0.4 kN at the 4 kN load, unaffected by the applied moment.</figcaption>
+      </figure>
+      </div>
+
+      <div class="callout answer">
+        <p>Shear force at mid-span ($x = 1.5$&nbsp;m): $V = -0.4\text{ kN} = -400\text{ N}$</p>
+      </div>
+    </div>
+  </details>
+</div>
+
+<!-- ═══════════════════════════ STEP 3 ═══════════════════════════ -->
+<div class="step">
+  <div class="step-heading">
+    <div class="step-num">3</div>
+    <div class="step-title">Construct the bending moment diagram $M(x)$</div>
+    <div class="try-hint">Try it first, then reveal ↓</div>
+  </div>
+  <details>
+    <summary><span class="step-label">Step 3</span> Integrate $V(x)$, and apply the jump at the concentrated moment</summary>
+    <div class="step-body">
+      <p>Since $dM/dx = V$, $M(x)$ is linear on each segment with slope equal to the local shear. $M = 0$ at both simple supports A and B.</p>
+
+      <h4>① From A to the load ($0 \le x \le 1$):</h4>
+      <div class="math-block">$$M(x) = R_A\,x = 3.6x$$
+$$M(1) = 3.6\text{ kN}\cdot\text{m} \quad \text{(local peak, value just before the load)}$$</div>
+
+      <h4>② From the load to the applied moment ($1 \le x \le 2$):</h4>
+      <div class="math-block">$$M(x) = R_A x - 4(x-1) = -0.4x + 4$$
+$$M(2^-) = -0.4(2) + 4 = 3.2\text{ kN}\cdot\text{m}$$</div>
+
+      <div class="callout info">
+        <p>At mid-span, $x = 1.5$&nbsp;m, which falls in this segment:</p>
+        <div class="math-block">$$M(1.5) = -0.4(1.5) + 4 = 3.4\text{ kN}\cdot\text{m} = 3400\text{ N}\cdot\text{m}$$</div>
+      </div>
+
+      <h4>③ The concentrated moment jump at $x = 2$&nbsp;m:</h4>
+      <p>A concentrated applied moment causes $M(x)$ to jump by its magnitude at that point (opposite in sense to the applied moment's rotation), while $V(x)$ is unaffected:</p>
+      <div class="math-block">$$M(2^+) = M(2^-) - 2.8 = 3.2 - 2.8 = 0.4\text{ kN}\cdot\text{m}$$</div>
+
+      <h4>④ From the applied moment to B ($2 \le x \le 3$):</h4>
+      <div class="math-block">$$M(x) = -0.4x + 4 - 2.8 = -0.4x + 1.2$$
+$$M(3) = -0.4(3) + 1.2 = 0 \quad \checkmark \text{ (zero at the roller, as required)}$$</div>
+
+      <div class="diagram-wrap">
+      <figure>
+      <svg viewBox="0 0 420 240" width="735" xmlns="http://www.w3.org/2000/svg" font-family="Arial,sans-serif" font-size="12">
+        <!-- axes: zero line at y=200, scale 40px per kN.m -->
+        <line x1="40" y1="200" x2="380" y2="200" stroke="#888" stroke-width="1"/>
+        <line x1="40" y1="20" x2="40" y2="200" stroke="#888" stroke-width="1"/>
+        <line x1="40" y1="195" x2="40" y2="205" stroke="#888" stroke-width="1"/>
+        <line x1="140" y1="195" x2="140" y2="205" stroke="#888" stroke-width="1"/>
+        <line x1="240" y1="195" x2="240" y2="205" stroke="#888" stroke-width="1"/>
+        <line x1="340" y1="195" x2="340" y2="205" stroke="#888" stroke-width="1"/>
+        <text x="40" y="218" text-anchor="middle" fill="#555">0</text>
+        <text x="140" y="218" text-anchor="middle" fill="#555">1</text>
+        <text x="240" y="218" text-anchor="middle" fill="#555">2</text>
+        <text x="340" y="218" text-anchor="middle" fill="#555">3</text>
+        <text x="360" y="218" fill="#555">x (m)</text>
+        <text x="10" y="24" fill="#555">M (kN·m)</text>
+
+        <!-- M curve: (40,200)->(140,56) : 0 to 3.6 ; (140,56)->(240,72): 3.6 to 3.2 ; jump (240,72)->(240,184): 3.2 to 0.4 ; (240,184)->(340,200): 0.4 to 0 -->
+        <line x1="40" y1="200" x2="140" y2="56" stroke="#1a3c6e" stroke-width="2.5"/>
+        <line x1="140" y1="56" x2="240" y2="72" stroke="#1a3c6e" stroke-width="2.5"/>
+        <line x1="240" y1="72" x2="240" y2="184" stroke="#1a3c6e" stroke-width="1.5" stroke-dasharray="4,3"/>
+        <line x1="240" y1="184" x2="340" y2="200" stroke="#1a3c6e" stroke-width="2.5"/>
+
+        <!-- shading -->
+        <polygon points="40,200 140,56 140,200" fill="#3b82f6" fill-opacity="0.12"/>
+        <polygon points="140,200 140,56 240,72 240,200" fill="#3b82f6" fill-opacity="0.12"/>
+        <polygon points="240,200 240,184 340,200" fill="#3b82f6" fill-opacity="0.12"/>
+
+        <!-- y-axis gridlines + value labels -->
+        <line x1="40" y1="56" x2="140" y2="56" stroke="#1a3c6e" stroke-width="1" stroke-dasharray="3,3"/>
+        <line x1="40" y1="72" x2="240" y2="72" stroke="#1a3c6e" stroke-width="1" stroke-dasharray="3,3"/>
+        <line x1="40" y1="184" x2="240" y2="184" stroke="#1a3c6e" stroke-width="1" stroke-dasharray="3,3"/>
+        <text x="34" y="59" text-anchor="end" fill="#1a3c6e" font-weight="bold">3.6</text>
+        <text x="34" y="75" text-anchor="end" fill="#1a3c6e" font-weight="bold">3.2</text>
+        <text x="34" y="187" text-anchor="end" fill="#1a3c6e" font-weight="bold">0.4</text>
+        <text x="34" y="203" text-anchor="end" fill="#555">0</text>
+
+        <!-- mid-span marker x=1.5m (190px), M=3.4 -> y=200-3.4*40=64 -->
+        <circle cx="190" cy="64" r="3.5" fill="#f97316"/>
+        <line x1="190" y1="64" x2="190" y2="200" stroke="#f97316" stroke-width="1" stroke-dasharray="3,3"/>
+        <text x="190" y="230" text-anchor="middle" fill="#f97316" font-weight="bold">mid-span: 3.4 kN·m</text>
+      </svg>
+      <figcaption>Bending moment diagram — rises linearly to a peak of 3.6 kN·m under the load, then drops by 2.8 kN·m at the applied moment, closing to zero at B.</figcaption>
+      </figure>
+      </div>
+
+      <div class="callout answer">
+        <p>Bending moment at mid-span ($x = 1.5$&nbsp;m): $M = 3.4\text{ kN}\cdot\text{m} = 3400\text{ N}\cdot\text{m}$</p>
+      </div>
+
+      <div class="callout note">
+        <p><strong>Maximum bending moment</strong> along the whole beam is $M_{max} = 3.6\text{ kN}\cdot\text{m}$, occurring directly under the 4&nbsp;kN load at $x = 1$&nbsp;m — this, not the mid-span value, is the critical section for design.</p>
+      </div>
+    </div>
+  </details>
+</div>
+
+<!-- ═══════════════════════════ SUMMARY TABLE ═══════════════════════════ -->
+<div class="step">
+  <div class="step-heading">
+    <div class="step-num">4</div>
+    <div class="step-title">Summary</div>
+  </div>
+  <details>
+    <summary><span class="step-label">Step 4</span> Beam, shear force diagram, and bending moment diagram — aligned</summary>
+    <div class="step-body">
+
+      <div class="diagram-wrap">
+      <figure>
+      <svg viewBox="0 0 480 680" width="735" xmlns="http://www.w3.org/2000/svg" font-family="Arial,sans-serif" font-size="13">
+
+        <!-- vertical guide lines through load (x=200) and applied-moment (x=300) locations, spanning the whole figure -->
+        <line x1="200" y1="112" x2="200" y2="630" stroke="#aab4c8" stroke-width="1" stroke-dasharray="4,4"/>
+        <line x1="300" y1="112" x2="300" y2="630" stroke="#aab4c8" stroke-width="1" stroke-dasharray="4,4"/>
+        <line x1="100" y1="112" x2="100" y2="630" stroke="#aab4c8" stroke-width="1" stroke-dasharray="4,4"/>
+        <line x1="400" y1="112" x2="400" y2="630" stroke="#aab4c8" stroke-width="1" stroke-dasharray="4,4"/>
+
+        <!-- ═══════ SECTION 1: BEAM FBD ═══════ -->
+        <rect x="100" y="100" width="300" height="12" fill="#7eaecf" fill-opacity="0.7" stroke="#1a3c6e" stroke-width="1.5"/>
+
+        <!-- support A: pin -->
+        <polygon points="100,112 88,134 112,134" fill="#dbe4f0" stroke="#1a3c6e" stroke-width="1.5"/>
+        <line x1="80" y1="134" x2="120" y2="134" stroke="#1a3c6e" stroke-width="1.5"/>
+        <line x1="84" y1="140" x2="90" y2="134" stroke="#1a3c6e" stroke-width="1"/>
+        <line x1="94" y1="140" x2="100" y2="134" stroke="#1a3c6e" stroke-width="1"/>
+        <line x1="104" y1="140" x2="110" y2="134" stroke="#1a3c6e" stroke-width="1"/>
+        <line x1="114" y1="140" x2="120" y2="134" stroke="#1a3c6e" stroke-width="1"/>
+        <text x="70" y="118" font-size="14" fill="#1a3c6e" text-anchor="end" font-weight="bold">A</text>
+
+        <!-- support B: roller -->
+        <circle cx="400" cy="122" r="10" fill="#dbe4f0" stroke="#1a3c6e" stroke-width="1.5"/>
+        <line x1="380" y1="134" x2="420" y2="134" stroke="#1a3c6e" stroke-width="1.5"/>
+        <line x1="384" y1="140" x2="390" y2="134" stroke="#1a3c6e" stroke-width="1"/>
+        <line x1="394" y1="140" x2="400" y2="134" stroke="#1a3c6e" stroke-width="1"/>
+        <line x1="404" y1="140" x2="410" y2="134" stroke="#1a3c6e" stroke-width="1"/>
+        <line x1="414" y1="140" x2="420" y2="134" stroke="#1a3c6e" stroke-width="1"/>
+        <text x="430" y="118" font-size="14" fill="#1a3c6e" text-anchor="start" font-weight="bold">B</text>
+
+        <!-- 4 kN load at x=200 (1 m) -->
+        <line x1="200" y1="35" x2="200" y2="99" stroke="#c0392b" stroke-width="2.2"/>
+        <polygon points="200,99 194,86 206,86" fill="#c0392b"/>
+        <text x="200" y="27" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="bold">4 kN</text>
+
+        <!-- 2800 N.m applied moment at x=300 (2 m), centered on the beam -->
+        <path d="M 311.6,92.2 A 18,18 0 1,1 288.4,92.2" fill="none" stroke="#c0392b" stroke-width="2.2"/>
+        <polygon points="296.1,85.8 292.3,96.8 284.6,87.6" fill="#c0392b"/>
+        <text x="300" y="75" font-size="14" fill="#c0392b" text-anchor="middle" font-weight="bold">2800 N·m</text>
+
+        <!-- x-direction indicator -->
+        <line x1="100" y1="162" x2="142" y2="162" stroke="#333" stroke-width="1.2"/>
+        <polygon points="142,162 135,158 135,166" fill="#333"/>
+        <text x="150" y="166" font-size="12" fill="#333" font-style="italic">x</text>
+
+        <!-- reaction arrows -->
+        <line x1="100" y1="178" x2="100" y2="136" stroke="#1a6fc4" stroke-width="2.2"/>
+        <polygon points="100,134 94,144 106,144" fill="#1a6fc4"/>
+        <line x1="400" y1="178" x2="400" y2="136" stroke="#1a6fc4" stroke-width="2.2"/>
+        <polygon points="400,134 394,144 406,144" fill="#1a6fc4"/>
+        <text x="100" y="197" font-size="13" fill="#1a6fc4" text-anchor="middle" font-weight="bold">R<tspan font-size="9" baseline-shift="-4">A</tspan> = 3.6 kN</text>
+        <text x="400" y="197" font-size="13" fill="#1a6fc4" text-anchor="middle" font-weight="bold">R<tspan font-size="9" baseline-shift="-4">B</tspan> = 0.4 kN</text>
+
+        <!-- dimension line: 1 m + 1 m + 1 m -->
+        <line x1="100" y1="215" x2="400" y2="215" stroke="#555" stroke-width="1"/>
+        <line x1="100" y1="210" x2="100" y2="220" stroke="#555" stroke-width="1"/>
+        <line x1="200" y1="210" x2="200" y2="220" stroke="#555" stroke-width="1"/>
+        <line x1="300" y1="210" x2="300" y2="220" stroke="#555" stroke-width="1"/>
+        <line x1="400" y1="210" x2="400" y2="220" stroke="#555" stroke-width="1"/>
+        <text x="150" y="231" font-size="12" fill="#333" text-anchor="middle">1 m</text>
+        <text x="250" y="231" font-size="12" fill="#333" text-anchor="middle">1 m</text>
+        <text x="350" y="231" font-size="12" fill="#333" text-anchor="middle">1 m</text>
+
+        <!-- ═══════ SECTION 2: SHEAR FORCE DIAGRAM ═══════ -->
+        <text x="18" y="348" font-size="14" fill="#1a3c6e" font-weight="bold">SFD</text>
+
+        <line x1="100" y1="380" x2="420" y2="380" stroke="#888" stroke-width="1"/>
+        <line x1="100" y1="260" x2="100" y2="430" stroke="#888" stroke-width="1"/>
+        <text x="100" y="252" font-size="12" fill="#555">V (kN)</text>
+        <line x1="200" y1="375" x2="200" y2="385" stroke="#888" stroke-width="1"/>
+        <line x1="300" y1="375" x2="300" y2="385" stroke="#888" stroke-width="1"/>
+        <line x1="400" y1="375" x2="400" y2="385" stroke="#888" stroke-width="1"/>
+        <text x="200" y="400" font-size="12" fill="#555" text-anchor="middle">1</text>
+        <text x="300" y="400" font-size="12" fill="#555" text-anchor="middle">2</text>
+        <text x="400" y="400" font-size="12" fill="#555" text-anchor="middle">3</text>
+        <text x="428" y="400" font-size="12" fill="#555">x (m)</text>
+
+        <polygon points="100,380 100,308 200,308 200,380" fill="#3b82f6" fill-opacity="0.15"/>
+        <polygon points="200,380 200,388 400,388 400,380" fill="#c0392b" fill-opacity="0.15"/>
+
+        <line x1="100" y1="308" x2="200" y2="308" stroke="#1a3c6e" stroke-width="2.5"/>
+        <line x1="200" y1="308" x2="200" y2="388" stroke="#1a3c6e" stroke-width="1.5" stroke-dasharray="4,3"/>
+        <line x1="200" y1="388" x2="400" y2="388" stroke="#1a3c6e" stroke-width="2.5"/>
+        <line x1="400" y1="388" x2="400" y2="380" stroke="#1a3c6e" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+        <line x1="100" y1="388" x2="200" y2="388" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,3"/>
+        <text x="94" y="311" font-size="13" fill="#1a3c6e" text-anchor="end" font-weight="bold">3.6</text>
+        <text x="94" y="391" font-size="13" fill="#c0392b" text-anchor="end" font-weight="bold">−0.4</text>
+
+        <!-- ═══════ SECTION 3: BENDING MOMENT DIAGRAM ═══════ -->
+        <text x="18" y="522" font-size="14" fill="#1a3c6e" font-weight="bold">BMD</text>
+
+        <line x1="100" y1="630" x2="420" y2="630" stroke="#888" stroke-width="1"/>
+        <line x1="100" y1="430" x2="100" y2="630" stroke="#888" stroke-width="1"/>
+        <text x="100" y="422" font-size="12" fill="#555">M (kN&#183;m)</text>
+        <line x1="200" y1="625" x2="200" y2="635" stroke="#888" stroke-width="1"/>
+        <line x1="300" y1="625" x2="300" y2="635" stroke="#888" stroke-width="1"/>
+        <line x1="400" y1="625" x2="400" y2="635" stroke="#888" stroke-width="1"/>
+        <text x="200" y="650" font-size="12" fill="#555" text-anchor="middle">1</text>
+        <text x="300" y="650" font-size="12" fill="#555" text-anchor="middle">2</text>
+        <text x="400" y="650" font-size="12" fill="#555" text-anchor="middle">3</text>
+        <text x="428" y="650" font-size="12" fill="#555">x (m)</text>
+
+        <polygon points="100,630 200,486 200,630" fill="#3b82f6" fill-opacity="0.12"/>
+        <polygon points="200,630 200,486 300,502 300,630" fill="#3b82f6" fill-opacity="0.12"/>
+        <polygon points="300,630 300,614 400,630" fill="#3b82f6" fill-opacity="0.12"/>
+
+        <line x1="100" y1="630" x2="200" y2="486" stroke="#1a3c6e" stroke-width="2.5"/>
+        <line x1="200" y1="486" x2="300" y2="502" stroke="#1a3c6e" stroke-width="2.5"/>
+        <line x1="300" y1="502" x2="300" y2="614" stroke="#1a3c6e" stroke-width="1.5" stroke-dasharray="4,3"/>
+        <line x1="300" y1="614" x2="400" y2="630" stroke="#1a3c6e" stroke-width="2.5"/>
+
+        <line x1="100" y1="486" x2="200" y2="486" stroke="#1a3c6e" stroke-width="1" stroke-dasharray="3,3"/>
+        <line x1="100" y1="502" x2="300" y2="502" stroke="#1a3c6e" stroke-width="1" stroke-dasharray="3,3"/>
+        <line x1="100" y1="614" x2="300" y2="614" stroke="#1a3c6e" stroke-width="1" stroke-dasharray="3,3"/>
+        <text x="94" y="489" font-size="13" fill="#1a3c6e" text-anchor="end" font-weight="bold">3.6</text>
+        <text x="94" y="505" font-size="13" fill="#1a3c6e" text-anchor="end" font-weight="bold">3.2</text>
+        <text x="94" y="617" font-size="13" fill="#1a3c6e" text-anchor="end" font-weight="bold">0.4</text>
+
+      </svg>
+      <figcaption>Beam, shear force diagram, and bending moment diagram drawn to the same horizontal scale — the dashed guide lines trace how the load, the applied moment, and the supports line up with each jump and slope change.</figcaption>
+      </figure>
+      </div>
+
+      <div class="callout answer">
+        <p>$V$ at mid-span ($x=1.5$ m) $= -400$ N &nbsp;&nbsp;&nbsp; $M$ at mid-span ($x=1.5$ m) $= 3400\text{ N}\cdot\text{m}$</p>
+      </div>
+
+    </div>
+  </details>
+</div>
+
+<div class="callout warn">
+  <p><strong>Common mistake:</strong> Students often forget that a <strong>concentrated applied moment causes a jump in the bending moment diagram but not in the shear force diagram</strong> — only point forces (and support reactions) create shear jumps. Skipping the $M(2^-) \to M(2^+)$ discontinuity, or applying it with the wrong sign, is the most frequent error in this type of problem.</p>
+</div>
+
+<div class="footer">MCEN2002 – Fundamentals of Mechanical Design &nbsp;|&nbsp; Tutorial 2.1 &nbsp;|&nbsp; Curtin University</div>
+</div>
+</body>
+</html>
