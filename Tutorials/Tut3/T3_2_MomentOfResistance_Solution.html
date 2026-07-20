@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>T3.2 – Moment of Resistance of an Extruded Section</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css"/>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{throwOnError:false,delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]})"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+body{font-family:'Segoe UI',Arial,sans-serif;font-size:15px;line-height:1.75;color:#1a1a1a;background:#f5f6f8;margin:0;padding:24px 16px 56px}
+.page{max-width:860px;margin:0 auto;background:#fff;border-radius:10px;box-shadow:0 2px 14px rgba(0,0,0,.10);padding:40px 52px 52px}
+
+/* Header */
+.uni-header{text-align:center;border-bottom:2px solid #1a3c6e;padding-bottom:16px;margin-bottom:32px}
+.uni-header p{margin:0;line-height:1.4;font-size:13.5px;color:#555}
+.uni-header h2{margin:8px 0 0;font-size:20px;color:#1a3c6e}
+
+/* Section headings */
+h3{color:#1a3c6e;border-left:4px solid #1a3c6e;padding-left:10px;margin:28px 0 10px;font-size:15.5px}
+h4{color:#1a3c6e;font-size:14.5px;margin:18px 0 6px}
+
+/* Steps */
+.step{margin-bottom:10px}
+.step details{border:1px solid #d1d9e8;border-radius:8px;overflow:hidden;margin-top:6px}
+.step details summary{
+  list-style:none;cursor:pointer;padding:11px 15px;
+  background:#f0f4fb;color:#1a3c6e;font-weight:500;font-size:14.5px;
+  display:flex;align-items:center;gap:10px;user-select:none;
+}
+.step details summary::-webkit-details-marker{display:none}
+.step details summary::before{display:none}
+.step details summary::after{content:'▼';font-size:11px;color:#f97316;transition:transform 0.2s;flex-shrink:0;margin-left:auto;padding-left:8px}
+.step details[open] summary::after{transform:rotate(180deg)}
+.step details summary .step-label{font-size:12px;font-weight:500;color:#f97316;margin-right:4px}
+.step details[open] summary{background:#e8eef9;border-bottom:1px solid #d1d9e8}
+.step-body{padding:16px 20px}
+.step-heading{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.step-num{background:#1a3c6e;color:#fff;font-size:12px;font-weight:700;border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.step-title{font-size:15px;font-weight:600;color:#1a3c6e}
+.try-hint{font-size:12.5px;color:#6b7280;font-style:italic;margin-left:auto}
+
+/* Callouts */
+.callout{border-radius:6px;padding:13px 18px;margin:14px 0;font-size:14.5px}
+.callout p{margin:4px 0}
+.info{background:#eef4ff;border-left:4px solid #3b82f6}
+.given{background:#f0fdf4;border-left:4px solid #22c55e}
+.answer{background:#fff7ed;border-left:4px solid #f97316;font-size:16px;font-weight:600}
+.note{background:#faf5ff;border-left:4px solid #a855f7;font-size:14px}
+.warn{background:#fffbeb;border-left:4px solid #f59e0b;font-size:14px}
+
+/* Math display */
+.math-block{background:#f8f9fb;border:1px solid #e2e6ef;border-radius:6px;padding:14px 20px;margin:12px 0;overflow-x:auto;text-align:center}
+
+/* Table */
+table{width:100%;border-collapse:collapse;margin:18px 0;font-size:13.5px}
+th{background:#1a3c6e;color:#fff;padding:9px 10px;text-align:center;font-weight:600;font-size:13px}
+td{padding:8px 10px;text-align:center;border-bottom:1px solid #e5e7eb;vertical-align:middle}
+td.left{text-align:left;font-weight:600}
+tr:nth-child(even) td{background:#f8f9fb}
+tr.total td{font-weight:700;background:#eef4ff;border-top:2px solid #1a3c6e}
+
+/* Diagram */
+.diagram-wrap{text-align:center;margin:24px 0 8px}
+.diagram-wrap figcaption{font-size:13px;color:#555;margin-top:8px;font-style:italic}
+
+.footer{margin-top:40px;border-top:1px solid #e5e7eb;padding-top:12px;font-size:12px;color:#999;text-align:center}
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- ═══════════════════════════ HEADER ═══════════════════════════ -->
+<div class="uni-header">
+  <p>Curtin University &nbsp;·&nbsp; School of Civil and Mechanical Engineering</p>
+  <p>MCEN2002 – Fundamentals of Mechanical Design</p>
+  <p style="margin-top:8px"><strong>Dr Azma Putra Azis</strong></p>
+  <h2>Tutorial 3.2 &nbsp;–&nbsp; Moment of Resistance of an Extruded Section</h2>
+</div>
+
+<!-- ═══════════════════════════ PROBLEM ═══════════════════════════ -->
+<h3>Problem Statement</h3>
+<p>The figure shows the cross-section of an <strong>extruded alloy member</strong> used as a <strong>simply supported beam</strong> with the <strong>60&nbsp;mm wide flange at the bottom</strong>. Determine the <strong>moment of resistance</strong> of the section if the maximum permissible stresses in <strong>tension and compression are 60 and 45&nbsp;MPa</strong> respectively. The loading causes a <strong>positive (sagging) moment</strong>, e.g. a distributed load.</p>
+
+<div class="callout given">
+  <p><strong>Given answer:</strong> &nbsp; $M_{\max} = 1.322\ \text{kN}\!\cdot\!\text{m}$</p>
+</div>
+
+<!-- Diagram -->
+<div class="diagram-wrap">
+<figure>
+<svg viewBox="0 0 700 425" width="100%" style="max-width:640px" xmlns="http://www.w3.org/2000/svg" font-family="Arial,sans-serif" font-size="12">
+  <!-- Scale 3 px/mm. Bottom of section py=360, top (stub) py=120. Centre x=350. -->
+  <!-- Section outline as one polygon -->
+  <polygon points="320,120 380,120 380,180 560,180 560,195 357.5,195 357.5,345 440,345 440,360 260,360 260,345 342.5,345 342.5,195 140,195 140,180 320,180"
+    fill="#7fe3ec" fill-opacity="0.8" stroke="#1a3c6e" stroke-width="2"/>
+
+  <!-- centroidal x-axis: ybar = 46.36 mm above bottom → py = 360 − 139.1 = 220.9 -->
+  <line x1="95" y1="220.9" x2="655" y2="220.9" stroke="#222" stroke-width="1.6" stroke-dasharray="7,4"/>
+  <polygon points="655,220.9 647,216.9 647,224.9" fill="#222"/>
+  <text x="660" y="225" font-size="14" font-weight="bold" fill="#222">x</text>
+  <text x="78" y="225" font-size="14" font-weight="bold" fill="#222">x</text>
+  <circle cx="350" cy="220.9" r="4" fill="#f97316"/>
+  <text x="358" y="215" font-size="11.5" fill="#f97316" font-weight="bold">C</text>
+
+  <!-- 140 dim (wide flange), above everything -->
+  <line x1="140" y1="88" x2="560" y2="88" stroke="#555" stroke-width="1"/>
+  <line x1="140" y1="82" x2="140" y2="94" stroke="#555" stroke-width="1"/>
+  <line x1="560" y1="82" x2="560" y2="94" stroke="#555" stroke-width="1"/>
+  <line x1="140" y1="94" x2="140" y2="178" stroke="#555" stroke-width="0.9" stroke-dasharray="3,3"/>
+  <line x1="560" y1="94" x2="560" y2="178" stroke="#555" stroke-width="0.9" stroke-dasharray="3,3"/>
+  <text x="335" y="82" fill="#333" font-size="11.5">140</text>
+
+  <!-- 20 stub width dim -->
+  <line x1="320" y1="108" x2="380" y2="108" stroke="#555" stroke-width="1"/>
+  <line x1="320" y1="102" x2="320" y2="114" stroke="#555" stroke-width="1"/>
+  <line x1="380" y1="102" x2="380" y2="114" stroke="#555" stroke-width="1"/>
+  <text x="342" y="103" fill="#333" font-size="11.5">20</text>
+
+  <!-- 20 stub height dim (right of stub) -->
+  <line x1="400" y1="120" x2="400" y2="180" stroke="#555" stroke-width="1"/>
+  <line x1="394" y1="120" x2="406" y2="120" stroke="#555" stroke-width="1"/>
+  <line x1="394" y1="180" x2="406" y2="180" stroke="#555" stroke-width="1"/>
+  <text x="410" y="154" fill="#333" font-size="11.5">20</text>
+
+  <!-- 5 wide-flange thickness (right side) -->
+  <line x1="585" y1="180" x2="585" y2="195" stroke="#555" stroke-width="1"/>
+  <line x1="579" y1="180" x2="591" y2="180" stroke="#555" stroke-width="1"/>
+  <line x1="579" y1="195" x2="591" y2="195" stroke="#555" stroke-width="1"/>
+  <line x1="562" y1="180" x2="579" y2="180" stroke="#555" stroke-width="0.9" stroke-dasharray="3,3"/>
+  <line x1="562" y1="195" x2="579" y2="195" stroke="#555" stroke-width="0.9" stroke-dasharray="3,3"/>
+  <text x="594" y="192" fill="#333" font-size="11.5">5</text>
+
+  <!-- 60 dim: top of wide flange (py 180) down to bottom (py 360) -->
+  <line x1="625" y1="180" x2="625" y2="360" stroke="#555" stroke-width="1"/>
+  <line x1="619" y1="180" x2="631" y2="180" stroke="#555" stroke-width="1"/>
+  <line x1="619" y1="360" x2="631" y2="360" stroke="#555" stroke-width="1"/>
+  <line x1="442" y1="360" x2="619" y2="360" stroke="#555" stroke-width="0.9" stroke-dasharray="3,3"/>
+  <text x="633" y="274" fill="#333" font-size="11.5">60</text>
+
+  <!-- web 5 dim -->
+  <line x1="300" y1="265" x2="340" y2="265" stroke="#555" stroke-width="1"/>
+  <polygon points="342.5,265 334,261 334,269" fill="#555"/>
+  <line x1="360" y1="265" x2="400" y2="265" stroke="#555" stroke-width="1"/>
+  <polygon points="357.5,265 366,261 366,269" fill="#555"/>
+  <text x="404" y="269" fill="#333" font-size="11.5">5</text>
+
+  <!-- bottom flange width 60 -->
+  <line x1="260" y1="385" x2="440" y2="385" stroke="#555" stroke-width="1"/>
+  <line x1="260" y1="379" x2="260" y2="391" stroke="#555" stroke-width="1"/>
+  <line x1="440" y1="379" x2="440" y2="391" stroke="#555" stroke-width="1"/>
+  <text x="340" y="403" fill="#333" font-size="11.5">60</text>
+
+  <!-- bottom flange thickness 5 -->
+  <line x1="470" y1="345" x2="470" y2="360" stroke="#555" stroke-width="1"/>
+  <line x1="464" y1="345" x2="476" y2="345" stroke="#555" stroke-width="1"/>
+  <line x1="464" y1="360" x2="476" y2="360" stroke="#555" stroke-width="1"/>
+  <line x1="442" y1="345" x2="464" y2="345" stroke="#555" stroke-width="0.9" stroke-dasharray="3,3"/>
+  <text x="480" y="357" fill="#333" font-size="11.5">5</text>
+
+  <!-- fibre distances, left side -->
+  <line x1="115" y1="120" x2="115" y2="360" stroke="#555" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="109" y1="120" x2="121" y2="120" stroke="#555" stroke-width="1"/>
+  <line x1="109" y1="220.9" x2="121" y2="220.9" stroke="#555" stroke-width="1"/>
+  <line x1="109" y1="360" x2="121" y2="360" stroke="#555" stroke-width="1"/>
+  <line x1="121" y1="120" x2="318" y2="120" stroke="#555" stroke-width="0.9" stroke-dasharray="3,3"/>
+  <line x1="121" y1="360" x2="258" y2="360" stroke="#555" stroke-width="0.9" stroke-dasharray="3,3"/>
+  <text x="18" y="168" fill="#333" font-size="11.5">y<tspan baseline-shift="sub" font-size="8.5">c</tspan> = 33.64</text>
+  <text x="18" y="296" fill="#333" font-size="11.5">y<tspan baseline-shift="sub" font-size="8.5">t</tspan> = 46.36</text>
+
+  <!-- tension / compression labels -->
+  <text x="435" y="133" fill="#3b82f6" font-size="11" font-style="italic">compression (top)</text>
+  <text x="490" y="340" fill="#e11d48" font-size="11" font-style="italic">tension (bottom)</text>
+
+  <text x="530" y="420" font-size="11" fill="#888" font-style="italic">Dimensions in millimetres</text>
+</svg>
+<figcaption>Section drawn to scale in its service orientation: 60 mm flange at the bottom, 140 mm flange and 20 × 20 stub at the top. Overall depth = 60 + 20 = 80 mm, since the 60 mm dimension runs from the bottom face to the <em>top</em> of the 140 mm flange. Centroid C sits 46.36 mm above the bottom face.</figcaption>
+</figure>
+</div>
+
+<!-- ═══════════════════════════ SOLUTION ═══════════════════════════ -->
+<h3>Solution</h3>
+
+<!-- STEP 1 -->
+<div class="step">
+  <div class="step-heading">
+    <div class="step-num">1</div>
+    <div class="step-title">Read the figure: decompose the section into four rectangles</div>
+    <div class="try-hint">Try it first, then reveal ↓</div>
+  </div>
+  <details>
+    <summary><span class="step-label">Step 1</span> Fix the geometry before touching any formula</summary>
+    <div class="step-body">
+      <p>Measuring $y$ upward from the <strong>bottom face</strong>, the section is four rectangles:</p>
+      <div class="math-block">$$\begin{aligned}
+      &\text{(1) bottom flange: } 60 \times 5 \quad (y = 0 \text{ to } 5)\\
+      &\text{(2) web: } 5 \times 50 \quad (y = 5 \text{ to } 55)\\
+      &\text{(3) wide flange: } 140 \times 5 \quad (y = 55 \text{ to } 60)\\
+      &\text{(4) stub: } 20 \times 20 \quad (y = 60 \text{ to } 80)
+      \end{aligned}$$</div>
+      <div class="callout info">
+        <p><strong>Reading the 60 mm height dimension:</strong> in the figure it runs from the bottom face up to the <em>top</em> of the 140 mm flange (its extension line meets the 5 mm thickness dimension). The web height is therefore $60 - 5 - 5 = 50$ mm and the overall depth is $60 + 20 = 80$ mm. This reading is confirmed by the book answer — it reproduces $M = 1.322$ kN·m exactly (see Step 4).</p>
+      </div>
+      <p>Total area:</p>
+      <div class="math-block">$$A = 300 + 250 + 700 + 400 = 1\,650\ \text{mm}^2$$</div>
+    </div>
+  </details>
+</div>
+
+<!-- STEP 2 -->
+<div class="step">
+  <div class="step-heading">
+    <div class="step-num">2</div>
+    <div class="step-title">Locate the centroid</div>
+    <div class="try-hint">Try it first, then reveal ↓</div>
+  </div>
+  <details>
+    <summary><span class="step-label">Step 2</span> First moment of each rectangle about the bottom face</summary>
+    <div class="step-body">
+      <p>Each rectangle's centroid height: ① $2.5$ mm, ② $5 + 25 = 30$ mm, ③ $55 + 2.5 = 57.5$ mm, ④ $60 + 10 = 70$ mm.</p>
+      <div class="math-block">$$\bar{y} = \frac{300(2.5) + 250(30) + 700(57.5) + 400(70)}{1\,650}$$
+$$= \frac{750 + 7\,500 + 40\,250 + 28\,000}{1\,650} = \frac{76\,500}{1\,650}$$</div>
+      <div class="callout answer">
+        <p>$$\bar{y} = 46.36\ \text{mm above the bottom} \;\Rightarrow\; y_t = 46.36\ \text{mm}, \quad y_c = 80 - 46.36 = 33.64\ \text{mm}$$</p>
+      </div>
+      <div class="callout note">
+        <p><strong>Physical check:</strong> most of the area (the 140 mm flange and the stub) is concentrated in the top quarter of the section, so the centroid must sit well <em>above</em> mid-depth (40 mm) — 46.36 mm is consistent. ✓</p>
+      </div>
+    </div>
+  </details>
+</div>
+
+<!-- STEP 3 -->
+<div class="step">
+  <div class="step-heading">
+    <div class="step-num">3</div>
+    <div class="step-title">Second moment of area about the centroidal x–x axis</div>
+    <div class="try-hint">Try it first, then reveal ↓</div>
+  </div>
+  <details>
+    <summary><span class="step-label">Step 3</span> Parallel axis theorem, part by part</summary>
+    <div class="step-body">
+      <p>For each rectangle, $I = \dfrac{bh^3}{12} + Ad^2$ with $d$ the distance from its own centroid to $\bar{y} = 46.36$ mm:</p>
+      <div class="math-block">$$\text{(1): } \frac{60(5)^3}{12} + 300(43.86)^2 = 625 + 577\,206 = 0.5778 \times 10^6\ \text{mm}^4$$</div>
+      <div class="math-block">$$\text{(2): } \frac{5(50)^3}{12} + 250(16.36)^2 = 52\,083 + 66\,942 = 0.1190 \times 10^6\ \text{mm}^4$$</div>
+      <div class="math-block">$$\text{(3): } \frac{140(5)^3}{12} + 700(11.14)^2 = 1\,458 + 86\,813 = 0.0883 \times 10^6\ \text{mm}^4$$</div>
+      <div class="math-block">$$\text{(4): } \frac{20(20)^3}{12} + 400(23.64)^2 = 13\,333 + 223\,471 = 0.2368 \times 10^6\ \text{mm}^4$$</div>
+      <div class="callout answer">
+        <p>$$I_{xx} = (0.5778 + 0.1190 + 0.0883 + 0.2368) \times 10^6 = 1.022 \times 10^6\ \text{mm}^4$$</p>
+      </div>
+      <div class="callout note">
+        <p><strong>Insight:</strong> the transfer terms $Ad^2$ dominate — the thin bottom flange alone contributes 57% of $I_{xx}$ almost entirely through its $Ad^2$ (its own $bh^3/12$ is a negligible 625 mm⁴). Thin-walled sections work by placing area <em>far</em> from the neutral axis.</p>
+      </div>
+    </div>
+  </details>
+</div>
+
+<!-- STEP 4 -->
+<div class="step">
+  <div class="step-heading">
+    <div class="step-num">4</div>
+    <div class="step-title">Moment of resistance: two limits, the smaller governs</div>
+    <div class="try-hint">Try it first, then reveal ↓</div>
+  </div>
+  <details>
+    <summary><span class="step-label">Step 4</span> Compute a candidate $M$ for each stress limit, then take the minimum</summary>
+    <div class="step-body">
+      <p>A positive (sagging) moment puts the <strong>bottom fibre in tension</strong> ($\sigma_t \le 60$ MPa at $y_t = 46.36$ mm) and the <strong>top fibre in compression</strong> ($\sigma_c \le 45$ MPa at $y_c = 33.64$ mm). Each limit gives a candidate moment $M = \sigma I / y$:</p>
+      <div class="math-block">$$M_t = \frac{60 \times 1.022 \times 10^6}{46.36} = 1.3225 \times 10^6\ \text{N}\!\cdot\!\text{mm} = 1.322\ \text{kN}\!\cdot\!\text{m}$$</div>
+      <div class="math-block">$$M_c = \frac{45 \times 1.022 \times 10^6}{33.64} = 1.3672 \times 10^6\ \text{N}\!\cdot\!\text{mm} = 1.367\ \text{kN}\!\cdot\!\text{m}$$</div>
+      <p>The section can only carry the moment that satisfies <em>both</em> limits simultaneously — the <strong>smaller</strong> candidate:</p>
+      <div class="callout answer">
+        <p>$$M_{\max} = \min(1.322,\ 1.367) = 1.322\ \text{kN}\!\cdot\!\text{m} \quad \text{(tension governs)}$$</p>
+      </div>
+    </div>
+  </details>
+</div>
+
+<!-- STEP 5 -->
+<div class="step">
+  <div class="step-heading">
+    <div class="step-num">5</div>
+    <div class="step-title">Verify the non-governing fibre</div>
+    <div class="try-hint">Try it first, then reveal ↓</div>
+  </div>
+  <details>
+    <summary><span class="step-label">Step 5</span> Check the compression stress under $M = 1.322$ kN·m</summary>
+    <div class="step-body">
+      <p>Under the governing moment, the top-fibre compressive stress is:</p>
+      <div class="math-block">$$\sigma_c = \frac{M\, y_c}{I} = \frac{1.3225 \times 10^6 \times 33.64}{1.022 \times 10^6} = 43.5\ \text{MPa} \;<\; 45\ \text{MPa} \ \checkmark$$</div>
+      <p>Both limits are satisfied; the bottom fibre sits exactly at 60 MPa while the top retains a small margin.</p>
+      <div class="callout note">
+        <p><strong>Design insight:</strong> the two candidates (1.322 vs 1.367) are within 3.3% of each other — this extrusion is close to a <em>balanced</em> design, where both fibres reach their limits at the same moment. That is exactly why the section is asymmetric: the ideal centroid position for simultaneous failure satisfies $y_t/y_c = \sigma_t/\sigma_c = 60/45 = 1.33$, and this section has $y_t/y_c = 46.36/33.64 = 1.38$. The extra area at the top (wide flange + stub) deliberately pulls the neutral axis toward the compression face.</p>
+      </div>
+    </div>
+  </details>
+</div>
+
+<!-- STEP 6: SUMMARY TABLE -->
+<div class="step">
+  <div class="step-heading">
+    <div class="step-num">6</div>
+    <div class="step-title">Summary Table</div>
+  </div>
+  <details>
+    <summary><span class="step-label">Step 6</span> Section properties and final results</summary>
+    <div class="step-body">
+<table>
+  <thead>
+    <tr>
+      <th>Part</th>
+      <th>A (mm²)</th>
+      <th>y from bottom (mm)</th>
+      <th>bh³/12 (mm⁴)</th>
+      <th>d (mm)</th>
+      <th>Ad² (mm⁴)</th>
+      <th>I about x–x (mm⁴)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="left">① Bottom flange 60 × 5</td>
+      <td>300</td>
+      <td>2.5</td>
+      <td>625</td>
+      <td>−43.86</td>
+      <td>577 206</td>
+      <td>0.5778 × 10⁶</td>
+    </tr>
+    <tr>
+      <td class="left">② Web 5 × 50</td>
+      <td>250</td>
+      <td>30</td>
+      <td>52 083</td>
+      <td>−16.36</td>
+      <td>66 942</td>
+      <td>0.1190 × 10⁶</td>
+    </tr>
+    <tr>
+      <td class="left">③ Wide flange 140 × 5</td>
+      <td>700</td>
+      <td>57.5</td>
+      <td>1 458</td>
+      <td>+11.14</td>
+      <td>86 813</td>
+      <td>0.0883 × 10⁶</td>
+    </tr>
+    <tr>
+      <td class="left">④ Stub 20 × 20</td>
+      <td>400</td>
+      <td>70</td>
+      <td>13 333</td>
+      <td>+23.64</td>
+      <td>223 471</td>
+      <td>0.2368 × 10⁶</td>
+    </tr>
+    <tr class="total">
+      <td class="left">Section total</td>
+      <td>1 650</td>
+      <td>ȳ = 46.36</td>
+      <td>—</td>
+      <td>—</td>
+      <td>—</td>
+      <td><strong>1.022 × 10⁶</strong></td>
+    </tr>
+  </tbody>
+</table>
+<table>
+  <thead>
+    <tr>
+      <th>Fibre</th>
+      <th>y (mm)</th>
+      <th>Limit (MPa)</th>
+      <th>Candidate $M = \sigma I / y$</th>
+      <th>Governs?</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="left">Bottom (tension)</td>
+      <td>46.36</td>
+      <td>60</td>
+      <td><strong>1.322 kN·m</strong></td>
+      <td><strong>Yes ✓</strong></td>
+    </tr>
+    <tr>
+      <td class="left">Top (compression)</td>
+      <td>33.64</td>
+      <td>45</td>
+      <td>1.367 kN·m</td>
+      <td>No (σ = 43.5 MPa under 1.322 kN·m)</td>
+    </tr>
+  </tbody>
+</table>
+    </div>
+  </details>
+</div>
+
+<div class="callout warn">
+  <p><strong>Common mistake 1:</strong> Taking the <em>larger</em> candidate moment (1.367 kN·m). At that moment the bottom fibre would carry $60 \times 1.367/1.322 = 62$ MPa — above its tensile limit. The moment of resistance is always the <em>minimum</em> over all stress limits.</p>
+  <p style="margin-top:8px"><strong>Common mistake 2:</strong> Pairing the limits with the wrong fibres. The problem states the 60 mm flange is at the <em>bottom</em> and the moment is positive (sagging), so tension (60 MPa) belongs to the bottom fibre at 46.36 mm and compression (45 MPa) to the top at 33.64 mm. Swapping them gives $\min(60 \cdot I/33.64,\ 45 \cdot I/46.36) = 0.992$ kN·m — wrong value <em>and</em> wrong governing fibre.</p>
+  <p style="margin-top:8px"><strong>Common mistake 3:</strong> Misreading the 60 mm vertical dimension as the overall depth. That makes the web $30$ mm tall, the depth 60 mm, and gives $M \approx 0.75$ kN·m — nowhere near the book answer. When a figure is ambiguous, check your reading against the given answer before committing.</p>
+</div>
+
+<div class="footer">MCEN2002 – Fundamentals of Mechanical Design &nbsp;|&nbsp; Tutorial 3.2 &nbsp;|&nbsp; Curtin University</div>
+</div>
+</body>
+</html>

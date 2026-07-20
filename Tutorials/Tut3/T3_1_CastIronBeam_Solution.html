@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>T3.1 – Cast Iron Beam: Maximum Allowable Span</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css"/>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{throwOnError:false,delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]})"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+body{font-family:'Segoe UI',Arial,sans-serif;font-size:15px;line-height:1.75;color:#1a1a1a;background:#f5f6f8;margin:0;padding:24px 16px 56px}
+.page{max-width:860px;margin:0 auto;background:#fff;border-radius:10px;box-shadow:0 2px 14px rgba(0,0,0,.10);padding:40px 52px 52px}
+
+/* Header */
+.uni-header{text-align:center;border-bottom:2px solid #1a3c6e;padding-bottom:16px;margin-bottom:32px}
+.uni-header p{margin:0;line-height:1.4;font-size:13.5px;color:#555}
+.uni-header h2{margin:8px 0 0;font-size:20px;color:#1a3c6e}
+
+/* Section headings */
+h3{color:#1a3c6e;border-left:4px solid #1a3c6e;padding-left:10px;margin:28px 0 10px;font-size:15.5px}
+h4{color:#1a3c6e;font-size:14.5px;margin:18px 0 6px}
+
+/* Steps */
+.step{margin-bottom:10px}
+.step details{border:1px solid #d1d9e8;border-radius:8px;overflow:hidden;margin-top:6px}
+.step details summary{
+  list-style:none;cursor:pointer;padding:11px 15px;
+  background:#f0f4fb;color:#1a3c6e;font-weight:500;font-size:14.5px;
+  display:flex;align-items:center;gap:10px;user-select:none;
+}
+.step details summary::-webkit-details-marker{display:none}
+.step details summary::before{display:none}
+.step details summary::after{content:'▼';font-size:11px;color:#f97316;transition:transform 0.2s;flex-shrink:0;margin-left:auto;padding-left:8px}
+.step details[open] summary::after{transform:rotate(180deg)}
+.step details summary .step-label{font-size:12px;font-weight:500;color:#f97316;margin-right:4px}
+.step details[open] summary{background:#e8eef9;border-bottom:1px solid #d1d9e8}
+.step-body{padding:16px 20px}
+.step-heading{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.step-num{background:#1a3c6e;color:#fff;font-size:12px;font-weight:700;border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.step-title{font-size:15px;font-weight:600;color:#1a3c6e}
+.try-hint{font-size:12.5px;color:#6b7280;font-style:italic;margin-left:auto}
+
+/* Callouts */
+.callout{border-radius:6px;padding:13px 18px;margin:14px 0;font-size:14.5px}
+.callout p{margin:4px 0}
+.info{background:#eef4ff;border-left:4px solid #3b82f6}
+.given{background:#f0fdf4;border-left:4px solid #22c55e}
+.answer{background:#fff7ed;border-left:4px solid #f97316;font-size:16px;font-weight:600}
+.note{background:#faf5ff;border-left:4px solid #a855f7;font-size:14px}
+.warn{background:#fffbeb;border-left:4px solid #f59e0b;font-size:14px}
+
+/* Math display */
+.math-block{background:#f8f9fb;border:1px solid #e2e6ef;border-radius:6px;padding:14px 20px;margin:12px 0;overflow-x:auto;text-align:center}
+
+/* Table */
+table{width:100%;border-collapse:collapse;margin:18px 0;font-size:13.5px}
+th{background:#1a3c6e;color:#fff;padding:9px 10px;text-align:center;font-weight:600;font-size:13px}
+td{padding:8px 10px;text-align:center;border-bottom:1px solid #e5e7eb;vertical-align:middle}
+td.left{text-align:left;font-weight:600}
+tr:nth-child(even) td{background:#f8f9fb}
+tr.total td{font-weight:700;background:#eef4ff;border-top:2px solid #1a3c6e}
+
+/* Diagram */
+.diagram-wrap{text-align:center;margin:24px 0 8px}
+.diagram-wrap figcaption{font-size:13px;color:#555;margin-top:8px;font-style:italic}
+
+.footer{margin-top:40px;border-top:1px solid #e5e7eb;padding-top:12px;font-size:12px;color:#999;text-align:center}
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- ═══════════════════════════ HEADER ═══════════════════════════ -->
+<div class="uni-header">
+  <p>Curtin University &nbsp;·&nbsp; School of Civil and Mechanical Engineering</p>
+  <p>MCEN2002 – Fundamentals of Mechanical Design</p>
+  <p style="margin-top:8px"><strong>Dr Azma Putra Azis</strong></p>
+  <h2>Tutorial 3.1 &nbsp;–&nbsp; Cast Iron Beam: Maximum Allowable Span</h2>
+</div>
+
+<!-- ═══════════════════════════ PROBLEM ═══════════════════════════ -->
+<h3>Problem Statement</h3>
+<p>A <strong>cast iron beam</strong> of the trapezoidal section shown is <strong>simply supported</strong> at its ends and carries a load of <strong>18&nbsp;kN at mid-span</strong>. Find the <strong>maximum allowable span</strong> if the stress due to bending is not to exceed <strong>30&nbsp;MPa in tension</strong>. Neglect the weight of the beam. What will be the <strong>maximum compressive stress</strong>?</p>
+
+<div class="callout given">
+  <p><strong>Given answer:</strong> &nbsp; $L = 1.056\ \text{m}$, &nbsp; $\sigma_c = 42\ \text{MPa}$</p>
+  <p style="font-size:13px;color:#555">The book prints this as "$I = 1.056$ m" — that value is the <em>span</em> $L$ (the symbol/unit is a typo; $I$ is in mm⁴).</p>
+</div>
+
+<!-- Diagram -->
+<div class="diagram-wrap">
+<figure>
+<svg viewBox="0 0 760 360" width="100%" style="max-width:680px" xmlns="http://www.w3.org/2000/svg" font-family="Arial,sans-serif" font-size="12">
+  <!-- ── Left: beam schematic ── -->
+  <!-- beam line from (40,150) to (280,150) -->
+  <line x1="40" y1="150" x2="280" y2="150" stroke="#1a3c6e" stroke-width="4"/>
+  <!-- pin support left -->
+  <polygon points="40,150 30,170 50,170" fill="none" stroke="#555" stroke-width="1.5"/>
+  <line x1="24" y1="170" x2="56" y2="170" stroke="#555" stroke-width="1.5"/>
+  <!-- pin support right (same as left: simply supported at both ends) -->
+  <polygon points="280,150 270,170 290,170" fill="none" stroke="#555" stroke-width="1.5"/>
+  <line x1="264" y1="170" x2="296" y2="170" stroke="#555" stroke-width="1.5"/>
+  <!-- load arrow at midspan -->
+  <line x1="160" y1="95" x2="160" y2="145" stroke="#e11d48" stroke-width="2.5"/>
+  <polygon points="160,150 154,138 166,138" fill="#e11d48"/>
+  <text x="168" y="105" fill="#e11d48" font-weight="bold" font-size="13">P = 18 kN</text>
+  <!-- span dims: L/2 + L/2 -->
+  <line x1="40" y1="205" x2="280" y2="205" stroke="#555" stroke-width="1"/>
+  <line x1="40" y1="199" x2="40" y2="211" stroke="#555" stroke-width="1"/>
+  <line x1="160" y1="199" x2="160" y2="211" stroke="#555" stroke-width="1"/>
+  <line x1="280" y1="199" x2="280" y2="211" stroke="#555" stroke-width="1"/>
+  <text x="88" y="222" fill="#333" font-size="11.5">L/2</text>
+  <text x="208" y="222" fill="#333" font-size="11.5">L/2</text>
+  <text x="112" y="88" fill="#333" font-size="11" font-style="italic">M<tspan baseline-shift="sub" font-size="8">max</tspan> = PL/4 at mid-span</text>
+
+  <!-- ── Right: cross-section, scale 2 px/mm; bottom y=300, top y=60; centre x=545 ── -->
+  <!-- trapezoid: top 30 mm (60 px, x 515..575), bottom 90 mm (180 px, x 455..635) -->
+  <polygon points="515,60 575,60 635,300 455,300" fill="#7fe3ec" fill-opacity="0.8" stroke="#1a3c6e" stroke-width="2"/>
+
+  <!-- centroidal x-axis at 50 mm above bottom → y = 300-100 = 200 -->
+  <line x1="410" y1="200" x2="690" y2="200" stroke="#222" stroke-width="1.6" stroke-dasharray="7,4"/>
+  <polygon points="690,200 682,196 682,204" fill="#222"/>
+  <text x="695" y="204" font-size="14" font-weight="bold" fill="#222">x</text>
+  <text x="392" y="204" font-size="14" font-weight="bold" fill="#222">x</text>
+  <!-- centroid dot -->
+  <circle cx="545" cy="200" r="4" fill="#f97316"/>
+  <text x="553" y="194" font-size="11.5" fill="#f97316" font-weight="bold">C</text>
+
+  <!-- top width dim: 30 -->
+  <line x1="515" y1="42" x2="575" y2="42" stroke="#555" stroke-width="1"/>
+  <line x1="515" y1="36" x2="515" y2="48" stroke="#555" stroke-width="1"/>
+  <line x1="575" y1="36" x2="575" y2="48" stroke="#555" stroke-width="1"/>
+  <text x="534" y="34" fill="#333" font-size="11.5">30</text>
+
+  <!-- bottom width dim: 90 -->
+  <line x1="455" y1="322" x2="635" y2="322" stroke="#555" stroke-width="1"/>
+  <line x1="455" y1="316" x2="455" y2="328" stroke="#555" stroke-width="1"/>
+  <line x1="635" y1="316" x2="635" y2="328" stroke="#555" stroke-width="1"/>
+  <text x="533" y="340" fill="#333" font-size="11.5">90</text>
+
+  <!-- height dim: 120 (right side) -->
+  <line x1="660" y1="60" x2="660" y2="300" stroke="#555" stroke-width="1"/>
+  <line x1="654" y1="60" x2="666" y2="60" stroke="#555" stroke-width="1"/>
+  <line x1="654" y1="300" x2="666" y2="300" stroke="#555" stroke-width="1"/>
+  <line x1="577" y1="60" x2="654" y2="60" stroke="#555" stroke-width="0.9" stroke-dasharray="3,3"/>
+  <text x="668" y="150" fill="#333" font-size="11.5">120</text>
+
+  <!-- fibre distances: y_t = 50 (bottom), y_c = 70 (top), left side -->
+  <line x1="430" y1="60" x2="430" y2="300" stroke="#555" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="424" y1="60" x2="436" y2="60" stroke="#555" stroke-width="1"/>
+  <line x1="424" y1="200" x2="436" y2="200" stroke="#555" stroke-width="1"/>
+  <line x1="424" y1="300" x2="436" y2="300" stroke="#555" stroke-width="1"/>
+  <line x1="436" y1="60" x2="513" y2="60" stroke="#555" stroke-width="0.9" stroke-dasharray="3,3"/>
+  <line x1="436" y1="300" x2="453" y2="300" stroke="#555" stroke-width="0.9" stroke-dasharray="3,3"/>
+  <text x="392" y="134" fill="#333" font-size="11.5">y<tspan baseline-shift="sub" font-size="8.5">c</tspan> = 70</text>
+  <text x="392" y="254" fill="#333" font-size="11.5">y<tspan baseline-shift="sub" font-size="8.5">t</tspan> = 50</text>
+
+  <!-- tension / compression labels -->
+  <text x="500" y="82" fill="#3b82f6" font-size="11" font-style="italic">compression (top)</text>
+  <text x="513" y="292" fill="#e11d48" font-size="11" font-style="italic">tension (bottom)</text>
+
+  <text x="580" y="352" font-size="11" fill="#888" font-style="italic">Dimensions in millimetres</text>
+</svg>
+<figcaption>Left: simply supported beam, 18 kN at mid-span — the beam sags, so the bottom fibre is in tension. Right: trapezoidal section drawn to scale; centroid C lies 50 mm above the wide (bottom) face.</figcaption>
+</figure>
+</div>
+
+<!-- ═══════════════════════════ SOLUTION ═══════════════════════════ -->
+<h3>Solution</h3>
+
+<!-- STEP 1 -->
+<div class="step">
+  <div class="step-heading">
+    <div class="step-num">1</div>
+    <div class="step-title">Locate the centroid of the trapezoidal section</div>
+    <div class="try-hint">Try it first, then reveal ↓</div>
+  </div>
+  <details>
+    <summary><span class="step-label">Step 1</span> Split into a rectangle + two triangles, measure y from the bottom face</summary>
+    <div class="step-body">
+      <p>Split the trapezoid into a central rectangle ($30 \times 120$) and two side triangles (each base 30 mm, height 120 mm, wide end at the bottom). Measuring $y$ upward from the <strong>bottom face</strong>:</p>
+      <div class="math-block">$$A_{\text{rect}} = 30 \times 120 = 3\,600\ \text{mm}^2, \quad y_{\text{rect}} = 60\ \text{mm}$$</div>
+      <div class="math-block">$$A_{\text{tri}} = \tfrac{1}{2} \times 30 \times 120 = 1\,800\ \text{mm}^2 \ \text{(each)}, \quad y_{\text{tri}} = \tfrac{120}{3} = 40\ \text{mm}$$</div>
+      <p>Total area and centroid:</p>
+      <div class="math-block">$$A = 3\,600 + 2(1\,800) = 7\,200\ \text{mm}^2$$</div>
+      <div class="math-block">$$\bar{y} = \frac{3\,600(60) + 2 \times 1\,800(40)}{7\,200} = \frac{216\,000 + 144\,000}{7\,200} = 50\ \text{mm}$$</div>
+      <div class="callout answer">
+        <p>$$\bar{y} = 50\ \text{mm above the bottom face} \quad\Rightarrow\quad y_t = 50\ \text{mm}, \quad y_c = 120 - 50 = 70\ \text{mm}$$</p>
+      </div>
+      <div class="callout note">
+        <p><strong>Physical check:</strong> the section is wider at the bottom, so the centroid must sit <em>below</em> mid-height (60 mm) — 50 mm is consistent. ✓ &nbsp;The direct trapezoid formula agrees: $\bar{y} = \dfrac{h}{3}\dfrac{2a+b}{a+b} = \dfrac{120}{3}\dfrac{2(30)+90}{30+90} = 50$ mm, with $a = 30$ (top), $b = 90$ (bottom).</p>
+      </div>
+    </div>
+  </details>
+</div>
+
+<!-- STEP 2 -->
+<div class="step">
+  <div class="step-heading">
+    <div class="step-num">2</div>
+    <div class="step-title">Second moment of area about the centroidal x–x axis</div>
+    <div class="try-hint">Try it first, then reveal ↓</div>
+  </div>
+  <details>
+    <summary><span class="step-label">Step 2</span> Parallel axis theorem on each part</summary>
+    <div class="step-body">
+      <p>Each part's own centroidal value plus its transfer term $Ad^2$, where $d$ is the distance from the part's centroid to the section centroid at $\bar{y} = 50$ mm:</p>
+      <p><strong>Rectangle</strong> ($d = 60 - 50 = 10$ mm):</p>
+      <div class="math-block">$$I_{\text{rect}} = \frac{30 \times 120^3}{12} + 3\,600(10)^2 = 4.320 \times 10^6 + 0.360 \times 10^6 = 4.680 \times 10^6\ \text{mm}^4$$</div>
+      <p><strong>Each triangle</strong> ($d = 50 - 40 = 10$ mm):</p>
+      <div class="math-block">$$I_{\text{tri}} = \frac{30 \times 120^3}{36} + 1\,800(10)^2 = 1.440 \times 10^6 + 0.180 \times 10^6 = 1.620 \times 10^6\ \text{mm}^4$$</div>
+      <p>Total:</p>
+      <div class="math-block">$$I_{xx} = 4.680 \times 10^6 + 2(1.620 \times 10^6)$$</div>
+      <div class="callout answer">
+        <p>$$I_{xx} = 7.92 \times 10^6\ \text{mm}^4$$</p>
+      </div>
+      <div class="callout note">
+        <p><strong>Cross-check:</strong> the direct trapezoid formula $I = \dfrac{h^3(a^2 + 4ab + b^2)}{36(a+b)} = \dfrac{120^3(900 + 10\,800 + 8\,100)}{36(120)} = 7.92 \times 10^6$ mm⁴ agrees exactly. ✓</p>
+      </div>
+    </div>
+  </details>
+</div>
+
+<!-- STEP 3 -->
+<div class="step">
+  <div class="step-heading">
+    <div class="step-num">3</div>
+    <div class="step-title">Which fibre is in tension? Why tension governs cast iron</div>
+    <div class="try-hint">Try it first, then reveal ↓</div>
+  </div>
+  <details>
+    <summary><span class="step-label">Step 3</span> Sagging beam → bottom in tension; the 30 MPa limit applies there</summary>
+    <div class="step-body">
+      <p>A simply supported beam with a downward mid-span load <strong>sags</strong>: the bottom fibre stretches (tension), the top fibre shortens (compression). The extreme fibre distances are:</p>
+      <div class="math-block">$$y_t = 50\ \text{mm (bottom, tension)} \qquad y_c = 70\ \text{mm (top, compression)}$$</div>
+      <div class="callout info">
+        <p><strong>Why the problem limits tension, not compression:</strong> cast iron is a brittle material, several times stronger in compression than in tension. Failure therefore initiates on the tension side, so the design condition is $\sigma_t \le 30$ MPa at the <em>bottom</em> fibre — even though the top fibre, being farther from the neutral axis ($70 > 50$ mm), carries the numerically larger stress. This is also why the section is oriented wide-face-down: it keeps the neutral axis close to the tension face.</p>
+      </div>
+    </div>
+  </details>
+</div>
+
+<!-- STEP 4 -->
+<div class="step">
+  <div class="step-heading">
+    <div class="step-num">4</div>
+    <div class="step-title">Maximum allowable span</div>
+    <div class="try-hint">Try it first, then reveal ↓</div>
+  </div>
+  <details>
+    <summary><span class="step-label">Step 4</span> Set $\sigma_t = 30$ MPa at the bottom fibre, with $M = PL/4$</summary>
+    <div class="step-body">
+      <p>For a central point load on a simple span, the maximum bending moment is at mid-span:</p>
+      <div class="math-block">$$M_{\max} = \frac{PL}{4} = \frac{18\,000\,L}{4} = 4\,500\,L \quad (\text{N}\!\cdot\!\text{mm, with } L \text{ in mm})$$</div>
+      <p>Apply the bending stress formula at the tension (bottom) fibre and set it to the limit:</p>
+      <div class="math-block">$$\sigma_t = \frac{M_{\max}\, y_t}{I} \quad\Rightarrow\quad 30 = \frac{4\,500\,L \times 50}{7.92 \times 10^6}$$</div>
+      <div class="math-block">$$L = \frac{30 \times 7.92 \times 10^6}{4\,500 \times 50} = 1\,056\ \text{mm}$$</div>
+      <div class="callout answer">
+        <p>$$L_{\max} = 1\,056\ \text{mm} = 1.056\ \text{m}$$</p>
+      </div>
+      <div class="callout note">
+        <p><strong>Unit check:</strong> with $P$ in N, $L$ in mm, $y$ in mm and $I$ in mm⁴, the stress comes out in N/mm² = MPa directly — no conversion factors needed. The corresponding moment is $M_{\max} = 4\,500 \times 1\,056 = 4.752 \times 10^6$ N·mm $= 4.752$ kN·m.</p>
+      </div>
+    </div>
+  </details>
+</div>
+
+<!-- STEP 5 -->
+<div class="step">
+  <div class="step-heading">
+    <div class="step-num">5</div>
+    <div class="step-title">Maximum compressive stress</div>
+    <div class="try-hint">Try it first, then reveal ↓</div>
+  </div>
+  <details>
+    <summary><span class="step-label">Step 5</span> Same $M$, top fibre at $y_c = 70$ mm</summary>
+    <div class="step-body">
+      <p>At the same section and moment, the top fibre is farther from the neutral axis, so it carries a larger stress — but in compression:</p>
+      <div class="math-block">$$\sigma_c = \frac{M_{\max}\, y_c}{I} = \frac{4.752 \times 10^6 \times 70}{7.92 \times 10^6}$$</div>
+      <div class="callout answer">
+        <p>$$\sigma_c = 42\ \text{MPa}$$</p>
+      </div>
+      <div class="callout note">
+        <p><strong>Shortcut:</strong> stress scales linearly with distance from the neutral axis, so $\sigma_c = \sigma_t \times \dfrac{y_c}{y_t} = 30 \times \dfrac{70}{50} = 42$ MPa — no need to recompute $M/I$. For cast iron (compressive strength typically 3–4× the tensile strength), 42 MPa in compression is comfortably safe while the tension side sits exactly at its limit.</p>
+      </div>
+    </div>
+  </details>
+</div>
+
+<!-- STEP 6: SUMMARY TABLE -->
+<div class="step">
+  <div class="step-heading">
+    <div class="step-num">6</div>
+    <div class="step-title">Summary Table</div>
+  </div>
+  <details>
+    <summary><span class="step-label">Step 6</span> Section properties and final results</summary>
+    <div class="step-body">
+<table>
+  <thead>
+    <tr>
+      <th>Part</th>
+      <th>A (mm²)</th>
+      <th>y from bottom (mm)</th>
+      <th>I&#772; (mm⁴)</th>
+      <th>d (mm)</th>
+      <th>Ad² (mm⁴)</th>
+      <th>I about x–x (mm⁴)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="left">Rectangle 30 × 120</td>
+      <td>3 600</td>
+      <td>60</td>
+      <td>4.320 × 10⁶</td>
+      <td>10</td>
+      <td>0.360 × 10⁶</td>
+      <td>4.680 × 10⁶</td>
+    </tr>
+    <tr>
+      <td class="left">Triangle 30 × 120 (×2)</td>
+      <td>2 × 1 800</td>
+      <td>40</td>
+      <td>2 × 1.440 × 10⁶</td>
+      <td>10</td>
+      <td>2 × 0.180 × 10⁶</td>
+      <td>3.240 × 10⁶</td>
+    </tr>
+    <tr class="total">
+      <td class="left">Section total</td>
+      <td>7 200</td>
+      <td>ȳ = 50</td>
+      <td>—</td>
+      <td>—</td>
+      <td>—</td>
+      <td><strong>7.92 × 10⁶</strong></td>
+    </tr>
+  </tbody>
+</table>
+<table>
+  <thead>
+    <tr>
+      <th>Quantity</th>
+      <th>Expression</th>
+      <th>Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="left">Maximum bending moment</td>
+      <td>$M = PL/4$</td>
+      <td>4.752 kN·m</td>
+    </tr>
+    <tr>
+      <td class="left">Maximum allowable span</td>
+      <td>$L = 4\sigma_t I / (P y_t)$</td>
+      <td><strong>1.056 m</strong></td>
+    </tr>
+    <tr>
+      <td class="left">Maximum compressive stress</td>
+      <td>$\sigma_c = \sigma_t \, y_c / y_t$</td>
+      <td><strong>42 MPa</strong></td>
+    </tr>
+  </tbody>
+</table>
+    </div>
+  </details>
+</div>
+
+<div class="callout warn">
+  <p><strong>Common mistake 1:</strong> Using half the depth ($y = 60$ mm) for both fibres, as if the section were symmetric. The trapezoid's neutral axis is at 50 mm from the bottom, not mid-height. Using 60 mm for the tension fibre gives $L = 880$ mm — 17% too short — and hides the fact that the two fibre stresses differ.</p>
+  <p style="margin-top:8px"><strong>Common mistake 2:</strong> Applying the 30 MPa limit to the fibre <em>farthest</em> from the neutral axis (the top, 70 mm) out of habit. That fibre is in <em>compression</em>; the stated limit is a <em>tensile</em> limit and belongs to the bottom fibre at 50 mm. Applying it at 70 mm gives $L = 754$ mm and wastes the beam's capacity.</p>
+  <p style="margin-top:8px"><strong>Common mistake 3:</strong> Using $M = PL$ or $M = PL/2$ instead of $M = PL/4$ for a central point load on a simple span. Each support reaction is $P/2$, and the moment at mid-span is $(P/2)(L/2) = PL/4$. Using $PL/2$ halves the allowable span to 528 mm.</p>
+</div>
+
+<div class="footer">MCEN2002 – Fundamentals of Mechanical Design &nbsp;|&nbsp; Tutorial 3.1 &nbsp;|&nbsp; Curtin University</div>
+</div>
+</body>
+</html>

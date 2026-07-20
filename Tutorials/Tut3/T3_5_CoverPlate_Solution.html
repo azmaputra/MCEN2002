@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>T3.5 – Cover Plate on a Universal Beam: Section Modulus Increase</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css"/>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{throwOnError:false,delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]})"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+body{font-family:'Segoe UI',Arial,sans-serif;font-size:15px;line-height:1.75;color:#1a1a1a;background:#f5f6f8;margin:0;padding:24px 16px 56px}
+.page{max-width:860px;margin:0 auto;background:#fff;border-radius:10px;box-shadow:0 2px 14px rgba(0,0,0,.10);padding:40px 52px 52px}
+
+/* Header */
+.uni-header{text-align:center;border-bottom:2px solid #1a3c6e;padding-bottom:16px;margin-bottom:32px}
+.uni-header p{margin:0;line-height:1.4;font-size:13.5px;color:#555}
+.uni-header h2{margin:8px 0 0;font-size:20px;color:#1a3c6e}
+
+/* Section headings */
+h3{color:#1a3c6e;border-left:4px solid #1a3c6e;padding-left:10px;margin:28px 0 10px;font-size:15.5px}
+h4{color:#1a3c6e;font-size:14.5px;margin:18px 0 6px}
+
+/* Steps */
+.step{margin-bottom:10px}
+.step details{border:1px solid #d1d9e8;border-radius:8px;overflow:hidden;margin-top:6px}
+.step details summary{
+  list-style:none;cursor:pointer;padding:11px 15px;
+  background:#f0f4fb;color:#1a3c6e;font-weight:500;font-size:14.5px;
+  display:flex;align-items:center;gap:10px;user-select:none;
+}
+.step details summary::-webkit-details-marker{display:none}
+.step details summary::before{display:none}
+.step details summary::after{content:'▼';font-size:11px;color:#f97316;transition:transform 0.2s;flex-shrink:0;margin-left:auto;padding-left:8px}
+.step details[open] summary::after{transform:rotate(180deg)}
+.step details summary .step-label{font-size:12px;font-weight:500;color:#f97316;margin-right:4px}
+.step details[open] summary{background:#e8eef9;border-bottom:1px solid #d1d9e8}
+.step-body{padding:16px 20px}
+.step-heading{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.step-num{background:#1a3c6e;color:#fff;font-size:12px;font-weight:700;border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.step-title{font-size:15px;font-weight:600;color:#1a3c6e}
+.try-hint{font-size:12.5px;color:#6b7280;font-style:italic;margin-left:auto}
+
+/* Callouts */
+.callout{border-radius:6px;padding:13px 18px;margin:14px 0;font-size:14.5px}
+.callout p{margin:4px 0}
+.info{background:#eef4ff;border-left:4px solid #3b82f6}
+.given{background:#f0fdf4;border-left:4px solid #22c55e}
+.answer{background:#fff7ed;border-left:4px solid #f97316;font-size:16px;font-weight:600}
+.note{background:#faf5ff;border-left:4px solid #a855f7;font-size:14px}
+.warn{background:#fffbeb;border-left:4px solid #f59e0b;font-size:14px}
+
+/* Math display */
+.math-block{background:#f8f9fb;border:1px solid #e2e6ef;border-radius:6px;padding:14px 20px;margin:12px 0;overflow-x:auto;text-align:center}
+
+/* Table */
+table{width:100%;border-collapse:collapse;margin:18px 0;font-size:13.5px}
+th{background:#1a3c6e;color:#fff;padding:9px 10px;text-align:center;font-weight:600;font-size:13px}
+td{padding:8px 10px;text-align:center;border-bottom:1px solid #e5e7eb;vertical-align:middle}
+td.left{text-align:left;font-weight:600}
+tr:nth-child(even) td{background:#f8f9fb}
+tr.total td{font-weight:700;background:#eef4ff;border-top:2px solid #1a3c6e}
+
+/* Diagram */
+.diagram-wrap{text-align:center;margin:24px 0 8px}
+.diagram-wrap figcaption{font-size:13px;color:#555;margin-top:8px;font-style:italic}
+
+.footer{margin-top:40px;border-top:1px solid #e5e7eb;padding-top:12px;font-size:12px;color:#999;text-align:center}
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- ═══════════════════════════ HEADER ═══════════════════════════ -->
+<div class="uni-header">
+  <p>Curtin University &nbsp;·&nbsp; School of Civil and Mechanical Engineering</p>
+  <p>MCEN2002 – Fundamentals of Mechanical Design</p>
+  <p style="margin-top:8px"><strong>Dr Azma Putra Azis</strong></p>
+  <h2>Tutorial 3.5 &nbsp;–&nbsp; Cover Plate on a Universal Beam: Section Modulus Increase</h2>
+</div>
+
+<!-- ═══════════════════════════ PROBLEM ═══════════════════════════ -->
+<h3>Problem Statement</h3>
+<p>A steel <strong>cover plate</strong> of cross-section <strong>100&nbsp;mm × 12&nbsp;mm</strong> is welded along the full length of the <strong>top flange</strong> of a <strong>360&nbsp;UB&nbsp;56.7</strong> universal beam. What is the <strong>percentage increase in section modulus $Z_x$</strong> compared to the universal beam alone?</p>
+
+<div class="callout given">
+  <p><strong>Given answer:</strong> &nbsp; $6.13\%$</p>
+</div>
+
+<div class="callout info">
+  <p><strong>From Table 13 (Universal Beams), 360 UB 56.7:</strong> depth $d = 359$ mm, area $A = 7\,240$ mm², $I_x = 161 \times 10^6$ mm⁴, $Z_x = 899 \times 10^3$ mm³ (flange 172 × 13.0 mm, web 8.0 mm).</p>
+</div>
+
+<!-- Diagram -->
+<div class="diagram-wrap">
+<figure>
+<svg viewBox="0 0 760 400" width="100%" style="max-width:640px" xmlns="http://www.w3.org/2000/svg" font-family="Arial,sans-serif" font-size="12">
+  <!-- Scale 0.85 px/mm. Bottom of UB at py=345, d=359 → top of UB at py=40. Centre x=380. -->
+  <!-- bf=172 → 146 px: x 307..453 ; tf=13 → 11 px ; tw=8 → 6.8 px: x 376.6..383.4 -->
+  <!-- I-section -->
+  <polygon points="307,40 453,40 453,51 383.4,51 383.4,334 453,334 453,345 307,345 307,334 376.6,334 376.6,51 307,51"
+    fill="#7fe3ec" fill-opacity="0.8" stroke="#1a3c6e" stroke-width="2"/>
+  <!-- cover plate 100x12 → 85 x 10.2 px: x 337.5..422.5, y 29.8..40 -->
+  <rect x="337.5" y="29.8" width="85" height="10.2" fill="#b5d99c" stroke="#1a3c6e" stroke-width="2"/>
+
+  <!-- old NA (UB alone) at 179.5 mm → py = 345 − 152.6 = 192.4 -->
+  <line x1="270" y1="192.4" x2="490" y2="192.4" stroke="#999" stroke-width="1.2" stroke-dasharray="8,3,2,3"/>
+  <text x="496" y="196" fill="#999" font-size="10.5" font-style="italic">old NA (UB alone)</text>
+
+  <!-- new NA at 205.87 mm → py = 345 − 175.0 = 170 -->
+  <line x1="235" y1="170" x2="530" y2="170" stroke="#222" stroke-width="1.6" stroke-dasharray="7,4"/>
+  <polygon points="530,170 522,166 522,174" fill="#222"/>
+  <text x="535" y="174" font-size="14" font-weight="bold" fill="#222">x</text>
+  <text x="218" y="174" font-size="14" font-weight="bold" fill="#222">x</text>
+  <circle cx="380" cy="170" r="4" fill="#f97316"/>
+  <text x="388" y="164" font-size="11.5" fill="#f97316" font-weight="bold">C</text>
+
+  <!-- labels with leader arrows -->
+  <line x1="500" y1="18" x2="428" y2="32" stroke="#333" stroke-width="1.2"/>
+  <polygon points="424,33 434,28 435,37" fill="#333"/>
+  <text x="505" y="22" fill="#333" font-size="12">100 mm × 12 mm cover plate</text>
+  <line x1="510" y1="100" x2="396" y2="146" stroke="#333" stroke-width="1.2"/>
+  <polygon points="386,150 395.4,141.4 398.8,149.8" fill="#333"/>
+  <text x="515" y="104" fill="#333" font-size="12">360 UB 56.7</text>
+
+  <!-- overall depth dim: d=359, right side -->
+  <line x1="475" y1="40" x2="475" y2="345" stroke="#555" stroke-width="1"/>
+  <line x1="469" y1="40" x2="481" y2="40" stroke="#555" stroke-width="1"/>
+  <line x1="469" y1="345" x2="481" y2="345" stroke="#555" stroke-width="1"/>
+  <line x1="455" y1="40" x2="469" y2="40" stroke="#555" stroke-width="0.9" stroke-dasharray="3,3"/>
+  <line x1="455" y1="345" x2="469" y2="345" stroke="#555" stroke-width="0.9" stroke-dasharray="3,3"/>
+  <text x="483" y="270" fill="#333" font-size="11.5">d = 359</text>
+
+  <!-- fibre distances, left side -->
+  <line x1="285" y1="29.8" x2="285" y2="345" stroke="#555" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="279" y1="29.8" x2="291" y2="29.8" stroke="#555" stroke-width="1"/>
+  <line x1="279" y1="170" x2="291" y2="170" stroke="#555" stroke-width="1"/>
+  <line x1="279" y1="345" x2="291" y2="345" stroke="#555" stroke-width="1"/>
+  <line x1="291" y1="29.8" x2="335" y2="29.8" stroke="#555" stroke-width="0.9" stroke-dasharray="3,3"/>
+  <text x="180" y="102" fill="#333" font-size="11.5">y<tspan baseline-shift="sub" font-size="8.5">top</tspan> = 165.1</text>
+  <text x="180" y="262" fill="#333" font-size="11.5">y<tspan baseline-shift="sub" font-size="8.5">bot</tspan> = 205.9</text>
+
+  <text x="580" y="392" font-size="11" fill="#888" font-style="italic">Dimensions in millimetres</text>
+</svg>
+<figcaption>360 UB 56.7 with the 100 × 12 mm cover plate welded to the top flange, drawn to scale. Adding the plate pulls the neutral axis up 26.4 mm from mid-depth (old NA, grey) — so the <em>bottom</em> fibre moves farther from the NA and governs the new section modulus.</figcaption>
+</figure>
+</div>
+
+<!-- ═══════════════════════════ SOLUTION ═══════════════════════════ -->
+<h3>Solution</h3>
+
+<!-- STEP 1 -->
+<div class="step">
+  <div class="step-heading">
+    <div class="step-num">1</div>
+    <div class="step-title">Baseline: the universal beam alone</div>
+    <div class="try-hint">Try it first, then reveal ↓</div>
+  </div>
+  <details>
+    <summary><span class="step-label">Step 1</span> Read $I_x$ and $Z_x$ straight from the section table</summary>
+    <div class="step-body">
+      <p>The UB is doubly symmetric, so its neutral axis is at mid-depth and both fibres sit at $d/2 = 179.5$ mm. From Table 13:</p>
+      <div class="math-block">$$A_{UB} = 7\,240\ \text{mm}^2 \qquad I_{UB} = 161 \times 10^6\ \text{mm}^4 \qquad Z_{UB} = 899 \times 10^3\ \text{mm}^3$$</div>
+      <div class="callout note">
+        <p><strong>Consistency check:</strong> $Z = I/(d/2) = 161 \times 10^6 / 179.5 = 897 \times 10^3$ mm³ ≈ the tabulated $899 \times 10^3$ (the small difference is table rounding of $I_x$). ✓ Note the table's $S_x = 1\,010 \times 10^3$ mm³ is the <em>plastic</em> modulus — not what we want here.</p>
+      </div>
+    </div>
+  </details>
+</div>
+
+<!-- STEP 2 -->
+<div class="step">
+  <div class="step-heading">
+    <div class="step-num">2</div>
+    <div class="step-title">Centroid of the composite section</div>
+    <div class="try-hint">Try it first, then reveal ↓</div>
+  </div>
+  <details>
+    <summary><span class="step-label">Step 2</span> Treat the UB as one lump at mid-depth, the plate as another</summary>
+    <div class="step-body">
+      <p>Measure $y$ from the bottom of the UB. The UB's centroid is at $179.5$ mm; the plate ($A_p = 100 \times 12 = 1\,200$ mm²) sits on top of the beam, centroid at $359 + 6 = 365$ mm:</p>
+      <div class="math-block">$$\bar{y} = \frac{A_{UB}\,(179.5) + A_p\,(365)}{A_{UB} + A_p}$$
+$$= \frac{7\,240(179.5) + 1\,200(365)}{8\,440} = \frac{1\,299\,580 + 438\,000}{8\,440}$$</div>
+      <div class="callout answer">
+        <p>$$\bar{y} = 205.87\ \text{mm} \;\Rightarrow\; \text{the NA rises } 26.37\ \text{mm above mid-depth}$$</p>
+      </div>
+      <p>Fibre distances of the composite (overall depth $359 + 12 = 371$ mm):</p>
+      <div class="math-block">$$y_{bot} = 205.87\ \text{mm} \qquad y_{top} = 371 - 205.87 = 165.13\ \text{mm}$$</div>
+    </div>
+  </details>
+</div>
+
+<!-- STEP 3 -->
+<div class="step">
+  <div class="step-heading">
+    <div class="step-num">3</div>
+    <div class="step-title">Second moment of area of the composite</div>
+    <div class="try-hint">Try it first, then reveal ↓</div>
+  </div>
+  <details>
+    <summary><span class="step-label">Step 3</span> Parallel axis theorem on the UB and on the plate</summary>
+    <div class="step-body">
+      <p>Both parts transfer to the new NA at $\bar{y} = 205.87$ mm. The UB shifts by $26.37$ mm, the plate by $365 - 205.87 = 159.13$ mm:</p>
+      <div class="math-block">$$I_{UB \to NA} = 161 \times 10^6 + 7\,240(26.37)^2 = 161 \times 10^6 + 5.04 \times 10^6 = 166.04 \times 10^6\ \text{mm}^4$$</div>
+      <div class="math-block">$$I_{p \to NA} = \frac{100(12)^3}{12} + 1\,200(159.13)^2 = 0.014 \times 10^6 + 30.39 \times 10^6 = 30.40 \times 10^6\ \text{mm}^4$$</div>
+      <div class="callout answer">
+        <p>$$I_{xx} = 166.04 \times 10^6 + 30.40 \times 10^6 = 196.4 \times 10^6\ \text{mm}^4$$</p>
+      </div>
+      <div class="callout note">
+        <p><strong>Insight:</strong> the plate's own $bh^3/12$ (14 400 mm⁴) is utterly negligible — 0.05% of its transfer term. A thin cover plate works almost entirely through $Ad^2$, exactly like the flanges of the UB itself.</p>
+      </div>
+    </div>
+  </details>
+</div>
+
+<!-- STEP 4 -->
+<div class="step">
+  <div class="step-heading">
+    <div class="step-num">4</div>
+    <div class="step-title">Section modulus of the composite and the percentage increase</div>
+    <div class="try-hint">Try it first, then reveal ↓</div>
+  </div>
+  <details>
+    <summary><span class="step-label">Step 4</span> $Z$ uses the fibre <em>farthest</em> from the NA — now the bottom</summary>
+    <div class="step-body">
+      <p>The section modulus is $Z = I/y_{\max}$ with $y_{\max}$ the <em>larger</em> fibre distance. Because the NA moved up, the bottom fibre is now the critical one:</p>
+      <div class="math-block">$$Z_{bot} = \frac{196.4 \times 10^6}{205.87} = 954.2 \times 10^3\ \text{mm}^3 \qquad \left(Z_{top} = \frac{196.4 \times 10^6}{165.13} = 1\,189.6 \times 10^3\ \text{mm}^3\right)$$</div>
+      <div class="math-block">$$Z_x = \min(Z_{bot},\ Z_{top}) = 954.2 \times 10^3\ \text{mm}^3$$</div>
+      <p>Percentage increase over the bare UB:</p>
+      <div class="math-block">$$\frac{Z_x - Z_{UB}}{Z_{UB}} \times 100 = \frac{954.2 - 899}{899} \times 100$$</div>
+      <div class="callout answer">
+        <p>$$\text{Increase in } Z_x = 6.13\%$$</p>
+      </div>
+      <div class="callout note">
+        <p><strong>Design insight:</strong> the plate adds 16.6% more area but buys only 6.13% more elastic strength — poor value compared to plating <em>both</em> flanges (which would keep the NA central and raise $Z$ by ~19%). A single cover plate mainly stiffens the section ($I$ up 22%) while the shifted NA eats most of the strength gain at the bottom fibre. This is why single cover plates are used to fix a <em>local</em> stress problem at one flange, not to upgrade a beam overall.</p>
+      </div>
+    </div>
+  </details>
+</div>
+
+<!-- STEP 5: SUMMARY TABLE -->
+<div class="step">
+  <div class="step-heading">
+    <div class="step-num">5</div>
+    <div class="step-title">Summary Table</div>
+  </div>
+  <details>
+    <summary><span class="step-label">Step 5</span> Composite properties and the comparison</summary>
+    <div class="step-body">
+<table>
+  <thead>
+    <tr>
+      <th>Part</th>
+      <th>A (mm²)</th>
+      <th>y from bottom (mm)</th>
+      <th>I&#772; (mm⁴)</th>
+      <th>d (mm)</th>
+      <th>Ad² (mm⁴)</th>
+      <th>I about NA (mm⁴)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="left">360 UB 56.7</td>
+      <td>7 240</td>
+      <td>179.5</td>
+      <td>161 × 10⁶</td>
+      <td>−26.37</td>
+      <td>5.04 × 10⁶</td>
+      <td>166.04 × 10⁶</td>
+    </tr>
+    <tr>
+      <td class="left">Cover plate 100 × 12</td>
+      <td>1 200</td>
+      <td>365</td>
+      <td>0.014 × 10⁶</td>
+      <td>+159.13</td>
+      <td>30.39 × 10⁶</td>
+      <td>30.40 × 10⁶</td>
+    </tr>
+    <tr class="total">
+      <td class="left">Composite</td>
+      <td>8 440</td>
+      <td>ȳ = 205.87</td>
+      <td>—</td>
+      <td>—</td>
+      <td>—</td>
+      <td><strong>196.4 × 10⁶</strong></td>
+    </tr>
+  </tbody>
+</table>
+<table>
+  <thead>
+    <tr>
+      <th>Quantity</th>
+      <th>UB alone</th>
+      <th>UB + cover plate</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="left">Neutral axis (from bottom)</td>
+      <td>179.5 mm</td>
+      <td>205.87 mm</td>
+    </tr>
+    <tr>
+      <td class="left">$I_x$</td>
+      <td>161 × 10⁶ mm⁴</td>
+      <td>196.4 × 10⁶ mm⁴ (+22.0%)</td>
+    </tr>
+    <tr>
+      <td class="left">$Z_x = I/y_{\max}$</td>
+      <td>899 × 10³ mm³</td>
+      <td><strong>954.2 × 10³ mm³ (+6.13%)</strong></td>
+    </tr>
+  </tbody>
+</table>
+    </div>
+  </details>
+</div>
+
+<div class="callout warn">
+  <p><strong>Common mistake 1:</strong> Computing $Z$ at the top fibre because "that's where the plate is." $Z_x$ is defined by the fibre <em>farthest</em> from the NA — the bottom one here ($205.9 > 165.1$ mm). Using $Z_{top} = 1\,190 \times 10^3$ mm³ would claim a 32% increase, five times the real benefit.</p>
+  <p style="margin-top:8px"><strong>Common mistake 2:</strong> Forgetting the NA shift and evaluating $I/(d/2 + t_p)$ or adding the plate's $Ad^2$ about the <em>old</em> mid-depth axis. The composite NA must be found first (Step 2); every transfer distance is measured from it.</p>
+  <p style="margin-top:8px"><strong>Common mistake 3:</strong> Reading $S_x = 1\,010 \times 10^3$ mm³ from the table instead of $Z_x = 899 \times 10^3$ mm³. In Australian section tables $Z$ is the elastic modulus and $S$ the plastic modulus — the naming is reversed in US/UK texts, so check the column heading, not the symbol you're used to.</p>
+</div>
+
+<div class="footer">MCEN2002 – Fundamentals of Mechanical Design &nbsp;|&nbsp; Tutorial 3.5 &nbsp;|&nbsp; Curtin University</div>
+</div>
+</body>
+</html>

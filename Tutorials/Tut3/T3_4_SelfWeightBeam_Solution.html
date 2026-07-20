@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>T3.4 – Bending Stresses due to Self-Weight (Overhanging Beam)</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css"/>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{throwOnError:false,delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]})"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+body{font-family:'Segoe UI',Arial,sans-serif;font-size:15px;line-height:1.75;color:#1a1a1a;background:#f5f6f8;margin:0;padding:24px 16px 56px}
+.page{max-width:860px;margin:0 auto;background:#fff;border-radius:10px;box-shadow:0 2px 14px rgba(0,0,0,.10);padding:40px 52px 52px}
+
+/* Header */
+.uni-header{text-align:center;border-bottom:2px solid #1a3c6e;padding-bottom:16px;margin-bottom:32px}
+.uni-header p{margin:0;line-height:1.4;font-size:13.5px;color:#555}
+.uni-header h2{margin:8px 0 0;font-size:20px;color:#1a3c6e}
+
+/* Section headings */
+h3{color:#1a3c6e;border-left:4px solid #1a3c6e;padding-left:10px;margin:28px 0 10px;font-size:15.5px}
+h4{color:#1a3c6e;font-size:14.5px;margin:18px 0 6px}
+
+/* Steps */
+.step{margin-bottom:10px}
+.step details{border:1px solid #d1d9e8;border-radius:8px;overflow:hidden;margin-top:6px}
+.step details summary{
+  list-style:none;cursor:pointer;padding:11px 15px;
+  background:#f0f4fb;color:#1a3c6e;font-weight:500;font-size:14.5px;
+  display:flex;align-items:center;gap:10px;user-select:none;
+}
+.step details summary::-webkit-details-marker{display:none}
+.step details summary::before{display:none}
+.step details summary::after{content:'▼';font-size:11px;color:#f97316;transition:transform 0.2s;flex-shrink:0;margin-left:auto;padding-left:8px}
+.step details[open] summary::after{transform:rotate(180deg)}
+.step details summary .step-label{font-size:12px;font-weight:500;color:#f97316;margin-right:4px}
+.step details[open] summary{background:#e8eef9;border-bottom:1px solid #d1d9e8}
+.step-body{padding:16px 20px}
+.step-heading{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.step-num{background:#1a3c6e;color:#fff;font-size:12px;font-weight:700;border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.step-title{font-size:15px;font-weight:600;color:#1a3c6e}
+.try-hint{font-size:12.5px;color:#6b7280;font-style:italic;margin-left:auto}
+
+/* Callouts */
+.callout{border-radius:6px;padding:13px 18px;margin:14px 0;font-size:14.5px}
+.callout p{margin:4px 0}
+.info{background:#eef4ff;border-left:4px solid #3b82f6}
+.given{background:#f0fdf4;border-left:4px solid #22c55e}
+.answer{background:#fff7ed;border-left:4px solid #f97316;font-size:16px;font-weight:600}
+.note{background:#faf5ff;border-left:4px solid #a855f7;font-size:14px}
+.warn{background:#fffbeb;border-left:4px solid #f59e0b;font-size:14px}
+
+/* Math display */
+.math-block{background:#f8f9fb;border:1px solid #e2e6ef;border-radius:6px;padding:14px 20px;margin:12px 0;overflow-x:auto;text-align:center}
+
+/* Table */
+table{width:100%;border-collapse:collapse;margin:18px 0;font-size:13.5px}
+th{background:#1a3c6e;color:#fff;padding:9px 10px;text-align:center;font-weight:600;font-size:13px}
+td{padding:8px 10px;text-align:center;border-bottom:1px solid #e5e7eb;vertical-align:middle}
+td.left{text-align:left;font-weight:600}
+tr:nth-child(even) td{background:#f8f9fb}
+tr.total td{font-weight:700;background:#eef4ff;border-top:2px solid #1a3c6e}
+
+/* Diagram */
+.diagram-wrap{text-align:center;margin:24px 0 8px}
+.diagram-wrap figcaption{font-size:13px;color:#555;margin-top:8px;font-style:italic}
+
+.footer{margin-top:40px;border-top:1px solid #e5e7eb;padding-top:12px;font-size:12px;color:#999;text-align:center}
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- ═══════════════════════════ HEADER ═══════════════════════════ -->
+<div class="uni-header">
+  <p>Curtin University &nbsp;·&nbsp; School of Civil and Mechanical Engineering</p>
+  <p>MCEN2002 – Fundamentals of Mechanical Design</p>
+  <p style="margin-top:8px"><strong>Dr Azma Putra Azis</strong></p>
+  <h2>Tutorial 3.4 &nbsp;–&nbsp; Bending Stresses due to Self-Weight (Overhanging Beam)</h2>
+</div>
+
+<!-- ═══════════════════════════ PROBLEM ═══════════════════════════ -->
+<h3>Problem Statement</h3>
+<p>Calculate the <strong>maximum tensile and compressive stress</strong> due to the <strong>self-weight</strong> of the beam shown. Material density $\rho = 7\,800$ kg/m³. The beam has a pin at <strong>A</strong>, a roller at <strong>B</strong> (3&nbsp;m from A), and a <strong>1&nbsp;m overhang</strong> beyond B. The cross-section is a symmetric trapezoid: bottom width <strong>16&nbsp;cm</strong>, sides of length <strong>8&nbsp;cm</strong> inclined at <strong>30°</strong> to the vertical.</p>
+
+<div class="callout given">
+  <p><strong>Given answer:</strong> &nbsp; $\sigma_c = 6.79\ \text{MPa}$, &nbsp; $\sigma_t = 5.43\ \text{MPa}$</p>
+</div>
+
+<!-- Diagram -->
+<div class="diagram-wrap">
+<figure>
+<svg viewBox="0 0 760 360" width="100%" style="max-width:700px" xmlns="http://www.w3.org/2000/svg" font-family="Arial,sans-serif" font-size="12">
+  <!-- ── Left: overhanging beam with UDL. A pin at x=40, B roller at x=250 (3 m = 210 px), free end x=320 (1 m = 70 px) ── -->
+  <!-- UDL arrows -->
+  <line x1="40" y1="105" x2="320" y2="105" stroke="#e11d48" stroke-width="2"/>
+  <g stroke="#e11d48" stroke-width="1.6">
+    <line x1="40" y1="105" x2="40" y2="138"/><line x1="75" y1="105" x2="75" y2="138"/>
+    <line x1="110" y1="105" x2="110" y2="138"/><line x1="145" y1="105" x2="145" y2="138"/>
+    <line x1="180" y1="105" x2="180" y2="138"/><line x1="215" y1="105" x2="215" y2="138"/>
+    <line x1="250" y1="105" x2="250" y2="138"/><line x1="285" y1="105" x2="285" y2="138"/>
+    <line x1="320" y1="105" x2="320" y2="138"/>
+  </g>
+  <g fill="#e11d48">
+    <polygon points="40,143 35,133 45,133"/><polygon points="75,143 70,133 80,133"/>
+    <polygon points="110,143 105,133 115,133"/><polygon points="145,143 140,133 150,133"/>
+    <polygon points="180,143 175,133 185,133"/><polygon points="215,143 210,133 220,133"/>
+    <polygon points="250,143 245,133 255,133"/><polygon points="285,143 280,133 290,133"/>
+    <polygon points="320,143 315,133 325,133"/>
+  </g>
+  <text x="130" y="95" fill="#e11d48" font-weight="bold" font-size="13">w = ρAg (self-weight)</text>
+  <!-- beam -->
+  <line x1="40" y1="150" x2="320" y2="150" stroke="#1a3c6e" stroke-width="4"/>
+  <!-- pin at A -->
+  <polygon points="40,150 30,170 50,170" fill="none" stroke="#555" stroke-width="1.5"/>
+  <line x1="24" y1="170" x2="56" y2="170" stroke="#555" stroke-width="1.5"/>
+  <text x="52" y="168" fill="#333" font-size="12" font-weight="bold">A</text>
+  <!-- roller at B -->
+  <circle cx="250" cy="160" r="8" fill="none" stroke="#555" stroke-width="1.5"/>
+  <line x1="234" y1="169" x2="266" y2="169" stroke="#555" stroke-width="1.5"/>
+  <text x="262" y="168" fill="#333" font-size="12" font-weight="bold">B</text>
+  <!-- dims -->
+  <line x1="40" y1="200" x2="250" y2="200" stroke="#555" stroke-width="1"/>
+  <line x1="40" y1="194" x2="40" y2="206" stroke="#555" stroke-width="1"/>
+  <line x1="250" y1="194" x2="250" y2="206" stroke="#555" stroke-width="1"/>
+  <text x="135" y="218" fill="#333" font-size="11.5">3 m</text>
+  <line x1="250" y1="200" x2="320" y2="200" stroke="#555" stroke-width="1"/>
+  <line x1="320" y1="194" x2="320" y2="206" stroke="#555" stroke-width="1"/>
+  <text x="272" y="218" fill="#333" font-size="11.5">1 m</text>
+
+  <!-- ── Right: trapezoidal section, scale 1.6 px/mm. Bottom 160 mm = 256 px, top 80 mm = 128 px, h = 69.28 mm = 110.9 px ── -->
+  <!-- centre x=545. Bottom y=290 (x 417..673), top y=179.1 (x 481..609) -->
+  <polygon points="481,179.1 609,179.1 673,290 417,290"
+    fill="#7fe3ec" fill-opacity="0.8" stroke="#1a3c6e" stroke-width="2"/>
+
+  <!-- centroidal x-axis: ybar = 30.79 mm → py = 290 − 49.3 = 240.7 -->
+  <line x1="385" y1="240.7" x2="720" y2="240.7" stroke="#222" stroke-width="1.6" stroke-dasharray="7,4"/>
+  <polygon points="720,240.7 712,236.7 712,244.7" fill="#222"/>
+  <text x="725" y="245" font-size="14" font-weight="bold" fill="#222">x</text>
+  <text x="368" y="245" font-size="14" font-weight="bold" fill="#222">x</text>
+  <circle cx="545" cy="240.7" r="4" fill="#f97316"/>
+  <text x="553" y="235" font-size="11.5" fill="#f97316" font-weight="bold">C</text>
+
+  <!-- 30° angle at bottom-left corner: vertical reference + arc -->
+  <line x1="417" y1="290" x2="417" y2="205" stroke="#555" stroke-width="1" stroke-dasharray="4,3"/>
+  <path d="M 417 240 A 50 50 0 0 1 445 241.5" fill="none" stroke="#555" stroke-width="1"/>
+  <text x="422" y="230" fill="#333" font-size="11.5">30°</text>
+
+  <!-- slant length 8 cm label on right side -->
+  <line x1="618" y1="172" x2="686" y2="290" stroke="none"/>
+  <text x="655" y="222" fill="#333" font-size="11.5" transform="rotate(60 655 222)">8 cm</text>
+  <line x1="614" y1="176" x2="622" y2="171" stroke="#555" stroke-width="1"/>
+  <line x1="678" y1="287" x2="686" y2="282" stroke="#555" stroke-width="1"/>
+  <line x1="612" y1="174.5" x2="676" y2="285.5" stroke="#555" stroke-width="1"/>
+
+  <!-- bottom width dim: 16 cm -->
+  <line x1="417" y1="316" x2="673" y2="316" stroke="#555" stroke-width="1"/>
+  <line x1="417" y1="310" x2="417" y2="322" stroke="#555" stroke-width="1"/>
+  <line x1="673" y1="310" x2="673" y2="322" stroke="#555" stroke-width="1"/>
+  <text x="525" y="334" fill="#333" font-size="11.5">16 cm</text>
+
+  <!-- fibre distances, left side -->
+  <line x1="398" y1="179.1" x2="398" y2="290" stroke="#555" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="392" y1="179.1" x2="404" y2="179.1" stroke="#555" stroke-width="1"/>
+  <line x1="392" y1="240.7" x2="404" y2="240.7" stroke="#555" stroke-width="1"/>
+  <line x1="392" y1="290" x2="404" y2="290" stroke="#555" stroke-width="1"/>
+  <line x1="404" y1="179.1" x2="479" y2="179.1" stroke="#555" stroke-width="0.9" stroke-dasharray="3,3"/>
+  <text x="300" y="212" fill="#333" font-size="11.5">y<tspan baseline-shift="sub" font-size="8.5">2</tspan> = 38.5 mm</text>
+  <text x="300" y="272" fill="#333" font-size="11.5">y<tspan baseline-shift="sub" font-size="8.5">1</tspan> = 30.8 mm</text>
+
+  <text x="590" y="354" font-size="11" fill="#888" font-style="italic">Section dimensions in cm</text>
+</svg>
+<figcaption>Left: overhanging beam under its own weight — pin at A, roller at B (3 m), 1 m overhang. Right: trapezoidal section to scale. The 8 cm dimension is the <em>slant side</em>, inclined 30° to the vertical, so the height is $8\cos 30° = 6.93$ cm and the top width is $16 - 2(8\sin 30°) = 8$ cm.</figcaption>
+</figure>
+</div>
+
+<!-- ═══════════════════════════ SOLUTION ═══════════════════════════ -->
+<h3>Solution</h3>
+
+<!-- STEP 1 -->
+<div class="step">
+  <div class="step-heading">
+    <div class="step-num">1</div>
+    <div class="step-title">Resolve the trapezoid geometry from the 30° and 8 cm labels</div>
+    <div class="try-hint">Try it first, then reveal ↓</div>
+  </div>
+  <details>
+    <summary><span class="step-label">Step 1</span> The 8 cm is the slant side, not the height</summary>
+    <div class="step-body">
+      <p>The 8 cm dimension is marked <em>along the inclined side</em>, and the 30° angle is measured between that side and the <em>vertical</em>. Resolving:</p>
+      <div class="math-block">$$h = 8\cos 30° = 6.928\ \text{cm} = 69.28\ \text{mm}$$</div>
+      <div class="math-block">$$\text{horizontal offset per side} = 8\sin 30° = 4\ \text{cm} \;\Rightarrow\; \text{top width } a = 16 - 2(4) = 8\ \text{cm} = 80\ \text{mm}$$</div>
+      <p>Cross-sectional area:</p>
+      <div class="math-block">$$A = \frac{(a + b)}{2}\,h = \frac{(80 + 160)}{2} \times 69.28 = 8\,314\ \text{mm}^2 = 8.314 \times 10^{-3}\ \text{m}^2$$</div>
+      <div class="callout info">
+        <p><strong>Why this reading:</strong> treating 8 cm as the vertical height instead gives $\sigma_c \approx 5.9$ MPa — inconsistent with the book answer. The slant-side reading reproduces 6.79/5.43 MPa exactly (Step 5), which confirms the geometry.</p>
+      </div>
+    </div>
+  </details>
+</div>
+
+<!-- STEP 2 -->
+<div class="step">
+  <div class="step-heading">
+    <div class="step-num">2</div>
+    <div class="step-title">Self-weight as a uniformly distributed load</div>
+    <div class="try-hint">Try it first, then reveal ↓</div>
+  </div>
+  <details>
+    <summary><span class="step-label">Step 2</span> $w = \rho A g$ per metre of beam</summary>
+    <div class="step-body">
+      <p>Each metre of beam has volume $A \times 1$ m, so the weight per unit length is:</p>
+      <div class="math-block">$$w = \rho A g = 7\,800 \times 8.314 \times 10^{-3} \times 9.81$$</div>
+      <div class="callout answer">
+        <p>$$w = 636.2\ \text{N/m}$$</p>
+      </div>
+      <div class="callout note">
+        <p><strong>Sanity check:</strong> the whole 4 m beam weighs $636.2 \times 4 = 2\,545$ N ≈ 260 kg — reasonable for a 4 m steel member with an 83 cm² section. ✓</p>
+      </div>
+    </div>
+  </details>
+</div>
+
+<!-- STEP 3 -->
+<div class="step">
+  <div class="step-heading">
+    <div class="step-num">3</div>
+    <div class="step-title">Reactions and bending moment diagram</div>
+    <div class="try-hint">Try it first, then reveal ↓</div>
+  </div>
+  <details>
+    <summary><span class="step-label">Step 3</span> Two critical sections: max sagging in the span, max hogging at B</summary>
+    <div class="step-body">
+      <p>Total load $4w$ acts at the beam's mid-length, 2 m from A. Taking moments about A ($L_{AB} = 3$ m):</p>
+      <div class="math-block">$$R_B(3) = 4w(2) \;\Rightarrow\; R_B = \frac{8w}{3} = 2.667w \qquad R_A = 4w - R_B = 1.333w$$</div>
+      <p>With $w = 636.2$ N/m: $R_A = 848.2$ N and $R_B = 1\,696.4$ N.</p>
+
+      <h4>Cut 1: section at $x$ between A and B &nbsp;($0 \le x \le 3$ m)</h4>
+      <p>Cut the beam at $x$ and keep the <strong>left</strong> free body: it carries $R_A$ up, the weight $wx$ down, and the internal $V$ and $M$ exposed at the cut face (drawn in their positive sign convention):</p>
+      <div class="diagram-wrap">
+      <figure>
+      <svg viewBox="0 0 480 280" width="100%" style="max-width:420px" xmlns="http://www.w3.org/2000/svg" font-family="Arial,sans-serif" font-size="13">
+        <!-- UDL over the stub -->
+        <line x1="80" y1="72" x2="300" y2="72" stroke="#e11d48" stroke-width="1.6"/>
+        <g stroke="#e11d48" stroke-width="1.4">
+          <line x1="80" y1="72" x2="80" y2="100"/><line x1="124" y1="72" x2="124" y2="100"/>
+          <line x1="168" y1="72" x2="168" y2="100"/><line x1="212" y1="72" x2="212" y2="100"/>
+          <line x1="256" y1="72" x2="256" y2="100"/><line x1="300" y1="72" x2="300" y2="100"/>
+        </g>
+        <g fill="#e11d48">
+          <polygon points="80,105 75,95 85,95"/><polygon points="124,105 119,95 129,95"/>
+          <polygon points="168,105 163,95 173,95"/><polygon points="212,105 207,95 217,95"/>
+          <polygon points="256,105 251,95 261,95"/><polygon points="300,105 295,95 305,95"/>
+        </g>
+        <text x="120" y="62" fill="#e11d48" font-weight="bold" font-size="12">w</text>
+        <!-- beam stub -->
+        <rect x="80" y="110" width="220" height="26" fill="#7fe3ec" fill-opacity="0.8" stroke="#1a3c6e" stroke-width="2"/>
+        <!-- pin at A + reaction R_A -->
+        <polygon points="95,136 85,156 105,156" fill="none" stroke="#555" stroke-width="1.5"/>
+        <line x1="80" y1="156" x2="110" y2="156" stroke="#555" stroke-width="1.5"/>
+        <text x="112" y="152" fill="#333" font-size="12" font-weight="bold">A</text>
+        <line x1="95" y1="215" x2="95" y2="166" stroke="#111" stroke-width="2.5"/>
+        <polygon points="95,161 89,173 101,173" fill="#111"/>
+        <text x="60" y="196" fill="#111" font-size="13" font-style="italic">R<tspan baseline-shift="sub" font-size="9">A</tspan></text>
+        <!-- V at the cut: downward arrow just right of cut face -->
+        <line x1="322" y1="80" x2="322" y2="130" stroke="#111" stroke-width="2.5"/>
+        <polygon points="322,135 316,123 328,123" fill="#111"/>
+        <text x="314" y="52" fill="#111" font-size="16" font-style="italic" font-weight="bold">V</text>
+        <!-- M at the cut: curved arrow (anticlockwise arc) -->
+        <path d="M 370 145 A 28 28 0 1 0 370 95" fill="none" stroke="#888" stroke-width="2"/>
+        <polygon points="360,94 373,88 373,101" fill="#888"/>
+        <text x="404" y="128" fill="#111" font-size="16" font-style="italic" font-weight="bold">M</text>
+        <!-- x coordinate arrow from A -->
+        <line x1="95" y1="245" x2="200" y2="245" stroke="#111" stroke-width="1.8"/>
+        <polygon points="206,245 194,239 194,251" fill="#111"/>
+        <line x1="95" y1="238" x2="95" y2="252" stroke="#111" stroke-width="1.2"/>
+        <text x="140" y="268" fill="#111" font-size="15" font-style="italic">x</text>
+        <!-- cut face marker -->
+        <line x1="300" y1="104" x2="300" y2="142" stroke="#1a3c6e" stroke-width="1" stroke-dasharray="4,3"/>
+        <text x="240" y="165" fill="#666" font-size="10.5" font-style="italic">cut at x</text>
+      </svg>
+      <figcaption>Free body of the left segment: $R_A$ up, self-weight $wx$ down, and the internal shear $V$ and moment $M$ at the cut face. Equilibrium of this stub gives $V(x)$ and $M(x)$.</figcaption>
+      </figure>
+      </div>
+      <div class="math-block">$$\sum F_y = 0:\quad R_A - V(x) - wx = 0$$
+$$V(x) = R_A - wx = w(1.333 - x)$$</div>
+      <div class="math-block">$$\sum M_A = 0:\quad M(x) - V(x)\,x - \frac{wx^2}{2} = 0$$
+$$M(x) = V(x)\,x + \frac{wx^2}{2} = R_A\,x - \frac{wx^2}{2} = w\left(1.333\,x - \frac{x^2}{2}\right)$$</div>
+      <p>The shear crosses zero at $x = R_A/w = 1.333$ m — the sagging maximum:</p>
+      <div class="math-block">$$M_{\text{sag}} = w\left(1.333 \times 1.333 - \frac{1.333^2}{2}\right) = 0.889w = 565.5\ \text{N}\!\cdot\!\text{m}$$</div>
+      <p>At $x = 3^-$ (just left of B): $V = w(1.333 - 3) = -1.667w = -1\,060.3$ N and $M = w(4 - 4.5) = -0.5w = -318.1$ N·m.</p>
+
+      <h4>Cut 2: section in the overhang &nbsp;($3 \le x \le 4$ m)</h4>
+      <p>Here it is quicker to keep the <strong>right</strong> free body — only the weight of the remaining stub $\xi = 4 - x$ acts on it, no reactions:</p>
+      <div class="math-block">$$V(x) = +\,w\,(4 - x) \qquad M(x) = -\,\frac{w\,(4 - x)^2}{2}$$</div>
+      <p>At B ($x = 3$): $V = +w = +636.2$ N and $M = -0.5w = -318.1$ N·m — matching Cut 1's moment (it must: $M$ is continuous), while the shear <em>jumps</em> by $R_B = 2.667w$ across the roller. At the free end both vanish. ✓</p>
+      <div class="math-block">$$M_B = -\frac{w(1)^2}{2} = -0.5w = -318.1\ \text{N}\!\cdot\!\text{m} \;\text{(hogging: top tension)}$$</div>
+
+      <h4>SFD and BMD</h4>
+      <div class="diagram-wrap">
+      <figure>
+      <svg viewBox="0 0 520 430" width="100%" style="max-width:624px" xmlns="http://www.w3.org/2000/svg" font-family="Arial,sans-serif" font-size="12">
+        <!-- x-scale: A at x=90, 80 px/m → B at 330, free end at 410 -->
+        <!-- ── Beam panel ── -->
+        <line x1="90" y1="52" x2="410" y2="52" stroke="#e11d48" stroke-width="1.6"/>
+        <g stroke="#e11d48" stroke-width="1.3">
+          <line x1="90" y1="52" x2="90" y2="70"/><line x1="130" y1="52" x2="130" y2="70"/>
+          <line x1="170" y1="52" x2="170" y2="70"/><line x1="210" y1="52" x2="210" y2="70"/>
+          <line x1="250" y1="52" x2="250" y2="70"/><line x1="290" y1="52" x2="290" y2="70"/>
+          <line x1="330" y1="52" x2="330" y2="70"/><line x1="370" y1="52" x2="370" y2="70"/>
+          <line x1="410" y1="52" x2="410" y2="70"/>
+        </g>
+        <g fill="#e11d48">
+          <polygon points="90,74 86,66 94,66"/><polygon points="130,74 126,66 134,66"/>
+          <polygon points="170,74 166,66 174,66"/><polygon points="210,74 206,66 214,66"/>
+          <polygon points="250,74 246,66 254,66"/><polygon points="290,74 286,66 294,66"/>
+          <polygon points="330,74 326,66 334,66"/><polygon points="370,74 366,66 374,66"/>
+          <polygon points="410,74 406,66 414,66"/>
+        </g>
+        <text x="180" y="44" fill="#e11d48" font-weight="bold" font-size="12">w = 636.2 N/m</text>
+        <line x1="90" y1="78" x2="410" y2="78" stroke="#1a3c6e" stroke-width="4"/>
+        <polygon points="90,78 82,94 98,94" fill="none" stroke="#555" stroke-width="1.5"/>
+        <line x1="77" y1="94" x2="103" y2="94" stroke="#555" stroke-width="1.5"/>
+        <circle cx="330" cy="86" r="6.5" fill="none" stroke="#555" stroke-width="1.5"/>
+        <line x1="317" y1="94" x2="343" y2="94" stroke="#555" stroke-width="1.5"/>
+        <text x="76" y="110" fill="#333" font-size="11" font-weight="bold">A</text>
+        <text x="336" y="110" fill="#333" font-size="11" font-weight="bold">B</text>
+        <text x="196" y="110" fill="#333" font-size="10.5" font-style="italic">3 m</text>
+        <text x="362" y="110" fill="#333" font-size="10.5" font-style="italic">1 m</text>
+
+        <!-- dashed guide lines -->
+        <line x1="90" y1="94" x2="90" y2="405" stroke="#bbb" stroke-width="0.9" stroke-dasharray="4,4"/>
+        <line x1="196.7" y1="80" x2="196.7" y2="405" stroke="#bbb" stroke-width="0.9" stroke-dasharray="4,4"/>
+        <line x1="330" y1="94" x2="330" y2="405" stroke="#bbb" stroke-width="0.9" stroke-dasharray="4,4"/>
+        <line x1="410" y1="80" x2="410" y2="405" stroke="#bbb" stroke-width="0.9" stroke-dasharray="4,4"/>
+
+        <!-- ── SFD: baseline y=200, scale 0.05 px/N ── -->
+        <text x="18" y="180" fill="#1a3c6e" font-size="12" font-weight="bold">SFD</text>
+        <text x="18" y="194" fill="#666" font-size="10">(N)</text>
+        <line x1="70" y1="200" x2="440" y2="200" stroke="#222" stroke-width="1.2"/>
+        <!-- segment A..B: linear +848.2 (y=157.6) to −1060.3 (y=253) -->
+        <polygon points="90,200 90,157.6 330,253 330,200" fill="#3b82f6" fill-opacity="0.22"/>
+        <line x1="90" y1="157.6" x2="330" y2="253" stroke="#3b82f6" stroke-width="1.8"/>
+        <!-- jump at B, then +636.2 (y=168.2) → 0 at end -->
+        <polygon points="330,200 330,168.2 410,200" fill="#3b82f6" fill-opacity="0.22"/>
+        <line x1="330" y1="253" x2="330" y2="168.2" stroke="#3b82f6" stroke-width="1.8"/>
+        <line x1="330" y1="168.2" x2="410" y2="200" stroke="#3b82f6" stroke-width="1.8"/>
+        <text x="94" y="152" fill="#1d4ed8" font-size="11" font-weight="600">+848.2</text>
+        <text x="248" y="266" fill="#1d4ed8" font-size="11" font-weight="600">−1060.3</text>
+        <text x="342" y="166" fill="#1d4ed8" font-size="11" font-weight="600">+636.2</text>
+        <text x="176" y="216" fill="#666" font-size="10" font-style="italic">V = 0 at x = 1.333 m</text>
+
+        <!-- ── BMD: baseline y=340, scale 0.09 px/(N·m). Parabolas as exact quadratic Béziers ── -->
+        <text x="18" y="320" fill="#1a3c6e" font-size="12" font-weight="bold">BMD</text>
+        <text x="18" y="334" fill="#666" font-size="10">(N·m)</text>
+        <line x1="70" y1="340" x2="440" y2="340" stroke="#222" stroke-width="1.2"/>
+        <path d="M 90 340 Q 210 225.5 330 368.6 Q 370 340 410 340 L 410 340 L 330 340 Z" fill="#f97316" fill-opacity="0.20" stroke="none"/>
+        <path d="M 90 340 Q 210 225.5 330 368.6 Q 370 340 410 340" fill="none" stroke="#f97316" stroke-width="1.8"/>
+        <text x="150" y="282" fill="#c2570b" font-size="11" font-weight="600">+565.5 at x = 1.333 m</text>
+        <text x="290" y="384" fill="#c2570b" font-size="11" font-weight="600">−318.1 at B</text>
+        <text x="252" y="332" fill="#666" font-size="10" font-style="italic">M = 0 at x = 2.667 m</text>
+        <text x="150" y="408" fill="#666" font-size="10.5" font-style="italic">sagging (+) drawn upward</text>
+      </svg>
+      <figcaption>SFD and BMD from the two cuts, aligned under the beam. The BMD peaks at +565.5 N·m where V = 0 (x = 1.333 m), passes through zero at the point of contraflexure (x = 2.667 m), and reaches −318.1 N·m over the roller at B.</figcaption>
+      </figure>
+      </div>
+      <div class="callout note">
+        <p><strong>Both sections must be checked.</strong> The sagging and hogging moments load <em>opposite</em> fibres in tension. Here $|M_{\text{sag}}| = 0.889w > |M_B| = 0.5w$, but with an asymmetric section the smaller moment could still govern one of the two stresses — never skip the comparison (Step 5).</p>
+      </div>
+    </div>
+  </details>
+</div>
+
+<!-- STEP 4 -->
+<div class="step">
+  <div class="step-heading">
+    <div class="step-num">4</div>
+    <div class="step-title">Section properties of the trapezoid</div>
+    <div class="try-hint">Try it first, then reveal ↓</div>
+  </div>
+  <details>
+    <summary><span class="step-label">Step 4</span> Centroid and $I$ from the trapezoid formulas</summary>
+    <div class="step-body">
+      <p>With $a = 80$ mm (top), $b = 160$ mm (bottom), $h = 69.28$ mm, measuring from the bottom:</p>
+      <div class="math-block">$$\bar{y} = \frac{h}{3}\,\frac{2a + b}{a + b} = \frac{69.28}{3} \times \frac{160 + 160}{240} = 30.79\ \text{mm}$$</div>
+      <div class="math-block">$$y_1 = 30.79\ \text{mm (bottom fibre)} \qquad y_2 = 69.28 - 30.79 = 38.49\ \text{mm (top fibre)}$$</div>
+      <div class="math-block">$$I = \frac{h^3(a^2 + 4ab + b^2)}{36(a + b)} = \frac{69.28^3\,(6\,400 + 51\,200 + 25\,600)}{36(240)}$$</div>
+      <div class="callout answer">
+        <p>$$I = 3.202 \times 10^6\ \text{mm}^4 \;(= 320.2\ \text{cm}^4), \qquad \bar{y} = 30.79\ \text{mm}$$</p>
+      </div>
+      <div class="callout note">
+        <p><strong>Physical check:</strong> the section is wider at the bottom, so the centroid sits below mid-height ($h/2 = 34.6$ mm) — 30.79 mm is consistent. ✓</p>
+      </div>
+    </div>
+  </details>
+</div>
+
+<!-- STEP 5 -->
+<div class="step">
+  <div class="step-heading">
+    <div class="step-num">5</div>
+    <div class="step-title">Stresses at both critical sections</div>
+    <div class="try-hint">Try it first, then reveal ↓</div>
+  </div>
+  <details>
+    <summary><span class="step-label">Step 5</span> Four candidate stresses — the sagging section wins both</summary>
+    <div class="step-body">
+      <p><strong>Sagging section</strong> ($M = 565.5$ N·m = $565.5 \times 10^3$ N·mm): bottom in tension, top in compression:</p>
+      <div class="math-block">$$\sigma_c^{\text{(top)}} = \frac{565.5 \times 10^3 \times 38.49}{3.202 \times 10^6} = 6.80\ \text{MPa} \qquad \sigma_t^{\text{(bot)}} = \frac{565.5 \times 10^3 \times 30.79}{3.202 \times 10^6} = 5.44\ \text{MPa}$$</div>
+      <p><strong>Hogging section at B</strong> ($M = 318.1$ N·m): top in tension, bottom in compression:</p>
+      <div class="math-block">$$\sigma_t^{\text{(top)}} = \frac{318.1 \times 10^3 \times 38.49}{3.202 \times 10^6} = 3.82\ \text{MPa} \qquad \sigma_c^{\text{(bot)}} = \frac{318.1 \times 10^3 \times 30.79}{3.202 \times 10^6} = 3.06\ \text{MPa}$$</div>
+      <p>The sagging section governs both maxima:</p>
+      <div class="callout answer">
+        <p>$$\sigma_c = 6.79\ \text{MPa (top fibre, } x = 1.33\ \text{m from A)} \qquad \sigma_t = 5.43\ \text{MPa (bottom fibre, same section)}$$</p>
+      </div>
+      <div class="callout note">
+        <p><strong>Note on rounding:</strong> carrying full precision gives 6.80 and 5.44 MPa; the book's 6.79/5.43 comes from rounding $w$, $M$ or $I$ at intermediate steps (&lt;0.2% difference). Either is acceptable.</p>
+      </div>
+    </div>
+  </details>
+</div>
+
+<!-- STEP 6: SUMMARY TABLE -->
+<div class="step">
+  <div class="step-heading">
+    <div class="step-num">6</div>
+    <div class="step-title">Summary Table</div>
+  </div>
+  <details>
+    <summary><span class="step-label">Step 6</span> All candidate stresses side by side</summary>
+    <div class="step-body">
+<table>
+  <thead>
+    <tr>
+      <th>Quantity</th>
+      <th>Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td class="left">Section: top / bottom / height</td><td>80 / 160 / 69.28 mm</td></tr>
+    <tr><td class="left">Area A</td><td>8 314 mm²</td></tr>
+    <tr><td class="left">Self-weight w = ρAg</td><td>636.2 N/m</td></tr>
+    <tr><td class="left">Centroid ȳ (from bottom) ; I</td><td>30.79 mm ; 3.202 × 10⁶ mm⁴</td></tr>
+    <tr><td class="left">Reactions R_A ; R_B</td><td>848.2 N ; 1 696.4 N</td></tr>
+    <tr><td class="left">M sagging (x = 1.333 m) ; M hogging (at B)</td><td>+565.5 N·m ; −318.1 N·m</td></tr>
+  </tbody>
+</table>
+<table>
+  <thead>
+    <tr>
+      <th>Section</th>
+      <th>M (N·m)</th>
+      <th>Top fibre (y₂ = 38.49)</th>
+      <th>Bottom fibre (y₁ = 30.79)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="left">Sagging, x = 1.33 m</td>
+      <td>+565.5</td>
+      <td><strong>6.79 MPa compression ✓ (max σ_c)</strong></td>
+      <td><strong>5.43 MPa tension ✓ (max σ_t)</strong></td>
+    </tr>
+    <tr>
+      <td class="left">Hogging, at B</td>
+      <td>−318.1</td>
+      <td>3.82 MPa tension</td>
+      <td>3.06 MPa compression</td>
+    </tr>
+  </tbody>
+</table>
+    </div>
+  </details>
+</div>
+
+<div class="callout warn">
+  <p><strong>Common mistake 1:</strong> Reading the 8 cm as the vertical height of the trapezoid. It is the <em>slant side</em>; the height is $8\cos 30° = 6.93$ cm and the top width is 8 cm. Using $h = 8$ cm changes $A$, $w$, $\bar{y}$ and $I$ simultaneously and misses the book answer.</p>
+  <p style="margin-top:8px"><strong>Common mistake 2:</strong> Treating the beam as simply supported over 4 m and using $M = wL^2/8 = 2w$. The roller is at 3 m with a 1 m overhang — the correct sagging maximum is $0.889w$ at $x = 1.333$ m (where the shear crosses zero, <em>not</em> at mid-span), plus a hogging moment $-0.5w$ at B.</p>
+  <p style="margin-top:8px"><strong>Common mistake 3:</strong> Checking only the largest moment. With an asymmetric section, hogging at B puts the <em>long</em> fibre ($y_2$) in tension, so it could govern $\sigma_t$ even with a smaller $|M|$. Here it doesn't ($3.82 < 5.43$ MPa), but only the explicit comparison in Step 5 proves that.</p>
+  <p style="margin-top:8px"><strong>Common mistake 4:</strong> Forgetting $g$ — using $\rho A$ (kg/m) directly as a force per metre. Density gives <em>mass</em>; multiply by $g = 9.81$ m/s² to get the weight intensity in N/m.</p>
+</div>
+
+<div class="footer">MCEN2002 – Fundamentals of Mechanical Design &nbsp;|&nbsp; Tutorial 3.4 &nbsp;|&nbsp; Curtin University</div>
+</div>
+</body>
+</html>

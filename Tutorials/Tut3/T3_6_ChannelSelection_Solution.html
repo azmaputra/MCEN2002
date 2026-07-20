@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>T3.6 – Selecting a Parallel Flange Channel and I about the Bottom Axis</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css"/>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{throwOnError:false,delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]})"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+body{font-family:'Segoe UI',Arial,sans-serif;font-size:15px;line-height:1.75;color:#1a1a1a;background:#f5f6f8;margin:0;padding:24px 16px 56px}
+.page{max-width:860px;margin:0 auto;background:#fff;border-radius:10px;box-shadow:0 2px 14px rgba(0,0,0,.10);padding:40px 52px 52px}
+
+/* Header */
+.uni-header{text-align:center;border-bottom:2px solid #1a3c6e;padding-bottom:16px;margin-bottom:32px}
+.uni-header p{margin:0;line-height:1.4;font-size:13.5px;color:#555}
+.uni-header h2{margin:8px 0 0;font-size:20px;color:#1a3c6e}
+
+/* Section headings */
+h3{color:#1a3c6e;border-left:4px solid #1a3c6e;padding-left:10px;margin:28px 0 10px;font-size:15.5px}
+h4{color:#1a3c6e;font-size:14.5px;margin:18px 0 6px}
+
+/* Steps */
+.step{margin-bottom:10px}
+.step details{border:1px solid #d1d9e8;border-radius:8px;overflow:hidden;margin-top:6px}
+.step details summary{
+  list-style:none;cursor:pointer;padding:11px 15px;
+  background:#f0f4fb;color:#1a3c6e;font-weight:500;font-size:14.5px;
+  display:flex;align-items:center;gap:10px;user-select:none;
+}
+.step details summary::-webkit-details-marker{display:none}
+.step details summary::before{display:none}
+.step details summary::after{content:'▼';font-size:11px;color:#f97316;transition:transform 0.2s;flex-shrink:0;margin-left:auto;padding-left:8px}
+.step details[open] summary::after{transform:rotate(180deg)}
+.step details summary .step-label{font-size:12px;font-weight:500;color:#f97316;margin-right:4px}
+.step details[open] summary{background:#e8eef9;border-bottom:1px solid #d1d9e8}
+.step-body{padding:16px 20px}
+.step-heading{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.step-num{background:#1a3c6e;color:#fff;font-size:12px;font-weight:700;border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.step-title{font-size:15px;font-weight:600;color:#1a3c6e}
+.try-hint{font-size:12.5px;color:#6b7280;font-style:italic;margin-left:auto}
+
+/* Callouts */
+.callout{border-radius:6px;padding:13px 18px;margin:14px 0;font-size:14.5px}
+.callout p{margin:4px 0}
+.info{background:#eef4ff;border-left:4px solid #3b82f6}
+.given{background:#f0fdf4;border-left:4px solid #22c55e}
+.answer{background:#fff7ed;border-left:4px solid #f97316;font-size:16px;font-weight:600}
+.note{background:#faf5ff;border-left:4px solid #a855f7;font-size:14px}
+.warn{background:#fffbeb;border-left:4px solid #f59e0b;font-size:14px}
+
+/* Math display */
+.math-block{background:#f8f9fb;border:1px solid #e2e6ef;border-radius:6px;padding:14px 20px;margin:12px 0;overflow-x:auto;text-align:center}
+
+/* Table */
+table{width:100%;border-collapse:collapse;margin:18px 0;font-size:13.5px}
+th{background:#1a3c6e;color:#fff;padding:9px 10px;text-align:center;font-weight:600;font-size:13px}
+td{padding:8px 10px;text-align:center;border-bottom:1px solid #e5e7eb;vertical-align:middle}
+td.left{text-align:left;font-weight:600}
+tr:nth-child(even) td{background:#f8f9fb}
+tr.total td{font-weight:700;background:#eef4ff;border-top:2px solid #1a3c6e}
+tr.pick td{font-weight:700;background:#f0fdf4;border-top:1.5px solid #22c55e;border-bottom:1.5px solid #22c55e}
+
+/* Diagram */
+.diagram-wrap{text-align:center;margin:24px 0 8px}
+.diagram-wrap figcaption{font-size:13px;color:#555;margin-top:8px;font-style:italic}
+
+.footer{margin-top:40px;border-top:1px solid #e5e7eb;padding-top:12px;font-size:12px;color:#999;text-align:center}
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- ═══════════════════════════ HEADER ═══════════════════════════ -->
+<div class="uni-header">
+  <p>Curtin University &nbsp;·&nbsp; School of Civil and Mechanical Engineering</p>
+  <p>MCEN2002 – Fundamentals of Mechanical Design</p>
+  <p style="margin-top:8px"><strong>Dr Azma Putra Azis</strong></p>
+  <h2>Tutorial 3.6 &nbsp;–&nbsp; Selecting a Parallel Flange Channel; I about the Bottom Axis</h2>
+</div>
+
+<!-- ═══════════════════════════ PROBLEM ═══════════════════════════ -->
+<h3>Problem Statement</h3>
+<p>Using the manufacturer's table for <strong>Parallel Flange Channels (PFC)</strong>:</p>
+<p><strong>a)</strong> Select a channel able to withstand a maximum bending moment of <strong>50&nbsp;kN·m</strong> about its neutral axis with a <strong>safety factor of 1.5</strong> against a maximum yield stress of <strong>300&nbsp;MPa</strong>.<br/>
+<strong>b)</strong> For the channel found in (a), use the <strong>parallel axis theorem</strong> to calculate the second moment of area about the <strong>bottom axis $k$</strong>.</p>
+
+<div class="callout given">
+  <p><strong>Given answer:</strong> &nbsp; a) 250 PFC &nbsp;&nbsp; b) $I_k = 115.725 \times 10^6\ \text{mm}^4$</p>
+</div>
+
+<!-- Diagram -->
+<div class="diagram-wrap">
+<figure>
+<svg viewBox="0 0 760 400" width="100%" style="max-width:640px" xmlns="http://www.w3.org/2000/svg" font-family="Arial,sans-serif" font-size="12">
+  <!-- 250 PFC, scale 1.1 px/mm: d=250→275, bf=90→99, tf=15→16.5, tw=8→8.8 -->
+  <!-- web back at x=430, y 60..335; flanges point right -->
+  <polygon points="430,60 529,60 529,76.5 438.8,76.5 438.8,318.5 529,318.5 529,335 430,335"
+    fill="#7fe3ec" fill-opacity="0.8" stroke="#1a3c6e" stroke-width="2"/>
+
+  <!-- centroidal x-axis at mid-depth y=197.5 -->
+  <line x1="360" y1="197.5" x2="620" y2="197.5" stroke="#222" stroke-width="1.6" stroke-dasharray="7,4"/>
+  <polygon points="620,197.5 612,193.5 612,201.5" fill="#222"/>
+  <text x="625" y="201.5" font-size="14" font-weight="bold" fill="#222">x</text>
+  <text x="343" y="201.5" font-size="14" font-weight="bold" fill="#222">x</text>
+  <circle cx="461.5" cy="197.5" r="4" fill="#f97316"/>
+  <text x="469" y="192" font-size="11.5" fill="#f97316" font-weight="bold">C</text>
+
+  <!-- bottom axis k at y=335 -->
+  <line x1="360" y1="335" x2="620" y2="335" stroke="#555" stroke-width="1.4" stroke-dasharray="10,4"/>
+  <text x="343" y="339" font-size="13" font-weight="bold" font-style="italic" fill="#555">k</text>
+  <text x="625" y="339" font-size="13" font-weight="bold" font-style="italic" fill="#555">k</text>
+
+  <!-- depth dim d=250, right side -->
+  <line x1="560" y1="60" x2="560" y2="335" stroke="#555" stroke-width="1"/>
+  <line x1="554" y1="60" x2="566" y2="60" stroke="#555" stroke-width="1"/>
+  <line x1="554" y1="335" x2="566" y2="335" stroke="#555" stroke-width="1"/>
+  <line x1="531" y1="60" x2="554" y2="60" stroke="#555" stroke-width="0.9" stroke-dasharray="3,3"/>
+  <text x="568" y="130" fill="#333" font-size="11.5">d = 250</text>
+
+  <!-- ybar dim: 125 from k to x-axis, left side -->
+  <line x1="400" y1="197.5" x2="400" y2="335" stroke="#555" stroke-width="1"/>
+  <line x1="394" y1="197.5" x2="406" y2="197.5" stroke="#555" stroke-width="1"/>
+  <line x1="394" y1="335" x2="406" y2="335" stroke="#555" stroke-width="1"/>
+  <text x="290" y="272" fill="#333" font-size="11.5">&#563; = d/2 = 125</text>
+
+  <!-- flange width dim bf=90, top -->
+  <line x1="430" y1="42" x2="529" y2="42" stroke="#555" stroke-width="1"/>
+  <line x1="430" y1="36" x2="430" y2="48" stroke="#555" stroke-width="1"/>
+  <line x1="529" y1="36" x2="529" y2="48" stroke="#555" stroke-width="1"/>
+  <text x="450" y="34" fill="#333" font-size="11.5">b<tspan baseline-shift="sub" font-size="8.5">f</tspan> = 90</text>
+
+  <text x="580" y="392" font-size="11" fill="#888" font-style="italic">Dimensions in millimetres</text>
+</svg>
+<figcaption>250 PFC drawn to scale (d = 250 mm, b<sub>f</sub> = 90 mm, t<sub>f</sub> = 15 mm, t<sub>w</sub> = 8 mm). The channel is symmetric about the x–x axis, so its centroid sits at mid-depth, ȳ = 125 mm above the bottom axis k.</figcaption>
+</figure>
+</div>
+
+<!-- ═══════════════════════════ SOLUTION ═══════════════════════════ -->
+<h3>Solution</h3>
+
+<!-- STEP 1 -->
+<div class="step">
+  <div class="step-heading">
+    <div class="step-num">1</div>
+    <div class="step-title">Part (a): required section modulus</div>
+    <div class="try-hint">Try it first, then reveal ↓</div>
+  </div>
+  <details>
+    <summary><span class="step-label">Step 1</span> Apply the safety factor to the yield stress, then invert $\sigma = M/Z$</summary>
+    <div class="step-body">
+      <p>The safety factor caps the working stress at:</p>
+      <div class="math-block">$$\sigma_{\text{allow}} = \frac{\sigma_y}{SF} = \frac{300}{1.5} = 200\ \text{MPa}$$</div>
+      <p>The bending stress at the extreme fibre is $\sigma = M/Z_x$, so the channel must provide at least:</p>
+      <div class="math-block">$$Z_{\text{req}} = \frac{M}{\sigma_{\text{allow}}} = \frac{50 \times 10^6\ \text{N}\!\cdot\!\text{mm}}{200\ \text{N/mm}^2}$$</div>
+      <div class="callout answer">
+        <p>$$Z_{\text{req}} = 250 \times 10^3\ \text{mm}^3$$</p>
+      </div>
+      <div class="callout note">
+        <p><strong>Unit check:</strong> 50 kN·m $= 50 \times 10^6$ N·mm; dividing N·mm by N/mm² gives mm³. ✓</p>
+      </div>
+    </div>
+  </details>
+</div>
+
+<!-- STEP 2 -->
+<div class="step">
+  <div class="step-heading">
+    <div class="step-num">2</div>
+    <div class="step-title">Part (a): select the lightest adequate channel from the table</div>
+    <div class="try-hint">Try it first, then reveal ↓</div>
+  </div>
+  <details>
+    <summary><span class="step-label">Step 2</span> Scan the $Z_x$ column for the smallest value ≥ 250 × 10³ mm³</summary>
+    <div class="step-body">
+      <p>Compare $Z_{\text{req}} = 250 \times 10^3$ mm³ against the elastic modulus $Z_x$ column (channels are listed heaviest-first, so scan from the bottom up for the most economical pick):</p>
+<table>
+  <thead>
+    <tr>
+      <th>Designation</th>
+      <th>Mass (kg/m)</th>
+      <th>$Z_x$ (10³ mm³)</th>
+      <th>$Z_x \ge 250 \times 10^3$?</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="left">230 PFC</td>
+      <td>25.1</td>
+      <td>233</td>
+      <td>✗ fails (233 &lt; 250)</td>
+    </tr>
+    <tr class="pick">
+      <td class="left">250 PFC</td>
+      <td>35.5</td>
+      <td>361</td>
+      <td>✓ smallest that passes</td>
+    </tr>
+    <tr>
+      <td class="left">300 PFC</td>
+      <td>40.1</td>
+      <td>483</td>
+      <td>✓ but heavier than needed</td>
+    </tr>
+  </tbody>
+</table>
+      <div class="callout answer">
+        <p>$$\textbf{Select 250 PFC} \quad (Z_x = 361 \times 10^3\ \text{mm}^3,\ 35.5\ \text{kg/m})$$</p>
+      </div>
+      <div class="callout note">
+        <p><strong>Actual margin:</strong> under 50 kN·m the working stress is $\sigma = 50 \times 10^6 / 361 \times 10^3 = 138.5$ MPa, an actual safety factor of $300/138.5 = 2.17$. Discrete catalogue sizes mean you rarely land exactly on the required 1.5 — the requirement is a <em>minimum</em>.</p>
+      </div>
+    </div>
+  </details>
+</div>
+
+<!-- STEP 3 -->
+<div class="step">
+  <div class="step-heading">
+    <div class="step-num">3</div>
+    <div class="step-title">Part (b): parallel axis theorem to the bottom axis k</div>
+    <div class="try-hint">Try it first, then reveal ↓</div>
+  </div>
+  <details>
+    <summary><span class="step-label">Step 3</span> $I_k = I_x + A\,\bar{y}^2$ with $\bar{y} = d/2$</summary>
+    <div class="step-body">
+      <p>The 250 PFC is symmetric about x–x, so its centroid is at mid-depth: $\bar{y} = 250/2 = 125$ mm above the bottom axis $k$. From the table, $I_x = 45.1 \times 10^6$ mm⁴ and $A_g = 4\,520$ mm². The parallel axis theorem transfers from the centroidal axis outward:</p>
+      <div class="math-block">$$I_k = I_x + A\,\bar{y}^2$$
+$$= 45.1 \times 10^6 + 4\,520\,(125)^2 = 45.1 \times 10^6 + 70.625 \times 10^6$$</div>
+      <div class="callout answer">
+        <p>$$I_k = 115.725 \times 10^6\ \text{mm}^4$$</p>
+      </div>
+      <div class="callout note">
+        <p><strong>Physical check:</strong> the transfer term ($70.6 \times 10^6$) exceeds the centroidal value ($45.1 \times 10^6$) — moving the reference axis 125 mm away from the centroid more than doubles $I$. $I$ is always a <em>minimum</em> about the centroidal axis, so $I_k > I_x$ necessarily. ✓</p>
+      </div>
+    </div>
+  </details>
+</div>
+
+<!-- STEP 4: SUMMARY TABLE -->
+<div class="step">
+  <div class="step-heading">
+    <div class="step-num">4</div>
+    <div class="step-title">Summary Table</div>
+  </div>
+  <details>
+    <summary><span class="step-label">Step 4</span> Both parts at a glance</summary>
+    <div class="step-body">
+<table>
+  <thead>
+    <tr>
+      <th>Quantity</th>
+      <th>Expression</th>
+      <th>Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="left">Allowable stress</td>
+      <td>$\sigma_y / SF = 300/1.5$</td>
+      <td>200 MPa</td>
+    </tr>
+    <tr>
+      <td class="left">Required modulus</td>
+      <td>$Z_{\text{req}} = M/\sigma_{\text{allow}}$</td>
+      <td>250 × 10³ mm³</td>
+    </tr>
+    <tr>
+      <td class="left">Selected channel</td>
+      <td>smallest $Z_x \ge Z_{\text{req}}$</td>
+      <td><strong>250 PFC</strong> ($Z_x$ = 361 × 10³ mm³)</td>
+    </tr>
+    <tr>
+      <td class="left">Transfer distance</td>
+      <td>$\bar{y} = d/2$</td>
+      <td>125 mm</td>
+    </tr>
+    <tr>
+      <td class="left">Second moment about k</td>
+      <td>$I_k = I_x + A\bar{y}^2$</td>
+      <td><strong>115.725 × 10⁶ mm⁴</strong></td>
+    </tr>
+  </tbody>
+</table>
+    </div>
+  </details>
+</div>
+
+<div class="callout warn">
+  <p><strong>Common mistake 1:</strong> Skipping the safety factor and requiring only $Z \ge 50 \times 10^6/300 = 166.7 \times 10^3$ mm³. The 230 PFC ($233 \times 10^3$) would then appear adequate — but at 50 kN·m it would run at 215 MPa, a safety factor of only 1.4 against yield.</p>
+  <p style="margin-top:8px"><strong>Common mistake 2:</strong> Reading the plastic modulus $S_x$ instead of the elastic $Z_x$. The 230 PFC's $S_x = 271 \times 10^3 \ge 250 \times 10^3$ would wrongly pass the check; elastic design with $\sigma = M/Z$ must use the $Z_x$ column.</p>
+  <p style="margin-top:8px"><strong>Common mistake 3:</strong> Using the full depth ($d = 250$ mm) instead of $d/2 = 125$ mm as the transfer distance in part (b). The distance in $A\bar{y}^2$ runs from the <em>centroid</em> to the new axis — that error would give $I_k = 327.6 \times 10^6$ mm⁴, nearly triple the correct value. Remember also that the theorem only transfers <em>from</em> the centroidal axis; never chain it between two non-centroidal axes.</p>
+</div>
+
+<div class="footer">MCEN2002 – Fundamentals of Mechanical Design &nbsp;|&nbsp; Tutorial 3.6 &nbsp;|&nbsp; Curtin University</div>
+</div>
+</body>
+</html>
