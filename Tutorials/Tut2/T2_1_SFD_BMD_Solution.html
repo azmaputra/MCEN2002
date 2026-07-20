@@ -244,7 +244,7 @@ $$R_A = 4 - 0.4 = 3.6\text{ kN} = 3600\text{ N}$$</div>
   <details>
     <summary><span class="step-label">Step 2</span> Track $V(x)$ segment by segment — jumps occur only at point forces</summary>
     <div class="step-body">
-      <p>Starting from A and moving right, $V(x)$ equals the sum of vertical forces encountered so far (reactions up, loads down). The concentrated moment does <strong>not</strong> change $V$.</p>
+      <p>Starting from A and moving right, $V(x)$ equals the sum of vertical forces encountered so far (reactions up, loads down). The concentrated moment does <strong>not</strong> change $V$. For each cut, apply $\sum F_y = 0$ to the left segment — with $V$ drawn downward on the cut face, solving gives $V(x)$ directly.</p>
 
       <h4>① From A to the load ($0 \le x < 1$):</h4>
 
@@ -289,7 +289,7 @@ $$R_A = 4 - 0.4 = 3.6\text{ kN} = 3600\text{ N}$$</div>
       </figure>
       </div>
 
-      <div class="math-block">$$V(x) = R_A = 3.6\text{ kN}$$</div>
+      <div class="math-block">$$\sum F_y = 0: \quad R_A - V = 0 \quad\Rightarrow\quad V(x) = R_A = 3.6\text{ kN}$$</div>
 
       <h4>② From the load to B ($1 < x \le 3$):</h4>
 
@@ -343,7 +343,7 @@ $$R_A = 4 - 0.4 = 3.6\text{ kN} = 3600\text{ N}$$</div>
       </figure>
       </div>
 
-      <div class="math-block">$$V(x) = R_A - 4 = 3.6 - 4 = -0.4\text{ kN} = -400\text{ N}$$</div>
+      <div class="math-block">$$\sum F_y = 0: \quad R_A - 4 - V = 0 \quad\Rightarrow\quad V(x) = 3.6 - 4 = -0.4\text{ kN} = -400\text{ N}$$</div>
 
       <p>This value stays constant across the applied-moment location at $x = 2$&nbsp;m — moments create no shear jump. At $x = 3$&nbsp;m, $R_B = 0.4$&nbsp;kN restores $V$ to zero, closing the diagram.</p>
 
@@ -513,11 +513,7 @@ $$M(2^-) = -0.4(2) + 4 = 3.2\text{ kN}\cdot\text{m}$$</div>
         <div class="math-block">$$M(1.5) = -0.4(1.5) + 4 = 3.4\text{ kN}\cdot\text{m} = 3400\text{ N}\cdot\text{m}$$</div>
       </div>
 
-      <h4>③ The concentrated moment jump at $x = 2$&nbsp;m:</h4>
-      <p>A concentrated applied moment causes $M(x)$ to jump by its magnitude at that point (opposite in sense to the applied moment's rotation), while $V(x)$ is unaffected:</p>
-      <div class="math-block">$$M(2^+) = M(2^-) - 2.8 = 3.2 - 2.8 = 0.4\text{ kN}\cdot\text{m}$$</div>
-
-      <h4>④ From the applied moment to B ($2 \le x \le 3$):</h4>
+      <h4>③ From the applied moment to B ($2 \le x \le 3$):</h4>
 
       <div class="diagram-wrap">
       <figure>
@@ -578,6 +574,12 @@ $$M(2^-) = -0.4(2) + 4 = 3.2\text{ kN}\cdot\text{m}$$</div>
 
       <div class="math-block">$$\sum M_A = 0: \quad M - Vx - 4(1) + 2.8 = 0 \quad\Rightarrow\quad M(x) = Vx + 1.2 = -0.4x + 1.2$$
 $$M(3) = -0.4(3) + 1.2 = 0 \quad \checkmark \text{ (zero at the roller, as required)}$$</div>
+
+      <h4>④ The concentrated moment jump at $x = 2$&nbsp;m:</h4>
+      <p>Now compare the two segment equations at $x = 2$&nbsp;m. A concentrated applied moment makes $M(x)$ jump by its magnitude at that point (opposite in sense to the applied moment's rotation), while $V(x)$ is unaffected:</p>
+      <div class="math-block">$$M(2^-) = -0.4(2) + 4 = 3.2\text{ kN}\cdot\text{m}$$
+$$M(2^+) = -0.4(2) + 1.2 = 0.4\text{ kN}\cdot\text{m}$$
+$$M(2^+) - M(2^-) = -2.8\text{ kN}\cdot\text{m} \quad \text{(a drop equal to the applied moment)}$$</div>
 
       <div class="diagram-wrap">
       <figure>

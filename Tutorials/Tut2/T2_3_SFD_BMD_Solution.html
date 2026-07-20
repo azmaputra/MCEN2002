@@ -268,7 +268,7 @@ h4{color:#1a3c6e;font-size:14.5px;margin:18px 0 6px}
       </figure>
       </div>
 
-      <div class="math-block">$$V(x) = R_A - \frac{P}{l}\,x = \frac{7P}{6} - \frac{P}{l}\,x$$
+      <div class="math-block">$$\sum F_y = 0: \quad R_A - \frac{P}{l}x - V = 0 \quad\Rightarrow\quad V(x) = \frac{7P}{6} - \frac{P}{l}\,x$$
       $$V(0) = \frac{7P}{6}, \qquad V(l) = \frac{7P}{6} - P = \frac{P}{6}$$</div>
 
       <h4>② From $x = l$ to $x = 2l$ (no load):</h4>
@@ -330,7 +330,7 @@ h4{color:#1a3c6e;font-size:14.5px;margin:18px 0 6px}
       </figure>
       </div>
 
-      <div class="math-block">$$V = \frac{P}{6} \quad \text{(constant)}$$</div>
+      <div class="math-block">$$\sum F_y = 0: \quad R_A - P - V = 0 \quad\Rightarrow\quad V = \frac{7P}{6} - P = \frac{P}{6} \quad \text{(constant)}$$</div>
 
       <h4>③ Jump at $x = 2l$ (point load $P$ downward):</h4>
       <div class="math-block">$$V(2l^+) = \frac{P}{6} - P = -\frac{5P}{6}$$</div>
@@ -401,7 +401,7 @@ h4{color:#1a3c6e;font-size:14.5px;margin:18px 0 6px}
       </figure>
       </div>
 
-      <div class="math-block">$$V = -\frac{5P}{6} \quad \text{(constant)}$$</div>
+      <div class="math-block">$$\sum F_y = 0: \quad R_A - P - P - V = 0 \quad\Rightarrow\quad V = \frac{7P}{6} - 2P = -\frac{5P}{6} \quad \text{(constant)}$$</div>
       <p>At $B$, $R_B = 5P/6$ restores $V$ to zero. ✓</p>
 
       <div class="diagram-wrap">
@@ -709,7 +709,7 @@ h4{color:#1a3c6e;font-size:14.5px;margin:18px 0 6px}
         <!-- orange marker at M_max: x=2l (x_px=240), y=110 -->
         <circle cx="240" cy="110" r="3.5" fill="#f97316"/>
         <line x1="240" y1="110" x2="240" y2="235" stroke="#f97316" stroke-width="1" stroke-dasharray="3,3"/>
-        <text x="240" y="240" text-anchor="middle" fill="#f97316" font-weight="bold" font-size="11">M&#x2098;&#x2090;&#x2093; = 5Pl/6</text>
+        <text x="240" y="240" text-anchor="middle" fill="#f97316" font-weight="bold" font-size="11">M<tspan font-size="8" baseline-shift="-2">max</tspan> = 5Pl/6</text>
       </svg>
       <figcaption>Bending moment diagram — parabolic in $[0,l]$, two linear segments from $l$ to $B$. Maximum $5Pl/6$ occurs at $x = 2l$, where the shear changes sign through the point load.</figcaption>
       </figure>

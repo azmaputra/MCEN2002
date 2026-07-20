@@ -58,7 +58,7 @@ h4{color:#1a3c6e;font-size:14.5px;margin:18px 0 6px}
 <p>Draw the shear force and bending moment diagrams for the beam. Find the <strong>magnitude and position of the maximum bending moment</strong> and the <strong>local maximum moment underneath the distributed load</strong>.</p>
 
 <div class="callout given">
-  <p><strong>Given answers:</strong> &nbsp; $M_{\max} = 2800\ \text{N·m}$ at $x = 7\ \text{m}$; &nbsp; $M_{\text{dist. load}} = 2625\ \text{N·m}$ at $x = 3.25\ \text{m}$</p>
+  <p><strong>Given answers:</strong> &nbsp; $M_{\max} = 2800\ \text{N}\cdot\text{m}$ at $x = 7\ \text{m}$; &nbsp; $M_{\text{dist. load}} = 2625\ \text{N}\cdot\text{m}$ at $x = 3.25\ \text{m}$</p>
 </div>
 
 <div class="diagram-wrap">
@@ -141,7 +141,7 @@ h4{color:#1a3c6e;font-size:14.5px;margin:18px 0 6px}
 </div>
 
 <div class="callout info">
-  <p><strong>Key feature:</strong> A concentrated moment causes a <em>jump</em> in the bending moment diagram but does <strong>not</strong> affect the shear force. The shear diagram is therefore continuous at $x = 7\ \text{m}$, but the BMD has a sudden step of $\pm 4.2\ \text{kN·m}$ there.</p>
+  <p><strong>Key feature:</strong> A concentrated moment causes a <em>jump</em> in the bending moment diagram but does <strong>not</strong> affect the shear force. The shear diagram is therefore continuous at $x = 7\ \text{m}$, but the BMD has a sudden step of $\pm 4.2\ \text{kN}\cdot\text{m}$ there.</p>
 </div>
 
 <h3>Solution</h3>
@@ -256,7 +256,7 @@ h4{color:#1a3c6e;font-size:14.5px;margin:18px 0 6px}
       </figure>
       </div>
 
-      <div class="math-block">$$V = +1000\ \text{N} \quad \text{(constant)}$$</div>
+      <div class="math-block">$$\sum F_y = 0: \quad R_A - V = 0 \quad\Rightarrow\quad V = +1000\ \text{N} \quad \text{(constant)}$$</div>
 
       <h4>② Through the UDL zone ($2\ \text{m} \le x \le 5\ \text{m}$):</h4>
 
@@ -308,7 +308,7 @@ h4{color:#1a3c6e;font-size:14.5px;margin:18px 0 6px}
       </figure>
       </div>
 
-      <div class="math-block">$$V(x) = 1000 - 800(x - 2)$$
+      <div class="math-block">$$\sum F_y = 0: \quad R_A - 800(x-2) - V = 0 \quad\Rightarrow\quad V(x) = 1000 - 800(x - 2)$$
       $$V(2) = +1000\ \text{N}, \qquad V(5) = 1000 - 2400 = -1400\ \text{N}$$</div>
       <p>Setting $V = 0$ to find the local moment maximum under the distributed load:</p>
       <div class="math-block">$$1000 - 800(x-2) = 0 \implies x = 2 + 1.25 = \mathbf{3.25\ \text{m}} \quad \checkmark$$</div>
@@ -367,7 +367,7 @@ h4{color:#1a3c6e;font-size:14.5px;margin:18px 0 6px}
       </figure>
       </div>
 
-      <div class="math-block">$$V = 1000 - 2400 = -1400\ \text{N} \quad \text{(constant — moment at $x=7$ m causes no shear jump)}$$</div>
+      <div class="math-block">$$\sum F_y = 0: \quad R_A - 2400 - V = 0 \quad\Rightarrow\quad V = -1400\ \text{N} \quad \text{(constant — moment at $x=7$ m causes no shear jump)}$$</div>
       <p>At $B$: $-1400 + 1400 = 0$ ✓</p>
 
       <div class="diagram-wrap">
@@ -435,7 +435,7 @@ h4{color:#1a3c6e;font-size:14.5px;margin:18px 0 6px}
     <div class="try-hint">Try it first, then reveal ↓</div>
   </div>
   <details>
-    <summary><span class="step-label">Step 3</span> Integrate $V(x)$ piecewise; the BMD jumps by $+4200\ \text{N·m}$ at the clockwise applied moment</summary>
+    <summary><span class="step-label">Step 3</span> Integrate $V(x)$ piecewise; the BMD jumps by $+4200\ \text{N}\cdot\text{m}$ at the clockwise applied moment</summary>
     <div class="step-body">
 
       <p>For each cut, apply $\sum M_A = 0$ (moments about $A$, CCW positive) to the left segment, reusing $V(x)$ from Step 2 — $R_A$ passes through $A$ and drops out.</p>
@@ -473,7 +473,7 @@ h4{color:#1a3c6e;font-size:14.5px;margin:18px 0 6px}
       </figure>
       </div>
 
-      <div class="math-block">$$\sum M_A = 0: \quad M - Vx = 0 \quad\Rightarrow\quad M(x) = Vx = 1000x \implies M(2) = 2000\ \text{N·m}$$</div>
+      <div class="math-block">$$\sum M_A = 0: \quad M - Vx = 0 \quad\Rightarrow\quad M(x) = Vx = 1000x \implies M(2) = 2000\ \text{N}\cdot\text{m}$$</div>
 
       <h4>② Through the UDL zone ($2 \le x \le 5\ \text{m}$, parabolic):</h4>
 
@@ -526,8 +526,8 @@ h4{color:#1a3c6e;font-size:14.5px;margin:18px 0 6px}
       </div>
 
       <div class="math-block">$$\sum M_A = 0: \quad M - Vx - 800(x-2)\cdot\frac{x+2}{2} = 0 \quad\Rightarrow\quad M(x) = 1000x - 400(x-2)^2$$
-      $$M(3.25) = 1000(3.25) - 400(1.25)^2 = 3250 - 625 = \mathbf{2625\ \text{N·m}} \quad\checkmark$$
-      $$M(5) = 5000 - 400(9) = 1400\ \text{N·m}$$</div>
+      $$M(3.25) = 1000(3.25) - 400(1.25)^2 = 3250 - 625 = \mathbf{2625\ \text{N}\cdot\text{m}} \quad\checkmark$$
+      $$M(5) = 5000 - 400(9) = 1400\ \text{N}\cdot\text{m}$$</div>
 
       <h4>③ From UDL end to the applied moment ($5 \le x \le 7\ \text{m}$):</h4>
 
@@ -584,13 +584,9 @@ h4{color:#1a3c6e;font-size:14.5px;margin:18px 0 6px}
       </div>
 
       <div class="math-block">$$\sum M_A = 0: \quad M - Vx - 2400(3.5) = 0 \quad\Rightarrow\quad M(x) = Vx + 8400 = 1400 - 1400(x-5)$$
-      $$M(6) = 0,\qquad M(7^-) = 1400 - 2800 = -1400\ \text{N·m}$$</div>
+      $$M(6) = 0,\qquad M(7^-) = 1400 - 2800 = -1400\ \text{N}\cdot\text{m}$$</div>
 
-      <h4>④ Jump at $x = 7\ \text{m}$ due to clockwise moment:</h4>
-      <p>A clockwise applied moment causes a <em>positive</em> (upward) jump in the bending moment diagram:</p>
-      <div class="math-block">$$M(7^+) = M(7^-) + 4200 = -1400 + 4200 = \mathbf{+2800\ \text{N·m}}$$</div>
-
-      <h4>⑤ From applied moment to $B$ ($7 \le x \le 9\ \text{m}$):</h4>
+      <h4>④ From applied moment to $B$ ($7 \le x \le 9\ \text{m}$):</h4>
 
       <div class="diagram-wrap">
       <figure>
@@ -653,6 +649,12 @@ h4{color:#1a3c6e;font-size:14.5px;margin:18px 0 6px}
 
       <div class="math-block">$$\sum M_A = 0: \quad M - Vx - 2400(3.5) - 4200 = 0$$
       $$\Rightarrow\quad M(x) = Vx + 12600 = 2800 - 1400(x-7) \implies M(9) = 2800 - 2800 = 0 \quad\checkmark$$</div>
+
+      <h4>⑤ The concentrated moment jump at $x = 7\ \text{m}$:</h4>
+      <p>Now compare the two segment equations at $x = 7$ m. A clockwise applied moment causes a <em>positive</em> (upward) jump in the bending moment diagram, while $V(x)$ is unaffected:</p>
+      <div class="math-block">$$M(7^-) = 1400 - 1400(2) = -1400\ \text{N}\cdot\text{m}$$
+      $$M(7^+) = \mathbf{+2800\ \text{N}\cdot\text{m}}$$
+      $$M(7^+) - M(7^-) = +4200\ \text{N}\cdot\text{m} \quad \text{(a rise equal to the applied moment)}$$</div>
 
       <div class="diagram-wrap">
       <figure>
@@ -726,18 +728,18 @@ h4{color:#1a3c6e;font-size:14.5px;margin:18px 0 6px}
         <!-- orange marker: M_dist at (163,91) -->
         <circle cx="163" cy="91" r="3.5" fill="#f97316"/>
         <line x1="163" y1="91" x2="163" y2="235" stroke="#f97316" stroke-width="1" stroke-dasharray="3,3"/>
-        <text x="163" y="242" text-anchor="middle" fill="#f97316" font-weight="bold" font-size="10">M&#x1D5F1;&#x1D5FF;&#x1D5FC;&#x1D5F8;=2625</text>
+        <text x="163" y="242" text-anchor="middle" fill="#f97316" font-weight="bold" font-size="10">local max = 2625 N·m</text>
 
         <!-- orange marker: M_max at (304,86) -->
         <circle cx="304" cy="86" r="3.5" fill="#f97316"/>
-        <text x="312" y="83" fill="#f97316" font-weight="bold" font-size="10">M&#x2098;&#x2090;&#x2093;=2800 N·m</text>
+        <text x="312" y="83" fill="#f97316" font-weight="bold" font-size="10">M<tspan font-size="8" baseline-shift="-2">max</tspan>=2800 N·m</text>
       </svg>
       <figcaption>Bending moment diagram — rises to a local peak of 2625 N·m under the UDL at $x=3.25$ m, falls negative to $-1400$ N·m at $x=7^-$ m, then jumps $+4200$ N·m to 2800 N·m at $x=7^+$ m (the global maximum), and decreases linearly to zero at $B$.</figcaption>
       </figure>
       </div>
 
       <div class="callout answer">
-        <p>$M_{\max} = 2800\ \text{N·m}$ at $x = 7\ \text{m}$ &nbsp;&nbsp;|&nbsp;&nbsp; $M_{\text{dist. load}} = 2625\ \text{N·m}$ at $x = 3.25\ \text{m}$</p>
+        <p>$M_{\max} = 2800\ \text{N}\cdot\text{m}$ at $x = 7\ \text{m}$ &nbsp;&nbsp;|&nbsp;&nbsp; $M_{\text{dist. load}} = 2625\ \text{N}\cdot\text{m}$ at $x = 3.25\ \text{m}$</p>
       </div>
     </div>
   </details>
@@ -931,7 +933,7 @@ h4{color:#1a3c6e;font-size:14.5px;margin:18px 0 6px}
       </div>
 
       <div class="callout answer">
-        <p>$M_{\max} = 2800\ \text{N·m}$ at $x = 7\ \text{m}$ &nbsp;·&nbsp; $M_{\text{dist. load}} = 2625\ \text{N·m}$ at $x = 3.25\ \text{m}$</p>
+        <p>$M_{\max} = 2800\ \text{N}\cdot\text{m}$ at $x = 7\ \text{m}$ &nbsp;·&nbsp; $M_{\text{dist. load}} = 2625\ \text{N}\cdot\text{m}$ at $x = 3.25\ \text{m}$</p>
       </div>
     </div>
   </details>
