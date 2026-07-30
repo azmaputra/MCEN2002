@@ -141,25 +141,36 @@ function fracStr(v, symbol, tex){
 }
 
 /* ─────────────────── unit-aware label factory ─────────────────── */
+/* Turn a display unit such as "kN·m" into safe LaTeX: \text{kN}\cdot\text{m}.
+   A literal "·" inside \text{} is not valid KaTeX text mode and renders as an
+   error glyph, which is what produced the stray "\cdotp m" on the page. */
+function texUnit(u){
+  if(!u) return '';
+  return u.split('·').map(function(part){ return '\\text{'+part+'}'; }).join('\\cdot ');
+}
 function makeFmt(cfg){
   const U = cfg.units || {F:'kN', M:'kN·m', L:'m'};
   const sym = !!cfg.symbolic;
+  /* In symbolic mode the "units" ARE the algebraic symbols: for T2.3 they are
+     P, PL and L. Nothing is hardcoded, so renaming the length symbol (l -> L,
+     say) is a one-line change in build.py. */
   return {
     /* force */
-    F : (v,tex) => sym ? fracStr(v,'P',tex)   : nf(v),
-    Fu: (v,tex) => sym ? fracStr(v,'P',tex)   : nf(v)+' '+U.F,
+    F : (v,tex) => sym ? fracStr(v,U.F,tex)   : nf(v),
+    Fu: (v,tex) => sym ? fracStr(v,U.F,tex)   : nf(v)+' '+U.F,
     /* moment */
-    M : (v,tex) => sym ? fracStr(v,'Pl',tex)  : nf(v),
-    Mu: (v,tex) => sym ? fracStr(v,'Pl',tex)  : nf(v)+' '+U.M,
+    M : (v,tex) => sym ? fracStr(v,U.M,tex)   : nf(v),
+    Mu: (v,tex) => sym ? fracStr(v,U.M,tex)   : nf(v)+' '+U.M,
     /* length / position */
-    L : (v,tex) => sym ? fracStr(v,'l',tex)   : nf(v),
-    Lu: (v,tex) => sym ? fracStr(v,'l',tex)   : nf(v)+' '+U.L,
+    L : (v,tex) => sym ? fracStr(v,U.L,tex)   : nf(v),
+    Lu: (v,tex) => sym ? fracStr(v,U.L,tex)   : nf(v)+' '+U.L,
     /* distributed intensity */
-    W : (v,tex) => sym ? (fracStr(v,'P',tex)+(tex?'/l':'/l')) : nf(v),
-    Wu: (v,tex) => sym ? (fracStr(v,'P',tex)+'/l')            : nf(v)+' '+U.F+'/'+U.L,
+    W : (v,tex) => sym ? (fracStr(v,U.F,tex)+'/'+U.L) : nf(v),
+    Wu: (v,tex) => sym ? (fracStr(v,U.F,tex)+'/'+U.L) : nf(v)+' '+U.F+'/'+U.L,
     unitF: U.F, unitM: U.M, unitL: U.L, sym: sym,
+    texF: texUnit(U.F), texM: texUnit(U.M), texL: texUnit(U.L),
     /* signed, for axis labels */
-    pmF: v => (v<0?'−':'+') + (sym ? fracStr(Math.abs(v),'P',false) : nf(Math.abs(v)))
+    pmF: v => (v<0?'−':'+') + (sym ? fracStr(Math.abs(v),U.F,false) : nf(Math.abs(v)))
   };
 }
 
@@ -448,6 +459,10 @@ function figCut(S,fmt,g){
   s += '<text x="'+n1(X(0)-14)+'" y="'+(yT+10)+'" font-size="13" fill="'+NAVY+'" text-anchor="end" font-weight="bold">'+(Math.abs(p.sA)<1e-9?'A':'')+'</text>';
   s += cutFace(Xc,yT,yB);
 
+  /* Dimension ONLY the fixed features behind the cut. The cut itself is at an
+     arbitrary x, so labelling the gap between the last feature and the cut with
+     a number would wrongly imply a specific cut location — the running distance
+     is carried by the "x" arrow underneath instead. */
   const marks=[0];
   if(g.pastA) marks.push(p.sA);
   if(g.pastB) marks.push(p.sB);
@@ -455,9 +470,8 @@ function figCut(S,fmt,g){
   if(g.udl==='full') marks.push(p.b);
   if(g.hasP)  marks.push(p.c);
   if(g.hasM0) marks.push(p.d);
-  marks.push(xc);
   const uniq=[...new Set(marks.map(v=>Math.round(v*1e9)/1e9))].sort((u,v)=>u-v);
-  s += dimChain(X,uniq,216,11,fmt);
+  if(uniq.length > 1) s += dimChain(X,uniq,216,11,fmt);
 
   s += '<line x1="'+n1(X(0))+'" y1="242" x2="'+n1(X(0))+'" y2="252" stroke="'+GREY+'" stroke-width="1"/>';
   s += '<line x1="'+n1(X(0))+'" y1="247" x2="'+n1(Xc-9)+'" y2="247" stroke="'+GREY+'" stroke-width="1"/>';
@@ -566,14 +580,18 @@ function figSFD(S,fmt){
   const p=S.p, x0=46, span=310, X=m=>x0+span*m/p.L;
   const sc = 142/((S.vMax-S.vMin)||1);
   const zeroY = 46 + S.vMax*sc, Y = v => zeroY - v*sc, bot = Y(S.vMin);
-  let s = '<svg viewBox="0 0 400 250" width="720" xmlns="http://www.w3.org/2000/svg" font-family="Arial,sans-serif" font-size="12">';
+  /* viewBox is 445 wide, not 400: the "x (unit)" axis title is anchored at
+     X(L)+26 and is ~36px wide, so a 400-wide canvas clipped it. Widening the
+     canvas is the actual fix — reducing the width attribute alone would scale
+     the clip region too and change nothing. */
+  let s = '<svg viewBox="0 0 445 250" width="600" xmlns="http://www.w3.org/2000/svg" font-family="Arial,sans-serif" font-size="12">';
   s += '<line x1="'+x0+'" y1="'+n1(zeroY)+'" x2="'+n1(X(p.L)+20)+'" y2="'+n1(zeroY)+'" stroke="#888" stroke-width="1"/>';
   s += '<line x1="'+x0+'" y1="24" x2="'+x0+'" y2="'+n1(bot+16)+'" stroke="#888" stroke-width="1"/>';
   for(const m of S.bps){ if(Math.abs(m)<1e-9) continue;
     s += '<line x1="'+n1(X(m))+'" y1="'+n1(zeroY-5)+'" x2="'+n1(X(m))+'" y2="'+n1(zeroY+5)+'" stroke="#888" stroke-width="1"/>'
        + '<text x="'+n1(X(m))+'" y="'+n1(bot+34)+'" text-anchor="middle" fill="'+GREY+'">'+fmt.L(m,false)+'</text>'; }
-  s += '<text x="'+n1(X(p.L)+26)+'" y="'+n1(bot+34)+'" fill="'+GREY+'">x ('+(fmt.sym?'l':fmt.unitL)+')</text>';
-  s += '<text x="8" y="28" fill="'+GREY+'">V ('+(fmt.sym?'P':fmt.unitF)+')</text>';
+  s += '<text x="'+n1(X(p.L)+26)+'" y="'+n1(bot+34)+'" fill="'+GREY+'">x ('+fmt.unitL+')</text>';
+  s += '<text x="8" y="28" fill="'+GREY+'">V ('+fmt.unitF+')</text>';
   for(const g of S.segs) s += vSegDraw(g,X,Y);
   for(const j of vJumps(S))
     s += '<line x1="'+n1(X(j[0]))+'" y1="'+n1(Y(j[1]))+'" x2="'+n1(X(j[0]))+'" y2="'+n1(Y(j[2]))+'" stroke="'+NAVY+'" stroke-width="1.5" stroke-dasharray="4,3"/>';
@@ -600,14 +618,14 @@ function figBMD(S,fmt){
   const p=S.p, x0=46, span=310, X=m=>x0+span*m/p.L;
   const sc = 150/((S.Mmax-S.Mmin)||1);
   const zeroY = 44 + S.Mmax*sc, Y = m => zeroY - m*sc, bot = Y(S.Mmin);
-  let s = '<svg viewBox="0 0 400 258" width="720" xmlns="http://www.w3.org/2000/svg" font-family="Arial,sans-serif" font-size="12">';
+  let s = '<svg viewBox="0 0 445 258" width="600" xmlns="http://www.w3.org/2000/svg" font-family="Arial,sans-serif" font-size="12">';
   s += '<line x1="'+x0+'" y1="'+n1(zeroY)+'" x2="'+n1(X(p.L)+20)+'" y2="'+n1(zeroY)+'" stroke="#888" stroke-width="1"/>';
   s += '<line x1="'+x0+'" y1="24" x2="'+x0+'" y2="'+n1(bot+16)+'" stroke="#888" stroke-width="1"/>';
   for(const m of S.bps){ if(Math.abs(m)<1e-9) continue;
     s += '<line x1="'+n1(X(m))+'" y1="'+n1(zeroY-5)+'" x2="'+n1(X(m))+'" y2="'+n1(zeroY+5)+'" stroke="#888" stroke-width="1"/>'
        + '<text x="'+n1(X(m))+'" y="'+n1(bot+34)+'" text-anchor="middle" fill="'+GREY+'">'+fmt.L(m,false)+'</text>'; }
-  s += '<text x="'+n1(X(p.L)+26)+'" y="'+n1(bot+34)+'" fill="'+GREY+'">x ('+(fmt.sym?'l':fmt.unitL)+')</text>';
-  s += '<text x="8" y="28" fill="'+GREY+'">M ('+(fmt.sym?'Pl':fmt.unitM)+')</text>';
+  s += '<text x="'+n1(X(p.L)+26)+'" y="'+n1(bot+34)+'" fill="'+GREY+'">x ('+fmt.unitL+')</text>';
+  s += '<text x="8" y="28" fill="'+GREY+'">M ('+fmt.unitM+')</text>';
   for(const g of S.segs) s += mSegDraw(g,X,Y);
   for(const j of mJumps(S))
     s += '<line x1="'+n1(X(j[0]))+'" y1="'+n1(Y(j[1]))+'" x2="'+n1(X(j[0]))+'" y2="'+n1(Y(j[2]))+'" stroke="'+NAVY+'" stroke-width="1.5" stroke-dasharray="4,3"/>';
@@ -650,7 +668,7 @@ function figSummary(S,fmt){
   const vsc = 108/((S.vMax-S.vMin)||1);
   const vZero = 350 + S.vMax*vsc, VY=v=>vZero-v*vsc, vBot=VY(S.vMin);
   s += '<text x="14" y="'+n1((VY(S.vMax)+VY(S.vMin))/2+5)+'" font-size="14" fill="'+NAVY+'" font-weight="bold">SFD</text>';
-  s += '<text x="'+x0+'" y="330" font-size="12" fill="'+GREY+'">V ('+(fmt.sym?'P':fmt.unitF)+')</text>';
+  s += '<text x="'+x0+'" y="330" font-size="12" fill="'+GREY+'">V ('+fmt.unitF+')</text>';
   s += '<line x1="'+x0+'" y1="'+n1(vZero)+'" x2="'+n1(X(p.L)+24)+'" y2="'+n1(vZero)+'" stroke="#888" stroke-width="1"/>';
   s += '<line x1="'+x0+'" y1="336" x2="'+x0+'" y2="'+n1(vBot+16)+'" stroke="#888" stroke-width="1"/>';
   for(const m of S.bps){ if(Math.abs(m)<1e-9) continue;
@@ -673,13 +691,13 @@ function figSummary(S,fmt){
   const msc = 116/((S.Mmax-S.Mmin)||1);
   const mZero = 620 + S.Mmax*msc, MY=m=>mZero-m*msc, mBot=MY(S.Mmin);
   s += '<text x="14" y="'+n1((MY(S.Mmax)+MY(S.Mmin))/2+5)+'" font-size="14" fill="'+NAVY+'" font-weight="bold">BMD</text>';
-  s += '<text x="'+x0+'" y="'+n1(MY(S.Mmax)-14)+'" font-size="12" fill="'+GREY+'">M ('+(fmt.sym?'Pl':fmt.unitM)+')</text>';
+  s += '<text x="'+x0+'" y="'+n1(MY(S.Mmax)-14)+'" font-size="12" fill="'+GREY+'">M ('+fmt.unitM+')</text>';
   s += '<line x1="'+x0+'" y1="'+n1(mZero)+'" x2="'+n1(X(p.L)+24)+'" y2="'+n1(mZero)+'" stroke="#888" stroke-width="1"/>';
   s += '<line x1="'+x0+'" y1="'+n1(MY(S.Mmax)-8)+'" x2="'+x0+'" y2="'+n1(mBot+16)+'" stroke="#888" stroke-width="1"/>';
   for(const m of S.bps){ if(Math.abs(m)<1e-9) continue;
     s += '<line x1="'+n1(X(m))+'" y1="'+n1(mZero-4)+'" x2="'+n1(X(m))+'" y2="'+n1(mZero+4)+'" stroke="#888" stroke-width="1"/>'
        + '<text x="'+n1(X(m))+'" y="'+n1(mBot+34)+'" font-size="12" fill="'+GREY+'" text-anchor="middle">'+fmt.L(m,false)+'</text>'; }
-  s += '<text x="'+n1(X(p.L)+16)+'" y="'+n1(mBot+34)+'" font-size="12" fill="'+GREY+'">x ('+(fmt.sym?'l':fmt.unitL)+')</text>';
+  s += '<text x="'+n1(X(p.L)+16)+'" y="'+n1(mBot+34)+'" font-size="12" fill="'+GREY+'">x ('+fmt.unitL+')</text>';
   for(const g of S.segs) s += mSegDraw(g,X,MY);
   for(const j of mJumps(S))
     s += '<line x1="'+n1(X(j[0]))+'" y1="'+n1(MY(j[1]))+'" x2="'+n1(X(j[0]))+'" y2="'+n1(MY(j[2]))+'" stroke="'+NAVY+'" stroke-width="1.5" stroke-dasharray="4,3"/>';
@@ -763,8 +781,9 @@ function stepBlock(n,title,hint,body){
 
 function build(cfg, p){
   const S = solve(p), fmt = makeFmt(cfg);
-  const U = fmt.sym ? '' : '\\ \\text{'+fmt.unitF+'}';
-  const UM = fmt.sym ? '' : '\\ \\text{'+fmt.unitM+'}';
+  /* inline units, ALWAYS used inside $...$ (never appended after the closing $) */
+  const U  = fmt.sym ? '' : '\\ '+fmt.texF;
+  const UM = fmt.sym ? '' : '\\ '+fmt.texM;
   let h = '';
 
   /* problem statement */
@@ -787,13 +806,13 @@ function build(cfg, p){
     + '<figcaption>Free-body diagram of the whole beam — supports replaced by the unknown reactions, both assumed upward.</figcaption></figure></div>';
   if(S.hasUDL)
     b1 += '<p>The UDL of '+fmt.Wu(p.w,false)+' acts over '+fmt.Lu(p.b-p.a,false)+', so it is equivalent to a single downward force of '
-       +  '$'+fmt.W(p.w,true)+' \\times '+fmt.L(p.b-p.a,true)+' = '+fmt.F(S.W,true)+'$'+U+' at the centroid of that length, $x = '+fmt.L(S.xb,true)+'$.</p>';
+       +  '$'+fmt.W(p.w,true)+' \\times '+fmt.L(p.b-p.a,true)+' = '+fmt.F(S.W,true)+U+'$'+' at the centroid of that length, $x = '+fmt.L(S.xb,true)+'$.</p>';
   const mt=[];
   if(S.hasUDL) mt.push(fmt.F(S.W,true)+'('+fmt.L(S.xb-p.sA,true)+')');
   if(S.hasP)   mt.push(fmt.F(p.P,true)+'('+fmt.L(p.c-p.sA,true)+')');
   b1 += '<p>Take moments about $A$, counter-clockwise positive. Downward loads to the right of $A$ turn the beam clockwise, so they enter negatively; '
      +  '$R_B$ turns it counter-clockwise, so it enters positively'
-     +  (S.hasM ? '. The applied moment is a pure couple — it contributes $'+fmt.M(Math.abs(p.M0),true)+'$'+UM+' directly, with no lever arm, and being '
+     +  (S.hasM ? '. The applied moment is a pure couple — it contributes $'+fmt.M(Math.abs(p.M0),true)+UM+'$'+' directly, with no lever arm, and being '
         +(p.M0>0?'counter-clockwise it enters positively':'clockwise it enters negatively')+'.' : '.')+'</p>'
      +  '<div class="math-block">$$\\sum M_A = 0:\\quad R_B('+fmt.L(p.sB-p.sA,true)+')'
      +  mt.map(u=>' - '+u).join('')
@@ -802,12 +821,12 @@ function build(cfg, p){
      +  '$$R_B = '+fmt.F(S.RB,true)+U+(S.RB<0?'\\ (\\text{i.e. downward})':'\\ \\uparrow')+'$$</div>'
      +  '<div class="math-block">$$\\sum F_y = 0:\\quad R_A + R_B = '+fmt.F(S.W+(p.P||0),true)+U
      +  ' \\implies R_A = '+fmt.F(S.RA,true)+U+(S.RA<0?'\\ (\\text{i.e. downward})':'\\ \\uparrow')+'$$</div>'
-     +  '<div class="callout answer"><p>$R_A = '+fmt.F(S.RA,true)+'$'+U+' &nbsp;&nbsp;&nbsp; $R_B = '+fmt.F(S.RB,true)+'$'+U+'</p></div>';
+     +  '<div class="callout answer"><p>$R_A = '+fmt.F(S.RA,true)+U+'$'+' &nbsp;&nbsp;&nbsp; $R_B = '+fmt.F(S.RB,true)+U+'$'+'</p></div>';
   if(S.RA<0 || S.RB<0)
     b1 += '<div class="callout warn"><p><strong>A negative reaction is not a mistake.</strong> $R_'+(S.RA<0?'A':'B')+'$ comes out negative, '
        +  'which simply means the assumed upward direction was wrong — that support actually pulls <em>down</em> on the beam. '
        +  'Keep the negative sign through the rest of the working; do not flip it.</p></div>';
-  b1 += '<div class="callout note"><p><strong>Check:</strong> $'+fmt.F(S.RA,true)+' + '+fmt.F(S.RB,true)+' = '+fmt.F(S.RA+S.RB,true)+'$'+U
+  b1 += '<div class="callout note"><p><strong>Check:</strong> $'+fmt.F(S.RA,true)+' + '+fmt.F(S.RB,true)+' = '+fmt.F(S.RA+S.RB,true)+U+'$'
      +  ', matching the total downward load'+(S.hasM?' (the couple adds no net vertical force)':'')+' ✓</p></div>';
   h += stepBlock(1,'Find the support reactions','try it yourself first',b1);
 
@@ -837,7 +856,14 @@ function build(cfg, p){
   let b3 = '<p>For each cut apply $\\sum M_A = 0$ to the same left free body, reusing $V$ from Step 2. '
     + '$R_A$ acts through $A$, so its lever arm is zero and it drops out of every equation.</p>';
   for(const g of S.segs){
+    /* The cut free body is repeated here rather than cross-referenced, so a
+       student working through the moment equations does not have to scroll back
+       up to Step 2 to see which loads sit behind the cut. */
     b3 += '<h4>'+segTitle(S,fmt,g)+'</h4>'
+       +  '<div class="diagram-wrap"><figure>'+figCut(S,fmt,g)
+       +  '<figcaption>The same cut as Step 2 '+CIRCLED[g.i]+' — now taking moments about $A$ instead of '
+       +  'summing vertical forces. $R_A$ acts through $A$, so it has no lever arm here.</figcaption>'
+       +  '</figure></div>'
        +  '<div class="math-block">$$'+mEqn(S,fmt,g)+'$$</div>'
        +  '<p>Substituting $V = '+vExpr(S,fmt,g)+'$ from Step 2 '+CIRCLED[g.i]+':</p>'
        +  '<div class="math-block">$$'+mPoly(fmt,g)+'$$'
@@ -850,10 +876,10 @@ function build(cfg, p){
   }
   for(const j of mJumps(S))
     b3 += '<div class="callout note"><p><strong>The jump at $x = '+fmt.L(j[0],true)+'$:</strong> the bending moment steps from $'+fmt.M(j[1],true)+'$ to $'
-       +  fmt.M(j[2],true)+'$'+UM+' — a change of $'+fmt.M(j[2]-j[1],true)+'$, exactly the applied moment. '
+       +  fmt.M(j[2],true)+UM+'$'+' — a change of $'+fmt.M(j[2]-j[1],true)+'$, exactly the applied moment. '
        +  'This is the signature of a concentrated couple: it steps the BMD but leaves the SFD flat.</p></div>';
   if(S.Mmin < -1e-9)
-    b3 += '<div class="callout warn"><p><strong>Watch the sign:</strong> the moment goes negative, reaching $'+fmt.M(S.Mmin,true)+'$'+UM+' at $x = '+fmt.L(S.xMin,true)+'$. '
+    b3 += '<div class="callout warn"><p><strong>Watch the sign:</strong> the moment goes negative, reaching $'+fmt.M(S.Mmin,true)+UM+'$'+' at $x = '+fmt.L(S.xMin,true)+'$. '
        +  'A negative bending moment means the beam is <strong>hogging</strong> there — curving upward, tension in the top fibre — rather than sagging.</p></div>';
   b3 += '<div class="diagram-wrap"><figure>'+figBMD(S,fmt)
      +  '<figcaption>Bending moment diagram — linear where shear is constant, parabolic through any UDL, zero at a free end and at a simple support with nothing beyond it.</figcaption>'
@@ -869,10 +895,10 @@ function build(cfg, p){
 
   /* common mistakes */
   const mis = [];
-  if(S.hasUDL) mis.push('<strong>Taking the UDL lever arm from the wrong point</strong> — the $'+fmt.F(S.W,true)+'$'+U+' resultant acts at $x = '+fmt.L(S.xb,true)
+  if(S.hasUDL) mis.push('<strong>Taking the UDL lever arm from the wrong point</strong> — the $'+fmt.F(S.W,true)+U+'$'+' resultant acts at $x = '+fmt.L(S.xb,true)
     +'$, the centroid of the loaded length, not at either end of it.');
   if(S.hasUDL) mis.push('<strong>Using the whole UDL inside the loaded zone</strong> — behind a cut at $x$ within the loaded length, only $(x - '+fmt.L(p.a,true)
-    +')$ is loaded, giving $'+fmt.W(p.w,true)+'(x-'+fmt.L(p.a,true)+')$, not the full $'+fmt.F(S.W,true)+'$'+U+'.');
+    +')$ is loaded, giving $'+fmt.W(p.w,true)+'(x-'+fmt.L(p.a,true)+')$, not the full $'+fmt.F(S.W,true)+U+'$'+'.');
   if(S.hasM) mis.push('<strong>Putting the applied moment into $\\sum F_y$</strong> — a pure couple has no resultant force, so it never appears in a vertical '
     +'force balance and never creates a step in the shear diagram. Nor does it get a lever arm in $\\sum M_A$.');
   if(S.zeros.length) mis.push('<strong>Assuming the peak moment sits under the biggest load</strong> — it occurs where $V = 0$'
