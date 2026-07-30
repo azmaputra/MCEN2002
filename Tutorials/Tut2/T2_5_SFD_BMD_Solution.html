@@ -580,7 +580,11 @@ function figSFD(S,fmt){
   const p=S.p, x0=46, span=310, X=m=>x0+span*m/p.L;
   const sc = 142/((S.vMax-S.vMin)||1);
   const zeroY = 46 + S.vMax*sc, Y = v => zeroY - v*sc, bot = Y(S.vMin);
-  let s = '<svg viewBox="0 0 400 250" width="720" xmlns="http://www.w3.org/2000/svg" font-family="Arial,sans-serif" font-size="12">';
+  /* viewBox is 445 wide, not 400: the "x (unit)" axis title is anchored at
+     X(L)+26 and is ~36px wide, so a 400-wide canvas clipped it. Widening the
+     canvas is the actual fix — reducing the width attribute alone would scale
+     the clip region too and change nothing. */
+  let s = '<svg viewBox="0 0 445 250" width="600" xmlns="http://www.w3.org/2000/svg" font-family="Arial,sans-serif" font-size="12">';
   s += '<line x1="'+x0+'" y1="'+n1(zeroY)+'" x2="'+n1(X(p.L)+20)+'" y2="'+n1(zeroY)+'" stroke="#888" stroke-width="1"/>';
   s += '<line x1="'+x0+'" y1="24" x2="'+x0+'" y2="'+n1(bot+16)+'" stroke="#888" stroke-width="1"/>';
   for(const m of S.bps){ if(Math.abs(m)<1e-9) continue;
@@ -614,7 +618,7 @@ function figBMD(S,fmt){
   const p=S.p, x0=46, span=310, X=m=>x0+span*m/p.L;
   const sc = 150/((S.Mmax-S.Mmin)||1);
   const zeroY = 44 + S.Mmax*sc, Y = m => zeroY - m*sc, bot = Y(S.Mmin);
-  let s = '<svg viewBox="0 0 400 258" width="720" xmlns="http://www.w3.org/2000/svg" font-family="Arial,sans-serif" font-size="12">';
+  let s = '<svg viewBox="0 0 445 258" width="600" xmlns="http://www.w3.org/2000/svg" font-family="Arial,sans-serif" font-size="12">';
   s += '<line x1="'+x0+'" y1="'+n1(zeroY)+'" x2="'+n1(X(p.L)+20)+'" y2="'+n1(zeroY)+'" stroke="#888" stroke-width="1"/>';
   s += '<line x1="'+x0+'" y1="24" x2="'+x0+'" y2="'+n1(bot+16)+'" stroke="#888" stroke-width="1"/>';
   for(const m of S.bps){ if(Math.abs(m)<1e-9) continue;
