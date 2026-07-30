@@ -6,27 +6,24 @@
 <title>T2.5 – Shear Force and Bending Moment Diagrams</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css"/>
 <script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
-<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"
-  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]})"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
 <style>
 *,*::before,*::after{box-sizing:border-box}
 body{font-family:'Segoe UI',Arial,sans-serif;font-size:15px;line-height:1.75;color:#1a1a1a;background:#f5f6f8;margin:0;padding:24px 16px 56px}
-.page{max-width:860px;margin:0 auto;background:#fff;border-radius:10px;box-shadow:0 2px 14px rgba(0,0,0,.10);padding:40px 52px 52px}
-.uni-header{text-align:center;border-bottom:2px solid #1a3c6e;padding-bottom:16px;margin-bottom:32px}
+.page{max-width:880px;margin:0 auto;background:#fff;border-radius:10px;box-shadow:0 2px 14px rgba(0,0,0,.10);padding:40px 52px 52px}
+.uni-header{text-align:center;border-bottom:2px solid #1a3c6e;padding-bottom:16px;margin-bottom:24px}
 .uni-header p{margin:0;line-height:1.4;font-size:13.5px;color:#555}
 .uni-header h2{margin:8px 0 0;font-size:20px;color:#1a3c6e}
 h3{color:#1a3c6e;border-left:4px solid #1a3c6e;padding-left:10px;margin:28px 0 10px;font-size:15.5px}
-h4{color:#1a3c6e;font-size:14.5px;margin:18px 0 6px}
+h4{color:#1a3c6e;font-size:14.5px;margin:20px 0 6px}
 .step{margin-bottom:10px}
 .step details{border:1px solid #d1d9e8;border-radius:8px;overflow:hidden;margin-top:6px}
 .step details summary{list-style:none;cursor:pointer;padding:11px 15px;background:#f0f4fb;color:#1a3c6e;font-weight:500;font-size:14.5px;display:flex;align-items:center;gap:10px;user-select:none}
 .step details summary::-webkit-details-marker{display:none}
-.step details summary::after{content:'▼';font-size:11px;color:#f97316;transition:transform 0.2s;flex-shrink:0;margin-left:auto;padding-left:8px}
+.step details summary::after{content:'\25BC';font-size:11px;color:#f97316;transition:transform .2s;flex-shrink:0;margin-left:auto;padding-left:8px}
 .step details[open] summary::after{transform:rotate(180deg)}
-.step details summary .step-label{font-size:12px;font-weight:500;color:#f97316;margin-right:4px}
 .step details[open] summary{background:#e8eef9;border-bottom:1px solid #d1d9e8}
 .step-body{padding:16px 20px}
-.step-heading{display:flex;align-items:center;gap:10px;margin-bottom:6px}
 .step-num{background:#1a3c6e;color:#fff;font-size:12px;font-weight:700;border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .step-title{font-size:15px;font-weight:600;color:#1a3c6e}
 .try-hint{font-size:12.5px;color:#6b7280;font-style:italic;margin-left:auto}
@@ -38,10 +35,18 @@ h4{color:#1a3c6e;font-size:14.5px;margin:18px 0 6px}
 .note{background:#faf5ff;border-left:4px solid #a855f7;font-size:14px}
 .warn{background:#fffbeb;border-left:4px solid #f59e0b;font-size:14px}
 .math-block{background:#f8f9fb;border:1px solid #e2e6ef;border-radius:6px;padding:14px 20px;margin:12px 0;overflow-x:auto;text-align:center}
-.diagram-wrap{text-align:center;margin:24px 0 8px}
+.diagram-wrap{text-align:center;margin:22px 0 8px}
 .diagram-wrap figure{margin:0}
-.diagram-wrap figcaption{font-size:13px;color:#555;margin-top:2px;font-style:italic}
+.diagram-wrap svg{max-width:100%;height:auto}
+.diagram-wrap figcaption{font-size:13px;color:#555;margin-top:2px;font-style:italic;line-height:1.5}
 .footer{margin-top:40px;border-top:1px solid #e5e7eb;padding-top:12px;font-size:12px;color:#999;text-align:center}
+.switcher{background:#f0f4fb;border:1px solid #d1d9e8;border-radius:8px;padding:14px 18px;margin-bottom:26px}
+.switcher .sw-label{font-size:12.5px;font-weight:600;color:#1a3c6e;text-transform:uppercase;letter-spacing:.06em;margin-bottom:9px}
+.sw-btns{display:flex;flex-wrap:wrap;gap:8px}
+.sw-btns button{font-family:inherit;font-size:13.5px;font-weight:500;padding:8px 15px;border-radius:6px;border:1px solid #b9c6df;background:#fff;color:#1a3c6e;cursor:pointer;transition:.15s}
+.sw-btns button:hover{background:#e8eef9;border-color:#1a3c6e}
+.sw-btns button[aria-pressed="true"]{background:#1a3c6e;border-color:#1a3c6e;color:#fff;box-shadow:0 1px 4px rgba(26,60,110,.3)}
+.sw-desc{font-size:13px;color:#555;margin-top:10px;font-style:italic}
 </style>
 </head>
 <body>
@@ -54,899 +59,906 @@ h4{color:#1a3c6e;font-size:14.5px;margin:18px 0 6px}
   <h2>Tutorial 2.5 &nbsp;–&nbsp; Shear Force and Bending Moment Diagrams</h2>
 </div>
 
-<h3>Problem Statement</h3>
-<p>Draw the shear force and bending moment diagrams for the beam. Find the <strong>magnitude and position of the maximum bending moment</strong> and the <strong>local maximum moment underneath the distributed load</strong>.</p>
-
-<div class="callout given">
-  <p><strong>Given answers:</strong> &nbsp; $M_{\max} = 2800\ \text{N}\cdot\text{m}$ at $x = 7\ \text{m}$; &nbsp; $M_{\text{dist. load}} = 2625\ \text{N}\cdot\text{m}$ at $x = 3.25\ \text{m}$</p>
+<div class="switcher">
+  <div class="sw-label">Choose a problem</div>
+  <div class="sw-btns" id="swBtns"></div>
+  <div class="sw-desc" id="swDesc"></div>
 </div>
 
-<div class="diagram-wrap">
-<figure>
-<!--
-  Scale: 340/9 ≈ 37.78 px/m. A at x=40, B at x=380.
-  Key x_px: 0m→40, 2m→116, 5m→230, 7m→304, 9m→380
-  Beam: y=94–106. UDL x=116→230. Moment at x=304.
--->
-<svg viewBox="0 0 450 205" width="450" xmlns="http://www.w3.org/2000/svg" font-family="Arial,sans-serif" font-size="13">
+<div id="doc"></div>
 
-  <!-- Beam -->
-  <rect x="40" y="94" width="340" height="12" fill="#7eaecf" stroke="#1a3c6e" stroke-width="1.5"/>
-
-  <!-- UDL: 800 N/m from x=116 to x=230 -->
-  <line x1="116" y1="60" x2="230" y2="60" stroke="#c0392b" stroke-width="1.5"/>
-  <line x1="116" y1="60" x2="116" y2="93" stroke="#c0392b" stroke-width="1.2"/>
-  <line x1="135" y1="60" x2="135" y2="93" stroke="#c0392b" stroke-width="1.2"/>
-  <line x1="154" y1="60" x2="154" y2="93" stroke="#c0392b" stroke-width="1.2"/>
-  <line x1="173" y1="60" x2="173" y2="93" stroke="#c0392b" stroke-width="1.2"/>
-  <line x1="192" y1="60" x2="192" y2="93" stroke="#c0392b" stroke-width="1.2"/>
-  <line x1="211" y1="60" x2="211" y2="93" stroke="#c0392b" stroke-width="1.2"/>
-  <line x1="230" y1="60" x2="230" y2="93" stroke="#c0392b" stroke-width="1.2"/>
-  <polygon points="116,94 111,82 121,82" fill="#c0392b"/>
-  <polygon points="135,94 130,82 140,82" fill="#c0392b"/>
-  <polygon points="154,94 149,82 159,82" fill="#c0392b"/>
-  <polygon points="173,94 168,82 178,82" fill="#c0392b"/>
-  <polygon points="192,94 187,82 197,82" fill="#c0392b"/>
-  <polygon points="211,94 206,82 216,82" fill="#c0392b"/>
-  <polygon points="230,94 225,82 235,82" fill="#c0392b"/>
-  <text x="173" y="52" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="bold">800 N/m</text>
-
-  <!-- Applied clockwise moment at x=304 (7m) -->
-  <!-- CW arc: tail=40°, tip=320°, sweep=1, cx=304, cy=100, r=18 -->
-  <!-- tail: (304+11.6,100-13.8)=(315.6,86.2); tip: (304-11.6,100-13.8)=(292.4,86.2) -->
-  <path d="M 315.6,86.2 A 18,18 0 1,1 292.4,86.2" fill="none" stroke="#c0392b" stroke-width="2.2"/>
-  <!-- arrowhead: fwd=(cos320°,sin320°)=(0.766,-0.643); apex=(292.4+7.66,86.2-6.43)=(300.1,79.8) -->
-  <!-- perp=(0.643,0.766); c1=(296.3,90.8); c2=(288.5,81.6) -->
-  <polygon points="300.1,79.8 296.3,90.8 288.5,81.6" fill="#c0392b"/>
-  <text x="330" y="80" font-size="13" fill="#c0392b" font-weight="bold">4.2 kN·m</text>
-
-  <!-- Pin at A -->
-  <polygon points="40,106 28,128 52,128" fill="#dbe4f0" stroke="#1a3c6e" stroke-width="1.5"/>
-  <line x1="20" y1="128" x2="60" y2="128" stroke="#1a3c6e" stroke-width="1.5"/>
-  <line x1="24" y1="134" x2="30" y2="128" stroke="#1a3c6e" stroke-width="1"/>
-  <line x1="34" y1="134" x2="40" y2="128" stroke="#1a3c6e" stroke-width="1"/>
-  <line x1="44" y1="134" x2="50" y2="128" stroke="#1a3c6e" stroke-width="1"/>
-  <line x1="54" y1="134" x2="60" y2="128" stroke="#1a3c6e" stroke-width="1"/>
-  <text x="40" y="148" font-size="13" fill="#1a3c6e" text-anchor="middle" font-weight="bold">A</text>
-
-  <!-- Roller at B -->
-  <circle cx="380" cy="115" r="10" fill="#dbe4f0" stroke="#1a3c6e" stroke-width="1.5"/>
-  <line x1="360" y1="128" x2="400" y2="128" stroke="#1a3c6e" stroke-width="1.5"/>
-  <line x1="364" y1="134" x2="370" y2="128" stroke="#1a3c6e" stroke-width="1"/>
-  <line x1="374" y1="134" x2="380" y2="128" stroke="#1a3c6e" stroke-width="1"/>
-  <line x1="384" y1="134" x2="390" y2="128" stroke="#1a3c6e" stroke-width="1"/>
-  <line x1="394" y1="134" x2="400" y2="128" stroke="#1a3c6e" stroke-width="1"/>
-  <text x="380" y="148" font-size="13" fill="#1a3c6e" text-anchor="middle" font-weight="bold">B</text>
-
-  <!-- x-direction indicator -->
-  <line x1="40" y1="167" x2="68" y2="167" stroke="#333" stroke-width="1.2"/>
-  <polygon points="68,167 61,163 61,171" fill="#333"/>
-  <text x="75" y="171" font-size="12" fill="#333" font-style="italic">x</text>
-
-  <!-- Dimension line -->
-  <line x1="40"  y1="178" x2="380" y2="178" stroke="#555" stroke-width="1"/>
-  <line x1="40"  y1="173" x2="40"  y2="183" stroke="#555" stroke-width="1"/>
-  <line x1="116" y1="173" x2="116" y2="183" stroke="#555" stroke-width="1"/>
-  <line x1="230" y1="173" x2="230" y2="183" stroke="#555" stroke-width="1"/>
-  <line x1="304" y1="173" x2="304" y2="183" stroke="#555" stroke-width="1"/>
-  <line x1="380" y1="173" x2="380" y2="183" stroke="#555" stroke-width="1"/>
-  <text x="78"  y="196" font-size="12" fill="#333" text-anchor="middle">2 m</text>
-  <text x="173" y="196" font-size="12" fill="#333" text-anchor="middle">3 m</text>
-  <text x="267" y="196" font-size="12" fill="#333" text-anchor="middle">2 m</text>
-  <text x="342" y="196" font-size="12" fill="#333" text-anchor="middle">2 m</text>
-
-</svg>
-<figcaption>Pin at $A$ (0 m), roller at $B$ (9 m). UDL 800 N/m from 2 m to 5 m; clockwise concentrated moment 4.2 kN·m at 7 m.</figcaption>
-</figure>
+<div class="footer">MCEN2002 – Tutorial 2.5 · Worked solution · Curtin University</div>
 </div>
 
-<div class="callout info">
-  <p><strong>Key feature:</strong> A concentrated moment causes a <em>jump</em> in the bending moment diagram but does <strong>not</strong> affect the shear force. The shear diagram is therefore continuous at $x = 7\ \text{m}$, but the BMD has a sudden step of $\pm 4.2\ \text{kN}\cdot\text{m}$ there.</p>
-</div>
-
-<h3>Solution</h3>
-
-<!-- STEP 1 -->
-<div class="step">
-  <div class="step-heading">
-    <div class="step-num">1</div>
-    <div class="step-title">Find the support reactions</div>
-    <div class="try-hint">Try it first, then reveal ↓</div>
-  </div>
-  <details>
-    <summary><span class="step-label">Step 1</span> Replace UDL with its resultant; include the concentrated moment in $\sum M_A = 0$</summary>
-    <div class="step-body">
-      <p>The UDL of 800 N/m over 3 m (from $x=2$ m to $x=5$ m) is equivalent to a single downward force of $800 \times 3 = 2400\ \text{N}$ acting at the centroid: $x = 2 + 1.5 = 3.5\ \text{m}$.</p>
-      <p>The concentrated moment 4.2 kN·m is clockwise (negative in our CCW-positive convention).</p>
-
-      <div class="diagram-wrap">
-      <figure>
-      <svg viewBox="0 0 500 225" width="500" xmlns="http://www.w3.org/2000/svg" font-family="Arial,sans-serif" font-size="13">
-        <!-- FBD with UDL resultant. Scale 40 px/m: A=70, 3.5m=210, 7m=350, B(9m)=430 -->
-        <rect x="70" y="78" width="360" height="12" fill="#7eaecf" stroke="#1a3c6e" stroke-width="1.5"/>
-        <text x="52" y="89" font-size="14" fill="#1a3c6e" text-anchor="middle" font-weight="bold">A</text>
-        <text x="448" y="89" font-size="14" fill="#1a3c6e" text-anchor="middle" font-weight="bold">B</text>
-
-        <!-- UDL resultant 2400 N at 3.5 m -->
-        <line x1="210" y1="34" x2="210" y2="72" stroke="#c0392b" stroke-width="2.2"/>
-        <polygon points="210,78 204,65 216,65" fill="#c0392b"/>
-        <text x="210" y="26" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="bold">2400 N <tspan font-size="10">(UDL resultant)</tspan></text>
-
-        <!-- 4.2 kN·m clockwise moment at 7 m (centered on beam) -->
-        <path d="M 361.6,70.2 A 18,18 0 1,1 338.4,70.2" fill="none" stroke="#c0392b" stroke-width="2.2"/>
-        <polygon points="346.1,63.8 342.3,74.8 334.5,65.6" fill="#c0392b"/>
-        <text x="350" y="40" font-size="13" fill="#c0392b" text-anchor="middle" font-weight="bold">4.2 kN·m</text>
-
-        <!-- Unknown reactions -->
-        <line x1="70" y1="148" x2="70" y2="98" stroke="#1a6fc4" stroke-width="2.2"/>
-        <polygon points="70,94 64,106 76,106" fill="#1a6fc4"/>
-        <text x="70" y="166" font-size="13" fill="#1a6fc4" text-anchor="middle" font-weight="bold">R<tspan font-size="9" baseline-shift="-4">A</tspan> = ?</text>
-        <line x1="430" y1="148" x2="430" y2="98" stroke="#1a6fc4" stroke-width="2.2"/>
-        <polygon points="430,94 424,106 436,106" fill="#1a6fc4"/>
-        <text x="430" y="166" font-size="13" fill="#1a6fc4" text-anchor="middle" font-weight="bold">R<tspan font-size="9" baseline-shift="-4">B</tspan> = ?</text>
-
-        <!-- Dimensions -->
-        <line x1="70" y1="190" x2="430" y2="190" stroke="#555" stroke-width="1"/>
-        <line x1="70" y1="185" x2="70" y2="195" stroke="#555" stroke-width="1"/>
-        <line x1="210" y1="185" x2="210" y2="195" stroke="#555" stroke-width="1"/>
-        <line x1="350" y1="185" x2="350" y2="195" stroke="#555" stroke-width="1"/>
-        <line x1="430" y1="185" x2="430" y2="195" stroke="#555" stroke-width="1"/>
-        <text x="140" y="208" font-size="12" fill="#333" text-anchor="middle">3.5 m</text>
-        <text x="280" y="208" font-size="12" fill="#333" text-anchor="middle">3.5 m</text>
-        <text x="390" y="208" font-size="12" fill="#333" text-anchor="middle">2 m</text>
-      </svg>
-      <figcaption>Free-body diagram for the reactions — UDL replaced by its 2400 N resultant at $x = 3.5$ m; the 4.2 kN·m clockwise moment acts at $x = 7$ m; reactions assumed upward.</figcaption>
-      </figure>
-      </div>
-
-      <div class="math-block">$$\sum M_A = 0:\quad R_B(9) - 2400(3.5) - 4200 = 0$$
-      $$R_B = \frac{8400 + 4200}{9} = \frac{12600}{9} = \mathbf{1400\ \text{N} \uparrow}$$</div>
-      <div class="math-block">$$\sum F_y = 0:\quad R_A + 1400 = 2400 \implies \mathbf{R_A = 1000\ \text{N} \uparrow}$$</div>
-      <div class="callout answer">
-        <p>$R_A = 1000\ \text{N (upward)}$ &nbsp;&nbsp;&nbsp; $R_B = 1400\ \text{N (upward)}$</p>
-      </div>
-      <div class="callout note">
-        <p><strong>Check:</strong> $\sum M_B = -1000(9) + 2400(5.5) - 4200 = -9000 + 13200 - 4200 = 0$ ✓</p>
-      </div>
-    </div>
-  </details>
-</div>
-
-<!-- STEP 2: SFD -->
-<div class="step">
-  <div class="step-heading">
-    <div class="step-num">2</div>
-    <div class="step-title">Construct the shear force diagram $V(x)$</div>
-    <div class="try-hint">Try it first, then reveal ↓</div>
-  </div>
-  <details>
-    <summary><span class="step-label">Step 2</span> Concentrated moments do not create shear jumps — the SFD is continuous at $x = 7\ \text{m}$</summary>
-    <div class="step-body">
-
-      <h4>① From $A$ to UDL start ($0 \le x \le 2\ \text{m}$):</h4>
-
-      <div class="diagram-wrap">
-      <figure>
-      <svg viewBox="0 0 320 200" width="320" xmlns="http://www.w3.org/2000/svg" font-family="Arial,sans-serif" font-size="13">
-        <!-- Cut in 0 < x < 2 m, drawn at ~1.4 m. Scale 40 px/m: A=70, cut=126 -->
-        <rect x="70" y="60" width="56" height="12" fill="#7eaecf" stroke="#1a3c6e" stroke-width="1.5"/>
-        <circle cx="80" cy="66" r="2.5" fill="#1a3c6e"/>
-        <text x="52" y="70" font-size="14" fill="#1a3c6e" text-anchor="middle" font-weight="bold">A</text>
-        <polygon points="70,72 58,92 82,92" fill="#dbe4f0" stroke="#1a3c6e" stroke-width="1.5"/>
-        <line x1="50" y1="92" x2="90" y2="92" stroke="#1a3c6e" stroke-width="1.5"/>
-        <line x1="54" y1="98" x2="60" y2="92" stroke="#1a3c6e" stroke-width="1"/>
-        <line x1="64" y1="98" x2="70" y2="92" stroke="#1a3c6e" stroke-width="1"/>
-        <line x1="74" y1="98" x2="80" y2="92" stroke="#1a3c6e" stroke-width="1"/>
-        <line x1="84" y1="98" x2="90" y2="92" stroke="#1a3c6e" stroke-width="1"/>
-        <line x1="70" y1="140" x2="70" y2="110" stroke="#1a6fc4" stroke-width="2.2"/>
-        <polygon points="70,104 64,116 76,116" fill="#1a6fc4"/>
-        <text x="70" y="158" font-size="13" fill="#1a6fc4" text-anchor="middle" font-weight="bold">R<tspan font-size="9" baseline-shift="-4">A</tspan> = 1000 N</text>
-        <line x1="70" y1="165" x2="70" y2="175" stroke="#555" stroke-width="1"/>
-        <line x1="70" y1="170" x2="117" y2="170" stroke="#555" stroke-width="1"/>
-        <polygon points="126,170 114,166 114,174" fill="#555"/>
-        <text x="98" y="188" font-size="13" fill="#333" text-anchor="middle" font-style="italic">x</text>
-        <line x1="154" y1="35" x2="154" y2="92" stroke="#1a3c6e" stroke-width="2.2"/>
-        <polygon points="154,98 148,86 160,86" fill="#1a3c6e"/>
-        <text x="154" y="26" font-size="14" fill="#1a3c6e" text-anchor="middle" font-weight="bold" font-style="italic">V</text>
-        <path d="M 198,96 A 27,27 0 0 0 198,42" fill="none" stroke="#6b7280" stroke-width="2.2"/>
-        <polygon points="182,42 200,34 198,51" fill="#6b7280"/>
-        <text x="238" y="76" font-size="14" fill="#1a3c6e" font-weight="bold" font-style="italic">M</text>
-      </svg>
-      <figcaption>Cut at a section $0 &lt; x &lt; 2$ m — only $R_A$ acts on the left segment.</figcaption>
-      </figure>
-      </div>
-
-      <div class="math-block">$$\sum F_y = 0: \quad R_A - V = 0 \quad\Rightarrow\quad V = +1000\ \text{N} \quad \text{(constant)}$$</div>
-
-      <h4>② Through the UDL zone ($2\ \text{m} \le x \le 5\ \text{m}$):</h4>
-
-      <div class="diagram-wrap">
-      <figure>
-      <svg viewBox="0 0 430 220" width="430" xmlns="http://www.w3.org/2000/svg" font-family="Arial,sans-serif" font-size="13">
-        <!-- Cut in 2 < x < 5 m, drawn at ~4 m. Scale 40 px/m: A=70, UDL start=150, cut=230 -->
-        <line x1="150" y1="34" x2="230" y2="34" stroke="#c0392b" stroke-width="1.5"/>
-        <line x1="150" y1="34" x2="150" y2="51" stroke="#c0392b" stroke-width="1.2"/>
-        <line x1="170" y1="34" x2="170" y2="51" stroke="#c0392b" stroke-width="1.2"/>
-        <line x1="190" y1="34" x2="190" y2="51" stroke="#c0392b" stroke-width="1.2"/>
-        <line x1="210" y1="34" x2="210" y2="51" stroke="#c0392b" stroke-width="1.2"/>
-        <line x1="230" y1="34" x2="230" y2="51" stroke="#c0392b" stroke-width="1.2"/>
-        <polygon points="150,58 145,47 155,47" fill="#c0392b"/>
-        <polygon points="170,58 165,47 175,47" fill="#c0392b"/>
-        <polygon points="190,58 185,47 195,47" fill="#c0392b"/>
-        <polygon points="210,58 205,47 215,47" fill="#c0392b"/>
-        <polygon points="230,58 225,47 235,47" fill="#c0392b"/>
-        <text x="190" y="26" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="bold">800 N/m</text>
-
-        <rect x="70" y="60" width="160" height="12" fill="#7eaecf" stroke="#1a3c6e" stroke-width="1.5"/>
-        <text x="52" y="70" font-size="14" fill="#1a3c6e" text-anchor="middle" font-weight="bold">A</text>
-        <polygon points="70,72 58,92 82,92" fill="#dbe4f0" stroke="#1a3c6e" stroke-width="1.5"/>
-        <line x1="50" y1="92" x2="90" y2="92" stroke="#1a3c6e" stroke-width="1.5"/>
-        <line x1="54" y1="98" x2="60" y2="92" stroke="#1a3c6e" stroke-width="1"/>
-        <line x1="64" y1="98" x2="70" y2="92" stroke="#1a3c6e" stroke-width="1"/>
-        <line x1="74" y1="98" x2="80" y2="92" stroke="#1a3c6e" stroke-width="1"/>
-        <line x1="84" y1="98" x2="90" y2="92" stroke="#1a3c6e" stroke-width="1"/>
-        <line x1="70" y1="140" x2="70" y2="110" stroke="#1a6fc4" stroke-width="2.2"/>
-        <polygon points="70,104 64,116 76,116" fill="#1a6fc4"/>
-        <text x="70" y="158" font-size="13" fill="#1a6fc4" text-anchor="middle" font-weight="bold">R<tspan font-size="9" baseline-shift="-4">A</tspan> = 1000 N</text>
-
-        <line x1="70" y1="170" x2="150" y2="170" stroke="#555" stroke-width="1"/>
-        <line x1="150" y1="165" x2="150" y2="175" stroke="#555" stroke-width="1"/>
-        <text x="110" y="186" font-size="12" fill="#333" text-anchor="middle">2 m</text>
-        <line x1="70" y1="192" x2="70" y2="202" stroke="#555" stroke-width="1"/>
-        <line x1="70" y1="197" x2="221" y2="197" stroke="#555" stroke-width="1"/>
-        <polygon points="230,197 218,193 218,201" fill="#555"/>
-        <text x="150" y="215" font-size="13" fill="#333" text-anchor="middle" font-style="italic">x</text>
-
-        <line x1="258" y1="35" x2="258" y2="92" stroke="#1a3c6e" stroke-width="2.2"/>
-        <polygon points="258,98 252,86 264,86" fill="#1a3c6e"/>
-        <text x="258" y="26" font-size="14" fill="#1a3c6e" text-anchor="middle" font-weight="bold" font-style="italic">V</text>
-        <path d="M 302,96 A 27,27 0 0 0 302,42" fill="none" stroke="#6b7280" stroke-width="2.2"/>
-        <polygon points="286,42 304,34 302,51" fill="#6b7280"/>
-        <text x="342" y="76" font-size="14" fill="#1a3c6e" font-weight="bold" font-style="italic">M</text>
-      </svg>
-      <figcaption>Cut inside the UDL zone ($2 &lt; x &lt; 5$ m) — the running resultant behind the cut is $800(x-2)$ N.</figcaption>
-      </figure>
-      </div>
-
-      <div class="math-block">$$\sum F_y = 0: \quad R_A - 800(x-2) - V = 0 \quad\Rightarrow\quad V(x) = 1000 - 800(x - 2)$$
-      $$V(2) = +1000\ \text{N}, \qquad V(5) = 1000 - 2400 = -1400\ \text{N}$$</div>
-      <p>Setting $V = 0$ to find the local moment maximum under the distributed load:</p>
-      <div class="math-block">$$1000 - 800(x-2) = 0 \implies x = 2 + 1.25 = \mathbf{3.25\ \text{m}} \quad \checkmark$$</div>
-
-      <h4>③ From UDL end to $B$ ($5\ \text{m} \le x \le 9\ \text{m}$):</h4>
-
-      <div class="diagram-wrap">
-      <figure>
-      <svg viewBox="0 0 460 220" width="460" xmlns="http://www.w3.org/2000/svg" font-family="Arial,sans-serif" font-size="13">
-        <!-- Cut in 5 < x < 9 m, drawn at ~6.4 m (before the applied moment). Scale 40 px/m: A=70, UDL 150–270, cut=326 -->
-        <line x1="150" y1="34" x2="270" y2="34" stroke="#c0392b" stroke-width="1.5"/>
-        <line x1="150" y1="34" x2="150" y2="51" stroke="#c0392b" stroke-width="1.2"/>
-        <line x1="174" y1="34" x2="174" y2="51" stroke="#c0392b" stroke-width="1.2"/>
-        <line x1="198" y1="34" x2="198" y2="51" stroke="#c0392b" stroke-width="1.2"/>
-        <line x1="222" y1="34" x2="222" y2="51" stroke="#c0392b" stroke-width="1.2"/>
-        <line x1="246" y1="34" x2="246" y2="51" stroke="#c0392b" stroke-width="1.2"/>
-        <line x1="270" y1="34" x2="270" y2="51" stroke="#c0392b" stroke-width="1.2"/>
-        <polygon points="150,58 145,47 155,47" fill="#c0392b"/>
-        <polygon points="174,58 169,47 179,47" fill="#c0392b"/>
-        <polygon points="198,58 193,47 203,47" fill="#c0392b"/>
-        <polygon points="222,58 217,47 227,47" fill="#c0392b"/>
-        <polygon points="246,58 241,47 251,47" fill="#c0392b"/>
-        <polygon points="270,58 265,47 275,47" fill="#c0392b"/>
-        <text x="210" y="26" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="bold">800 N/m</text>
-
-        <rect x="70" y="60" width="256" height="12" fill="#7eaecf" stroke="#1a3c6e" stroke-width="1.5"/>
-        <text x="52" y="70" font-size="14" fill="#1a3c6e" text-anchor="middle" font-weight="bold">A</text>
-        <polygon points="70,72 58,92 82,92" fill="#dbe4f0" stroke="#1a3c6e" stroke-width="1.5"/>
-        <line x1="50" y1="92" x2="90" y2="92" stroke="#1a3c6e" stroke-width="1.5"/>
-        <line x1="54" y1="98" x2="60" y2="92" stroke="#1a3c6e" stroke-width="1"/>
-        <line x1="64" y1="98" x2="70" y2="92" stroke="#1a3c6e" stroke-width="1"/>
-        <line x1="74" y1="98" x2="80" y2="92" stroke="#1a3c6e" stroke-width="1"/>
-        <line x1="84" y1="98" x2="90" y2="92" stroke="#1a3c6e" stroke-width="1"/>
-        <line x1="70" y1="140" x2="70" y2="110" stroke="#1a6fc4" stroke-width="2.2"/>
-        <polygon points="70,104 64,116 76,116" fill="#1a6fc4"/>
-        <text x="70" y="158" font-size="13" fill="#1a6fc4" text-anchor="middle" font-weight="bold">R<tspan font-size="9" baseline-shift="-4">A</tspan> = 1000 N</text>
-
-        <line x1="70" y1="170" x2="270" y2="170" stroke="#555" stroke-width="1"/>
-        <line x1="150" y1="165" x2="150" y2="175" stroke="#555" stroke-width="1"/>
-        <line x1="270" y1="165" x2="270" y2="175" stroke="#555" stroke-width="1"/>
-        <text x="110" y="186" font-size="12" fill="#333" text-anchor="middle">2 m</text>
-        <text x="210" y="186" font-size="12" fill="#333" text-anchor="middle">3 m</text>
-        <line x1="70" y1="192" x2="70" y2="202" stroke="#555" stroke-width="1"/>
-        <line x1="70" y1="197" x2="317" y2="197" stroke="#555" stroke-width="1"/>
-        <polygon points="326,197 314,193 314,201" fill="#555"/>
-        <text x="198" y="215" font-size="13" fill="#333" text-anchor="middle" font-style="italic">x</text>
-
-        <line x1="354" y1="35" x2="354" y2="92" stroke="#1a3c6e" stroke-width="2.2"/>
-        <polygon points="354,98 348,86 360,86" fill="#1a3c6e"/>
-        <text x="354" y="26" font-size="14" fill="#1a3c6e" text-anchor="middle" font-weight="bold" font-style="italic">V</text>
-        <path d="M 398,96 A 27,27 0 0 0 398,42" fill="none" stroke="#6b7280" stroke-width="2.2"/>
-        <polygon points="382,42 400,34 398,51" fill="#6b7280"/>
-        <text x="438" y="76" font-size="14" fill="#1a3c6e" font-weight="bold" font-style="italic">M</text>
-      </svg>
-      <figcaption>Cut at a section $5 &lt; x &lt; 9$ m — only the completed UDL is behind the cut. Even past $x = 7$ m the applied moment adds no vertical force, so $V$ stays $-1400$ N all the way to $B$.</figcaption>
-      </figure>
-      </div>
-
-      <div class="math-block">$$\sum F_y = 0: \quad R_A - 2400 - V = 0 \quad\Rightarrow\quad V = -1400\ \text{N} \quad \text{(constant — moment at $x=7$ m causes no shear jump)}$$</div>
-      <p>At $B$: $-1400 + 1400 = 0$ ✓</p>
-
-      <div class="diagram-wrap">
-      <figure>
-      <!--
-        viewBox="0 0 420 220", width="735"
-        Scale: 37.78px/m. A at x=40, B at x=380.
-        x_px: 2m→116, 3.25m→163, 5m→230, 7m→304, 9m→380
-        Zero y=135. Scale: 30px/1000N.
-        +1000→y=105, -1400→y=177
-      -->
-      <svg viewBox="0 0 420 220" width="735" xmlns="http://www.w3.org/2000/svg" font-family="Arial,sans-serif" font-size="12">
-        <line x1="40" y1="135" x2="395" y2="135" stroke="#888" stroke-width="1"/>
-        <line x1="40" y1="20"  x2="40"  y2="205" stroke="#888" stroke-width="1"/>
-        <line x1="40"  y1="130" x2="40"  y2="140" stroke="#888" stroke-width="1"/>
-        <line x1="116" y1="130" x2="116" y2="140" stroke="#888" stroke-width="1"/>
-        <line x1="230" y1="130" x2="230" y2="140" stroke="#888" stroke-width="1"/>
-        <line x1="304" y1="130" x2="304" y2="140" stroke="#888" stroke-width="1"/>
-        <line x1="380" y1="130" x2="380" y2="140" stroke="#888" stroke-width="1"/>
-        <text x="116" y="153" text-anchor="middle" fill="#555">2</text>
-        <text x="230" y="153" text-anchor="middle" fill="#555">5</text>
-        <text x="304" y="153" text-anchor="middle" fill="#555">7</text>
-        <text x="380" y="153" text-anchor="middle" fill="#555">9</text>
-        <text x="393" y="153" fill="#555">x (m)</text>
-        <text x="10"  y="24"  fill="#555">V (N)</text>
-        <text x="40"  y="163" text-anchor="middle" fill="#555" font-size="11">A</text>
-        <text x="380" y="163" text-anchor="middle" fill="#555" font-size="11">B</text>
-
-        <!-- shading: positive (A→3.25m) -->
-        <polygon points="40,135 40,105 116,105 163,135" fill="#3b82f6" fill-opacity="0.15"/>
-        <!-- negative (3.25m→B) -->
-        <polygon points="163,135 230,177 304,177 380,177 380,135" fill="#c0392b" fill-opacity="0.15"/>
-
-        <!-- V curves -->
-        <line x1="40"  y1="105" x2="116" y2="105" stroke="#1a3c6e" stroke-width="2.5"/>
-        <line x1="116" y1="105" x2="230" y2="177" stroke="#1a3c6e" stroke-width="2.5"/>
-        <line x1="230" y1="177" x2="380" y2="177" stroke="#1a3c6e" stroke-width="2.5"/>
-        <line x1="380" y1="177" x2="380" y2="135" stroke="#1a3c6e" stroke-width="1.5" stroke-dasharray="4,3"/>
-
-        <!-- gridlines -->
-        <!-- +1000: flush at A → no gridline -->
-        <!-- -1400: first at x=230 → gridline to x=230 -->
-        <line x1="40" y1="177" x2="230" y2="177" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,3"/>
-
-        <text x="34" y="108" text-anchor="end" fill="#1a3c6e" font-weight="bold">+1000</text>
-        <text x="34" y="180" text-anchor="end" fill="#c0392b" font-weight="bold">−1400</text>
-
-        <!-- orange marker at V=0 -->
-        <circle cx="163" cy="135" r="3.5" fill="#f97316"/>
-        <line x1="163" y1="135" x2="163" y2="210" stroke="#f97316" stroke-width="1" stroke-dasharray="3,3"/>
-        <text x="163" y="217" text-anchor="middle" fill="#f97316" font-weight="bold" font-size="11">x = 3.25 m</text>
-      </svg>
-      <figcaption>Shear force diagram — constant $+1000$ N to the UDL, linearly falling through zero at $x=3.25$ m, constant $-1400$ N thereafter. The applied moment at $x=7$ m creates no shear jump.</figcaption>
-      </figure>
-      </div>
-    </div>
-  </details>
-</div>
-
-<!-- STEP 3: BMD -->
-<div class="step">
-  <div class="step-heading">
-    <div class="step-num">3</div>
-    <div class="step-title">Construct the bending moment diagram $M(x)$</div>
-    <div class="try-hint">Try it first, then reveal ↓</div>
-  </div>
-  <details>
-    <summary><span class="step-label">Step 3</span> Integrate $V(x)$ piecewise; the BMD jumps by $+4200\ \text{N}\cdot\text{m}$ at the clockwise applied moment</summary>
-    <div class="step-body">
-
-      <p>For each cut, apply $\sum M_A = 0$ (moments about $A$, CCW positive) to the left segment, reusing $V(x)$ from Step 2 — $R_A$ passes through $A$ and drops out.</p>
-
-      <h4>① From $A$ to UDL start ($0 \le x \le 2\ \text{m}$):</h4>
-
-      <div class="diagram-wrap">
-      <figure>
-      <svg viewBox="0 0 320 200" width="320" xmlns="http://www.w3.org/2000/svg" font-family="Arial,sans-serif" font-size="13">
-        <!-- Same cut as Step 2 ① -->
-        <rect x="70" y="60" width="56" height="12" fill="#7eaecf" stroke="#1a3c6e" stroke-width="1.5"/>
-        <circle cx="80" cy="66" r="2.5" fill="#1a3c6e"/>
-        <text x="52" y="70" font-size="14" fill="#1a3c6e" text-anchor="middle" font-weight="bold">A</text>
-        <polygon points="70,72 58,92 82,92" fill="#dbe4f0" stroke="#1a3c6e" stroke-width="1.5"/>
-        <line x1="50" y1="92" x2="90" y2="92" stroke="#1a3c6e" stroke-width="1.5"/>
-        <line x1="54" y1="98" x2="60" y2="92" stroke="#1a3c6e" stroke-width="1"/>
-        <line x1="64" y1="98" x2="70" y2="92" stroke="#1a3c6e" stroke-width="1"/>
-        <line x1="74" y1="98" x2="80" y2="92" stroke="#1a3c6e" stroke-width="1"/>
-        <line x1="84" y1="98" x2="90" y2="92" stroke="#1a3c6e" stroke-width="1"/>
-        <line x1="70" y1="140" x2="70" y2="110" stroke="#1a6fc4" stroke-width="2.2"/>
-        <polygon points="70,104 64,116 76,116" fill="#1a6fc4"/>
-        <text x="70" y="158" font-size="13" fill="#1a6fc4" text-anchor="middle" font-weight="bold">R<tspan font-size="9" baseline-shift="-4">A</tspan> = 1000 N</text>
-        <line x1="70" y1="165" x2="70" y2="175" stroke="#555" stroke-width="1"/>
-        <line x1="70" y1="170" x2="117" y2="170" stroke="#555" stroke-width="1"/>
-        <polygon points="126,170 114,166 114,174" fill="#555"/>
-        <text x="98" y="188" font-size="13" fill="#333" text-anchor="middle" font-style="italic">x</text>
-        <line x1="154" y1="35" x2="154" y2="92" stroke="#1a3c6e" stroke-width="2.2"/>
-        <polygon points="154,98 148,86 160,86" fill="#1a3c6e"/>
-        <text x="154" y="26" font-size="14" fill="#1a3c6e" text-anchor="middle" font-weight="bold" font-style="italic">V</text>
-        <path d="M 198,96 A 27,27 0 0 0 198,42" fill="none" stroke="#6b7280" stroke-width="2.2"/>
-        <polygon points="182,42 200,34 198,51" fill="#6b7280"/>
-        <text x="238" y="76" font-size="14" fill="#1a3c6e" font-weight="bold" font-style="italic">M</text>
-      </svg>
-      <figcaption>Same cut as Step 2 ① — $\sum M_A = 0$: only $V$ (lever arm $x$) and $M$ contribute.</figcaption>
-      </figure>
-      </div>
-
-      <div class="math-block">$$\sum M_A = 0: \quad M - Vx = 0 \quad\Rightarrow\quad M(x) = Vx = 1000x \implies M(2) = 2000\ \text{N}\cdot\text{m}$$</div>
-
-      <h4>② Through the UDL zone ($2 \le x \le 5\ \text{m}$, parabolic):</h4>
-
-      <div class="diagram-wrap">
-      <figure>
-      <svg viewBox="0 0 430 220" width="430" xmlns="http://www.w3.org/2000/svg" font-family="Arial,sans-serif" font-size="13">
-        <!-- Same cut as Step 2 ② -->
-        <line x1="150" y1="34" x2="230" y2="34" stroke="#c0392b" stroke-width="1.5"/>
-        <line x1="150" y1="34" x2="150" y2="51" stroke="#c0392b" stroke-width="1.2"/>
-        <line x1="170" y1="34" x2="170" y2="51" stroke="#c0392b" stroke-width="1.2"/>
-        <line x1="190" y1="34" x2="190" y2="51" stroke="#c0392b" stroke-width="1.2"/>
-        <line x1="210" y1="34" x2="210" y2="51" stroke="#c0392b" stroke-width="1.2"/>
-        <line x1="230" y1="34" x2="230" y2="51" stroke="#c0392b" stroke-width="1.2"/>
-        <polygon points="150,58 145,47 155,47" fill="#c0392b"/>
-        <polygon points="170,58 165,47 175,47" fill="#c0392b"/>
-        <polygon points="190,58 185,47 195,47" fill="#c0392b"/>
-        <polygon points="210,58 205,47 215,47" fill="#c0392b"/>
-        <polygon points="230,58 225,47 235,47" fill="#c0392b"/>
-        <text x="190" y="26" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="bold">800 N/m</text>
-
-        <rect x="70" y="60" width="160" height="12" fill="#7eaecf" stroke="#1a3c6e" stroke-width="1.5"/>
-        <text x="52" y="70" font-size="14" fill="#1a3c6e" text-anchor="middle" font-weight="bold">A</text>
-        <polygon points="70,72 58,92 82,92" fill="#dbe4f0" stroke="#1a3c6e" stroke-width="1.5"/>
-        <line x1="50" y1="92" x2="90" y2="92" stroke="#1a3c6e" stroke-width="1.5"/>
-        <line x1="54" y1="98" x2="60" y2="92" stroke="#1a3c6e" stroke-width="1"/>
-        <line x1="64" y1="98" x2="70" y2="92" stroke="#1a3c6e" stroke-width="1"/>
-        <line x1="74" y1="98" x2="80" y2="92" stroke="#1a3c6e" stroke-width="1"/>
-        <line x1="84" y1="98" x2="90" y2="92" stroke="#1a3c6e" stroke-width="1"/>
-        <line x1="70" y1="140" x2="70" y2="110" stroke="#1a6fc4" stroke-width="2.2"/>
-        <polygon points="70,104 64,116 76,116" fill="#1a6fc4"/>
-        <text x="70" y="158" font-size="13" fill="#1a6fc4" text-anchor="middle" font-weight="bold">R<tspan font-size="9" baseline-shift="-4">A</tspan> = 1000 N</text>
-
-        <line x1="70" y1="170" x2="150" y2="170" stroke="#555" stroke-width="1"/>
-        <line x1="150" y1="165" x2="150" y2="175" stroke="#555" stroke-width="1"/>
-        <text x="110" y="186" font-size="12" fill="#333" text-anchor="middle">2 m</text>
-        <line x1="70" y1="192" x2="70" y2="202" stroke="#555" stroke-width="1"/>
-        <line x1="70" y1="197" x2="221" y2="197" stroke="#555" stroke-width="1"/>
-        <polygon points="230,197 218,193 218,201" fill="#555"/>
-        <text x="150" y="215" font-size="13" fill="#333" text-anchor="middle" font-style="italic">x</text>
-
-        <line x1="258" y1="35" x2="258" y2="92" stroke="#1a3c6e" stroke-width="2.2"/>
-        <polygon points="258,98 252,86 264,86" fill="#1a3c6e"/>
-        <text x="258" y="26" font-size="14" fill="#1a3c6e" text-anchor="middle" font-weight="bold" font-style="italic">V</text>
-        <path d="M 302,96 A 27,27 0 0 0 302,42" fill="none" stroke="#6b7280" stroke-width="2.2"/>
-        <polygon points="286,42 304,34 302,51" fill="#6b7280"/>
-        <text x="342" y="76" font-size="14" fill="#1a3c6e" font-weight="bold" font-style="italic">M</text>
-      </svg>
-      <figcaption>Same cut as Step 2 ② — $\sum M_A = 0$: the running UDL resultant $800(x-2)$ acts at $\frac{x+2}{2}$ from $A$.</figcaption>
-      </figure>
-      </div>
-
-      <div class="math-block">$$\sum M_A = 0: \quad M - Vx - 800(x-2)\cdot\frac{x+2}{2} = 0 \quad\Rightarrow\quad M(x) = 1000x - 400(x-2)^2$$
-      $$M(3.25) = 1000(3.25) - 400(1.25)^2 = 3250 - 625 = \mathbf{2625\ \text{N}\cdot\text{m}} \quad\checkmark$$
-      $$M(5) = 5000 - 400(9) = 1400\ \text{N}\cdot\text{m}$$</div>
-
-      <h4>③ From UDL end to the applied moment ($5 \le x \le 7\ \text{m}$):</h4>
-
-      <div class="diagram-wrap">
-      <figure>
-      <svg viewBox="0 0 460 220" width="460" xmlns="http://www.w3.org/2000/svg" font-family="Arial,sans-serif" font-size="13">
-        <!-- Same cut as Step 2 ③ (drawn at ~6.4 m, before the applied moment) -->
-        <line x1="150" y1="34" x2="270" y2="34" stroke="#c0392b" stroke-width="1.5"/>
-        <line x1="150" y1="34" x2="150" y2="51" stroke="#c0392b" stroke-width="1.2"/>
-        <line x1="174" y1="34" x2="174" y2="51" stroke="#c0392b" stroke-width="1.2"/>
-        <line x1="198" y1="34" x2="198" y2="51" stroke="#c0392b" stroke-width="1.2"/>
-        <line x1="222" y1="34" x2="222" y2="51" stroke="#c0392b" stroke-width="1.2"/>
-        <line x1="246" y1="34" x2="246" y2="51" stroke="#c0392b" stroke-width="1.2"/>
-        <line x1="270" y1="34" x2="270" y2="51" stroke="#c0392b" stroke-width="1.2"/>
-        <polygon points="150,58 145,47 155,47" fill="#c0392b"/>
-        <polygon points="174,58 169,47 179,47" fill="#c0392b"/>
-        <polygon points="198,58 193,47 203,47" fill="#c0392b"/>
-        <polygon points="222,58 217,47 227,47" fill="#c0392b"/>
-        <polygon points="246,58 241,47 251,47" fill="#c0392b"/>
-        <polygon points="270,58 265,47 275,47" fill="#c0392b"/>
-        <text x="210" y="26" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="bold">800 N/m</text>
-
-        <rect x="70" y="60" width="256" height="12" fill="#7eaecf" stroke="#1a3c6e" stroke-width="1.5"/>
-        <text x="52" y="70" font-size="14" fill="#1a3c6e" text-anchor="middle" font-weight="bold">A</text>
-        <polygon points="70,72 58,92 82,92" fill="#dbe4f0" stroke="#1a3c6e" stroke-width="1.5"/>
-        <line x1="50" y1="92" x2="90" y2="92" stroke="#1a3c6e" stroke-width="1.5"/>
-        <line x1="54" y1="98" x2="60" y2="92" stroke="#1a3c6e" stroke-width="1"/>
-        <line x1="64" y1="98" x2="70" y2="92" stroke="#1a3c6e" stroke-width="1"/>
-        <line x1="74" y1="98" x2="80" y2="92" stroke="#1a3c6e" stroke-width="1"/>
-        <line x1="84" y1="98" x2="90" y2="92" stroke="#1a3c6e" stroke-width="1"/>
-        <line x1="70" y1="140" x2="70" y2="110" stroke="#1a6fc4" stroke-width="2.2"/>
-        <polygon points="70,104 64,116 76,116" fill="#1a6fc4"/>
-        <text x="70" y="158" font-size="13" fill="#1a6fc4" text-anchor="middle" font-weight="bold">R<tspan font-size="9" baseline-shift="-4">A</tspan> = 1000 N</text>
-
-        <line x1="70" y1="170" x2="270" y2="170" stroke="#555" stroke-width="1"/>
-        <line x1="150" y1="165" x2="150" y2="175" stroke="#555" stroke-width="1"/>
-        <line x1="270" y1="165" x2="270" y2="175" stroke="#555" stroke-width="1"/>
-        <text x="110" y="186" font-size="12" fill="#333" text-anchor="middle">2 m</text>
-        <text x="210" y="186" font-size="12" fill="#333" text-anchor="middle">3 m</text>
-        <line x1="70" y1="192" x2="70" y2="202" stroke="#555" stroke-width="1"/>
-        <line x1="70" y1="197" x2="317" y2="197" stroke="#555" stroke-width="1"/>
-        <polygon points="326,197 314,193 314,201" fill="#555"/>
-        <text x="198" y="215" font-size="13" fill="#333" text-anchor="middle" font-style="italic">x</text>
-
-        <line x1="354" y1="35" x2="354" y2="92" stroke="#1a3c6e" stroke-width="2.2"/>
-        <polygon points="354,98 348,86 360,86" fill="#1a3c6e"/>
-        <text x="354" y="26" font-size="14" fill="#1a3c6e" text-anchor="middle" font-weight="bold" font-style="italic">V</text>
-        <path d="M 398,96 A 27,27 0 0 0 398,42" fill="none" stroke="#6b7280" stroke-width="2.2"/>
-        <polygon points="382,42 400,34 398,51" fill="#6b7280"/>
-        <text x="438" y="76" font-size="14" fill="#1a3c6e" font-weight="bold" font-style="italic">M</text>
-      </svg>
-      <figcaption>Cut at $5 &lt; x &lt; 7$ m (before the applied moment) — $\sum M_A = 0$: the completed UDL contributes 2400 N at 3.5 m.</figcaption>
-      </figure>
-      </div>
-
-      <div class="math-block">$$\sum M_A = 0: \quad M - Vx - 2400(3.5) = 0 \quad\Rightarrow\quad M(x) = Vx + 8400 = 1400 - 1400(x-5)$$
-      $$M(6) = 0,\qquad M(7^-) = 1400 - 2800 = -1400\ \text{N}\cdot\text{m}$$</div>
-
-      <h4>④ From applied moment to $B$ ($7 \le x \le 9\ \text{m}$):</h4>
-
-      <div class="diagram-wrap">
-      <figure>
-      <svg viewBox="0 0 530 220" width="530" xmlns="http://www.w3.org/2000/svg" font-family="Arial,sans-serif" font-size="13">
-        <!-- Cut in 7 < x < 9 m, drawn at ~8.2 m. Scale 40 px/m: A=70, UDL 150–270, moment=350, cut=398 -->
-        <line x1="150" y1="34" x2="270" y2="34" stroke="#c0392b" stroke-width="1.5"/>
-        <line x1="150" y1="34" x2="150" y2="51" stroke="#c0392b" stroke-width="1.2"/>
-        <line x1="174" y1="34" x2="174" y2="51" stroke="#c0392b" stroke-width="1.2"/>
-        <line x1="198" y1="34" x2="198" y2="51" stroke="#c0392b" stroke-width="1.2"/>
-        <line x1="222" y1="34" x2="222" y2="51" stroke="#c0392b" stroke-width="1.2"/>
-        <line x1="246" y1="34" x2="246" y2="51" stroke="#c0392b" stroke-width="1.2"/>
-        <line x1="270" y1="34" x2="270" y2="51" stroke="#c0392b" stroke-width="1.2"/>
-        <polygon points="150,58 145,47 155,47" fill="#c0392b"/>
-        <polygon points="174,58 169,47 179,47" fill="#c0392b"/>
-        <polygon points="198,58 193,47 203,47" fill="#c0392b"/>
-        <polygon points="222,58 217,47 227,47" fill="#c0392b"/>
-        <polygon points="246,58 241,47 251,47" fill="#c0392b"/>
-        <polygon points="270,58 265,47 275,47" fill="#c0392b"/>
-        <text x="210" y="26" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="bold">800 N/m</text>
-
-        <!-- 4.2 kN·m clockwise moment at 7 m -->
-        <path d="M 361.6,52.2 A 18,18 0 1,1 338.4,52.2" fill="none" stroke="#c0392b" stroke-width="2.2"/>
-        <polygon points="346.1,45.8 342.3,56.8 334.5,47.6" fill="#c0392b"/>
-        <text x="350" y="22" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="bold">4.2 kN·m</text>
-
-        <rect x="70" y="60" width="328" height="12" fill="#7eaecf" stroke="#1a3c6e" stroke-width="1.5"/>
-        <text x="52" y="70" font-size="14" fill="#1a3c6e" text-anchor="middle" font-weight="bold">A</text>
-        <polygon points="70,72 58,92 82,92" fill="#dbe4f0" stroke="#1a3c6e" stroke-width="1.5"/>
-        <line x1="50" y1="92" x2="90" y2="92" stroke="#1a3c6e" stroke-width="1.5"/>
-        <line x1="54" y1="98" x2="60" y2="92" stroke="#1a3c6e" stroke-width="1"/>
-        <line x1="64" y1="98" x2="70" y2="92" stroke="#1a3c6e" stroke-width="1"/>
-        <line x1="74" y1="98" x2="80" y2="92" stroke="#1a3c6e" stroke-width="1"/>
-        <line x1="84" y1="98" x2="90" y2="92" stroke="#1a3c6e" stroke-width="1"/>
-        <line x1="70" y1="140" x2="70" y2="110" stroke="#1a6fc4" stroke-width="2.2"/>
-        <polygon points="70,104 64,116 76,116" fill="#1a6fc4"/>
-        <text x="70" y="158" font-size="13" fill="#1a6fc4" text-anchor="middle" font-weight="bold">R<tspan font-size="9" baseline-shift="-4">A</tspan> = 1000 N</text>
-
-        <line x1="70" y1="170" x2="350" y2="170" stroke="#555" stroke-width="1"/>
-        <line x1="150" y1="165" x2="150" y2="175" stroke="#555" stroke-width="1"/>
-        <line x1="270" y1="165" x2="270" y2="175" stroke="#555" stroke-width="1"/>
-        <line x1="350" y1="165" x2="350" y2="175" stroke="#555" stroke-width="1"/>
-        <text x="110" y="186" font-size="12" fill="#333" text-anchor="middle">2 m</text>
-        <text x="210" y="186" font-size="12" fill="#333" text-anchor="middle">3 m</text>
-        <text x="310" y="186" font-size="12" fill="#333" text-anchor="middle">2 m</text>
-        <line x1="70" y1="192" x2="70" y2="202" stroke="#555" stroke-width="1"/>
-        <line x1="70" y1="197" x2="389" y2="197" stroke="#555" stroke-width="1"/>
-        <polygon points="398,197 386,193 386,201" fill="#555"/>
-        <text x="234" y="215" font-size="13" fill="#333" text-anchor="middle" font-style="italic">x</text>
-
-        <line x1="426" y1="35" x2="426" y2="92" stroke="#1a3c6e" stroke-width="2.2"/>
-        <polygon points="426,98 420,86 432,86" fill="#1a3c6e"/>
-        <text x="426" y="26" font-size="14" fill="#1a3c6e" text-anchor="middle" font-weight="bold" font-style="italic">V</text>
-        <path d="M 470,96 A 27,27 0 0 0 470,42" fill="none" stroke="#6b7280" stroke-width="2.2"/>
-        <polygon points="454,42 472,34 470,51" fill="#6b7280"/>
-        <text x="510" y="76" font-size="14" fill="#1a3c6e" font-weight="bold" font-style="italic">M</text>
-      </svg>
-      <figcaption>Cut at $7 &lt; x &lt; 9$ m — the 4.2 kN·m clockwise moment is now behind the cut and enters $\sum M_A$ directly (no lever arm), producing the jump.</figcaption>
-      </figure>
-      </div>
-
-      <div class="math-block">$$\sum M_A = 0: \quad M - Vx - 2400(3.5) - 4200 = 0$$
-      $$\Rightarrow\quad M(x) = Vx + 12600 = 2800 - 1400(x-7) \implies M(9) = 2800 - 2800 = 0 \quad\checkmark$$</div>
-
-      <h4>⑤ The concentrated moment jump at $x = 7\ \text{m}$:</h4>
-      <p>Now compare the two segment equations at $x = 7$ m. A clockwise applied moment causes a <em>positive</em> (upward) jump in the bending moment diagram, while $V(x)$ is unaffected:</p>
-      <div class="math-block">$$M(7^-) = 1400 - 1400(2) = -1400\ \text{N}\cdot\text{m}$$
-      $$M(7^+) = \mathbf{+2800\ \text{N}\cdot\text{m}}$$
-      $$M(7^+) - M(7^-) = +4200\ \text{N}\cdot\text{m} \quad \text{(a rise equal to the applied moment)}$$</div>
-
-      <div class="diagram-wrap">
-      <figure>
-      <!--
-        viewBox="0 0 420 250", width="735"
-        Scale: 37.78px/m. x_px: 2m→116, 3.25m→163, 5m→230, 6m→267, 7m→304, 9m→380
-        Zero y=170. Scale: 0.03px/N·m.
-        2800→y=86, 2625→y=91, 2000→y=110, 1400→y=128, -1400→y=212
-      -->
-      <svg viewBox="0 0 420 250" width="735" xmlns="http://www.w3.org/2000/svg" font-family="Arial,sans-serif" font-size="12">
-        <line x1="40" y1="170" x2="395" y2="170" stroke="#888" stroke-width="1"/>
-        <line x1="40" y1="20"  x2="40"  y2="240" stroke="#888" stroke-width="1"/>
-        <line x1="40"  y1="165" x2="40"  y2="175" stroke="#888" stroke-width="1"/>
-        <line x1="116" y1="165" x2="116" y2="175" stroke="#888" stroke-width="1"/>
-        <line x1="230" y1="165" x2="230" y2="175" stroke="#888" stroke-width="1"/>
-        <line x1="267" y1="165" x2="267" y2="175" stroke="#888" stroke-width="1"/>
-        <line x1="304" y1="165" x2="304" y2="175" stroke="#888" stroke-width="1"/>
-        <line x1="380" y1="165" x2="380" y2="175" stroke="#888" stroke-width="1"/>
-        <text x="116" y="186" text-anchor="middle" fill="#555">2</text>
-        <text x="230" y="186" text-anchor="middle" fill="#555">5</text>
-        <text x="267" y="186" text-anchor="middle" fill="#555">6</text>
-        <text x="304" y="186" text-anchor="middle" fill="#555">7</text>
-        <text x="380" y="186" text-anchor="middle" fill="#555">9</text>
-        <text x="393" y="186" fill="#555">x (m)</text>
-        <text x="10"  y="24"  fill="#555">M (N·m)</text>
-        <text x="40"  y="170" text-anchor="middle" fill="#555" font-size="10">A</text>
-        <text x="380" y="170" text-anchor="middle" fill="#555" font-size="10">B</text>
-
-        <!-- shading -->
-        <!-- Positive: A→2m (triangle) -->
-        <polygon points="40,170 116,170 116,110" fill="#3b82f6" fill-opacity="0.12"/>
-        <!-- Positive: 2m→5m (parabolic) -->
-        <path d="M 116,170 L 116,110 Q 173,65 230,128 L 230,170 Z" fill="#3b82f6" fill-opacity="0.12"/>
-        <!-- Positive: 5m→6m (triangle) -->
-        <polygon points="230,170 267,170 230,128" fill="#3b82f6" fill-opacity="0.12"/>
-        <!-- Negative: 6m→7m- (triangle) -->
-        <polygon points="267,170 304,212 304,170" fill="#c0392b" fill-opacity="0.15"/>
-        <!-- Positive: 7m+→B (triangle) -->
-        <polygon points="304,170 304,86 380,170" fill="#3b82f6" fill-opacity="0.12"/>
-
-        <!-- BMD curves -->
-        <!-- A→2m: linear -->
-        <line x1="40"  y1="170" x2="116" y2="110" stroke="#1a3c6e" stroke-width="2.5"/>
-        <!-- 2m→5m: parabolic bezier, CP at (173,65) -->
-        <path d="M 116,110 Q 173,65 230,128" fill="none" stroke="#1a3c6e" stroke-width="2.5"/>
-        <!-- 5m→7m-: linear (crosses zero at 6m) -->
-        <line x1="230" y1="128" x2="304" y2="212" stroke="#1a3c6e" stroke-width="2.5"/>
-        <!-- jump at 7m: dashed -->
-        <line x1="304" y1="212" x2="304" y2="86"  stroke="#1a3c6e" stroke-width="1.5" stroke-dasharray="4,3"/>
-        <!-- 7m+→B: linear -->
-        <line x1="304" y1="86"  x2="380" y2="170" stroke="#1a3c6e" stroke-width="2.5"/>
-
-        <!-- gridlines + labels -->
-        <!-- 2800 (y=86): first at x=304 → gridline x=40→304 -->
-        <line x1="40" y1="86"  x2="304" y2="86"  stroke="#1a3c6e" stroke-width="1" stroke-dasharray="3,3"/>
-        <!-- 2625 (y=91): first ~x=163 → gridline x=40→163 -->
-        <line x1="40" y1="91"  x2="163" y2="91"  stroke="#1a3c6e" stroke-width="1" stroke-dasharray="3,3"/>
-        <!-- 2000 (y=110): first at x=116 → flush, no gridline -->
-        <!-- 1400 (y=128): first at x=230 → gridline x=40→230 (also end of parabola) -->
-        <line x1="40" y1="128" x2="230" y2="128" stroke="#1a3c6e" stroke-width="1" stroke-dasharray="3,3"/>
-        <!-- -1400 (y=212): first at x=304 → gridline x=40→304 -->
-        <line x1="40" y1="212" x2="304" y2="212" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,3"/>
-
-        <!-- labels: 2800 (y=86) and 2625 (y=91) only 5px apart → nudge -->
-        <text x="34" y="81"  text-anchor="end" fill="#1a3c6e" font-weight="bold">2800</text>
-        <text x="34" y="98"  text-anchor="end" fill="#1a3c6e" font-weight="bold">2625</text>
-        <text x="34" y="113" text-anchor="end" fill="#1a3c6e" font-weight="bold">2000</text>
-        <text x="34" y="131" text-anchor="end" fill="#1a3c6e" font-weight="bold">1400</text>
-        <text x="34" y="215" text-anchor="end" fill="#c0392b" font-weight="bold">−1400</text>
-
-        <!-- orange marker: M_dist at (163,91) -->
-        <circle cx="163" cy="91" r="3.5" fill="#f97316"/>
-        <line x1="163" y1="91" x2="163" y2="235" stroke="#f97316" stroke-width="1" stroke-dasharray="3,3"/>
-        <text x="163" y="242" text-anchor="middle" fill="#f97316" font-weight="bold" font-size="10">local max = 2625 N·m</text>
-
-        <!-- orange marker: M_max at (304,86) -->
-        <circle cx="304" cy="86" r="3.5" fill="#f97316"/>
-        <text x="312" y="83" fill="#f97316" font-weight="bold" font-size="10">M<tspan font-size="8" baseline-shift="-2">max</tspan>=2800 N·m</text>
-      </svg>
-      <figcaption>Bending moment diagram — rises to a local peak of 2625 N·m under the UDL at $x=3.25$ m, falls negative to $-1400$ N·m at $x=7^-$ m, then jumps $+4200$ N·m to 2800 N·m at $x=7^+$ m (the global maximum), and decreases linearly to zero at $B$.</figcaption>
-      </figure>
-      </div>
-
-      <div class="callout answer">
-        <p>$M_{\max} = 2800\ \text{N}\cdot\text{m}$ at $x = 7\ \text{m}$ &nbsp;&nbsp;|&nbsp;&nbsp; $M_{\text{dist. load}} = 2625\ \text{N}\cdot\text{m}$ at $x = 3.25\ \text{m}$</p>
-      </div>
-    </div>
-  </details>
-</div>
-
-<!-- STEP 4: SUMMARY -->
-<div class="step">
-  <div class="step-heading">
-    <div class="step-num">4</div>
-    <div class="step-title">Summary</div>
-  </div>
-  <details>
-    <summary><span class="step-label">Step 4</span> Beam FBD, shear force diagram, and bending moment diagram — aligned</summary>
-    <div class="step-body">
-
-      <div class="diagram-wrap">
-      <figure>
-      <!--
-        viewBox="0 0 480 780", width="735"
-        Scale: 300/9=33.33px/m. A at x=90, B at x=390.
-        x_px: 0m→90, 2m→157, 3.25m→198, 5m→257, 6m→290, 7m→323, 9m→390
-        Guide lines at: 90, 157, 257, 323, 390
-        FBD: beam y=100–112
-        SFD: zero y=380, scale 30px/1000N
-          +1000→y=350, -1400→y=422
-        BMD: zero y=610, scale 0.03px/N·m
-          2800→y=526, 2625→y=531, 2000→y=550, 1400→y=568, -1400→y=652
-      -->
-      <svg viewBox="0 0 480 780" width="735" xmlns="http://www.w3.org/2000/svg" font-family="Arial,sans-serif" font-size="13">
-
-        <!-- guide lines at 2m, 5m, 7m, B (A is flush to y-axis) -->
-        <line x1="90"  y1="112" x2="90"  y2="720" stroke="#aab4c8" stroke-width="1" stroke-dasharray="4,4"/>
-        <line x1="157" y1="112" x2="157" y2="720" stroke="#aab4c8" stroke-width="1" stroke-dasharray="4,4"/>
-        <line x1="257" y1="112" x2="257" y2="720" stroke="#aab4c8" stroke-width="1" stroke-dasharray="4,4"/>
-        <line x1="323" y1="112" x2="323" y2="720" stroke="#aab4c8" stroke-width="1" stroke-dasharray="4,4"/>
-        <line x1="390" y1="112" x2="390" y2="720" stroke="#aab4c8" stroke-width="1" stroke-dasharray="4,4"/>
-
-        <!-- ══ BEAM FBD ══ -->
-        <rect x="90" y="100" width="300" height="12" fill="#7eaecf" fill-opacity="0.7" stroke="#1a3c6e" stroke-width="1.5"/>
-
-        <!-- UDL x=157 to x=257 -->
-        <line x1="157" y1="64" x2="257" y2="64" stroke="#c0392b" stroke-width="1.5"/>
-        <line x1="157" y1="64" x2="157" y2="99" stroke="#c0392b" stroke-width="1.2"/>
-        <line x1="182" y1="64" x2="182" y2="99" stroke="#c0392b" stroke-width="1.2"/>
-        <line x1="207" y1="64" x2="207" y2="99" stroke="#c0392b" stroke-width="1.2"/>
-        <line x1="232" y1="64" x2="232" y2="99" stroke="#c0392b" stroke-width="1.2"/>
-        <line x1="257" y1="64" x2="257" y2="99" stroke="#c0392b" stroke-width="1.2"/>
-        <polygon points="157,100 152,88 162,88" fill="#c0392b"/>
-        <polygon points="182,100 177,88 187,88" fill="#c0392b"/>
-        <polygon points="207,100 202,88 212,88" fill="#c0392b"/>
-        <polygon points="232,100 227,88 237,88" fill="#c0392b"/>
-        <polygon points="257,100 252,88 262,88" fill="#c0392b"/>
-        <text x="207" y="56" font-size="12" fill="#c0392b" text-anchor="middle" font-weight="bold">800 N/m</text>
-
-        <!-- Concentrated CW moment at x=323 (7m) -->
-        <!-- cx=323, cy=106, r=18; same calc as problem diagram but shifted -->
-        <!-- tail=40°: (323+11.6,106-13.8)=(334.6,92.2); tip=320°: (323-11.6,106-13.8)=(311.4,92.2) -->
-        <path d="M 334.6,92.2 A 18,18 0 1,1 311.4,92.2" fill="none" stroke="#c0392b" stroke-width="2.2"/>
-        <!-- apex=(319.1,85.8), c1=(315.3,96.8), c2=(307.5,87.6) -->
-        <polygon points="319.1,85.8 315.3,96.8 307.5,87.6" fill="#c0392b"/>
-        <text x="343" y="82" font-size="12" fill="#c0392b" font-weight="bold">4.2 kN·m</text>
-
-        <!-- Pin at A -->
-        <polygon points="90,112 78,134 102,134" fill="#dbe4f0" stroke="#1a3c6e" stroke-width="1.5"/>
-        <line x1="70" y1="134" x2="110" y2="134" stroke="#1a3c6e" stroke-width="1.5"/>
-        <line x1="74" y1="140" x2="80" y2="134" stroke="#1a3c6e" stroke-width="1"/>
-        <line x1="84" y1="140" x2="90" y2="134" stroke="#1a3c6e" stroke-width="1"/>
-        <line x1="94" y1="140" x2="100" y2="134" stroke="#1a3c6e" stroke-width="1"/>
-        <line x1="104" y1="140" x2="110" y2="134" stroke="#1a3c6e" stroke-width="1"/>
-        <text x="68" y="110" font-size="14" fill="#1a3c6e" text-anchor="end" font-weight="bold">A</text>
-
-        <!-- Roller at B -->
-        <circle cx="390" cy="122" r="10" fill="#dbe4f0" stroke="#1a3c6e" stroke-width="1.5"/>
-        <line x1="370" y1="134" x2="410" y2="134" stroke="#1a3c6e" stroke-width="1.5"/>
-        <line x1="374" y1="140" x2="380" y2="134" stroke="#1a3c6e" stroke-width="1"/>
-        <line x1="384" y1="140" x2="390" y2="134" stroke="#1a3c6e" stroke-width="1"/>
-        <line x1="394" y1="140" x2="400" y2="134" stroke="#1a3c6e" stroke-width="1"/>
-        <line x1="404" y1="140" x2="410" y2="134" stroke="#1a3c6e" stroke-width="1"/>
-        <text x="412" y="110" font-size="14" fill="#1a3c6e" text-anchor="start" font-weight="bold">B</text>
-
-        <!-- x direction -->
-        <line x1="90" y1="163" x2="125" y2="163" stroke="#333" stroke-width="1.2"/>
-        <polygon points="125,163 118,159 118,167" fill="#333"/>
-        <text x="133" y="167" font-size="12" fill="#333" font-style="italic">x</text>
-
-        <!-- Reactions -->
-        <line x1="90"  y1="178" x2="90"  y2="136" stroke="#1a6fc4" stroke-width="2.2"/>
-        <polygon points="90,134 84,144 96,144" fill="#1a6fc4"/>
-        <text x="90" y="197" font-size="12" fill="#1a6fc4" text-anchor="middle" font-weight="bold">R&#x1D00;=1000 N</text>
-
-        <line x1="390" y1="178" x2="390" y2="136" stroke="#1a6fc4" stroke-width="2.2"/>
-        <polygon points="390,134 384,144 396,144" fill="#1a6fc4"/>
-        <text x="390" y="197" font-size="12" fill="#1a6fc4" text-anchor="middle" font-weight="bold">R&#x1D03;=1400 N</text>
-
-        <!-- Dimension line -->
-        <line x1="90"  y1="215" x2="390" y2="215" stroke="#555" stroke-width="1"/>
-        <line x1="90"  y1="210" x2="90"  y2="220" stroke="#555" stroke-width="1"/>
-        <line x1="157" y1="210" x2="157" y2="220" stroke="#555" stroke-width="1"/>
-        <line x1="257" y1="210" x2="257" y2="220" stroke="#555" stroke-width="1"/>
-        <line x1="323" y1="210" x2="323" y2="220" stroke="#555" stroke-width="1"/>
-        <line x1="390" y1="210" x2="390" y2="220" stroke="#555" stroke-width="1"/>
-        <text x="123" y="231" font-size="12" fill="#333" text-anchor="middle">2 m</text>
-        <text x="207" y="231" font-size="12" fill="#333" text-anchor="middle">3 m</text>
-        <text x="290" y="231" font-size="12" fill="#333" text-anchor="middle">2 m</text>
-        <text x="357" y="231" font-size="12" fill="#333" text-anchor="middle">2 m</text>
-
-        <!-- ══ SFD ══ -->
-        <text x="18" y="348" font-size="14" fill="#1a3c6e" font-weight="bold">SFD</text>
-        <line x1="90"  y1="380" x2="415" y2="380" stroke="#888" stroke-width="1"/>
-        <line x1="90"  y1="258" x2="90"  y2="450" stroke="#888" stroke-width="1"/>
-        <text x="90"  y="250" font-size="12" fill="#555">V (N)</text>
-        <line x1="157" y1="375" x2="157" y2="385" stroke="#888" stroke-width="1"/>
-        <line x1="257" y1="375" x2="257" y2="385" stroke="#888" stroke-width="1"/>
-        <line x1="323" y1="375" x2="323" y2="385" stroke="#888" stroke-width="1"/>
-        <line x1="390" y1="375" x2="390" y2="385" stroke="#888" stroke-width="1"/>
-        <text x="157" y="400" font-size="12" fill="#555" text-anchor="middle">2</text>
-        <text x="257" y="400" font-size="12" fill="#555" text-anchor="middle">5</text>
-        <text x="323" y="400" font-size="12" fill="#555" text-anchor="middle">7</text>
-        <text x="390" y="400" font-size="12" fill="#555" text-anchor="middle">9</text>
-        <text x="418" y="400" font-size="12" fill="#555">x (m)</text>
-
-        <!-- SFD: +1000→y=350, -1400→y=422 -->
-        <!-- shading -->
-        <polygon points="90,380 90,350 157,350 198,380" fill="#3b82f6" fill-opacity="0.15"/>
-        <polygon points="198,380 257,422 390,422 390,380" fill="#c0392b" fill-opacity="0.15"/>
-        <!-- curves -->
-        <line x1="90"  y1="350" x2="157" y2="350" stroke="#1a3c6e" stroke-width="2.5"/>
-        <line x1="157" y1="350" x2="257" y2="422" stroke="#1a3c6e" stroke-width="2.5"/>
-        <line x1="257" y1="422" x2="390" y2="422" stroke="#1a3c6e" stroke-width="2.5"/>
-        <line x1="390" y1="422" x2="390" y2="380" stroke="#1a3c6e" stroke-width="1.5" stroke-dasharray="4,3"/>
-        <!-- gridlines + labels -->
-        <line x1="90" y1="422" x2="257" y2="422" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,3"/>
-        <text x="84" y="353" font-size="13" fill="#1a3c6e" text-anchor="end" font-weight="bold">+1000</text>
-        <text x="84" y="425" font-size="13" fill="#c0392b" text-anchor="end" font-weight="bold">−1400</text>
-        <!-- orange V=0 marker -->
-        <circle cx="198" cy="380" r="3.5" fill="#f97316"/>
-
-        <!-- ══ BMD ══ -->
-        <text x="18" y="542" font-size="14" fill="#1a3c6e" font-weight="bold">BMD</text>
-        <line x1="90"  y1="630" x2="415" y2="630" stroke="#888" stroke-width="1"/>
-        <line x1="90"  y1="455" x2="90"  y2="720" stroke="#888" stroke-width="1"/>
-        <text x="90"  y="447" font-size="12" fill="#555">M (N·m)</text>
-        <line x1="157" y1="625" x2="157" y2="635" stroke="#888" stroke-width="1"/>
-        <line x1="257" y1="625" x2="257" y2="635" stroke="#888" stroke-width="1"/>
-        <line x1="290" y1="625" x2="290" y2="635" stroke="#888" stroke-width="1"/>
-        <line x1="323" y1="625" x2="323" y2="635" stroke="#888" stroke-width="1"/>
-        <line x1="390" y1="625" x2="390" y2="635" stroke="#888" stroke-width="1"/>
-        <text x="157" y="648" font-size="12" fill="#555" text-anchor="middle">2</text>
-        <text x="257" y="648" font-size="12" fill="#555" text-anchor="middle">5</text>
-        <text x="290" y="648" font-size="12" fill="#555" text-anchor="middle">6</text>
-        <text x="323" y="648" font-size="12" fill="#555" text-anchor="middle">7</text>
-        <text x="390" y="648" font-size="12" fill="#555" text-anchor="middle">9</text>
-        <text x="418" y="648" font-size="12" fill="#555">x (m)</text>
-
-        <!-- BMD: zero y=630; scale 0.03px/N·m
-             2800→y=546, 2625→y=551, 2000→y=570, 1400→y=588, -1400→y=672 -->
-        <!-- shading -->
-        <polygon points="90,630 157,630 157,570" fill="#3b82f6" fill-opacity="0.12"/>
-        <path d="M 157,630 L 157,570 Q 207,525 257,588 L 257,630 Z" fill="#3b82f6" fill-opacity="0.12"/>
-        <polygon points="257,630 290,630 257,588" fill="#3b82f6" fill-opacity="0.12"/>
-        <polygon points="290,630 323,672 323,630" fill="#c0392b" fill-opacity="0.15"/>
-        <polygon points="323,630 323,546 390,630" fill="#3b82f6" fill-opacity="0.12"/>
-        <!-- curves -->
-        <line x1="90"  y1="630" x2="157" y2="570" stroke="#1a3c6e" stroke-width="2.5"/>
-        <!-- 2m→5m bezier: P0=(157,570),P2=(257,588); mid t=0.5→x=3.5m(207), M=2600→y=552; CP: 2×(207,552)-0.5×(157,570)-0.5×(257,588)=(414,1104)-(78.5,285)-(128.5,294)=(207,525) -->
-        <path d="M 157,570 Q 207,525 257,588" fill="none" stroke="#1a3c6e" stroke-width="2.5"/>
-        <line x1="257" y1="588" x2="323" y2="672" stroke="#1a3c6e" stroke-width="2.5"/>
-        <!-- jump at 7m: dashed -->
-        <line x1="323" y1="672" x2="323" y2="546" stroke="#1a3c6e" stroke-width="1.5" stroke-dasharray="4,3"/>
-        <line x1="323" y1="546" x2="390" y2="630" stroke="#1a3c6e" stroke-width="2.5"/>
-        <!-- gridlines + labels -->
-        <!-- 2800 (y=546): gridline x=90→323 -->
-        <line x1="90" y1="546" x2="323" y2="546" stroke="#1a3c6e" stroke-width="1" stroke-dasharray="3,3"/>
-        <!-- 2625 (y=551): gridline x=90→198 -->
-        <line x1="90" y1="551" x2="198" y2="551" stroke="#1a3c6e" stroke-width="1" stroke-dasharray="3,3"/>
-        <!-- 2000 (y=570): flush at x=157 → no gridline -->
-        <!-- 1400 (y=588): gridline x=90→257 -->
-        <line x1="90" y1="588" x2="257" y2="588" stroke="#1a3c6e" stroke-width="1" stroke-dasharray="3,3"/>
-        <!-- -1400 (y=672): gridline x=90→323 (red) -->
-        <line x1="90" y1="672" x2="323" y2="672" stroke="#c0392b" stroke-width="1" stroke-dasharray="3,3"/>
-        <!-- labels: 2800(y=546) and 2625(y=551) only 5px → nudge -->
-        <text x="84" y="541" font-size="12" fill="#1a3c6e" text-anchor="end" font-weight="bold">2800</text>
-        <text x="84" y="560" font-size="12" fill="#1a3c6e" text-anchor="end" font-weight="bold">2625</text>
-        <text x="84" y="573" font-size="12" fill="#1a3c6e" text-anchor="end" font-weight="bold">2000</text>
-        <text x="84" y="591" font-size="12" fill="#1a3c6e" text-anchor="end" font-weight="bold">1400</text>
-        <text x="84" y="675" font-size="12" fill="#c0392b" text-anchor="end" font-weight="bold">−1400</text>
-
-      </svg>
-      <figcaption>Beam FBD, shear force diagram, and bending moment diagram aligned to the same horizontal scale. Guide lines show how the UDL zone, zero-shear point, and the applied moment each create distinct features across all three diagrams.</figcaption>
-      </figure>
-      </div>
-
-      <div class="callout answer">
-        <p>$M_{\max} = 2800\ \text{N}\cdot\text{m}$ at $x = 7\ \text{m}$ &nbsp;·&nbsp; $M_{\text{dist. load}} = 2625\ \text{N}\cdot\text{m}$ at $x = 3.25\ \text{m}$</p>
-      </div>
-    </div>
-  </details>
-</div>
-
-<div class="callout warn">
-  <p><strong>Common mistakes:</strong></p>
-  <p style="margin-top:6px">① <strong>Treating the concentrated moment as a force in $\sum F_y$</strong> — a moment has no vertical component; only its effect on $\sum M_A$ matters when finding reactions.</p>
-  <p style="margin-top:6px">② <strong>Adding a shear jump at $x=7$ m</strong> — concentrated moments cause a jump in the <em>bending moment diagram only</em>, not in the shear force diagram.</p>
-  <p style="margin-top:6px">③ <strong>Wrong sign for the BMD jump</strong> — a clockwise applied moment causes a <em>positive</em> (upward) jump in BMD; a counterclockwise applied moment causes a negative jump. Always verify using the right-hand segment equilibrium or by checking boundary conditions at both supports.</p>
-</div>
-
-<div class="footer">MCEN2002 – Fundamentals of Mechanical Design &nbsp;|&nbsp; Tutorial 2.5 &nbsp;|&nbsp; Curtin University</div>
-</div>
+<script>
+/* ═══════════════════════════════════════════════════════════════════════════
+   GENERATED FILE — do not edit by hand.
+   Source: _engine/sfd_bmd_engine.js  +  _engine/build.py
+   Rebuild with:  python3 _engine/build.py
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ══════════════════════════════════════════════════════════════════════════
+   MCEN2002 — SHARED SFD / BMD ENGINE
+   Single source of truth for every T2.x tutorial solution page.
+   Edit this file, then run  _engine/build.py  to regenerate the HTML files.
+   (The HTML files are self-contained — the engine is inlined into each one —
+   so they can be emailed or uploaded on their own.)
+
+   ─── MODEL ───────────────────────────────────────────────────────────────
+   Beam occupies 0 ≤ x ≤ L.
+     sA, sB  support positions (need NOT be the beam ends — this is what
+             lets T2.2's single overhang and T2.6's double overhang work)
+     w       UDL intensity acting over [a, b]      (w = 0 → no UDL)
+     P       downward point load at x = c          (P = 0 → no point load)
+     M0      applied concentrated moment at x = d, COUNTER-CLOCKWISE POSITIVE
+             (M0 = 0 → none; use a negative value for a clockwise moment)
+
+   Reactions, from ΣM about support A and ΣF_y:
+     R_B = [ W(x̄−sA) + P(c−sA) − M0 ] / (sB − sA),   R_A = W + P − R_B
+   Internal actions on the free body LEFT of a cut at x:
+     V(x) = R_A·[x>sA] + R_B·[x>sB] − w·ℓ(x) − P·[x>c]
+     M(x) = R_A(x−sA)[x>sA] + R_B(x−sB)[x>sB] − w·ℓ(x)·(x−x̄ℓ) − P(x−c)[x>c] − M0·[x>d]
+   where ℓ(x) = clamp(x,a,b) − a is the loaded length behind the cut.
+
+   ─── SYMBOLIC MODE ───────────────────────────────────────────────────────
+   T2.3 is stated in terms of P and l. The solver still runs in floating
+   point with P = 1, l = 1; only the FORMATTING changes — values are turned
+   back into exact fractions by continued-fraction expansion, so results
+   print as 5Pl/6 rather than 0.8333Pl.
+   ══════════════════════════════════════════════════════════════════════════ */
+
+/* ─────────────────── number formatting ─────────────────── */
+function nf(n){
+  let r = Math.round(n*1e9)/1e9;
+  if(Object.is(r,-0)) r = 0;
+  if(Math.abs(r) < 1e-12) r = 0;
+  return String(Math.round(r*1e6)/1e6);
+}
+/* exact fraction from a float, via continued fractions */
+function toFrac(x){
+  const sgn = x<0 ? -1 : 1; x = Math.abs(x);
+  let h1=1,h2=0,k1=0,k2=1,b=x;
+  for(let i=0;i<24;i++){
+    const a=Math.floor(b);
+    let h=a*h1+h2, k=a*k1+k2;
+    h2=h1; h1=h; k2=k1; k1=k;
+    if(Math.abs(x-h1/k1) < 1e-10 || k1>100000) break;
+    if(Math.abs(b-a) < 1e-12) break;
+    b = 1/(b-a);
+  }
+  return [sgn*h1, k1];
+}
+/* symbol = '' | 'P' | 'Pl' | 'l' ; tex = true → \frac{}{} , false → plain a/b */
+function fracStr(v, symbol, tex){
+  if(Math.abs(v) < 1e-12) return '0';
+  const [n,d] = toFrac(v);
+  const neg = n<0, N = Math.abs(n);
+  const numTxt = (N===1 && symbol) ? symbol : (N + (symbol||''));
+  let body;
+  if(d===1) body = numTxt;
+  else body = tex ? ('\\frac{'+numTxt+'}{'+d+'}') : (numTxt+'/'+d);
+  return (neg?'-':'') + body;
+}
+
+/* ─────────────────── unit-aware label factory ─────────────────── */
+/* Turn a display unit such as "kN·m" into safe LaTeX: \text{kN}\cdot\text{m}.
+   A literal "·" inside \text{} is not valid KaTeX text mode and renders as an
+   error glyph, which is what produced the stray "\cdotp m" on the page. */
+function texUnit(u){
+  if(!u) return '';
+  return u.split('·').map(function(part){ return '\\text{'+part+'}'; }).join('\\cdot ');
+}
+function makeFmt(cfg){
+  const U = cfg.units || {F:'kN', M:'kN·m', L:'m'};
+  const sym = !!cfg.symbolic;
+  /* In symbolic mode the "units" ARE the algebraic symbols: for T2.3 they are
+     P, PL and L. Nothing is hardcoded, so renaming the length symbol (l -> L,
+     say) is a one-line change in build.py. */
+  return {
+    /* force */
+    F : (v,tex) => sym ? fracStr(v,U.F,tex)   : nf(v),
+    Fu: (v,tex) => sym ? fracStr(v,U.F,tex)   : nf(v)+' '+U.F,
+    /* moment */
+    M : (v,tex) => sym ? fracStr(v,U.M,tex)   : nf(v),
+    Mu: (v,tex) => sym ? fracStr(v,U.M,tex)   : nf(v)+' '+U.M,
+    /* length / position */
+    L : (v,tex) => sym ? fracStr(v,U.L,tex)   : nf(v),
+    Lu: (v,tex) => sym ? fracStr(v,U.L,tex)   : nf(v)+' '+U.L,
+    /* distributed intensity */
+    W : (v,tex) => sym ? (fracStr(v,U.F,tex)+'/'+U.L) : nf(v),
+    Wu: (v,tex) => sym ? (fracStr(v,U.F,tex)+'/'+U.L) : nf(v)+' '+U.F+'/'+U.L,
+    unitF: U.F, unitM: U.M, unitL: U.L, sym: sym,
+    texF: texUnit(U.F), texM: texUnit(U.M), texL: texUnit(U.L),
+    /* signed, for axis labels */
+    pmF: v => (v<0?'−':'+') + (sym ? fracStr(Math.abs(v),U.F,false) : nf(Math.abs(v)))
+  };
+}
+
+/* ─────────────────── solver ─────────────────── */
+function segAt(segs,x){
+  for(const g of segs) if(x >= g.s-1e-9 && x <= g.e+1e-9) return g;
+  return segs[segs.length-1];
+}
+function Vseg(g,x){ return g.vA*x + g.vB; }
+function Mseg(g,x){ return g.mA*x*x + g.mB*x + g.mC; }
+
+function solve(p){
+  const L=p.L, sA=p.sA, sB=p.sB, w=p.w||0, a=p.a||0, b=p.b||0,
+        P=p.P||0, c=p.c||0, M0=p.M0||0, d=p.d||0;
+  const hasUDL = Math.abs(w)>1e-12 && Math.abs(b-a)>1e-12;
+  const hasP   = Math.abs(P)>1e-12;
+  const hasM   = Math.abs(M0)>1e-12;
+
+  const W  = hasUDL ? w*(b-a) : 0;
+  const xb = hasUDL ? (a+b)/2 : 0;
+
+  const RB = ( W*(xb-sA) + P*(c-sA) - M0 ) / (sB-sA);
+  const RA = W + P - RB;
+
+  /* breakpoints: every place the loading or support condition changes */
+  const raw = [0, L, sA, sB];
+  if(hasUDL){ raw.push(a,b); }
+  if(hasP)  raw.push(c);
+  if(hasM)  raw.push(d);
+  const bps = [...new Set(raw.map(v=>Math.round(v*1e9)/1e9))]
+              .filter(v => v>=-1e-9 && v<=L+1e-9).sort((u,v)=>u-v);
+
+  const segs = [];
+  for(let i=0;i<bps.length-1;i++){
+    const s=bps[i], e=bps[i+1], mid=(s+e)/2;
+    const pastA = mid > sA, pastB = mid > sB;
+    const udl   = !hasUDL ? 'none' : (mid<=a ? 'none' : (mid>=b ? 'full' : 'partial'));
+    const pP    = hasP && mid > c;
+    const pM    = hasM && mid > d;
+
+    let vA=0, vB=0;
+    if(pastA) vB += RA;
+    if(pastB) vB += RB;
+    if(pP)    vB -= P;
+    if(udl==='partial'){ vA -= w; vB += w*a; }
+    if(udl==='full')     vB -= W;
+
+    let mA=0, mB=0, mC=0;
+    if(pastA){ mB += RA; mC -= RA*sA; }
+    if(pastB){ mB += RB; mC -= RB*sB; }
+    if(pP)   { mB -= P;  mC += P*c;   }
+    if(udl==='partial'){ mA -= w/2; mB += w*a; mC -= w*a*a/2; }
+    if(udl==='full')   { mB -= W;   mC += W*xb; }
+    if(pM)   { mC -= M0; }
+
+    segs.push({i:i,s:s,e:e,mid:mid,pastA:pastA,pastB:pastB,udl:udl,hasP:pP,hasM0:pM,
+               vA:vA,vB:vB,mA:mA,mB:mB,mC:mC});
+  }
+
+  /* every zero-shear location (there can be more than one) */
+  const zeros = [];
+  for(const g of segs){
+    if(Math.abs(g.vA) > 1e-12){
+      const x = -g.vB/g.vA;
+      if(x > g.s+1e-9 && x < g.e-1e-9) zeros.push({x:x, seg:g});
+    }
+  }
+  /* candidate stationary / corner values of M, sampling BOTH sides of jumps */
+  const cand = [];
+  for(const g of segs){ cand.push({x:g.s,seg:g}); cand.push({x:g.e,seg:g}); }
+  for(const z of zeros) cand.push({x:z.x, seg:z.seg});
+
+  let Mmax=-Infinity, xMax=0, Mmin=Infinity, xMin=0;
+  for(const q of cand){
+    const m = Mseg(q.seg,q.x);
+    if(m > Mmax+1e-9){ Mmax=m; xMax=q.x; }
+    if(m < Mmin-1e-9){ Mmin=m; xMin=q.x; }
+  }
+  /* largest magnitude, whichever sign */
+  const Mabs = Math.abs(Mmax) >= Math.abs(Mmin) ? Mmax : Mmin;
+  const xAbs = Math.abs(Mmax) >= Math.abs(Mmin) ? xMax : xMin;
+
+  let vMax=0, vMin=0;
+  for(const g of segs) for(const x of [g.s,g.e]){
+    const v = Vseg(g,x); if(v>vMax) vMax=v; if(v<vMin) vMin=v; }
+
+  return {p:p, W:W, xb:xb, RA:RA, RB:RB, bps:bps, segs:segs, zeros:zeros,
+          hasUDL:hasUDL, hasP:hasP, hasM:hasM,
+          Mmax:Mmax, xMax:xMax, Mmin:Mmin, xMin:xMin, Mabs:Mabs, xAbs:xAbs,
+          vMax:vMax, vMin:vMin,
+          Vof: x => Vseg(segAt(segs,x),x),
+          Mof: x => Mseg(segAt(segs,x),x)};
+}
+
+/* ─────────────────── SVG primitives ─────────────────── */
+const RED='#c0392b', NAVY='#1a3c6e', BLUE='#1a6fc4', ORANGE='#f97316', GREY='#555';
+const n1 = v => Number(v).toFixed(1);
+
+function udlBlock(x1,x2,yTop,yBot,label){
+  let s = '<line x1="'+n1(x1)+'" y1="'+yTop+'" x2="'+n1(x2)+'" y2="'+yTop+'" stroke="'+RED+'" stroke-width="1.5"/>';
+  const n = Math.max(3, Math.min(14, Math.round((x2-x1)/19)));
+  for(let i=0;i<=n;i++){
+    const x = x1 + (x2-x1)*i/n;
+    s += '<line x1="'+n1(x)+'" y1="'+yTop+'" x2="'+n1(x)+'" y2="'+yBot+'" stroke="'+RED+'" stroke-width="1.2"/>'
+       + '<polygon points="'+n1(x)+','+(yBot+1)+' '+n1(x-5)+','+(yBot-11)+' '+n1(x+5)+','+(yBot-11)+'" fill="'+RED+'"/>';
+  }
+  if(label) s += '<text x="'+n1((x1+x2)/2)+'" y="'+(yTop-8)+'" font-size="13" fill="'+RED+'" text-anchor="middle" font-weight="bold">'+label+'</text>';
+  return s;
+}
+function udlFaint(x1,x2,y){
+  return '<line x1="'+n1(x1)+'" y1="'+y+'" x2="'+n1(x2)+'" y2="'+y+'" stroke="'+RED+'" stroke-width="1.2" stroke-dasharray="4,3" stroke-opacity="0.45"/>'
+       + '<line x1="'+n1(x1)+'" y1="'+y+'" x2="'+n1(x1)+'" y2="'+(y+14)+'" stroke="'+RED+'" stroke-width="1" stroke-opacity="0.45"/>'
+       + '<line x1="'+n1(x2)+'" y1="'+y+'" x2="'+n1(x2)+'" y2="'+(y+14)+'" stroke="'+RED+'" stroke-width="1" stroke-opacity="0.45"/>';
+}
+function ptLoad(x,yTop,yBot,label,fsz){
+  fsz = fsz || 13;
+  let s = '<line x1="'+n1(x)+'" y1="'+yTop+'" x2="'+n1(x)+'" y2="'+yBot+'" stroke="'+RED+'" stroke-width="2.2"/>'
+        + '<polygon points="'+n1(x)+','+(yBot+1)+' '+n1(x-6)+','+(yBot-12)+' '+n1(x+6)+','+(yBot-12)+'" fill="'+RED+'"/>';
+  if(label) s += '<text x="'+n1(x)+'" y="'+(yTop-6)+'" font-size="'+fsz+'" fill="'+RED+'" text-anchor="middle" font-weight="bold">'+label+'</text>';
+  return s;
+}
+/* Curved applied-moment symbol.
+   Clock-angle convention: 0 = 12 o'clock, increasing clockwise;
+   point on circle = (cx + r·sinθ, cy − r·cosθ). The arrowhead lies on the
+   FORWARD tangent so it continues the arc's rotation.
+   ccw = true  → tail 320°, tip 40°, sweep 0  (counter-clockwise)
+   ccw = false → tail  40°, tip 320°, sweep 1 (clockwise)
+   The sense MUST match the sign used in ΣM_A, or the figure contradicts the
+   algebra — the pre-2026 hand-built pages had exactly that mismatch. */
+function momentArrow(cx,cy,r,label,fsz,ccw){
+  fsz = fsz || 13;
+  const tip = ccw ? 40 : 320, tail = ccw ? 320 : 40, sweep = ccw ? 0 : 1;
+  const rad = A => A*Math.PI/180;
+  const pt  = A => [cx + r*Math.sin(rad(A)), cy - r*Math.cos(rad(A))];
+  const [tx,ty] = pt(tail), [ex,ey] = pt(tip);
+  const A = rad(tip);
+  const fwd  = (sweep===1) ? [Math.cos(A),Math.sin(A)] : [-Math.cos(A),-Math.sin(A)];
+  const apex = [ex+fwd[0]*10, ey+fwd[1]*10];
+  const perp = [-fwd[1], fwd[0]];
+  const c1 = [ex+perp[0]*6, ey+perp[1]*6], c2 = [ex-perp[0]*6, ey-perp[1]*6];
+  let s = '<path d="M '+n1(tx)+','+n1(ty)+' A '+r+','+r+' 0 1,'+sweep+' '+n1(ex)+','+n1(ey)+'" fill="none" stroke="'+RED+'" stroke-width="2.2"/>'
+        + '<polygon points="'+n1(apex[0])+','+n1(apex[1])+' '+n1(c1[0])+','+n1(c1[1])+' '+n1(c2[0])+','+n1(c2[1])+'" fill="'+RED+'"/>';
+  if(label) s += '<text x="'+n1(cx)+'" y="'+n1(cy-r-14)+'" font-size="'+fsz+'" fill="'+RED+'" text-anchor="middle" font-weight="bold">'+label+'</text>';
+  return s;
+}
+function hatchBar(x,y){
+  let s = '<line x1="'+n1(x-20)+'" y1="'+y+'" x2="'+n1(x+20)+'" y2="'+y+'" stroke="'+NAVY+'" stroke-width="1.5"/>';
+  for(let i=0;i<4;i++){ const bx = x-16+i*10;
+    s += '<line x1="'+n1(bx)+'" y1="'+(y+6)+'" x2="'+n1(bx+6)+'" y2="'+y+'" stroke="'+NAVY+'" stroke-width="1"/>'; }
+  return s;
+}
+function pinSup(x,y){
+  return '<polygon points="'+n1(x)+','+y+' '+n1(x-12)+','+(y+22)+' '+n1(x+12)+','+(y+22)+'" fill="#dbe4f0" stroke="'+NAVY+'" stroke-width="1.5"/>'+hatchBar(x,y+22);
+}
+/* Support name tag. A support sitting at the very end of the beam gets its
+   letter outside the beam; an INTERIOR support (T2.2's roller, both of
+   T2.6's) would have its letter land on top of the beam, so it is placed
+   above the beam on a small white halo that keeps it legible over UDL hatching. */
+function supLabel(S,X,x,yT,txt,side){
+  const atEnd = Math.abs(x-0)<1e-9 || Math.abs(x-S.p.L)<1e-9;
+  if(atEnd){
+    const dx = (side==='right') ? 26 : -26;
+    return '<text x="'+n1(X(x)+dx)+'" y="'+(yT+10)+'" font-size="14" fill="'+NAVY
+         + '" text-anchor="'+(side==='right'?'start':'end')+'" font-weight="bold">'+txt+'</text>';
+  }
+  return '<rect x="'+n1(X(x)-8)+'" y="'+(yT-21)+'" width="16" height="17" fill="#fff" fill-opacity="0.85"/>'
+       + '<text x="'+n1(X(x))+'" y="'+(yT-8)+'" font-size="14" fill="'+NAVY+'" text-anchor="middle" font-weight="bold">'+txt+'</text>';
+}
+function rollerSup(x,y){
+  return '<circle cx="'+n1(x)+'" cy="'+(y+9)+'" r="10" fill="#dbe4f0" stroke="'+NAVY+'" stroke-width="1.5"/>'+hatchBar(x,y+22);
+}
+/* reaction arrow; a NEGATIVE reaction is drawn pointing DOWN and coloured,
+   so the figure never silently contradicts the sign of the answer */
+function reactArrow(x,yBase,len,sub,val,lblY,neg){
+  const col = BLUE;
+  let s;
+  if(!neg){
+    s = '<line x1="'+n1(x)+'" y1="'+(yBase+len)+'" x2="'+n1(x)+'" y2="'+(yBase+12)+'" stroke="'+col+'" stroke-width="2.2"/>'
+      + '<polygon points="'+n1(x)+','+yBase+' '+n1(x-6)+','+(yBase+12)+' '+n1(x+6)+','+(yBase+12)+'" fill="'+col+'"/>';
+  } else {
+    s = '<line x1="'+n1(x)+'" y1="'+(yBase+2)+'" x2="'+n1(x)+'" y2="'+(yBase+len-12)+'" stroke="'+col+'" stroke-width="2.2"/>'
+      + '<polygon points="'+n1(x)+','+(yBase+len)+' '+n1(x-6)+','+(yBase+len-12)+' '+n1(x+6)+','+(yBase+len-12)+'" fill="'+col+'"/>';
+  }
+  return s + '<text x="'+n1(x)+'" y="'+lblY+'" font-size="12.5" fill="'+col+'" text-anchor="middle" font-weight="bold">'
+           + 'R<tspan font-size="9" dy="3">'+sub+'</tspan><tspan font-size="12.5" dy="-3"> = '+val+'</tspan></text>';
+}
+function dimChain(X,marks,y,fsz,fmt){
+  fsz = fsz || 12;
+  let s = '<line x1="'+n1(X(marks[0]))+'" y1="'+y+'" x2="'+n1(X(marks[marks.length-1]))+'" y2="'+y+'" stroke="'+GREY+'" stroke-width="1"/>';
+  for(const m of marks) s += '<line x1="'+n1(X(m))+'" y1="'+(y-5)+'" x2="'+n1(X(m))+'" y2="'+(y+5)+'" stroke="'+GREY+'" stroke-width="1"/>';
+  for(let i=0;i<marks.length-1;i++){
+    const gap = marks[i+1]-marks[i];
+    if(gap < 1e-9) continue;
+    s += '<text x="'+n1((X(marks[i])+X(marks[i+1]))/2)+'" y="'+(y+17)+'" font-size="'+fsz+'" fill="#333" text-anchor="middle">'+fmt.Lu(gap,false)+'</text>';
+  }
+  return s;
+}
+function cutFace(xc,yT,yB){
+  const yv0 = yT-34, yv1 = yB+10;
+  let s = '<line x1="'+n1(xc+30)+'" y1="'+yv0+'" x2="'+n1(xc+30)+'" y2="'+(yv1-6)+'" stroke="'+NAVY+'" stroke-width="2.2"/>'
+        + '<polygon points="'+n1(xc+30)+','+yv1+' '+n1(xc+24)+','+(yv1-12)+' '+n1(xc+36)+','+(yv1-12)+'" fill="'+NAVY+'"/>'
+        + '<text x="'+n1(xc+30)+'" y="'+(yv0-8)+'" font-size="14" fill="'+NAVY+'" text-anchor="middle" font-weight="bold" font-style="italic">V</text>';
+  const my = (yT+yB)/2;
+  s += '<path d="M '+n1(xc+76)+','+n1(my+27)+' A 27,27 0 0 0 '+n1(xc+76)+','+n1(my-27)+'" fill="none" stroke="#6b7280" stroke-width="2.2"/>'
+     + '<polygon points="'+n1(xc+60)+','+n1(my-27)+' '+n1(xc+78)+','+n1(my-35)+' '+n1(xc+76)+','+n1(my-18)+'" fill="#6b7280"/>'
+     + '<text x="'+n1(xc+116)+'" y="'+n1(my+5)+'" font-size="14" fill="'+NAVY+'" font-weight="bold" font-style="italic">M</text>';
+  return s;
+}
+function place(placed,y,gap){
+  let ly=y; while(placed.some(t=>Math.abs(t-ly)<gap)) ly+=gap; placed.push(ly); return ly;
+}
+function leader(labelY,trueY,xAxis,col){
+  if(Math.abs(labelY-3.5-trueY) < 2.5) return '';
+  return '<line x1="'+(xAxis-4)+'" y1="'+n1(labelY-3.5)+'" x2="'+xAxis+'" y2="'+n1(trueY)+'" stroke="'+col+'" stroke-width="0.8" stroke-opacity="0.65"/>';
+}
+
+/* ─────────────────── beam drawing (shared by several figures) ─────────────────── */
+function drawBeam(S,fmt,X,yT,opts){
+  const p=S.p; let s='';
+  s += '<rect x="'+n1(X(0))+'" y="'+yT+'" width="'+n1(X(p.L)-X(0))+'" height="12" fill="#7eaecf" stroke="'+NAVY+'" stroke-width="1.5"/>';
+  if(S.hasUDL) s += udlBlock(X(p.a),X(p.b),yT-38,yT-1,fmt.Wu(p.w,false));
+  if(S.hasP)   s += ptLoad(X(p.c),yT-60,yT-1,fmt.Fu(p.P,false),12);
+  if(S.hasM)   s += momentArrow(X(p.d),yT+6,18,fmt.Mu(Math.abs(p.M0),false),12,p.M0>0);
+  s += pinSup(X(p.sA),yT+12) + rollerSup(X(p.sB),yT+12);
+  if(opts && opts.labels){
+    s += supLabel(S,X,p.sA,yT,'A','left') + supLabel(S,X,p.sB,yT,'B','right');
+  }
+  return s;
+}
+
+/* ─────────────────── FIGURE: problem statement ─────────────────── */
+function figProblem(S,fmt){
+  const p=S.p, x0=50, span=320, X=m=>x0+span*m/p.L, yT=112;
+  let s = '<svg viewBox="0 0 440 225" width="470" xmlns="http://www.w3.org/2000/svg" font-family="Arial,sans-serif" font-size="13">';
+  s += drawBeam(S,fmt,X,yT,{labels:true});
+  s += dimChain(X,S.bps,192,12,fmt);
+  return s+'</svg>';
+}
+
+/* ─────────────────── FIGURE: reactions FBD ─────────────────── */
+function figReactions(S,fmt){
+  const p=S.p, x0=80, span=300, X=m=>x0+span*m/p.L, yT=112;
+  let s = '<svg viewBox="0 0 470 262" width="490" xmlns="http://www.w3.org/2000/svg" font-family="Arial,sans-serif" font-size="13">';
+  s += '<rect x="'+n1(X(0))+'" y="'+yT+'" width="'+n1(X(p.L)-X(0))+'" height="12" fill="#7eaecf" stroke="'+NAVY+'" stroke-width="1.5"/>';
+  if(S.hasUDL){
+    s += udlFaint(X(p.a),X(p.b),yT-52);
+    s += ptLoad(X(S.xb),yT-70,yT-1,'',12);
+    s += '<text x="'+n1(X(S.xb))+'" y="'+(yT-78)+'" font-size="12" fill="'+RED+'" text-anchor="middle" font-weight="bold">'+fmt.Fu(S.W,false)+' <tspan font-size="10">(UDL resultant)</tspan></text>';
+  }
+  if(S.hasP) s += ptLoad(X(p.c),yT-70,yT-1,fmt.Fu(p.P,false),12);
+  if(S.hasM) s += momentArrow(X(p.d),yT+6,18,fmt.Mu(Math.abs(p.M0),false),12,p.M0>0);
+  s += pinSup(X(p.sA),yT+12) + rollerSup(X(p.sB),yT+12);
+  s += supLabel(S,X,p.sA,yT,'A','left') + supLabel(S,X,p.sB,yT,'B','right');
+  s += reactArrow(X(p.sA),yT+36,32,'A',fmt.Fu(S.RA,false),yT+96,S.RA<0);
+  s += reactArrow(X(p.sB),yT+36,32,'B',fmt.Fu(S.RB,false),yT+96,S.RB<0);
+  s += dimChain(X,S.bps,232,11.5,fmt);
+  return s+'</svg>';
+}
+
+/* ─────────────────── FIGURE: cut free body ─────────────────── */
+function figCut(S,fmt,g){
+  const p=S.p, x0=80, span=270, X=m=>x0+span*m/p.L;
+  const xc=g.mid, Xc=X(xc), yT=96, yB=108;
+  let s = '<svg viewBox="0 0 590 288" width="590" xmlns="http://www.w3.org/2000/svg" font-family="Arial,sans-serif" font-size="13">';
+  s += '<rect x="'+n1(X(0))+'" y="'+yT+'" width="'+n1(Xc-X(0))+'" height="12" fill="#7eaecf" stroke="'+NAVY+'" stroke-width="1.5"/>';
+  s += '<line x1="'+n1(Xc)+'" y1="'+(yT-7)+'" x2="'+n1(Xc)+'" y2="'+(yB+7)+'" stroke="'+NAVY+'" stroke-width="1" stroke-dasharray="3,3"/>';
+  if(g.udl !== 'none'){
+    const ue = (g.udl==='partial') ? xc : p.b;
+    const lu = ue - p.a, xr = p.a + lu/2;
+    s += udlFaint(X(p.a),X(ue),yT-36);
+    const lbl = (g.udl==='partial')
+      ? fmt.W(p.w,false)+'(x − '+fmt.L(p.a,false)+')'
+      : fmt.W(p.w,false)+'('+fmt.L(p.b-p.a,false)+') = '+fmt.Fu(p.w*lu,false);
+    s += ptLoad(X(xr),yT-56,yT-1,lbl,12);
+  }
+  if(g.hasP)  s += ptLoad(X(p.c),yT-56,yT-1,fmt.Fu(p.P,false),12);
+  if(g.hasM0) s += momentArrow(X(p.d),yT+6,18,fmt.Mu(Math.abs(p.M0),false),11,p.M0>0);
+  if(g.pastA){
+    s += pinSup(X(p.sA),yB);
+    s += reactArrow(X(p.sA),yB+36,32,'A',fmt.Fu(S.RA,false),yB+94,S.RA<0);
+  }
+  if(g.pastB){
+    s += rollerSup(X(p.sB),yB);
+    s += reactArrow(X(p.sB),yB+36,32,'B',fmt.Fu(S.RB,false),yB+94,S.RB<0);
+  }
+  s += '<text x="'+n1(X(0)-14)+'" y="'+(yT+10)+'" font-size="13" fill="'+NAVY+'" text-anchor="end" font-weight="bold">'+(Math.abs(p.sA)<1e-9?'A':'')+'</text>';
+  s += cutFace(Xc,yT,yB);
+
+  /* Dimension ONLY the fixed features behind the cut. The cut itself is at an
+     arbitrary x, so labelling the gap between the last feature and the cut with
+     a number would wrongly imply a specific cut location — the running distance
+     is carried by the "x" arrow underneath instead. */
+  const marks=[0];
+  if(g.pastA) marks.push(p.sA);
+  if(g.pastB) marks.push(p.sB);
+  if(g.udl!=='none') marks.push(p.a);
+  if(g.udl==='full') marks.push(p.b);
+  if(g.hasP)  marks.push(p.c);
+  if(g.hasM0) marks.push(p.d);
+  const uniq=[...new Set(marks.map(v=>Math.round(v*1e9)/1e9))].sort((u,v)=>u-v);
+  if(uniq.length > 1) s += dimChain(X,uniq,216,11,fmt);
+
+  s += '<line x1="'+n1(X(0))+'" y1="242" x2="'+n1(X(0))+'" y2="252" stroke="'+GREY+'" stroke-width="1"/>';
+  s += '<line x1="'+n1(X(0))+'" y1="247" x2="'+n1(Xc-9)+'" y2="247" stroke="'+GREY+'" stroke-width="1"/>';
+  s += '<polygon points="'+n1(Xc)+',247 '+n1(Xc-12)+',243 '+n1(Xc-12)+',251" fill="'+GREY+'"/>';
+  s += '<text x="'+n1((X(0)+Xc)/2)+'" y="266" font-size="13" fill="#333" text-anchor="middle" font-style="italic">x</text>';
+  return s+'</svg>';
+}
+
+/* ─────────────────── plot helpers ─────────────────── */
+function vJumps(S){
+  const p=S.p, out=[];
+  const v0 = Vseg(S.segs[0],0);
+  if(Math.abs(v0)>1e-9) out.push([0,0,v0]);
+  for(let i=0;i<S.segs.length-1;i++){
+    const xj=S.segs[i].e, vL=Vseg(S.segs[i],xj), vR=Vseg(S.segs[i+1],xj);
+    if(Math.abs(vL-vR)>1e-9) out.push([xj,vL,vR]);
+  }
+  const last=S.segs[S.segs.length-1], vE=Vseg(last,p.L);
+  if(Math.abs(vE)>1e-9) out.push([p.L,vE,0]);
+  return out;
+}
+function mJumps(S){
+  const out=[];
+  for(let i=0;i<S.segs.length-1;i++){
+    const xj=S.segs[i].e, mL=Mseg(S.segs[i],xj), mR=Mseg(S.segs[i+1],xj);
+    if(Math.abs(mL-mR)>1e-9) out.push([xj,mL,mR]);
+  }
+  return out;
+}
+function vLabels(S){
+  const vals=[];
+  for(const g of S.segs) for(const x of [g.s,g.e]){
+    const v=Vseg(g,x);
+    if(Math.abs(v)<1e-9) continue;
+    if(!vals.some(q=>Math.abs(q.v-v)<1e-9)) vals.push({v:v,x:x});
+  }
+  vals.sort((q,r)=>r.v-q.v); return vals;
+}
+function mLabels(S){
+  const pts=[];
+  for(const g of S.segs) for(const x of [g.s,g.e]){
+    const v=Mseg(g,x);
+    if(Math.abs(v)<1e-9) continue;
+    if(!pts.some(t=>Math.abs(t.v-v)<1e-9)) pts.push({v:v,x:x});
+  }
+  for(const z of S.zeros){
+    const v=Mseg(z.seg,z.x);
+    if(Math.abs(v)>1e-9 && !pts.some(t=>Math.abs(t.v-v)<1e-9)) pts.push({v:v,x:z.x});
+  }
+  pts.sort((q,r)=>r.v-q.v); return pts;
+}
+function vSegDraw(g,X,Y){
+  const v1=Vseg(g,g.s), v2=Vseg(g,g.e), X1=X(g.s), X2=X(g.e), Z=Y(0);
+  let s='';
+  if(v1*v2 < -1e-15){
+    const xz=g.s+(g.e-g.s)*Math.abs(v1)/(Math.abs(v1)+Math.abs(v2)), Xz=X(xz);
+    s += '<polygon points="'+n1(X1)+','+n1(Z)+' '+n1(X1)+','+n1(Y(v1))+' '+n1(Xz)+','+n1(Z)+'" fill="'+(v1>0?'#3b82f6':RED)+'" fill-opacity="0.15"/>'
+       + '<polygon points="'+n1(Xz)+','+n1(Z)+' '+n1(X2)+','+n1(Y(v2))+' '+n1(X2)+','+n1(Z)+'" fill="'+(v2>0?'#3b82f6':RED)+'" fill-opacity="0.15"/>';
+  } else {
+    s += '<polygon points="'+n1(X1)+','+n1(Z)+' '+n1(X1)+','+n1(Y(v1))+' '+n1(X2)+','+n1(Y(v2))+' '+n1(X2)+','+n1(Z)+'" fill="'+((v1+v2)/2>=0?'#3b82f6':RED)+'" fill-opacity="0.15"/>';
+  }
+  return s+'<line x1="'+n1(X1)+'" y1="'+n1(Y(v1))+'" x2="'+n1(X2)+'" y2="'+n1(Y(v2))+'" stroke="'+NAVY+'" stroke-width="2.5"/>';
+}
+function mSegDraw(g,X,Y){
+  const M1=Mseg(g,g.s), M2=Mseg(g,g.e), X1=X(g.s), X2=X(g.e), Y1=Y(M1), Y2=Y(M2), Z=Y(0);
+  let s='';
+  if(Math.abs(g.mA) > 1e-15){
+    /* A parabolic segment can cross the axis (T2.6's overhung span hogs at both
+       supports and sags in between), so the fill cannot be decided from the two
+       endpoints. Sample the segment and emit one shaded strip per contiguous
+       run of constant sign; the curve itself stays an exact quadratic Bezier. */
+    const N = 48, xs = [], ms = [];
+    for(let k=0;k<=N;k++){ const x=g.s+(g.e-g.s)*k/N; xs.push(x); ms.push(Mseg(g,x)); }
+    let k0 = 0;
+    while(k0 < N){
+      let k1 = k0;
+      const sign = ms[k0] >= 0;
+      while(k1 < N && (ms[k1+1] >= 0) === sign) k1++;
+      if(k1 > k0){
+        let pts = '';
+        for(let k=k0;k<=k1;k++) pts += n1(X(xs[k]))+','+n1(Y(ms[k]))+' ';
+        pts += n1(X(xs[k1]))+','+n1(Z)+' '+n1(X(xs[k0]))+','+n1(Z);
+        s += '<polygon points="'+pts.trim()+'" fill="'+(sign?'#3b82f6':RED)+'" fill-opacity="0.12"/>';
+      }
+      k0 = k1 + (k1===k0 ? 1 : 0);
+      if(k1 === k0) k0++;
+    }
+    const xm=(g.s+g.e)/2, CPy=2*Y(Mseg(g,xm))-(Y1+Y2)/2, CPx=(X1+X2)/2;
+    s += '<path d="M '+n1(X1)+','+n1(Y1)+' Q '+n1(CPx)+','+n1(CPy)+' '+n1(X2)+','+n1(Y2)+'" fill="none" stroke="'+NAVY+'" stroke-width="2.5"/>';
+  } else if(M1*M2 < -1e-15){
+    const xz=g.s+(g.e-g.s)*Math.abs(M1)/(Math.abs(M1)+Math.abs(M2)), Xz=X(xz);
+    s += '<polygon points="'+n1(X1)+','+n1(Z)+' '+n1(X1)+','+n1(Y1)+' '+n1(Xz)+','+n1(Z)+'" fill="'+(M1>0?'#3b82f6':RED)+'" fill-opacity="0.12"/>'
+       + '<polygon points="'+n1(Xz)+','+n1(Z)+' '+n1(X2)+','+n1(Y2)+' '+n1(X2)+','+n1(Z)+'" fill="'+(M2>0?'#3b82f6':RED)+'" fill-opacity="0.12"/>'
+       + '<line x1="'+n1(X1)+'" y1="'+n1(Y1)+'" x2="'+n1(X2)+'" y2="'+n1(Y2)+'" stroke="'+NAVY+'" stroke-width="2.5"/>';
+    return s;
+  } else {
+    s += '<polygon points="'+n1(X1)+','+n1(Z)+' '+n1(X2)+','+n1(Z)+' '+n1(X2)+','+n1(Y2)+' '+n1(X1)+','+n1(Y1)+'" fill="'+((M1+M2)/2>=0?'#3b82f6':RED)+'" fill-opacity="0.12"/>'
+       + '<line x1="'+n1(X1)+'" y1="'+n1(Y1)+'" x2="'+n1(X2)+'" y2="'+n1(Y2)+'" stroke="'+NAVY+'" stroke-width="2.5"/>';
+    return s;
+  }
+  return s;
+}
+
+/* ─────────────────── FIGURE: SFD ─────────────────── */
+function figSFD(S,fmt){
+  const p=S.p, x0=46, span=310, X=m=>x0+span*m/p.L;
+  const sc = 142/((S.vMax-S.vMin)||1);
+  const zeroY = 46 + S.vMax*sc, Y = v => zeroY - v*sc, bot = Y(S.vMin);
+  let s = '<svg viewBox="0 0 400 250" width="720" xmlns="http://www.w3.org/2000/svg" font-family="Arial,sans-serif" font-size="12">';
+  s += '<line x1="'+x0+'" y1="'+n1(zeroY)+'" x2="'+n1(X(p.L)+20)+'" y2="'+n1(zeroY)+'" stroke="#888" stroke-width="1"/>';
+  s += '<line x1="'+x0+'" y1="24" x2="'+x0+'" y2="'+n1(bot+16)+'" stroke="#888" stroke-width="1"/>';
+  for(const m of S.bps){ if(Math.abs(m)<1e-9) continue;
+    s += '<line x1="'+n1(X(m))+'" y1="'+n1(zeroY-5)+'" x2="'+n1(X(m))+'" y2="'+n1(zeroY+5)+'" stroke="#888" stroke-width="1"/>'
+       + '<text x="'+n1(X(m))+'" y="'+n1(bot+34)+'" text-anchor="middle" fill="'+GREY+'">'+fmt.L(m,false)+'</text>'; }
+  s += '<text x="'+n1(X(p.L)+26)+'" y="'+n1(bot+34)+'" fill="'+GREY+'">x ('+fmt.unitL+')</text>';
+  s += '<text x="8" y="28" fill="'+GREY+'">V ('+fmt.unitF+')</text>';
+  for(const g of S.segs) s += vSegDraw(g,X,Y);
+  for(const j of vJumps(S))
+    s += '<line x1="'+n1(X(j[0]))+'" y1="'+n1(Y(j[1]))+'" x2="'+n1(X(j[0]))+'" y2="'+n1(Y(j[2]))+'" stroke="'+NAVY+'" stroke-width="1.5" stroke-dasharray="4,3"/>';
+  const placed=[];
+  for(const q of vLabels(S)){
+    const col = q.v>0?NAVY:RED;
+    if(X(q.x) > x0+1)
+      s += '<line x1="'+x0+'" y1="'+n1(Y(q.v))+'" x2="'+n1(X(q.x))+'" y2="'+n1(Y(q.v))+'" stroke="'+col+'" stroke-width="1" stroke-dasharray="3,3"/>';
+    const ly = place(placed, Y(q.v)+3.5, 13);
+    s += leader(ly,Y(q.v),x0,col);
+    s += '<text x="'+(x0-6)+'" y="'+n1(ly)+'" text-anchor="end" fill="'+col+'" font-weight="bold">'+fmt.pmF(q.v)+'</text>';
+  }
+  for(const z of S.zeros){
+    const Xz=X(z.x);
+    s += '<circle cx="'+n1(Xz)+'" cy="'+n1(zeroY)+'" r="3.5" fill="'+ORANGE+'"/>'
+       + '<line x1="'+n1(Xz)+'" y1="'+n1(zeroY)+'" x2="'+n1(Xz)+'" y2="'+n1(bot+42)+'" stroke="'+ORANGE+'" stroke-width="1" stroke-dasharray="3,3"/>'
+       + '<text x="'+n1(Xz)+'" y="'+n1(bot+56)+'" text-anchor="middle" fill="'+ORANGE+'" font-weight="bold" font-size="11">V = 0 at x = '+fmt.Lu(z.x,false)+'</text>';
+  }
+  return s+'</svg>';
+}
+
+/* ─────────────────── FIGURE: BMD ─────────────────── */
+function figBMD(S,fmt){
+  const p=S.p, x0=46, span=310, X=m=>x0+span*m/p.L;
+  const sc = 150/((S.Mmax-S.Mmin)||1);
+  const zeroY = 44 + S.Mmax*sc, Y = m => zeroY - m*sc, bot = Y(S.Mmin);
+  let s = '<svg viewBox="0 0 400 258" width="720" xmlns="http://www.w3.org/2000/svg" font-family="Arial,sans-serif" font-size="12">';
+  s += '<line x1="'+x0+'" y1="'+n1(zeroY)+'" x2="'+n1(X(p.L)+20)+'" y2="'+n1(zeroY)+'" stroke="#888" stroke-width="1"/>';
+  s += '<line x1="'+x0+'" y1="24" x2="'+x0+'" y2="'+n1(bot+16)+'" stroke="#888" stroke-width="1"/>';
+  for(const m of S.bps){ if(Math.abs(m)<1e-9) continue;
+    s += '<line x1="'+n1(X(m))+'" y1="'+n1(zeroY-5)+'" x2="'+n1(X(m))+'" y2="'+n1(zeroY+5)+'" stroke="#888" stroke-width="1"/>'
+       + '<text x="'+n1(X(m))+'" y="'+n1(bot+34)+'" text-anchor="middle" fill="'+GREY+'">'+fmt.L(m,false)+'</text>'; }
+  s += '<text x="'+n1(X(p.L)+26)+'" y="'+n1(bot+34)+'" fill="'+GREY+'">x ('+fmt.unitL+')</text>';
+  s += '<text x="8" y="28" fill="'+GREY+'">M ('+fmt.unitM+')</text>';
+  for(const g of S.segs) s += mSegDraw(g,X,Y);
+  for(const j of mJumps(S))
+    s += '<line x1="'+n1(X(j[0]))+'" y1="'+n1(Y(j[1]))+'" x2="'+n1(X(j[0]))+'" y2="'+n1(Y(j[2]))+'" stroke="'+NAVY+'" stroke-width="1.5" stroke-dasharray="4,3"/>';
+  const placed=[];
+  for(const q of mLabels(S)){
+    const col = q.v>=0?NAVY:RED;
+    if(X(q.x) > x0+1)
+      s += '<line x1="'+x0+'" y1="'+n1(Y(q.v))+'" x2="'+n1(X(q.x))+'" y2="'+n1(Y(q.v))+'" stroke="'+col+'" stroke-width="1" stroke-dasharray="3,3"/>';
+    const ly = place(placed, Y(q.v)+3.5, 13);
+    s += leader(ly,Y(q.v),x0,col);
+    s += '<text x="'+(x0-6)+'" y="'+n1(ly)+'" text-anchor="end" fill="'+col+'" font-weight="bold">'+fmt.M(q.v,false)+'</text>';
+  }
+  const Xp=X(S.xAbs);
+  s += '<circle cx="'+n1(Xp)+'" cy="'+n1(Y(S.Mabs))+'" r="3.5" fill="'+ORANGE+'"/>'
+     + '<line x1="'+n1(Xp)+'" y1="'+n1(Y(S.Mabs))+'" x2="'+n1(Xp)+'" y2="'+n1(bot+42)+'" stroke="'+ORANGE+'" stroke-width="1" stroke-dasharray="3,3"/>'
+     + '<text x="'+n1(Xp)+'" y="'+n1(bot+56)+'" text-anchor="middle" fill="'+ORANGE+'" font-weight="bold" font-size="11">largest |M| = '+fmt.Mu(S.Mabs,false)+' at x = '+fmt.Lu(S.xAbs,false)+'</text>';
+  return s+'</svg>';
+}
+
+/* ─────────────────── FIGURE: stacked summary ─────────────────── */
+function figSummary(S,fmt){
+  const p=S.p, x0=86, span=282, X=m=>x0+span*m/p.L;
+  let s = '<svg viewBox="0 0 460 810" width="730" xmlns="http://www.w3.org/2000/svg" font-family="Arial,sans-serif" font-size="13">';
+  for(const m of S.bps)
+    s += '<line x1="'+n1(X(m))+'" y1="130" x2="'+n1(X(m))+'" y2="746" stroke="#aab4c8" stroke-width="1" stroke-dasharray="4,4"/>';
+
+  /* beam FBD */
+  const yT=118;
+  s += '<rect x="'+n1(X(0))+'" y="'+yT+'" width="'+n1(X(p.L)-X(0))+'" height="12" fill="#7eaecf" stroke="'+NAVY+'" stroke-width="1.5"/>';
+  if(S.hasUDL) s += udlBlock(X(p.a),X(p.b),yT-38,yT-1,fmt.Wu(p.w,false));
+  if(S.hasP)   s += ptLoad(X(p.c),yT-64,yT-1,fmt.Fu(p.P,false),12);
+  if(S.hasM)   s += momentArrow(X(p.d),yT+6,18,fmt.Mu(Math.abs(p.M0),false),11,p.M0>0);
+  s += pinSup(X(p.sA),yT+12) + rollerSup(X(p.sB),yT+12);
+  s += supLabel(S,X,p.sA,yT,'A','left') + supLabel(S,X,p.sB,yT,'B','right');
+  s += reactArrow(X(p.sA),yT+36,30,'A',fmt.Fu(S.RA,false),yT+92,S.RA<0);
+  s += reactArrow(X(p.sB),yT+36,30,'B',fmt.Fu(S.RB,false),yT+92,S.RB<0);
+  s += dimChain(X,S.bps,252,11.5,fmt);
+
+  /* SFD */
+  const vsc = 108/((S.vMax-S.vMin)||1);
+  const vZero = 350 + S.vMax*vsc, VY=v=>vZero-v*vsc, vBot=VY(S.vMin);
+  s += '<text x="14" y="'+n1((VY(S.vMax)+VY(S.vMin))/2+5)+'" font-size="14" fill="'+NAVY+'" font-weight="bold">SFD</text>';
+  s += '<text x="'+x0+'" y="330" font-size="12" fill="'+GREY+'">V ('+fmt.unitF+')</text>';
+  s += '<line x1="'+x0+'" y1="'+n1(vZero)+'" x2="'+n1(X(p.L)+24)+'" y2="'+n1(vZero)+'" stroke="#888" stroke-width="1"/>';
+  s += '<line x1="'+x0+'" y1="336" x2="'+x0+'" y2="'+n1(vBot+16)+'" stroke="#888" stroke-width="1"/>';
+  for(const m of S.bps){ if(Math.abs(m)<1e-9) continue;
+    s += '<line x1="'+n1(X(m))+'" y1="'+n1(vZero-4)+'" x2="'+n1(X(m))+'" y2="'+n1(vZero+4)+'" stroke="#888" stroke-width="1"/>'
+       + '<text x="'+n1(X(m))+'" y="'+n1(vBot+34)+'" font-size="12" fill="'+GREY+'" text-anchor="middle">'+fmt.L(m,false)+'</text>'; }
+  for(const g of S.segs) s += vSegDraw(g,X,VY);
+  for(const j of vJumps(S))
+    s += '<line x1="'+n1(X(j[0]))+'" y1="'+n1(VY(j[1]))+'" x2="'+n1(X(j[0]))+'" y2="'+n1(VY(j[2]))+'" stroke="'+NAVY+'" stroke-width="1.5" stroke-dasharray="4,3"/>';
+  const vp=[];
+  for(const q of vLabels(S)){
+    const col=q.v>0?NAVY:RED;
+    if(X(q.x)>x0+1)
+      s += '<line x1="'+x0+'" y1="'+n1(VY(q.v))+'" x2="'+n1(X(q.x))+'" y2="'+n1(VY(q.v))+'" stroke="'+col+'" stroke-width="1" stroke-dasharray="3,3"/>';
+    const ly=place(vp,VY(q.v)+4,14);
+    s += leader(ly,VY(q.v),x0,col);
+    s += '<text x="'+(x0-8)+'" y="'+n1(ly)+'" font-size="13" fill="'+col+'" text-anchor="end" font-weight="bold">'+fmt.pmF(q.v)+'</text>';
+  }
+
+  /* BMD */
+  const msc = 116/((S.Mmax-S.Mmin)||1);
+  const mZero = 620 + S.Mmax*msc, MY=m=>mZero-m*msc, mBot=MY(S.Mmin);
+  s += '<text x="14" y="'+n1((MY(S.Mmax)+MY(S.Mmin))/2+5)+'" font-size="14" fill="'+NAVY+'" font-weight="bold">BMD</text>';
+  s += '<text x="'+x0+'" y="'+n1(MY(S.Mmax)-14)+'" font-size="12" fill="'+GREY+'">M ('+fmt.unitM+')</text>';
+  s += '<line x1="'+x0+'" y1="'+n1(mZero)+'" x2="'+n1(X(p.L)+24)+'" y2="'+n1(mZero)+'" stroke="#888" stroke-width="1"/>';
+  s += '<line x1="'+x0+'" y1="'+n1(MY(S.Mmax)-8)+'" x2="'+x0+'" y2="'+n1(mBot+16)+'" stroke="#888" stroke-width="1"/>';
+  for(const m of S.bps){ if(Math.abs(m)<1e-9) continue;
+    s += '<line x1="'+n1(X(m))+'" y1="'+n1(mZero-4)+'" x2="'+n1(X(m))+'" y2="'+n1(mZero+4)+'" stroke="#888" stroke-width="1"/>'
+       + '<text x="'+n1(X(m))+'" y="'+n1(mBot+34)+'" font-size="12" fill="'+GREY+'" text-anchor="middle">'+fmt.L(m,false)+'</text>'; }
+  s += '<text x="'+n1(X(p.L)+16)+'" y="'+n1(mBot+34)+'" font-size="12" fill="'+GREY+'">x ('+fmt.unitL+')</text>';
+  for(const g of S.segs) s += mSegDraw(g,X,MY);
+  for(const j of mJumps(S))
+    s += '<line x1="'+n1(X(j[0]))+'" y1="'+n1(MY(j[1]))+'" x2="'+n1(X(j[0]))+'" y2="'+n1(MY(j[2]))+'" stroke="'+NAVY+'" stroke-width="1.5" stroke-dasharray="4,3"/>';
+  const mp=[];
+  for(const q of mLabels(S)){
+    const col=q.v>=0?NAVY:RED;
+    if(X(q.x)>x0+1)
+      s += '<line x1="'+x0+'" y1="'+n1(MY(q.v))+'" x2="'+n1(X(q.x))+'" y2="'+n1(MY(q.v))+'" stroke="'+col+'" stroke-width="1" stroke-dasharray="3,3"/>';
+    const ly=place(mp,MY(q.v)+4,14);
+    s += leader(ly,MY(q.v),x0,col);
+    s += '<text x="'+(x0-8)+'" y="'+n1(ly)+'" font-size="12" fill="'+col+'" text-anchor="end" font-weight="bold">'+fmt.M(q.v,false)+'</text>';
+  }
+  return s+'</svg>';
+}
+
+/* ─────────────────── equations ─────────────────── */
+const CIRCLED = ['①','②','③','④','⑤','⑥'];
+function tex(v){ return v; }
+
+function vEqn(S,fmt,g){
+  const p=S.p, up=[], dn=[];
+  if(g.pastA) up.push('R_A');
+  if(g.pastB) up.push('R_B');
+  if(g.hasP)  dn.push(fmt.F(p.P,true));
+  if(g.udl==='partial') dn.push(fmt.W(p.w,true)+'(x-'+fmt.L(p.a,true)+')');
+  if(g.udl==='full')    dn.push(fmt.F(S.W,true));
+  const lhs = (up.length? up.join(' + ') : '0') + dn.map(u=>' - '+u).join('') + ' - V = 0';
+  const rhs = (Math.abs(g.vA)<1e-12)
+    ? 'V = '+fmt.F(g.vB,true)+(fmt.sym?'':'\\ \\text{'+fmt.unitF+'}')+'\\quad\\text{(constant)}'
+    : 'V(x) = '+fmt.F(g.vB,true)+' - '+fmt.W(p.w,true)+'x';
+  return '\\sum F_y = 0:\\quad ' + lhs + ' \\quad\\Rightarrow\\quad ' + rhs;
+}
+function vExpr(S,fmt,g){
+  const p=S.p;
+  if(Math.abs(g.vA)<1e-12) return fmt.F(g.vB,true);
+  return fmt.F(g.vB,true)+' - '+fmt.W(p.w,true)+'x';
+}
+function mEqn(S,fmt,g){
+  const p=S.p, t=[];
+  if(g.pastB) t.push('R_B(x-'+fmt.L(p.sB,true)+')');
+  if(g.udl==='partial') t.push(fmt.W(p.w,true)+'(x-'+fmt.L(p.a,true)+')\\cdot\\tfrac{x+'+fmt.L(p.a,true)+'}{2}');
+  if(g.udl==='full')    t.push(fmt.F(S.W,true)+'('+fmt.L(S.xb,true)+')');
+  if(g.hasP)            t.push(fmt.F(p.P,true)+'('+fmt.L(p.c,true)+')');
+  let lhs = 'M - Vx';
+  lhs += t.map(u=>' - '+u).join('');
+  if(g.hasM0) lhs += (p.M0>0 ? ' + ' : ' - ') + fmt.M(Math.abs(p.M0),true);
+  return '\\sum M_A = 0:\\quad ' + lhs + ' = 0';
+}
+function mPoly(fmt,g){
+  const co = (v,lead) => {
+    const a=Math.abs(v);
+    const unit = fmt.sym ? false : (Math.abs(a-1)<1e-12);
+    const mag = unit ? '' : fmt.M(a,true);
+    return (lead ? (v<0?'-':'') : (v<0?' - ':' + ')) + mag;
+  };
+  let t='';
+  if(Math.abs(g.mA)>1e-12) t += co(g.mA,true)+'x^2';
+  if(Math.abs(g.mB)>1e-12) t += co(g.mB,!t)+'x';
+  if(Math.abs(g.mC)>1e-12) t += (t? (g.mC<0?' - ':' + ')+fmt.M(Math.abs(g.mC),true) : fmt.M(g.mC,true));
+  return 'M(x) = ' + (t || '0');
+}
+function segTitle(S,fmt,g){
+  const bits=[];
+  if(!g.pastA) bits.push('before support $A$ (overhang)');
+  if(g.udl==='partial') bits.push('inside the UDL — only the load behind the cut counts');
+  if(g.udl==='full' && S.hasUDL) bits.push('past the whole UDL');
+  if(g.hasP) bits.push('past the point load');
+  if(g.hasM0) bits.push('past the applied moment');
+  if(g.pastB) bits.push('past support $B$');
+  const what = bits.length ? bits.join(', ') : 'only $R_A$ acts on the left free body';
+  return CIRCLED[g.i]+' &nbsp;$'+fmt.L(g.s,true)+' \\le x \\le '+fmt.L(g.e,true)+'$ — '+what;
+}
+
+/* ─────────────────── page builder ─────────────────── */
+function stepBlock(n,title,hint,body){
+  return '<div class="step"><details'+(n===1?' open':'')+'>'
+       + '<summary><span class="step-num">'+n+'</span><span class="step-title">'+title+'</span>'
+       + '<span class="try-hint">'+hint+'</span></summary>'
+       + '<div class="step-body">'+body+'</div></details></div>';
+}
+
+function build(cfg, p){
+  const S = solve(p), fmt = makeFmt(cfg);
+  /* inline units, ALWAYS used inside $...$ (never appended after the closing $) */
+  const U  = fmt.sym ? '' : '\\ '+fmt.texF;
+  const UM = fmt.sym ? '' : '\\ '+fmt.texM;
+  let h = '';
+
+  /* problem statement */
+  const desc = [];
+  desc.push('Beam of total length '+fmt.Lu(p.L,false)+'. Pin support at $A$ ($x = '+fmt.L(p.sA,true)+'$), roller at $B$ ($x = '+fmt.L(p.sB,true)+'$).');
+  if(Math.abs(p.sA)>1e-9 || Math.abs(p.sB-p.L)>1e-9) desc.push('The beam <strong>overhangs</strong> its supports.');
+  if(S.hasUDL) desc.push('UDL of '+fmt.Wu(p.w,false)+' from $x = '+fmt.L(p.a,true)+'$ to $x = '+fmt.L(p.b,true)+'$.');
+  if(S.hasP)   desc.push('Downward point load of '+fmt.Fu(p.P,false)+' at $x = '+fmt.L(p.c,true)+'$.');
+  if(S.hasM)   desc.push('Applied '+(p.M0>0?'counter-clockwise':'clockwise')+' concentrated moment of '+fmt.Mu(Math.abs(p.M0),false)+' at $x = '+fmt.L(p.d,true)+'$.');
+
+  h += '<h3>Problem Statement</h3><p>'+cfg.question+'</p>'
+    +  '<div class="callout info"><p>'+desc.join(' ')+'</p></div>'
+    +  '<div class="diagram-wrap"><figure>'+figProblem(S,fmt)+'<figcaption>'+desc.join(' ').replace(/<\/?strong>/g,'')+'</figcaption></figure></div>'
+    +  '<div class="callout given"><p><strong>Answer:</strong> &nbsp; '+cfg.answer(S,fmt)+'</p></div>';
+  if(cfg.strategy) h += '<div class="callout info"><p><strong>Strategy:</strong> '+cfg.strategy+'</p></div>';
+  h += '<h3>Solution</h3>';
+
+  /* step 1 — reactions */
+  let b1 = '<div class="diagram-wrap"><figure>'+figReactions(S,fmt)
+    + '<figcaption>Free-body diagram of the whole beam — supports replaced by the unknown reactions, both assumed upward.</figcaption></figure></div>';
+  if(S.hasUDL)
+    b1 += '<p>The UDL of '+fmt.Wu(p.w,false)+' acts over '+fmt.Lu(p.b-p.a,false)+', so it is equivalent to a single downward force of '
+       +  '$'+fmt.W(p.w,true)+' \\times '+fmt.L(p.b-p.a,true)+' = '+fmt.F(S.W,true)+U+'$'+' at the centroid of that length, $x = '+fmt.L(S.xb,true)+'$.</p>';
+  const mt=[];
+  if(S.hasUDL) mt.push(fmt.F(S.W,true)+'('+fmt.L(S.xb-p.sA,true)+')');
+  if(S.hasP)   mt.push(fmt.F(p.P,true)+'('+fmt.L(p.c-p.sA,true)+')');
+  b1 += '<p>Take moments about $A$, counter-clockwise positive. Downward loads to the right of $A$ turn the beam clockwise, so they enter negatively; '
+     +  '$R_B$ turns it counter-clockwise, so it enters positively'
+     +  (S.hasM ? '. The applied moment is a pure couple — it contributes $'+fmt.M(Math.abs(p.M0),true)+UM+'$'+' directly, with no lever arm, and being '
+        +(p.M0>0?'counter-clockwise it enters positively':'clockwise it enters negatively')+'.' : '.')+'</p>'
+     +  '<div class="math-block">$$\\sum M_A = 0:\\quad R_B('+fmt.L(p.sB-p.sA,true)+')'
+     +  mt.map(u=>' - '+u).join('')
+     +  (S.hasM ? (p.M0>0?' + ':' - ')+fmt.M(Math.abs(p.M0),true) : '')
+     +  ' = 0$$'
+     +  '$$R_B = '+fmt.F(S.RB,true)+U+(S.RB<0?'\\ (\\text{i.e. downward})':'\\ \\uparrow')+'$$</div>'
+     +  '<div class="math-block">$$\\sum F_y = 0:\\quad R_A + R_B = '+fmt.F(S.W+(p.P||0),true)+U
+     +  ' \\implies R_A = '+fmt.F(S.RA,true)+U+(S.RA<0?'\\ (\\text{i.e. downward})':'\\ \\uparrow')+'$$</div>'
+     +  '<div class="callout answer"><p>$R_A = '+fmt.F(S.RA,true)+U+'$'+' &nbsp;&nbsp;&nbsp; $R_B = '+fmt.F(S.RB,true)+U+'$'+'</p></div>';
+  if(S.RA<0 || S.RB<0)
+    b1 += '<div class="callout warn"><p><strong>A negative reaction is not a mistake.</strong> $R_'+(S.RA<0?'A':'B')+'$ comes out negative, '
+       +  'which simply means the assumed upward direction was wrong — that support actually pulls <em>down</em> on the beam. '
+       +  'Keep the negative sign through the rest of the working; do not flip it.</p></div>';
+  b1 += '<div class="callout note"><p><strong>Check:</strong> $'+fmt.F(S.RA,true)+' + '+fmt.F(S.RB,true)+' = '+fmt.F(S.RA+S.RB,true)+U+'$'
+     +  ', matching the total downward load'+(S.hasM?' (the couple adds no net vertical force)':'')+' ✓</p></div>';
+  h += stepBlock(1,'Find the support reactions','try it yourself first',b1);
+
+  /* step 2 — SFD */
+  let b2 = '<p>Cut the beam in each segment and apply $\\sum F_y = 0$ to the free body on the <strong>left</strong> of the cut, '
+    + 'with $V$ drawn downward on the cut face (assumed positive). The segment boundaries are every place the loading or support '
+    + 'condition changes: $x = '+S.bps.map(v=>fmt.L(v,true)).join(',\\ ')+'$.</p>';
+  for(const g of S.segs){
+    b2 += '<h4>'+segTitle(S,fmt,g)+'</h4>'
+       +  '<div class="diagram-wrap"><figure>'+figCut(S,fmt,g)
+       +  '<figcaption>Cut at a section $'+fmt.L(g.s,true)+' &lt; x &lt; '+fmt.L(g.e,true)+'$ — the free body to the left of the cut.</figcaption>'
+       +  '</figure></div><div class="math-block">$$'+vEqn(S,fmt,g)+'$$';
+    if(Math.abs(g.vA)>1e-12)
+      b2 += '$$V('+fmt.L(g.s,true)+') = '+fmt.F(Vseg(g,g.s),true)+U+',\\qquad V('+fmt.L(g.e,true)+') = '+fmt.F(Vseg(g,g.e),true)+U+'$$';
+    b2 += '</div>';
+    for(const z of S.zeros) if(z.seg===g)
+      b2 += '<p>Shear crosses zero inside this segment, and the bending moment is always stationary where $V = 0$ — so this locates a peak:</p>'
+         +  '<div class="math-block">$$'+vExpr(S,fmt,g)+' = 0 \\implies \\boxed{x = '+fmt.L(z.x,true)+'}$$</div>';
+  }
+  if(S.hasM) b2 += '<p>Note that $V$ is <strong>unchanged</strong> across $x = '+fmt.L(p.d,true)+'$ — a concentrated moment produces no shear jump.</p>';
+  b2 += '<div class="diagram-wrap"><figure>'+figSFD(S,fmt)
+     +  '<figcaption>Shear force diagram — a step at each concentrated force (including the reactions), a straight ramp through any UDL, closing to zero at the free end.</figcaption>'
+     +  '</figure></div>';
+  h += stepBlock(2,'Construct the shear force diagram $V(x)$','sketch it before opening',b2);
+
+  /* step 3 — BMD */
+  let b3 = '<p>For each cut apply $\\sum M_A = 0$ to the same left free body, reusing $V$ from Step 2. '
+    + '$R_A$ acts through $A$, so its lever arm is zero and it drops out of every equation.</p>';
+  for(const g of S.segs){
+    /* The cut free body is repeated here rather than cross-referenced, so a
+       student working through the moment equations does not have to scroll back
+       up to Step 2 to see which loads sit behind the cut. */
+    b3 += '<h4>'+segTitle(S,fmt,g)+'</h4>'
+       +  '<div class="diagram-wrap"><figure>'+figCut(S,fmt,g)
+       +  '<figcaption>The same cut as Step 2 '+CIRCLED[g.i]+' — now taking moments about $A$ instead of '
+       +  'summing vertical forces. $R_A$ acts through $A$, so it has no lever arm here.</figcaption>'
+       +  '</figure></div>'
+       +  '<div class="math-block">$$'+mEqn(S,fmt,g)+'$$</div>'
+       +  '<p>Substituting $V = '+vExpr(S,fmt,g)+'$ from Step 2 '+CIRCLED[g.i]+':</p>'
+       +  '<div class="math-block">$$'+mPoly(fmt,g)+'$$'
+       +  '$$M('+fmt.L(g.s,true)+') = '+fmt.M(Mseg(g,g.s),true)+UM+',\\qquad M('+fmt.L(g.e,true)+') = '+fmt.M(Mseg(g,g.e),true)+UM+'$$</div>';
+    if(Math.abs(g.mA)>1e-12)
+      b3 += '<p>The squared term makes this segment <strong>parabolic</strong> — that is what a linearly varying shear integrates to.</p>';
+    for(const z of S.zeros) if(z.seg===g)
+      b3 += '<p>At the zero-shear point ($x = '+fmt.L(z.x,true)+'$):</p>'
+         +  '<div class="math-block">$$M('+fmt.L(z.x,true)+') = \\boxed{'+fmt.M(Mseg(g,z.x),true)+UM+'}$$</div>';
+  }
+  for(const j of mJumps(S))
+    b3 += '<div class="callout note"><p><strong>The jump at $x = '+fmt.L(j[0],true)+'$:</strong> the bending moment steps from $'+fmt.M(j[1],true)+'$ to $'
+       +  fmt.M(j[2],true)+UM+'$'+' — a change of $'+fmt.M(j[2]-j[1],true)+'$, exactly the applied moment. '
+       +  'This is the signature of a concentrated couple: it steps the BMD but leaves the SFD flat.</p></div>';
+  if(S.Mmin < -1e-9)
+    b3 += '<div class="callout warn"><p><strong>Watch the sign:</strong> the moment goes negative, reaching $'+fmt.M(S.Mmin,true)+UM+'$'+' at $x = '+fmt.L(S.xMin,true)+'$. '
+       +  'A negative bending moment means the beam is <strong>hogging</strong> there — curving upward, tension in the top fibre — rather than sagging.</p></div>';
+  b3 += '<div class="diagram-wrap"><figure>'+figBMD(S,fmt)
+     +  '<figcaption>Bending moment diagram — linear where shear is constant, parabolic through any UDL, zero at a free end and at a simple support with nothing beyond it.</figcaption>'
+     +  '</figure></div>'
+     +  '<div class="callout answer"><p>'+cfg.answer(S,fmt)+'</p></div>';
+  h += stepBlock(3,'Construct the bending moment diagram $M(x)$','sketch it before opening',b3);
+
+  /* step 4 — summary */
+  h += stepBlock(4,'Summary','the three diagrams together',
+      '<div class="diagram-wrap"><figure>'+figSummary(S,fmt)
+    + '<figcaption>Beam FBD, shear force diagram and bending moment diagram on a common horizontal scale — the dashed guide lines connect each load and support position to the kinks and jumps in both diagrams.</figcaption>'
+    + '</figure></div><div class="callout answer"><p>'+cfg.answer(S,fmt)+'</p></div>');
+
+  /* common mistakes */
+  const mis = [];
+  if(S.hasUDL) mis.push('<strong>Taking the UDL lever arm from the wrong point</strong> — the $'+fmt.F(S.W,true)+U+'$'+' resultant acts at $x = '+fmt.L(S.xb,true)
+    +'$, the centroid of the loaded length, not at either end of it.');
+  if(S.hasUDL) mis.push('<strong>Using the whole UDL inside the loaded zone</strong> — behind a cut at $x$ within the loaded length, only $(x - '+fmt.L(p.a,true)
+    +')$ is loaded, giving $'+fmt.W(p.w,true)+'(x-'+fmt.L(p.a,true)+')$, not the full $'+fmt.F(S.W,true)+U+'$'+'.');
+  if(S.hasM) mis.push('<strong>Putting the applied moment into $\\sum F_y$</strong> — a pure couple has no resultant force, so it never appears in a vertical '
+    +'force balance and never creates a step in the shear diagram. Nor does it get a lever arm in $\\sum M_A$.');
+  if(S.zeros.length) mis.push('<strong>Assuming the peak moment sits under the biggest load</strong> — it occurs where $V = 0$'
+    + (S.zeros.length===1 ? ', which here is $x = '+fmt.L(S.zeros[0].x,true)+'$' : '')+'. Setting $V(x) = 0$ is the key step.');
+  if(Math.abs(p.sA)>1e-9 || Math.abs(p.sB-p.L)>1e-9) mis.push('<strong>Forgetting the overhang</strong> — the bending moment is zero at a <em>free end</em>, '
+    +'not at the support. On the overhang the moment is negative (hogging), and it must be carried through into the supported span.');
+  if(S.RA<0 || S.RB<0) mis.push('<strong>Flipping a negative reaction to make it positive</strong> — keep the sign. It is telling you the support pulls down.');
+  mis.push('<strong>Drawing the BMD as straight lines through a UDL</strong> — where $V$ is linear, $M$ must be quadratic.');
+  h += '<div class="callout warn"><p><strong>Common mistakes:</strong></p>'
+     + mis.slice(0,5).map((m,i)=>'<p style="margin-top:6px">'+CIRCLED[i]+' '+m+'</p>').join('') + '</div>';
+
+  return h;
+}
+
+
+/* ─────────────────── tutorial configuration ─────────────────── */
+var CONFIG = {
+  question: "Draw the shear force and bending moment diagrams for the beam. Find the <strong>maximum bending moment</strong>, and separately the peak moment within the distributed-load region.",
+  units: {F:"kN", M:"kN·m", L:"m"},
+  strategy: "this is the T2.4 beam with the point load replaced by a concentrated moment. The shear diagram is therefore unaffected by it — but the bending moment jumps at that point, and the jump is what produces the global maximum.",
+  symbolic: false,
+  answer: function(S,fmt){
+        var s = '$M_{\\max} = '+fmt.M(S.Mabs,true)+'\\ \\text{kN}\\cdot\\text{m}$ at $x = '+
+                fmt.L(S.xAbs,true)+'\\ \\text{m}$';
+        if(S.zeros.length){
+          var z = S.zeros[0];
+          s += '; &nbsp; peak within the UDL: $'+fmt.M(S.Mof(z.x),true)+
+               '\\ \\text{kN}\\cdot\\text{m}$ at $x = '+fmt.L(z.x,true)+'\\ \\text{m}$';
+        }
+        return s;
+      }
+};
+var VARIANTS = [
+  {btn: "Original", desc: "The tutorial sheet problem — UDL from 2 m to 5 m, clockwise 4.2 kN·m couple at 7 m.", L: 9, sA: 0, sB: 9, w: 0.8, a: 2, b: 5, M0: -4.2, d: 7},
+  {btn: "Variant 1 — new load magnitudes", desc: "Same geometry, heavier UDL but a smaller couple. This flips the answer: the maximum moment is no longer at the couple, it is now inside the UDL where the shear crosses zero.", L: 9, sA: 0, sB: 9, w: 1, a: 2, b: 5, M0: -3, d: 7},
+  {btn: "Variant 2 — new load positions", desc: "Same UDL intensity and same couple, both moved towards A. The couple at 6 m still governs the maximum, and the beam hogs just before it.", L: 9, sA: 0, sB: 9, w: 0.8, a: 0.5, b: 3.5, M0: -4.2, d: 6}
+];
+
+/* ─────────────────── wiring ─────────────────── */
+function render(i){
+  var v = VARIANTS[i];
+  document.getElementById('doc').innerHTML = build(CONFIG, v);
+  document.getElementById('swDesc').textContent = v.desc;
+  var btns = document.querySelectorAll('#swBtns button');
+  for(var j=0;j<btns.length;j++) btns[j].setAttribute('aria-pressed', j===i ? 'true' : 'false');
+  if(window.renderMathInElement){
+    renderMathInElement(document.getElementById('doc'), {
+      delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}],
+      throwOnError:false
+    });
+  }
+}
+function init(){
+  var box = document.getElementById('swBtns');
+  VARIANTS.forEach(function(v,i){
+    var b = document.createElement('button');
+    b.textContent = v.btn;
+    b.setAttribute('aria-pressed','false');
+    b.onclick = function(){ render(i); };
+    box.appendChild(b);
+  });
+  render(0);
+}
+window.addEventListener('load', init);
+</script>
 </body>
 </html>
