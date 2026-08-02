@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>T5.9 – Impulse when Stepping off a Wall</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css"/>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]})"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+body{font-family:'Segoe UI',Arial,sans-serif;font-size:15px;line-height:1.75;color:#1a1a1a;background:#f5f6f8;margin:0;padding:24px 16px 56px}
+.page{max-width:860px;margin:0 auto;background:#fff;border-radius:10px;box-shadow:0 2px 14px rgba(0,0,0,.10);padding:40px 52px 52px}
+
+/* Header */
+.uni-header{text-align:center;border-bottom:2px solid #1a3c6e;padding-bottom:16px;margin-bottom:32px}
+.uni-header p{margin:0;line-height:1.4;font-size:13.5px;color:#555}
+.uni-header h2{margin:8px 0 0;font-size:20px;color:#1a3c6e}
+
+/* Section headings */
+h3{color:#1a3c6e;border-left:4px solid #1a3c6e;padding-left:10px;margin:28px 0 10px;font-size:15.5px}
+h4{color:#1a3c6e;font-size:14.5px;margin:18px 0 6px}
+
+/* Steps */
+.step{margin-bottom:10px}
+.step details{border:1px solid #d1d9e8;border-radius:8px;overflow:hidden;margin-top:6px}
+.step details summary{
+  list-style:none;cursor:pointer;padding:11px 15px;
+  background:#f0f4fb;color:#1a3c6e;font-weight:500;font-size:14.5px;
+  display:flex;align-items:center;gap:10px;user-select:none;
+}
+.step details summary::-webkit-details-marker{display:none}
+.step details summary::before{display:none}
+.step details summary::after{content:'▼';font-size:11px;color:#f97316;transition:transform 0.2s;flex-shrink:0;margin-left:auto;padding-left:8px}
+.step details[open] summary::after{transform:rotate(180deg)}
+.step details summary .step-label{font-size:12px;font-weight:500;color:#f97316;margin-right:4px}
+.step details[open] summary{background:#e8eef9;border-bottom:1px solid #d1d9e8}
+.step-body{padding:16px 20px}
+.step-heading{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.step-num{background:#1a3c6e;color:#fff;font-size:12px;font-weight:700;border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.step-title{font-size:15px;font-weight:600;color:#1a3c6e}
+.try-hint{font-size:12.5px;color:#6b7280;font-style:italic;margin-left:auto}
+
+/* Callouts */
+.callout{border-radius:6px;padding:13px 18px;margin:14px 0;font-size:14.5px}
+.callout p{margin:4px 0}
+.info{background:#eef4ff;border-left:4px solid #3b82f6}
+.given{background:#f0fdf4;border-left:4px solid #22c55e}
+.answer{background:#fff7ed;border-left:4px solid #f97316;font-size:16px;font-weight:600}
+.note{background:#faf5ff;border-left:4px solid #a855f7;font-size:14px}
+.warn{background:#fffbeb;border-left:4px solid #f59e0b;font-size:14px}
+
+/* Math display */
+.math-block{background:#f8f9fb;border:1px solid #e2e6ef;border-radius:6px;padding:14px 20px;margin:12px 0;overflow-x:auto;text-align:center}
+
+/* Table */
+table{width:100%;border-collapse:collapse;margin:18px 0;font-size:13.5px}
+th{background:#1a3c6e;color:#fff;padding:9px 10px;text-align:center;font-weight:600;font-size:13px}
+td{padding:8px 10px;text-align:center;border-bottom:1px solid #e5e7eb;vertical-align:middle}
+td.left{text-align:left;font-weight:600}
+tr:nth-child(even) td{background:#f8f9fb}
+tr.total td{font-weight:700;background:#eef4ff;border-top:2px solid #1a3c6e}
+
+/* Diagram */
+.diagram-wrap{text-align:center;margin:24px 0 8px}
+.diagram-wrap figcaption{font-size:13px;color:#555;margin-top:8px;font-style:italic}
+
+.footer{margin-top:40px;border-top:1px solid #e5e7eb;padding-top:12px;font-size:12px;color:#999;text-align:center}
+</style>
+</head>
+<body>
+<div class="page">
+<!-- ═══════════════════════════ HEADER ═══════════════════════════ -->
+<div class="uni-header">
+  <p>Curtin University &nbsp;·&nbsp; School of Civil and Mechanical Engineering</p>
+  <p>MCEN2002 – Fundamentals of Mechanical Design</p>
+  <p style="margin-top:8px"><strong>Dr Azma Putra Azis</strong></p>
+  <h2>Tutorial 5.9 &nbsp;–&nbsp; Impulse when Stepping off a Wall</h2>
+</div>
+
+<!-- ═══════════════════════════ PROBLEM ═══════════════════════════ -->
+<h3>Problem Statement</h3>
+<p>Calculate the <strong>impulse</strong> when a person with a weight of <strong>80 kg</strong> steps off a <strong>50 cm</strong> high wall. They bend their knees so that the downwards motion is stopped and the contact time with the ground is <strong>0.3 seconds</strong>.</p>
+
+<div class="callout given">
+  <p><strong>Given answer:</strong> &nbsp; Impulse $= 250.6$ N·s</p>
+</div>
+
+<!-- Diagram -->
+<div class="diagram-wrap">
+<figure>
+<svg viewBox="0 0 560 340" width="480" xmlns="http://www.w3.org/2000/svg" font-family="Arial,sans-serif" font-size="12">
+
+  <!-- wall -->
+  <rect x="70" y="180" width="120" height="100" fill="#cbd5e1" stroke="#1a3c6e" stroke-width="2"/>
+  <g stroke="#1a3c6e" stroke-width="0.9" stroke-opacity="0.6">
+    <line x1="70" y1="205" x2="190" y2="205"/><line x1="70" y1="230" x2="190" y2="230"/>
+    <line x1="70" y1="255" x2="190" y2="255"/>
+    <line x1="110" y1="180" x2="110" y2="205"/><line x1="150" y1="205" x2="150" y2="230"/>
+    <line x1="110" y1="230" x2="110" y2="255"/><line x1="150" y1="255" x2="150" y2="280"/>
+  </g>
+
+  <!-- ground -->
+  <line x1="40" y1="280" x2="520" y2="280" stroke="#1a3c6e" stroke-width="2.5"/>
+  <g stroke="#1a3c6e" stroke-width="1.2">
+    <line x1="200" y1="280" x2="188" y2="294"/><line x1="230" y1="280" x2="218" y2="294"/>
+    <line x1="260" y1="280" x2="248" y2="294"/><line x1="290" y1="280" x2="278" y2="294"/>
+    <line x1="320" y1="280" x2="308" y2="294"/><line x1="350" y1="280" x2="338" y2="294"/>
+    <line x1="380" y1="280" x2="368" y2="294"/><line x1="410" y1="280" x2="398" y2="294"/>
+    <line x1="440" y1="280" x2="428" y2="294"/><line x1="470" y1="280" x2="458" y2="294"/>
+    <line x1="500" y1="280" x2="488" y2="294"/>
+  </g>
+
+  <!-- person standing on wall (ghost) -->
+  <g opacity="0.4">
+    <circle cx="140" cy="112" r="12" fill="#fde68a" stroke="#b45309" stroke-width="2"/>
+    <line x1="140" y1="124" x2="140" y2="154" stroke="#b45309" stroke-width="2.2"/>
+    <line x1="140" y1="132" x2="127" y2="146" stroke="#b45309" stroke-width="1.8"/>
+    <line x1="140" y1="132" x2="153" y2="146" stroke="#b45309" stroke-width="1.8"/>
+    <line x1="140" y1="154" x2="132" y2="180" stroke="#b45309" stroke-width="2"/>
+    <line x1="140" y1="154" x2="148" y2="180" stroke="#b45309" stroke-width="2"/>
+  </g>
+  <text x="82" y="98" fill="#94a3b8" font-size="12">steps off</text>
+
+  <!-- person landing, knees bent -->
+  <circle cx="330" cy="176" r="13" fill="#fde68a" stroke="#b45309" stroke-width="2"/>
+  <line x1="330" y1="189" x2="330" y2="220" stroke="#b45309" stroke-width="2.4"/>
+  <line x1="330" y1="196" x2="312" y2="184" stroke="#b45309" stroke-width="2"/>
+  <line x1="330" y1="196" x2="348" y2="184" stroke="#b45309" stroke-width="2"/>
+  <!-- bent legs -->
+  <path d="M 330 220 L 312 244 L 318 280" fill="none" stroke="#b45309" stroke-width="2.4"/>
+  <path d="M 330 220 L 348 244 L 342 280" fill="none" stroke="#b45309" stroke-width="2.4"/>
+  <text x="366" y="176" fill="#7c2d12" font-size="12.5" font-weight="bold">80 kg</text>
+  <text x="366" y="193" fill="#7c2d12" font-size="11.5">knees bend on landing</text>
+
+  <!-- drop height dim -->
+  <line x1="240" y1="180" x2="240" y2="280" stroke="#555" stroke-width="1"/>
+  <polygon points="240,180 236,191 244,191" fill="#555"/>
+  <polygon points="240,280 236,269 244,269" fill="#555"/>
+  <line x1="190" y1="180" x2="247" y2="180" stroke="#555" stroke-width="0.9" stroke-dasharray="3,3"/>
+  <text x="212" y="168" fill="#333" font-size="13">h = 50 cm</text>
+
+  <!-- fall path -->
+  <line x1="200" y1="196" x2="290" y2="252" stroke="#888" stroke-width="1" stroke-dasharray="6,4"/>
+
+  <!-- velocity label -->
+  <line x1="470" y1="200" x2="470" y2="248" stroke="#f97316" stroke-width="2.4"/>
+  <polygon points="470,258 464,242 476,242" fill="#f97316"/>
+  <text x="482" y="228" fill="#f97316" font-size="12.5" font-weight="bold">v</text>
+  <text x="404" y="252" fill="#f97316" font-size="12">v = √(2gh)</text>
+
+  <!-- contact time -->
+  <text x="360" y="316" fill="#a855f7" font-size="12.5" font-weight="bold">contact time Δt = 0.3 s</text>
+
+</svg>
+<figcaption>Stepping off — not jumping — so the initial velocity is zero. The person lands at v = √(2gh) and the knees stretch the stopping process over 0.3 s.</figcaption>
+</figure>
+</div>
+
+<!-- ═══════════════════════════ SOLUTION ═══════════════════════════ -->
+<h3>Solution</h3>
+
+<div class="step">
+  <div class="step-heading">
+    <div class="step-num">1</div>
+    <div class="step-title">What "impulse" means, and what it does not need</div>
+    <div class="try-hint">Try it first, then reveal ↓</div>
+  </div>
+  <details>
+    <summary><span class="step-label">Step 1</span> Impulse = change in momentum</summary>
+    <div class="step-body">
+      <p>Impulse is defined as the integral of force over time, and by Newton's second law that equals the change in momentum:</p>
+      <div class="math-block">$$J = \int F\,dt = \Delta p = m\,\Delta v$$</div>
+      <div class="callout info">
+        <p><strong>Read the question carefully:</strong> it asks for the <em>impulse</em>, not the force. The impulse is fixed the moment the person leaves the wall — it depends only on the momentum they arrive with. The 0.3 s contact time does <strong>not</strong> change it. Bending the knees changes how the impulse is <em>delivered</em> (a smaller force over a longer time), never how large it is.</p>
+      </div>
+      <p>So the 0.3 s is not needed for the answer as asked — it is there so you can go on to find the force, which we do in Step 4. Recognising which given data a question actually needs is part of the skill being tested.</p>
+      <p>Units: $J$ is in N·s, which is dimensionally identical to kg·m/s. Both are correct; N·s emphasises the force–time reading, kg·m/s the momentum reading.</p>
+    </div>
+  </details>
+</div>
+
+<div class="step">
+  <div class="step-heading">
+    <div class="step-num">2</div>
+    <div class="step-title">Landing velocity</div>
+    <div class="try-hint">Try it first, then reveal ↓</div>
+  </div>
+  <details>
+    <summary><span class="step-label">Step 2</span> Stepping off means starting from rest</summary>
+    <div class="step-body">
+      <p>"Steps off" — not jumps off — so the initial vertical velocity is zero and the fall is free:</p>
+      <div class="math-block">$$v = \sqrt{2gh} = \sqrt{2 \times 9.81 \times 0.5} = \sqrt{9.81} = 3.132\ \text{m/s}$$</div>
+      <div class="callout answer">
+        <p>$$v = 3.13\ \text{m/s} \quad (\approx 11.3\ \text{km/h})$$</p>
+      </div>
+      <div class="callout note">
+        <p><strong>Neat coincidence:</strong> with $h = 0.5$ m, $2gh = g$ numerically, so $v = \sqrt{g} = 3.132$ m/s. Useful as a memory anchor: a half-metre drop always lands you at about 3.1 m/s, roughly jogging pace.</p>
+      </div>
+    </div>
+  </details>
+</div>
+
+<div class="step">
+  <div class="step-heading">
+    <div class="step-num">3</div>
+    <div class="step-title">Compute the impulse</div>
+    <div class="try-hint">Try it first, then reveal ↓</div>
+  </div>
+  <details>
+    <summary><span class="step-label">Step 3</span> One multiplication</summary>
+    <div class="step-body">
+      <p>The person arrives at 3.132 m/s and finishes at rest, so the magnitude of the momentum change is:</p>
+      <div class="math-block">$$J = m\,\Delta v = 80 \times 3.132 = 250.6\ \text{kg·m/s}$$</div>
+      <div class="callout answer">
+        <p>$$J = 250.6\ \text{N·s} \quad \text{(directed upward, opposing the fall)}$$</p>
+      </div>
+      <div class="callout note">
+        <p><strong>Combined form:</strong> $J = m\sqrt{2gh}$ — impulse scales linearly with mass but only with the <em>square root</em> of drop height. Stepping off a 1 m wall instead of 0.5 m increases the impulse by just 41 %, not 100 %.</p>
+      </div>
+    </div>
+  </details>
+</div>
+
+<div class="step">
+  <div class="step-heading">
+    <div class="step-num">4</div>
+    <div class="step-title">What the 0.3 s is for: the landing force</div>
+    <div class="try-hint">Try it first, then reveal ↓</div>
+  </div>
+  <details>
+    <summary><span class="step-label">Step 4</span> Why bending your knees works</summary>
+    <div class="step-body">
+      <p>The average force required to deliver that impulse over 0.3 s:</p>
+      <div class="math-block">$$\bar{F} = \frac{J}{\Delta t} = \frac{250.6}{0.3} = 835\ \text{N}$$</div>
+      <p>This is the <em>net</em> (decelerating) force. The ground must also support the person's weight throughout the landing, so the actual average ground reaction is:</p>
+      <div class="math-block">$$N = \frac{J}{\Delta t} + mg = 835 + 785 = 1620\ \text{N} = 2.06 \times \text{body weight}$$</div>
+      <div class="callout info">
+        <p><strong>The point of the exercise:</strong> compare this with a stiff-legged landing, where the contact time might be 0.05 s:</p>
+        <p style="text-align:center">$$N = \frac{250.6}{0.05} + 785 = 5012 + 785 = 5797\ \text{N} = 7.4 \times \text{body weight}$$</p>
+        <p>Same impulse, same drop, same person — but 3.6 times the force, purely from the shorter contact time. Bending the knees is a biological crumple zone, and it works for exactly the reason a car's crumple zone does: $F = J/\Delta t$, so stretch $\Delta t$.</p>
+      </div>
+      <div class="callout note">
+        <p><strong>Connecting the tutorial:</strong> compare T5.1, where a 25 kg ball stopped in 10 ms generated 115 times its own weight. Here a heavier person stopping over 0.3 s — 30 times longer — sees only 2 times body weight. The impulse $J$ is set by the fall; everything after that is a design choice about $\Delta t$.</p>
+      </div>
+    </div>
+  </details>
+</div>
+
+<div class="step">
+  <div class="step-heading">
+    <div class="step-num">5</div>
+    <div class="step-title">Summary Table</div>
+  </div>
+  <details>
+    <summary><span class="step-label">Step 5</span> All quantities in one place</summary>
+    <div class="step-body">
+<table>
+  <thead>
+    <tr><th>Quantity</th><th>Symbol</th><th>Expression</th><th>Value</th></tr>
+  </thead>
+  <tbody>
+    <tr><td class="left">Mass</td><td>$m$</td><td>given</td><td>80 kg</td></tr>
+    <tr><td class="left">Wall height</td><td>$h$</td><td>50 cm</td><td>0.5 m</td></tr>
+    <tr><td class="left">Landing velocity</td><td>$v$</td><td>$\sqrt{2gh}$</td><td>3.132 m/s</td></tr>
+    <tr class="total"><td class="left">Impulse</td><td>$J$</td><td>$m\sqrt{2gh}$</td><td>250.6 N·s</td></tr>
+    <tr><td class="left">Contact time</td><td>$\Delta t$</td><td>given</td><td>0.3 s</td></tr>
+    <tr><td class="left">Average net force</td><td>$\bar{F}$</td><td>$J/\Delta t$</td><td>835 N</td></tr>
+    <tr><td class="left">Average ground reaction</td><td>$N$</td><td>$J/\Delta t + mg$</td><td>1620 N (2.06 BW)</td></tr>
+    <tr><td class="left">Stiff-legged comparison</td><td>$N$ at 0.05 s</td><td>$J/\Delta t + mg$</td><td>5797 N (7.4 BW)</td></tr>
+  </tbody>
+</table>
+    </div>
+  </details>
+</div>
+
+<!-- ═══════════════════════════ COMMON MISTAKES ═══════════════════════════ -->
+<div class="callout warn">
+  <p><strong>Common mistake 1:</strong> Dividing by the contact time and reporting 835 N as "the impulse". That is a force, in newtons. Impulse is force × time, in N·s. The question asks for the quantity that does <em>not</em> depend on how you land.</p>
+  <p style="margin-top:8px"><strong>Common mistake 2:</strong> Using $J = mgh = 392$ N·s or $J = mg\Delta t = 235$ N·s. The first is an energy (joules); the second is only the gravitational impulse during contact, not the momentum change.</p>
+  <p style="margin-top:8px"><strong>Common mistake 3:</strong> Using $v = 2gh$ instead of $\sqrt{2gh}$, giving 9.81 m/s and an impulse of 785 N·s. Check the units: $2gh$ has units of m²/s², i.e. velocity <em>squared</em>.</p>
+  <p style="margin-top:8px"><strong>Common mistake 4:</strong> Forgetting to add $mg$ when the question asks for the <em>ground reaction</em> rather than the net decelerating force. The two differ by 785 N here — nearly a factor of two on the answer.</p>
+  <p style="margin-top:8px"><strong>Common mistake 5:</strong> Assuming the person jumps rather than steps. "Steps off" means $v_0 = 0$; any downward push would add to $v$ and hence to $J$.</p>
+</div>
+
+<div class="footer">MCEN2002 – Fundamentals of Mechanical Design &nbsp;|&nbsp; Tutorial 5.9 &nbsp;|&nbsp; Curtin University</div>
+
+</div>
+</body>
+</html>

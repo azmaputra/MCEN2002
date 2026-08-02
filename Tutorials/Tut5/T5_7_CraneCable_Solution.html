@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>T5.7 – Crane Cable: Sudden Braking</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css"/>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]})"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+body{font-family:'Segoe UI',Arial,sans-serif;font-size:15px;line-height:1.75;color:#1a1a1a;background:#f5f6f8;margin:0;padding:24px 16px 56px}
+.page{max-width:860px;margin:0 auto;background:#fff;border-radius:10px;box-shadow:0 2px 14px rgba(0,0,0,.10);padding:40px 52px 52px}
+
+/* Header */
+.uni-header{text-align:center;border-bottom:2px solid #1a3c6e;padding-bottom:16px;margin-bottom:32px}
+.uni-header p{margin:0;line-height:1.4;font-size:13.5px;color:#555}
+.uni-header h2{margin:8px 0 0;font-size:20px;color:#1a3c6e}
+
+/* Section headings */
+h3{color:#1a3c6e;border-left:4px solid #1a3c6e;padding-left:10px;margin:28px 0 10px;font-size:15.5px}
+h4{color:#1a3c6e;font-size:14.5px;margin:18px 0 6px}
+
+/* Steps */
+.step{margin-bottom:10px}
+.step details{border:1px solid #d1d9e8;border-radius:8px;overflow:hidden;margin-top:6px}
+.step details summary{
+  list-style:none;cursor:pointer;padding:11px 15px;
+  background:#f0f4fb;color:#1a3c6e;font-weight:500;font-size:14.5px;
+  display:flex;align-items:center;gap:10px;user-select:none;
+}
+.step details summary::-webkit-details-marker{display:none}
+.step details summary::before{display:none}
+.step details summary::after{content:'▼';font-size:11px;color:#f97316;transition:transform 0.2s;flex-shrink:0;margin-left:auto;padding-left:8px}
+.step details[open] summary::after{transform:rotate(180deg)}
+.step details summary .step-label{font-size:12px;font-weight:500;color:#f97316;margin-right:4px}
+.step details[open] summary{background:#e8eef9;border-bottom:1px solid #d1d9e8}
+.step-body{padding:16px 20px}
+.step-heading{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.step-num{background:#1a3c6e;color:#fff;font-size:12px;font-weight:700;border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.step-title{font-size:15px;font-weight:600;color:#1a3c6e}
+.try-hint{font-size:12.5px;color:#6b7280;font-style:italic;margin-left:auto}
+
+/* Callouts */
+.callout{border-radius:6px;padding:13px 18px;margin:14px 0;font-size:14.5px}
+.callout p{margin:4px 0}
+.info{background:#eef4ff;border-left:4px solid #3b82f6}
+.given{background:#f0fdf4;border-left:4px solid #22c55e}
+.answer{background:#fff7ed;border-left:4px solid #f97316;font-size:16px;font-weight:600}
+.note{background:#faf5ff;border-left:4px solid #a855f7;font-size:14px}
+.warn{background:#fffbeb;border-left:4px solid #f59e0b;font-size:14px}
+
+/* Math display */
+.math-block{background:#f8f9fb;border:1px solid #e2e6ef;border-radius:6px;padding:14px 20px;margin:12px 0;overflow-x:auto;text-align:center}
+
+/* Table */
+table{width:100%;border-collapse:collapse;margin:18px 0;font-size:13.5px}
+th{background:#1a3c6e;color:#fff;padding:9px 10px;text-align:center;font-weight:600;font-size:13px}
+td{padding:8px 10px;text-align:center;border-bottom:1px solid #e5e7eb;vertical-align:middle}
+td.left{text-align:left;font-weight:600}
+tr:nth-child(even) td{background:#f8f9fb}
+tr.total td{font-weight:700;background:#eef4ff;border-top:2px solid #1a3c6e}
+
+/* Diagram */
+.diagram-wrap{text-align:center;margin:24px 0 8px}
+.diagram-wrap figcaption{font-size:13px;color:#555;margin-top:8px;font-style:italic}
+
+.footer{margin-top:40px;border-top:1px solid #e5e7eb;padding-top:12px;font-size:12px;color:#999;text-align:center}
+</style>
+</head>
+<body>
+<div class="page">
+<!-- ═══════════════════════════ HEADER ═══════════════════════════ -->
+<div class="uni-header">
+  <p>Curtin University &nbsp;·&nbsp; School of Civil and Mechanical Engineering</p>
+  <p>MCEN2002 – Fundamentals of Mechanical Design</p>
+  <p style="margin-top:8px"><strong>Dr Azma Putra Azis</strong></p>
+  <h2>Tutorial 5.7 &nbsp;–&nbsp; Crane Cable: Sudden Braking of a Descending Load</h2>
+</div>
+
+<!-- ═══════════════════════════ PROBLEM ═══════════════════════════ -->
+<h3>Problem Statement</h3>
+<p>A crane was lowering a load (<strong>W = 2250 kg</strong>) at a uniform rate of <strong>0.6 m/s</strong> when the brakes on the drum were suddenly applied. Assuming that the upper end of the cable stopped instantaneously, find the <strong>maximum force induced in the cable</strong>. <strong>Include the effect of static load.</strong> Take $E = 110$ GPa and a cross-sectional area of $A = 320$ mm² for the twisted wire cable, with a free length of <strong>6.1 m</strong>. The static deflection is given as $\delta_{st} = \dfrac{mgL}{AE}$.</p>
+<p style="font-size:13.5px;color:#666">(ex. 12.19, <em>Design of Machine Elements</em>, Spotts M.F., Third Edition, Prentice-Hall)</p>
+
+<div class="callout given">
+  <p><strong>Given answer:</strong> &nbsp; $F_{max} = 90.44$ kN</p>
+</div>
+
+<!-- Diagram -->
+<div class="diagram-wrap">
+<figure>
+<svg viewBox="0 0 520 400" width="430" xmlns="http://www.w3.org/2000/svg" font-family="Arial,sans-serif" font-size="12">
+
+  <!-- drum / sheave -->
+  <circle cx="220" cy="70" r="36" fill="#fff" stroke="#1a3c6e" stroke-width="2.2"/>
+  <circle cx="220" cy="70" r="4" fill="#1a3c6e"/>
+  <!-- centrelines through sheave -->
+  <line x1="160" y1="70" x2="290" y2="70" stroke="#888" stroke-width="0.9" stroke-dasharray="9,3,2,3"/>
+  <line x1="220" y1="20" x2="220" y2="120" stroke="#888" stroke-width="0.9" stroke-dasharray="9,3,2,3"/>
+  <text x="130" y="40" fill="#1a3c6e" font-size="12.5" font-weight="bold">drum — brakes</text>
+  <text x="130" y="56" fill="#1a3c6e" font-size="12.5" font-weight="bold">suddenly applied</text>
+
+  <!-- cable -->
+  <line x1="252" y1="70" x2="252" y2="318" stroke="#1a3c6e" stroke-width="3"/>
+  <text x="266" y="200" fill="#1a3c6e" font-size="12.5" font-weight="bold">twisted wire cable</text>
+  <text x="266" y="217" fill="#1a3c6e" font-size="12">A = 320 mm²</text>
+  <text x="266" y="234" fill="#1a3c6e" font-size="12">E = 110 GPa</text>
+
+  <!-- load -->
+  <rect x="205" y="318" width="94" height="52" fill="#7fe3ec" fill-opacity="0.85" stroke="#1a3c6e" stroke-width="2"/>
+  <text x="238" y="350" fill="#1a3c6e" font-size="15" font-weight="bold">W</text>
+  <text x="205" y="390" fill="#1a3c6e" font-size="12.5">2250 kg</text>
+
+  <!-- length dim -->
+  <line x1="150" y1="70" x2="150" y2="318" stroke="#555" stroke-width="1"/>
+  <polygon points="150,70 146,81 154,81" fill="#555"/>
+  <polygon points="150,318 146,307 154,307" fill="#555"/>
+  <line x1="144" y1="70" x2="184" y2="70" stroke="#555" stroke-width="0.9" stroke-dasharray="3,3"/>
+  <line x1="144" y1="318" x2="205" y2="318" stroke="#555" stroke-width="0.9" stroke-dasharray="3,3"/>
+  <text x="88" y="200" fill="#333" font-size="13">L = 6.1 m</text>
+
+  <!-- velocity arrow -->
+  <line x1="345" y1="270" x2="345" y2="320" stroke="#f97316" stroke-width="2.6"/>
+  <polygon points="345,332 338,315 352,315" fill="#f97316"/>
+  <text x="356" y="300" fill="#f97316" font-size="13" font-weight="bold">v = 0.6 m/s</text>
+  <text x="356" y="317" fill="#f97316" font-size="11.5">descending</text>
+
+  <!-- note: already carrying static load -->
+  <text x="60" y="270" fill="#a855f7" font-size="12" font-weight="bold">before braking, the cable</text>
+  <text x="60" y="286" fill="#a855f7" font-size="12" font-weight="bold">already carries W</text>
+  <text x="60" y="302" fill="#a855f7" font-size="12">and is already stretched δ&#8347;&#8348;</text>
+
+</svg>
+<figcaption>Critically, the load is <strong>already hanging</strong> on the cable before the brakes bite — the cable is pre-stretched by δ<sub>st</sub> and already carrying W. Only the kinetic energy is new. This is what makes T5.7 different from every dropped-weight problem in this tutorial.</figcaption>
+</figure>
+</div>
+
+<!-- ═══════════════════════════ SOLUTION ═══════════════════════════ -->
+<h3>Solution</h3>
+
+<div class="step">
+  <div class="step-heading">
+    <div class="step-num">1</div>
+    <div class="step-title">Identify what makes this problem different</div>
+    <div class="try-hint">Try it first, then reveal ↓</div>
+  </div>
+  <details>
+    <summary><span class="step-label">Step 1</span> A moving supported load, not a falling free one</summary>
+    <div class="step-body">
+      <p>In T5.2, T5.5 and T5.6 a weight fell freely onto a member that carried nothing beforehand. Here the situation is different in a way that changes the formula:</p>
+      <div class="callout info">
+        <p>• The cable is <strong>already loaded</strong> — it carries $W$ and is already stretched by $\delta_{st}$ before the brakes are applied.</p>
+        <p>• The load is <strong>already moving</strong> at 0.6 m/s — no drop height is involved.</p>
+        <p>• The brake removes the support velocity <em>instantaneously</em>, so the cable must absorb the load's kinetic energy through <em>additional</em> stretch $\delta_a$ beyond $\delta_{st}$.</p>
+      </div>
+      <p>Write the energy balance over the additional stretch. The load loses kinetic energy and descends a further $\delta_a$ (so gravity does work $W\delta_a$); the cable's strain energy grows from $\tfrac{1}{2}k\delta_{st}^2$ to $\tfrac{1}{2}k(\delta_{st} + \delta_a)^2$:</p>
+      <div class="math-block">$$\tfrac{1}{2}mv^{2} + W\delta_a = \tfrac{1}{2}k(\delta_{st} + \delta_a)^{2} - \tfrac{1}{2}k\delta_{st}^{2}$$</div>
+      <p>Expand the right-hand side: $\tfrac{1}{2}k\delta_a^2 + k\delta_{st}\delta_a$. But $k\delta_{st} = W$ exactly, so that second term <em>is</em> $W\delta_a$ — and it cancels the work done by gravity on the left:</p>
+      <div class="math-block">$$\tfrac{1}{2}mv^{2} = \tfrac{1}{2}k\delta_a^{2} \qquad \Longrightarrow \qquad \delta_a = v\sqrt{\frac{m}{k}}$$</div>
+      <div class="callout note">
+        <p><strong>This cancellation is the whole insight.</strong> Because the cable is pre-tensioned to exactly balance the weight, gravity does no <em>net</em> work during the extra stretch — the strain energy it buys is exactly the potential energy it releases. The kinetic energy alone determines the additional deflection. This is why the answer is <em>not</em> $n = 1 + \sqrt{1 + v^2/g\delta_{st}}$, which would give 93.9 kN; that formula belongs to a load that is not yet supported.</p>
+      </div>
+    </div>
+  </details>
+</div>
+
+<div class="step">
+  <div class="step-heading">
+    <div class="step-num">2</div>
+    <div class="step-title">Cable stiffness and static deflection</div>
+    <div class="try-hint">Try it first, then reveal ↓</div>
+  </div>
+  <details>
+    <summary><span class="step-label">Step 2</span> The cable as an axial spring</summary>
+    <div class="step-body">
+      <p>Working in N and mm ($E = 110\,000$ N/mm², $L = 6100$ mm), with $W = mg = 2250 \times 9.81 = 22\,072.5$ N:</p>
+      <div class="math-block">$$k = \frac{AE}{L} = \frac{320 \times 110\,000}{6100} = 5770.5\ \text{N/mm}$$</div>
+      <div class="math-block">$$\delta_{st} = \frac{W}{k} = \frac{22\,072.5}{5770.5} = 3.825\ \text{mm}$$</div>
+      <div class="callout note">
+        <p><strong>On the modulus:</strong> 110 GPa is well below steel's 200 GPa. That is deliberate — a twisted wire rope is not a solid bar. Under load the helical strands tighten and straighten, adding compliance, so ropes are quoted with an <em>effective</em> or apparent modulus around half that of the parent wire. Using 200 GPa here would under-predict $\delta_{st}$ and over-predict the force by about 35 %.</p>
+      </div>
+    </div>
+  </details>
+</div>
+
+<div class="step">
+  <div class="step-heading">
+    <div class="step-num">3</div>
+    <div class="step-title">Additional deflection and dynamic force</div>
+    <div class="try-hint">Try it first, then reveal ↓</div>
+  </div>
+  <details>
+    <summary><span class="step-label">Step 3</span> Kinetic energy converts to extra stretch</summary>
+    <div class="step-body">
+      <p>In SI units, $k = 5.7705 \times 10^{6}$ N/m:</p>
+      <div class="math-block">$$\delta_a = v\sqrt{\frac{m}{k}} = 0.6\sqrt{\frac{2250}{5.7705\times10^{6}}} = 0.6 \times 0.019746 = 0.01185\ \text{m}$$</div>
+      <div class="math-block">$$\delta_a = 11.85\ \text{mm}$$</div>
+      <p>The extra force this stretch generates is:</p>
+      <div class="math-block">$$F_{dyn} = k\,\delta_a = 5770.5 \times 11.85 = 68\,367\ \text{N} = 68.4\ \text{kN}$$</div>
+      <div class="callout answer">
+        <p>$$F_{dyn} = 68.4\ \text{kN}$$</p>
+      </div>
+      <div class="callout note">
+        <p><strong>Equivalent one-line form:</strong> substituting $\delta_a = v\sqrt{m/k}$ into $F = k\delta_a$ gives</p>
+        <p style="text-align:center">$$F_{dyn} = v\sqrt{mk} = 0.6\sqrt{2250 \times 5.7705\times10^{6}} = 68\,367\ \text{N} \ \checkmark$$</p>
+        <p>Worth memorising: the dynamic force from a moving mass brought to rest by a spring is $v\sqrt{mk}$ — the same expression that appeared in T5.3 and T5.4.</p>
+      </div>
+    </div>
+  </details>
+</div>
+
+<div class="step">
+  <div class="step-heading">
+    <div class="step-num">4</div>
+    <div class="step-title">Add the static load — the total cable force</div>
+    <div class="try-hint">Try it first, then reveal ↓</div>
+  </div>
+  <details>
+    <summary><span class="step-label">Step 4</span> Superposition: the cable was never unloaded</summary>
+    <div class="step-body">
+      <p>The maximum cable force is the force at maximum total stretch $\delta_{st} + \delta_a$:</p>
+      <div class="math-block">$$F_{max} = k(\delta_{st} + \delta_a) = W + F_{dyn} = 22\,072.5 + 68\,367$$</div>
+      <div class="callout answer">
+        <p>$$F_{max} = 90\,440\ \text{N} = 90.44\ \text{kN}$$</p>
+      </div>
+      <p>The corresponding cable stress and impact factor:</p>
+      <div class="math-block">$$\sigma_{max} = \frac{F_{max}}{A} = \frac{90\,440}{320} = 283\ \text{MPa}, \qquad n = \frac{F_{max}}{W} = \frac{90\,440}{22\,072.5} = 4.10$$</div>
+      <div class="callout info">
+        <p><strong>What a designer takes from this:</strong> a lowering speed of 0.6 m/s — a slow, unremarkable rate — multiplies the cable tension by 4.1 the instant the brake grabs. Crane ropes are specified with factors of safety of 5 or more precisely because of events like this, and why brakes are designed to ramp rather than to bite. Note that a <em>longer</em> cable would help: $k \propto 1/L$, so paying out more rope softens the system and reduces $F_{dyn} = v\sqrt{mk}$ by $\sqrt{L}$.</p>
+      </div>
+    </div>
+  </details>
+</div>
+
+<div class="step">
+  <div class="step-heading">
+    <div class="step-num">5</div>
+    <div class="step-title">Why not the usual impact factor?</div>
+    <div class="try-hint">Try it first, then reveal ↓</div>
+  </div>
+  <details>
+    <summary><span class="step-label">Step 5</span> The 3.8 % trap — and when each formula applies</summary>
+    <div class="step-body">
+      <p>A very common approach is to reach for the velocity form of the standard impact factor:</p>
+      <div class="math-block">$$n = 1 + \sqrt{1 + \frac{v^{2}}{g\,\delta_{st}}} = 1 + \sqrt{1 + \frac{0.36}{9.81 \times 0.003825}} = 4.255$$</div>
+      <div class="math-block">$$F = nW = 4.255 \times 22\,072.5 = 93.9\ \text{kN} \quad \text{(3.8\% too high)}$$</div>
+      <p>That formula is derived for a mass moving at $v$ that <em>then</em> engages an unloaded spring — the weight's work $W\delta$ is genuinely new energy going into the member. Here the cable was already carrying the weight, so that term was already accounted for in $\delta_{st}$ and must not be counted twice.</p>
+      <div class="callout info">
+        <p><strong>Which formula, when:</strong></p>
+        <p>• Load <strong>not yet supported</strong> by the member (dropped weight, free fall through $h$): &nbsp; $n = 1 + \sqrt{1 + 2h/\delta_{st}}$, or with initial velocity, $n = 1 + \sqrt{1 + v^2/g\delta_{st}}$.</p>
+        <p>• Load <strong>already supported</strong> and moving (this problem, lifts, hoists, suddenly braked drives): &nbsp; $F_{max} = W + v\sqrt{mk}$.</p>
+      </div>
+      <div class="callout note">
+        <p><strong>Direction of the error:</strong> in this case the wrong formula happens to be <em>conservative</em> (93.9 &gt; 90.4 kN), so it would not cause an unsafe design — but it is still the wrong physics, and the problem explicitly instructs "include the effect of static load", which is the hint that superposition is intended.</p>
+      </div>
+    </div>
+  </details>
+</div>
+
+<div class="step">
+  <div class="step-heading">
+    <div class="step-num">6</div>
+    <div class="step-title">Summary Table</div>
+  </div>
+  <details>
+    <summary><span class="step-label">Step 6</span> All quantities in one place</summary>
+    <div class="step-body">
+<table>
+  <thead>
+    <tr><th>Quantity</th><th>Symbol</th><th>Expression</th><th>Value</th></tr>
+  </thead>
+  <tbody>
+    <tr><td class="left">Load weight</td><td>$W$</td><td>$mg$</td><td>22 072.5 N</td></tr>
+    <tr><td class="left">Cable stiffness</td><td>$k$</td><td>$AE/L$</td><td>5770.5 N/mm</td></tr>
+    <tr><td class="left">Static stretch</td><td>$\delta_{st}$</td><td>$W/k$</td><td>3.825 mm</td></tr>
+    <tr><td class="left">Additional stretch</td><td>$\delta_a$</td><td>$v\sqrt{m/k}$</td><td>11.85 mm</td></tr>
+    <tr><td class="left">Total stretch</td><td>$\delta_{st}+\delta_a$</td><td>—</td><td>15.67 mm</td></tr>
+    <tr><td class="left">Dynamic force</td><td>$F_{dyn}$</td><td>$v\sqrt{mk}$</td><td>68.4 kN</td></tr>
+    <tr class="total"><td class="left">Maximum cable force</td><td>$F_{max}$</td><td>$W + v\sqrt{mk}$</td><td>90.44 kN</td></tr>
+    <tr><td class="left">Maximum cable stress</td><td>$\sigma_{max}$</td><td>$F_{max}/A$</td><td>283 MPa</td></tr>
+    <tr><td class="left">Effective impact factor</td><td>$n$</td><td>$F_{max}/W$</td><td>4.10</td></tr>
+  </tbody>
+</table>
+    </div>
+  </details>
+</div>
+
+<!-- ═══════════════════════════ COMMON MISTAKES ═══════════════════════════ -->
+<div class="callout warn">
+  <p><strong>Common mistake 1:</strong> Forgetting to add the static load. Reporting only $F_{dyn} = 68.4$ kN under-predicts the cable force by 24 % — an unsafe error, and the reason the question says "include the effect of static load".</p>
+  <p style="margin-top:8px"><strong>Common mistake 2:</strong> Using $n = 1 + \sqrt{1 + v^2/g\delta_{st}}$ (Step 5). It gives 93.9 kN because it double-counts the work done by the weight, which is already embedded in $\delta_{st}$.</p>
+  <p style="margin-top:8px"><strong>Common mistake 3:</strong> Using $E = 200$ GPa "because it's steel". A twisted wire rope has an effective modulus roughly half that of solid steel wire; the question supplies 110 GPa for exactly this reason.</p>
+  <p style="margin-top:8px"><strong>Common mistake 4:</strong> Mixing N–mm and SI inside $\delta_a = v\sqrt{m/k}$. With $v$ in m/s and $m$ in kg, $k$ must be in N/m ($5.77\times10^6$), not N/mm. Using 5770.5 here gives an answer 31.6 times too large.</p>
+  <p style="margin-top:8px"><strong>Common mistake 5:</strong> Treating "the upper end stopped instantaneously" as meaning the load also stops instantaneously. The load keeps moving for a further 11.85 mm — that stretch is precisely what generates the force.</p>
+</div>
+
+<div class="footer">MCEN2002 – Fundamentals of Mechanical Design &nbsp;|&nbsp; Tutorial 5.7 &nbsp;|&nbsp; Curtin University</div>
+
+</div>
+</body>
+</html>

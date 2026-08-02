@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>T5.4 – Axial Impact on a Steel Bar (with Mass Correction)</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css"/>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]})"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+body{font-family:'Segoe UI',Arial,sans-serif;font-size:15px;line-height:1.75;color:#1a1a1a;background:#f5f6f8;margin:0;padding:24px 16px 56px}
+.page{max-width:860px;margin:0 auto;background:#fff;border-radius:10px;box-shadow:0 2px 14px rgba(0,0,0,.10);padding:40px 52px 52px}
+
+/* Header */
+.uni-header{text-align:center;border-bottom:2px solid #1a3c6e;padding-bottom:16px;margin-bottom:32px}
+.uni-header p{margin:0;line-height:1.4;font-size:13.5px;color:#555}
+.uni-header h2{margin:8px 0 0;font-size:20px;color:#1a3c6e}
+
+/* Section headings */
+h3{color:#1a3c6e;border-left:4px solid #1a3c6e;padding-left:10px;margin:28px 0 10px;font-size:15.5px}
+h4{color:#1a3c6e;font-size:14.5px;margin:18px 0 6px}
+
+/* Steps */
+.step{margin-bottom:10px}
+.step details{border:1px solid #d1d9e8;border-radius:8px;overflow:hidden;margin-top:6px}
+.step details summary{
+  list-style:none;cursor:pointer;padding:11px 15px;
+  background:#f0f4fb;color:#1a3c6e;font-weight:500;font-size:14.5px;
+  display:flex;align-items:center;gap:10px;user-select:none;
+}
+.step details summary::-webkit-details-marker{display:none}
+.step details summary::before{display:none}
+.step details summary::after{content:'▼';font-size:11px;color:#f97316;transition:transform 0.2s;flex-shrink:0;margin-left:auto;padding-left:8px}
+.step details[open] summary::after{transform:rotate(180deg)}
+.step details summary .step-label{font-size:12px;font-weight:500;color:#f97316;margin-right:4px}
+.step details[open] summary{background:#e8eef9;border-bottom:1px solid #d1d9e8}
+.step-body{padding:16px 20px}
+.step-heading{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.step-num{background:#1a3c6e;color:#fff;font-size:12px;font-weight:700;border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.step-title{font-size:15px;font-weight:600;color:#1a3c6e}
+.try-hint{font-size:12.5px;color:#6b7280;font-style:italic;margin-left:auto}
+
+/* Callouts */
+.callout{border-radius:6px;padding:13px 18px;margin:14px 0;font-size:14.5px}
+.callout p{margin:4px 0}
+.info{background:#eef4ff;border-left:4px solid #3b82f6}
+.given{background:#f0fdf4;border-left:4px solid #22c55e}
+.answer{background:#fff7ed;border-left:4px solid #f97316;font-size:16px;font-weight:600}
+.note{background:#faf5ff;border-left:4px solid #a855f7;font-size:14px}
+.warn{background:#fffbeb;border-left:4px solid #f59e0b;font-size:14px}
+
+/* Math display */
+.math-block{background:#f8f9fb;border:1px solid #e2e6ef;border-radius:6px;padding:14px 20px;margin:12px 0;overflow-x:auto;text-align:center}
+
+/* Table */
+table{width:100%;border-collapse:collapse;margin:18px 0;font-size:13.5px}
+th{background:#1a3c6e;color:#fff;padding:9px 10px;text-align:center;font-weight:600;font-size:13px}
+td{padding:8px 10px;text-align:center;border-bottom:1px solid #e5e7eb;vertical-align:middle}
+td.left{text-align:left;font-weight:600}
+tr:nth-child(even) td{background:#f8f9fb}
+tr.total td{font-weight:700;background:#eef4ff;border-top:2px solid #1a3c6e}
+
+/* Diagram */
+.diagram-wrap{text-align:center;margin:24px 0 8px}
+.diagram-wrap figcaption{font-size:13px;color:#555;margin-top:8px;font-style:italic}
+
+.footer{margin-top:40px;border-top:1px solid #e5e7eb;padding-top:12px;font-size:12px;color:#999;text-align:center}
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- ═══════════════════════════ HEADER ═══════════════════════════ -->
+<div class="uni-header">
+  <p>Curtin University &nbsp;·&nbsp; School of Civil and Mechanical Engineering</p>
+  <p>MCEN2002 – Fundamentals of Mechanical Design</p>
+  <p style="margin-top:8px"><strong>Dr Azma Putra Azis</strong></p>
+  <h2>Tutorial 5.4 &nbsp;–&nbsp; Axial Impact on a Steel Bar (with Mass Correction)</h2>
+</div>
+
+<!-- ═══════════════════════════ PROBLEM ═══════════════════════════ -->
+<h3>Problem Statement</h3>
+<p>A <strong>2.5 cm diameter</strong> round steel bar, <strong>0.5 m long</strong>, is struck by an <strong>18 kg</strong> weight moving at a speed of <strong>0.8 m/s</strong>. The static deflection of the bar is given as $\delta_{bar} = \dfrac{mgL}{AE}$. Assume $E = 200$ GPa and density $\rho = 7850$ kg/m³.</p>
+<p><strong>a)</strong> Find the stress due to the impact assuming <em>no dissipation of energy</em>.<br/>
+<strong>b)</strong> Find the stress due to the impact <em>taking into account the dissipation of energy</em> due to the differences in weight.</p>
+<p style="font-size:13.5px;color:#666">(ex. 8, <em>Design of Machine Elements</em>, Spotts M.F., Third Edition, Prentice-Hall)</p>
+
+<div class="callout given">
+  <p><strong>Given answer:</strong> &nbsp; a) $\sigma = 96.9$ MPa &nbsp;&nbsp; b) $\sigma = 95.2$ MPa</p>
+</div>
+
+<!-- Diagram -->
+<div class="diagram-wrap">
+<figure>
+<svg viewBox="0 0 580 300" width="520" xmlns="http://www.w3.org/2000/svg" font-family="Arial,sans-serif" font-size="12">
+
+  <!-- fixed support wall -->
+  <line x1="70" y1="55" x2="70" y2="215" stroke="#1a3c6e" stroke-width="2.5"/>
+  <g stroke="#1a3c6e" stroke-width="1.2">
+    <line x1="70" y1="65" x2="56" y2="77"/><line x1="70" y1="87" x2="56" y2="99"/>
+    <line x1="70" y1="109" x2="56" y2="121"/><line x1="70" y1="131" x2="56" y2="143"/>
+    <line x1="70" y1="153" x2="56" y2="165"/><line x1="70" y1="175" x2="56" y2="187"/>
+    <line x1="70" y1="197" x2="56" y2="209"/>
+  </g>
+  <text x="44" y="238" fill="#1a3c6e" font-size="12">rigid support</text>
+
+  <!-- bar -->
+  <rect x="70" y="112" width="270" height="46" fill="#7fe3ec" fill-opacity="0.85" stroke="#1a3c6e" stroke-width="2"/>
+  <!-- bar centreline -->
+  <line x1="60" y1="135" x2="470" y2="135" stroke="#888" stroke-width="0.9" stroke-dasharray="9,3,2,3"/>
+
+  <!-- collar / struck end -->
+  <rect x="340" y="100" width="14" height="70" fill="#fff" stroke="#1a3c6e" stroke-width="2"/>
+
+  <!-- striking weight -->
+  <rect x="386" y="95" width="84" height="80" fill="#fde68a" fill-opacity="0.9" stroke="#b45309" stroke-width="2"/>
+  <text x="404" y="132" fill="#7c2d12" font-size="12.5" font-weight="bold">m = 18 kg</text>
+  <text x="404" y="150" fill="#7c2d12" font-size="12">v = 0.8 m/s</text>
+
+  <!-- velocity arrow -->
+  <line x1="500" y1="70" x2="410" y2="70" stroke="#f97316" stroke-width="2.6"/>
+  <polygon points="400,70 416,64 416,76" fill="#f97316"/>
+  <text x="432" y="60" fill="#f97316" font-size="13" font-weight="bold">v</text>
+
+  <!-- length dimension -->
+  <line x1="70" y1="255" x2="347" y2="255" stroke="#555" stroke-width="1"/>
+  <polygon points="70,255 82,251 82,259" fill="#555"/>
+  <polygon points="347,255 335,251 335,259" fill="#555"/>
+  <line x1="70" y1="215" x2="70" y2="262" stroke="#555" stroke-width="0.9" stroke-dasharray="3,3"/>
+  <line x1="347" y1="172" x2="347" y2="262" stroke="#555" stroke-width="0.9" stroke-dasharray="3,3"/>
+  <text x="175" y="275" fill="#333" font-size="12.5">L = 0.5 m = 500 mm</text>
+
+  <!-- diameter dimension -->
+  <line x1="205" y1="112" x2="205" y2="158" stroke="#555" stroke-width="1"/>
+  <polygon points="205,112 201,122 209,122" fill="#555"/>
+  <polygon points="205,158 201,148 209,148" fill="#555"/>
+  <text x="150" y="98" fill="#333" font-size="12.5">d = 25 mm</text>
+  <line x1="205" y1="112" x2="196" y2="94" stroke="#555" stroke-width="0.9"/>
+
+  <!-- labels -->
+  <text x="88" y="185" fill="#1a3c6e" font-size="12">steel bar: E = 200 GPa, ρ = 7850 kg/m³</text>
+
+</svg>
+<figcaption>The weight strikes the end of the bar axially. The bar acts as a very stiff spring of stiffness k = AE/L; its own mass (1.93 kg) is not negligible compared with the striker, which is what part (b) corrects for.</figcaption>
+</figure>
+</div>
+
+<!-- ═══════════════════════════ SOLUTION ═══════════════════════════ -->
+<h3>Solution</h3>
+
+<div class="step">
+  <div class="step-heading">
+    <div class="step-num">1</div>
+    <div class="step-title">Section properties and the bar as a spring</div>
+    <div class="try-hint">Try it first, then reveal ↓</div>
+  </div>
+  <details>
+    <summary><span class="step-label">Step 1</span> A, k = AE/L, and why that is the whole model</summary>
+    <div class="step-body">
+      <p>Cross-sectional area of the round bar:</p>
+      <div class="math-block">$$A = \frac{\pi d^{2}}{4} = \frac{\pi (25)^{2}}{4} = 490.9\ \text{mm}^{2} = 4.909 \times 10^{-4}\ \text{m}^{2}$$</div>
+      <p>The given static deflection formula $\delta_{bar} = \dfrac{mgL}{AE}$ is just Hooke's law written for an axially loaded bar, $\delta = FL/AE$. Rearranged, it tells us the bar behaves as a linear spring of stiffness</p>
+      <div class="math-block">$$k = \frac{F}{\delta} = \frac{AE}{L} = \frac{(4.909\times10^{-4})(200\times10^{9})}{0.5} = 1.963\times10^{8}\ \text{N/m}$$</div>
+      <div class="callout info">
+        <p><strong>Why this matters:</strong> once you see $k = AE/L$, T5.4 becomes structurally identical to T5.3 (trolley into a spring) — same energy balance, different $k$. The only new ingredient is converting the resulting force into a <em>stress</em>. Note how stiff the bar is: 196 MN/m, about 8700 times the trolley spring. Stiff members make bad shock absorbers.</p>
+      </div>
+    </div>
+  </details>
+</div>
+
+<div class="step">
+  <div class="step-heading">
+    <div class="step-num">2</div>
+    <div class="step-title">Part (a): energy balance with no dissipation</div>
+    <div class="try-hint">Try it first, then reveal ↓</div>
+  </div>
+  <details>
+    <summary><span class="step-label">Step 2</span> Kinetic energy in = strain energy stored</summary>
+    <div class="step-body">
+      <p>The weight arrives horizontally with kinetic energy</p>
+      <div class="math-block">$$KE = \tfrac{1}{2}mv^{2} = \tfrac{1}{2}(18)(0.8)^{2} = 5.76\ \text{J}$$</div>
+      <p>Assuming none of it is lost, all of it becomes elastic strain energy in the bar. Strain energy of an axially loaded bar can be written either in terms of deflection or directly in terms of stress:</p>
+      <div class="math-block">$$U = \tfrac{1}{2}k\delta^{2} = \frac{\sigma^{2}AL}{2E}$$</div>
+      <p>Equating $KE = U$ using the stress form and solving for $\sigma$:</p>
+      <div class="math-block">$$\tfrac{1}{2}mv^{2} = \frac{\sigma^{2}AL}{2E} \qquad \Longrightarrow \qquad \sigma = v\sqrt{\frac{mE}{AL}}$$</div>
+      <p>Substituting in consistent SI units:</p>
+      <div class="math-block">$$\sigma = 0.8\sqrt{\frac{18 \times 200\times10^{9}}{(4.909\times10^{-4})(0.5)}} = 0.8\sqrt{1.467\times10^{16}}$$</div>
+      <div class="math-block">$$\sigma = 0.8 \times 1.211\times10^{8} = 9.689\times10^{7}\ \text{Pa}$$</div>
+      <div class="callout answer">
+        <p>$$\sigma_a = 96.9\ \text{MPa}$$</p>
+      </div>
+      <div class="callout note">
+        <p><strong>Equivalent route via deflection</strong> (use whichever you find clearer — same answer):</p>
+        <p style="text-align:center">$$\delta = v\sqrt{\frac{m}{k}} = 0.8\sqrt{\frac{18}{1.963\times10^{8}}} = 0.2422\ \text{mm}$$</p>
+        <p style="text-align:center">$$F = k\delta = 47\,560\ \text{N}, \qquad \sigma = \frac{F}{A} = \frac{47\,560}{4.909\times10^{-4}} = 96.9\ \text{MPa} \ \checkmark$$</p>
+      </div>
+      <div class="callout note">
+        <p><strong>Scale of the effect:</strong> the static stress from simply resting the weight on the bar is $\sigma_{st} = mg/A = 176.6/4.909\times10^{-4} = 0.36$ MPa. The impact multiplies it by <strong>269</strong>. Yet 96.9 MPa is still comfortably below the yield strength of structural steel (~250 MPa), so the elastic assumption behind $U = \sigma^2 AL/2E$ holds. ✓</p>
+      </div>
+    </div>
+  </details>
+</div>
+
+<div class="step">
+  <div class="step-heading">
+    <div class="step-num">3</div>
+    <div class="step-title">Part (b): why energy is lost when the bar has mass</div>
+    <div class="try-hint">Try it first, then reveal ↓</div>
+  </div>
+  <details>
+    <summary><span class="step-label">Step 3</span> The physical mechanism — a plastic collision, not friction</summary>
+    <div class="step-body">
+      <p>Part (a) assumed the bar was massless. In reality the striker does not meet a weightless spring; it meets a body with inertia that must be suddenly accelerated from rest to the striker's speed. That sudden common-velocity event is a <strong>perfectly inelastic collision</strong>, and such collisions always lose kinetic energy.</p>
+      <div class="callout info">
+        <p><strong>Note the wording:</strong> "dissipation of energy due to the differences in weight" — the loss has nothing to do with friction, damping, or heat in the usual sense. It is the momentum-sharing loss of a plastic impact between the striker and the bar's <em>effective</em> mass.</p>
+      </div>
+      <p>First, the bar's actual mass:</p>
+      <div class="math-block">$$m_{bar} = \rho A L = 7850 \times (4.909\times10^{-4}) \times 0.5 = 1.927\ \text{kg}$$</div>
+      <p>Not all of that mass moves at the impact velocity — the fixed end stays put and the struck end moves fastest. Integrating the kinetic energy of a bar with a linear velocity distribution gives the classical result that the bar behaves as though only <strong>one third</strong> of its mass sits at the struck end:</p>
+      <div class="math-block">$$m_{eff} = \frac{m_{bar}}{3} = \frac{1.927}{3} = 0.642\ \text{kg}$$</div>
+      <p>Conservation of momentum for the plastic impact gives the common velocity $v' = \dfrac{mv}{m + m_{eff}}$, and the kinetic energy surviving the collision is</p>
+      <div class="math-block">$$\eta = \frac{KE_{\text{after}}}{KE_{\text{before}}} = \frac{1}{1 + \dfrac{m_{bar}}{3m}}$$</div>
+      <div class="math-block">$$\eta = \frac{1}{1 + \dfrac{1.927}{3 \times 18}} = \frac{1}{1 + 0.03568} = 0.9655$$</div>
+      <div class="callout answer">
+        <p>$$\eta = 0.966 \quad \text{(3.4\% of the incoming energy is lost)}$$</p>
+      </div>
+    </div>
+  </details>
+</div>
+
+<div class="step">
+  <div class="step-heading">
+    <div class="step-num">4</div>
+    <div class="step-title">Part (b): apply the correction to the stress</div>
+    <div class="try-hint">Try it first, then reveal ↓</div>
+  </div>
+  <details>
+    <summary><span class="step-label">Step 4</span> Stress scales with the square root of energy</summary>
+    <div class="step-body">
+      <p>The critical detail: from $U = \sigma^2 AL/2E$, the stress is proportional to $\sqrt{U}$. So the energy factor $\eta$ enters the stress as $\sqrt{\eta}$, <strong>not</strong> as $\eta$:</p>
+      <div class="math-block">$$\sigma_b = \sigma_a\sqrt{\eta} = 96.89 \times \sqrt{0.9655} = 96.89 \times 0.9826$$</div>
+      <div class="callout answer">
+        <p>$$\sigma_b = 95.2\ \text{MPa}$$</p>
+      </div>
+      <p>Or, all in one expression:</p>
+      <div class="math-block">$$\sigma_b = v\sqrt{\frac{mE}{AL}} \cdot \frac{1}{\sqrt{1 + \dfrac{m_{bar}}{3m}}}$$</div>
+      <div class="callout note">
+        <p><strong>Is the correction worth making?</strong> It reduces the stress by only 1.7 %, because the bar (1.93 kg) is light next to the striker (18 kg). The correction always <em>reduces</em> the predicted stress, so ignoring it is <strong>conservative</strong> — you over-predict the load, which is the safe direction to err. For hand design work with a light struck member, part (a) alone is defensible. The correction becomes important when $m_{bar}$ approaches or exceeds $3m$: for a striker of 1 kg on this same bar, $\eta$ would fall to 0.61 and the stress to 78 % of the uncorrected value.</p>
+      </div>
+    </div>
+  </details>
+</div>
+
+<div class="step">
+  <div class="step-heading">
+    <div class="step-num">5</div>
+    <div class="step-title">Summary Table</div>
+  </div>
+  <details>
+    <summary><span class="step-label">Step 5</span> All quantities in one place</summary>
+    <div class="step-body">
+<table>
+  <thead>
+    <tr>
+      <th>Quantity</th>
+      <th>Symbol</th>
+      <th>Expression</th>
+      <th>Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td class="left">Cross-sectional area</td><td>$A$</td><td>$\pi d^2/4$</td><td>490.9 mm²</td></tr>
+    <tr><td class="left">Axial stiffness</td><td>$k$</td><td>$AE/L$</td><td>1.963 × 10⁸ N/m</td></tr>
+    <tr><td class="left">Incoming kinetic energy</td><td>$KE$</td><td>$\tfrac{1}{2}mv^2$</td><td>5.76 J</td></tr>
+    <tr><td class="left">Dynamic deflection (a)</td><td>$\delta$</td><td>$v\sqrt{m/k}$</td><td>0.242 mm</td></tr>
+    <tr><td class="left">Impact force (a)</td><td>$F$</td><td>$k\delta$</td><td>47.6 kN</td></tr>
+    <tr class="total"><td class="left">Impact stress — no dissipation</td><td>$\sigma_a$</td><td>$v\sqrt{mE/AL}$</td><td>96.9 MPa</td></tr>
+    <tr><td class="left">Bar mass</td><td>$m_{bar}$</td><td>$\rho A L$</td><td>1.927 kg</td></tr>
+    <tr><td class="left">Effective bar mass</td><td>$m_{bar}/3$</td><td>—</td><td>0.642 kg</td></tr>
+    <tr><td class="left">Energy retention factor</td><td>$\eta$</td><td>$1/(1+m_{bar}/3m)$</td><td>0.9655</td></tr>
+    <tr class="total"><td class="left">Impact stress — with dissipation</td><td>$\sigma_b$</td><td>$\sigma_a\sqrt{\eta}$</td><td>95.2 MPa</td></tr>
+    <tr><td class="left">Static stress (comparison)</td><td>$\sigma_{st}$</td><td>$mg/A$</td><td>0.36 MPa</td></tr>
+  </tbody>
+</table>
+    </div>
+  </details>
+</div>
+
+<!-- ═══════════════════════════ COMMON MISTAKES ═══════════════════════════ -->
+<div class="callout warn">
+  <p><strong>Common mistake 1:</strong> Applying $\eta$ directly to the stress, i.e. $96.9 \times 0.9655 = 93.6$ MPa. Energy scales as $\sigma^2$, so the correction on stress is $\sqrt{\eta} = 0.9826$. The book's 95.2 MPa confirms the square root.</p>
+  <p style="margin-top:8px"><strong>Common mistake 2:</strong> Using the full bar mass 1.927 kg instead of $m_{bar}/3 = 0.642$ kg. That would give $\eta = 0.903$ and 92.1 MPa. The one-third factor comes from integrating the kinetic energy of a bar whose velocity varies linearly from zero at the fixed end.</p>
+  <p style="margin-top:8px"><strong>Common mistake 3:</strong> Adding a $mgh$ term. No drop height is given — the weight is <em>already moving</em> at 0.8 m/s when it makes contact, so its kinetic energy is the entire energy input. (Contrast T5.5, where a mass is released from a height and both $mgh$ and the work done through the extra deflection matter.)</p>
+  <p style="margin-top:8px"><strong>Common mistake 4:</strong> Mixing mm and m mid-calculation. With $\sigma = v\sqrt{mE/AL}$ the units only work out if everything is SI: $A$ in m², $L$ in m, $E$ in Pa. Substituting $A = 490.9$ mm² alongside $E = 200 \times 10^9$ Pa gives an answer wrong by a factor of 1000.</p>
+  <p style="margin-top:8px"><strong>Common mistake 5:</strong> Forgetting to check that the result is elastic. If the computed impact stress exceeded the yield strength, the linear strain-energy formula would be invalid and the whole calculation meaningless. Always compare against yield before reporting.</p>
+</div>
+
+<div class="footer">MCEN2002 – Fundamentals of Mechanical Design &nbsp;|&nbsp; Tutorial 5.4 &nbsp;|&nbsp; Curtin University</div>
+</div>
+</body>
+</html>

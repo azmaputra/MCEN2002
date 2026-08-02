@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>T5.1 – Impact Force from a Dropped Ball</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css"/>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]})"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+body{font-family:'Segoe UI',Arial,sans-serif;font-size:15px;line-height:1.75;color:#1a1a1a;background:#f5f6f8;margin:0;padding:24px 16px 56px}
+.page{max-width:860px;margin:0 auto;background:#fff;border-radius:10px;box-shadow:0 2px 14px rgba(0,0,0,.10);padding:40px 52px 52px}
+
+/* Header */
+.uni-header{text-align:center;border-bottom:2px solid #1a3c6e;padding-bottom:16px;margin-bottom:32px}
+.uni-header p{margin:0;line-height:1.4;font-size:13.5px;color:#555}
+.uni-header h2{margin:8px 0 0;font-size:20px;color:#1a3c6e}
+
+/* Section headings */
+h3{color:#1a3c6e;border-left:4px solid #1a3c6e;padding-left:10px;margin:28px 0 10px;font-size:15.5px}
+h4{color:#1a3c6e;font-size:14.5px;margin:18px 0 6px}
+
+/* Steps */
+.step{margin-bottom:10px}
+.step details{border:1px solid #d1d9e8;border-radius:8px;overflow:hidden;margin-top:6px}
+.step details summary{
+  list-style:none;cursor:pointer;padding:11px 15px;
+  background:#f0f4fb;color:#1a3c6e;font-weight:500;font-size:14.5px;
+  display:flex;align-items:center;gap:10px;user-select:none;
+}
+.step details summary::-webkit-details-marker{display:none}
+.step details summary::before{display:none}
+.step details summary::after{content:'▼';font-size:11px;color:#f97316;transition:transform 0.2s;flex-shrink:0;margin-left:auto;padding-left:8px}
+.step details[open] summary::after{transform:rotate(180deg)}
+.step details summary .step-label{font-size:12px;font-weight:500;color:#f97316;margin-right:4px}
+.step details[open] summary{background:#e8eef9;border-bottom:1px solid #d1d9e8}
+.step-body{padding:16px 20px}
+.step-heading{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.step-num{background:#1a3c6e;color:#fff;font-size:12px;font-weight:700;border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.step-title{font-size:15px;font-weight:600;color:#1a3c6e}
+.try-hint{font-size:12.5px;color:#6b7280;font-style:italic;margin-left:auto}
+
+/* Callouts */
+.callout{border-radius:6px;padding:13px 18px;margin:14px 0;font-size:14.5px}
+.callout p{margin:4px 0}
+.info{background:#eef4ff;border-left:4px solid #3b82f6}
+.given{background:#f0fdf4;border-left:4px solid #22c55e}
+.answer{background:#fff7ed;border-left:4px solid #f97316;font-size:16px;font-weight:600}
+.note{background:#faf5ff;border-left:4px solid #a855f7;font-size:14px}
+.warn{background:#fffbeb;border-left:4px solid #f59e0b;font-size:14px}
+
+/* Math display */
+.math-block{background:#f8f9fb;border:1px solid #e2e6ef;border-radius:6px;padding:14px 20px;margin:12px 0;overflow-x:auto;text-align:center}
+
+/* Table */
+table{width:100%;border-collapse:collapse;margin:18px 0;font-size:13.5px}
+th{background:#1a3c6e;color:#fff;padding:9px 10px;text-align:center;font-weight:600;font-size:13px}
+td{padding:8px 10px;text-align:center;border-bottom:1px solid #e5e7eb;vertical-align:middle}
+td.left{text-align:left;font-weight:600}
+tr:nth-child(even) td{background:#f8f9fb}
+tr.total td{font-weight:700;background:#eef4ff;border-top:2px solid #1a3c6e}
+
+/* Diagram */
+.diagram-wrap{text-align:center;margin:24px 0 8px}
+.diagram-wrap figcaption{font-size:13px;color:#555;margin-top:8px;font-style:italic}
+
+.footer{margin-top:40px;border-top:1px solid #e5e7eb;padding-top:12px;font-size:12px;color:#999;text-align:center}
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- ═══════════════════════════ HEADER ═══════════════════════════ -->
+<div class="uni-header">
+  <p>Curtin University &nbsp;·&nbsp; School of Civil and Mechanical Engineering</p>
+  <p>MCEN2002 – Fundamentals of Mechanical Design</p>
+  <p style="margin-top:8px"><strong>Dr Azma Putra Azis</strong></p>
+  <h2>Tutorial 5.1 &nbsp;–&nbsp; Impact Force from a Dropped Ball</h2>
+</div>
+
+<!-- ═══════════════════════════ PROBLEM ═══════════════════════════ -->
+<h3>Problem Statement</h3>
+<p>Calculate the <strong>impact force</strong> when a steel ball of mass <strong>25 kg</strong> is dropped from a height of <strong>6.5 m</strong>. It takes <strong>10 ms</strong> for the steel ball to come to a complete stop.</p>
+
+<div class="callout given">
+  <p><strong>Given answer:</strong> &nbsp; $F_e = -28.25\ \text{kN}$</p>
+</div>
+
+<!-- Diagram -->
+<div class="diagram-wrap">
+<figure>
+<svg viewBox="0 0 520 340" width="470" xmlns="http://www.w3.org/2000/svg" font-family="Arial,sans-serif" font-size="12">
+
+  <!-- ground -->
+  <line x1="60" y1="280" x2="460" y2="280" stroke="#1a3c6e" stroke-width="2.5"/>
+  <g stroke="#1a3c6e" stroke-width="1.2">
+    <line x1="70" y1="280" x2="58" y2="294"/><line x1="95" y1="280" x2="83" y2="294"/>
+    <line x1="120" y1="280" x2="108" y2="294"/><line x1="145" y1="280" x2="133" y2="294"/>
+    <line x1="170" y1="280" x2="158" y2="294"/><line x1="195" y1="280" x2="183" y2="294"/>
+    <line x1="220" y1="280" x2="208" y2="294"/><line x1="245" y1="280" x2="233" y2="294"/>
+    <line x1="270" y1="280" x2="258" y2="294"/><line x1="295" y1="280" x2="283" y2="294"/>
+    <line x1="320" y1="280" x2="308" y2="294"/><line x1="345" y1="280" x2="333" y2="294"/>
+    <line x1="370" y1="280" x2="358" y2="294"/><line x1="395" y1="280" x2="383" y2="294"/>
+    <line x1="420" y1="280" x2="408" y2="294"/><line x1="445" y1="280" x2="433" y2="294"/>
+  </g>
+
+  <!-- release position ball (dashed, ghost) -->
+  <circle cx="180" cy="55" r="22" fill="#7fe3ec" fill-opacity="0.35" stroke="#1a3c6e" stroke-width="1.6" stroke-dasharray="5,4"/>
+  <text x="150" y="34" font-size="12.5" fill="#1a3c6e">released from rest</text>
+  <text x="167" y="60" font-size="12" font-weight="bold" fill="#1a3c6e">m</text>
+
+  <!-- ball at impact -->
+  <circle cx="180" cy="256" r="22" fill="#7fe3ec" fill-opacity="0.85" stroke="#1a3c6e" stroke-width="2"/>
+  <text x="171" y="261" font-size="12" font-weight="bold" fill="#1a3c6e">m</text>
+
+  <!-- fall path -->
+  <line x1="180" y1="77" x2="180" y2="228" stroke="#888" stroke-width="1" stroke-dasharray="6,4"/>
+
+  <!-- height dimension -->
+  <line x1="105" y1="55" x2="105" y2="280" stroke="#555" stroke-width="1"/>
+  <polygon points="105,55 101,65 109,65" fill="#555"/>
+  <polygon points="105,280 101,270 109,270" fill="#555"/>
+  <line x1="98" y1="55" x2="158" y2="55" stroke="#555" stroke-width="0.9" stroke-dasharray="3,3"/>
+  <text x="58" y="170" fill="#333" font-size="13">h = 6.5 m</text>
+
+  <!-- velocity arrow -->
+  <line x1="240" y1="150" x2="240" y2="215" stroke="#f97316" stroke-width="2.4"/>
+  <polygon points="240,224 234,210 246,210" fill="#f97316"/>
+  <text x="249" y="188" fill="#f97316" font-size="13" font-style="italic" font-weight="bold">v</text>
+
+  <!-- impact force arrow (reaction on ball, upward) -->
+  <line x1="180" y1="278" x2="180" y2="196" stroke="#dc2626" stroke-width="3"/>
+  <polygon points="180,188 173,204 187,204" fill="#dc2626"/>
+  <text x="192" y="150" fill="#dc2626" font-size="13" font-weight="bold">F</text>
+  <text x="192" y="168" fill="#dc2626" font-size="11.5">on ball, upward</text>
+
+  <!-- contact time note -->
+  <text x="300" y="262" fill="#333" font-size="12.5">contact time</text>
+  <text x="300" y="278" fill="#333" font-size="12.5">Δt = 10 ms = 0.010 s</text>
+
+  <!-- weight arrow small -->
+  <line x1="180" y1="55" x2="180" y2="92" stroke="#6b7280" stroke-width="1.6"/>
+  <polygon points="180,98 176,88 184,88" fill="#6b7280"/>
+  <text x="188" y="92" fill="#6b7280" font-size="11.5">g</text>
+
+</svg>
+<figcaption>Free fall through h = 6.5 m builds the impact velocity v; the ground then removes all of that momentum in only 10 ms. The red arrow is the force the ground exerts on the ball — the "impact force".</figcaption>
+</figure>
+</div>
+
+<!-- ═══════════════════════════ SOLUTION ═══════════════════════════ -->
+<h3>Solution</h3>
+
+<div class="step">
+  <div class="step-heading">
+    <div class="step-num">1</div>
+    <div class="step-title">Understand what "impact force" actually means here</div>
+    <div class="try-hint">Try it first, then reveal ↓</div>
+  </div>
+  <details>
+    <summary><span class="step-label">Step 1</span> Momentum change over contact time — not weight</summary>
+    <div class="step-body">
+      <p>The ball's weight is only $mg = 25 \times 9.81 = 245$ N. Yet the answer is over 28 000 N — more than <strong>100 times</strong> larger. The reason is that impact is a <em>momentum</em> problem, not a statics problem.</p>
+      <p>During free fall the ball accumulates momentum $p = mv$. The ground must destroy all of it, and it only has $\Delta t = 10$ ms to do so. The shorter the stopping time, the larger the force:</p>
+      <div class="math-block">$$F\,\Delta t = \Delta p = m\,\Delta v \qquad \Longrightarrow \qquad F = \frac{m\,\Delta v}{\Delta t}$$</div>
+      <div class="callout info">
+        <p><strong>Design insight:</strong> $F \propto 1/\Delta t$. Everything engineers use to soften an impact — crumple zones, rubber mounts, packaging foam, a diver bending their knees — works by <em>stretching $\Delta t$</em>. It cannot change the momentum that must be removed; it only changes how quickly.</p>
+      </div>
+      <p>So the solution has exactly two parts: (1) find the velocity at impact, (2) divide the momentum change by the contact time.</p>
+    </div>
+  </details>
+</div>
+
+<div class="step">
+  <div class="step-heading">
+    <div class="step-num">2</div>
+    <div class="step-title">Impact velocity from the drop height</div>
+    <div class="try-hint">Try it first, then reveal ↓</div>
+  </div>
+  <details>
+    <summary><span class="step-label">Step 2</span> Energy conservation during free fall</summary>
+    <div class="step-body">
+      <p>The ball is released from rest and falls freely, so all of its potential energy converts to kinetic energy just before contact:</p>
+      <div class="math-block">$$mgh = \tfrac{1}{2}mv^{2} \qquad \Longrightarrow \qquad v = \sqrt{2gh}$$</div>
+      <p>Note that the mass cancels — the impact <em>speed</em> is independent of mass (Galileo's result). Substituting $g = 9.81$ m/s² and $h = 6.5$ m:</p>
+      <div class="math-block">$$v = \sqrt{2 \times 9.81 \times 6.5} = \sqrt{127.53} = 11.29\ \text{m/s}$$</div>
+      <div class="callout answer">
+        <p>$$v = 11.29\ \text{m/s} \quad (\approx 40.7\ \text{km/h})$$</p>
+      </div>
+      <div class="callout note">
+        <p><strong>Sanity check:</strong> a 6.5 m drop is roughly a two-storey fall, and 40 km/h is a believable terminal speed for it. If your answer came out in the hundreds, you probably forgot the square root.</p>
+      </div>
+    </div>
+  </details>
+</div>
+
+<div class="step">
+  <div class="step-heading">
+    <div class="step-num">3</div>
+    <div class="step-title">Apply the impulse–momentum principle</div>
+    <div class="try-hint">Try it first, then reveal ↓</div>
+  </div>
+  <details>
+    <summary><span class="step-label">Step 3</span> F = mΔv/Δt with consistent units and signs</summary>
+    <div class="step-body">
+      <p>Take <strong>downward as positive</strong>. The ball enters contact at $v_1 = +11.29$ m/s and leaves at $v_2 = 0$ (it comes to a complete stop):</p>
+      <div class="math-block">$$\Delta v = v_2 - v_1 = 0 - 11.29 = -11.29\ \text{m/s}$$</div>
+      <p>Convert the contact time before substituting: $\Delta t = 10\ \text{ms} = 0.010$ s.</p>
+      <div class="math-block">$$F_e = \frac{m\,\Delta v}{\Delta t} = \frac{25 \times (-11.29)}{0.010}$$</div>
+      <div class="math-block">$$F_e = -28\,232\ \text{N} = -28.23\ \text{kN}$$</div>
+      <div class="callout answer">
+        <p>$$F_e = -28.2\ \text{kN} \quad \text{(negative = acting upward, opposing the motion)}$$</p>
+      </div>
+      <div class="callout note">
+        <p><strong>What the minus sign means:</strong> it is <em>not</em> a compressive-stress convention. It simply says the force points opposite to the chosen positive (downward) direction — i.e. the ground pushes <strong>up</strong> on the ball to decelerate it. By Newton's third law the ball pushes <strong>down</strong> on the ground with 28.2 kN.</p>
+      </div>
+      <div class="callout note">
+        <p><strong>On the textbook's 28.25 kN:</strong> the book rounds $v$ to 11.3 m/s before the final division, giving $25 \times 11.3 / 0.01 = 28\,250$ N exactly. Carrying $v = 11.2929$ m/s through gives <strong>28.23 kN</strong>. The 0.07 % gap is pure rounding, not a method difference. [Confidence: high — the discrepancy reproduces exactly when 11.3 is substituted.]</p>
+      </div>
+    </div>
+  </details>
+</div>
+
+<div class="step">
+  <div class="step-heading">
+    <div class="step-num">4</div>
+    <div class="step-title">Should the ball's weight be included during contact?</div>
+    <div class="try-hint">Try it first, then reveal ↓</div>
+  </div>
+  <details>
+    <summary><span class="step-label">Step 4</span> Why gravity is negligible in the impulse balance</summary>
+    <div class="step-body">
+      <p>Strictly, two forces act on the ball while it is in contact: the ground reaction $N$ (up) and its weight $mg$ (down). The rigorous impulse balance is:</p>
+      <div class="math-block">$$(N - mg)\,\Delta t = m\,|\Delta v| \qquad \Longrightarrow \qquad N = \frac{m|\Delta v|}{\Delta t} + mg$$</div>
+      <div class="math-block">$$N = 28\,232 + 245 = 28\,477\ \text{N} = 28.48\ \text{kN}$$</div>
+      <p>The weight adds only <strong>0.87 %</strong>. This is why impact analyses routinely drop gravity during the contact phase: over milliseconds, the gravitational impulse $mg\,\Delta t = 2.45$ N·s is tiny next to the momentum change $m|\Delta v| = 282$ N·s.</p>
+      <div class="callout note">
+        <p><strong>When it stops being negligible:</strong> if the contact time were long (say 0.5 s, a soft mat), the gravitational impulse grows to 123 N·s against a momentum change of 282 N·s — no longer ignorable. The rule of thumb is that gravity matters when $\Delta t$ approaches $v/g \approx 1.15$ s here.</p>
+      </div>
+    </div>
+  </details>
+</div>
+
+<div class="step">
+  <div class="step-heading">
+    <div class="step-num">5</div>
+    <div class="step-title">Summary Table</div>
+  </div>
+  <details>
+    <summary><span class="step-label">Step 5</span> All quantities in one place</summary>
+    <div class="step-body">
+<table>
+  <thead>
+    <tr>
+      <th>Quantity</th>
+      <th>Symbol</th>
+      <th>Expression</th>
+      <th>Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="left">Mass</td><td>$m$</td><td>given</td><td>25 kg</td>
+    </tr>
+    <tr>
+      <td class="left">Drop height</td><td>$h$</td><td>given</td><td>6.5 m</td>
+    </tr>
+    <tr>
+      <td class="left">Contact time</td><td>$\Delta t$</td><td>10 ms</td><td>0.010 s</td>
+    </tr>
+    <tr>
+      <td class="left">Impact velocity</td><td>$v$</td><td>$\sqrt{2gh}$</td><td>11.29 m/s</td>
+    </tr>
+    <tr>
+      <td class="left">Momentum change (impulse)</td><td>$m\Delta v$</td><td>$25 \times 11.29$</td><td>282.3 N·s</td>
+    </tr>
+    <tr>
+      <td class="left">Static weight (for comparison)</td><td>$mg$</td><td>$25 \times 9.81$</td><td>245 N</td>
+    </tr>
+    <tr class="total">
+      <td class="left">Impact force</td><td>$F_e$</td><td>$m\Delta v/\Delta t$</td><td>−28.23 kN <span style="font-weight:400">(book −28.25)</span></td>
+    </tr>
+  </tbody>
+</table>
+      <div class="callout info">
+        <p><strong>Impact factor:</strong> $28\,232 / 245 = \mathbf{115}$. The ground carries 115 times the ball's dead weight. This ratio is exactly what a designer must guard against — a mounting sized for the static 245 N would fail instantly.</p>
+      </div>
+    </div>
+  </details>
+</div>
+
+<!-- ═══════════════════════════ COMMON MISTAKES ═══════════════════════════ -->
+<div class="callout warn">
+  <p><strong>Common mistake 1:</strong> Leaving $\Delta t$ in milliseconds. Substituting $\Delta t = 10$ instead of $0.010$ gives 28.2 N — off by a factor of 1000, and suspiciously close to the weight, which makes the error easy to miss. Always convert to seconds first.</p>
+  <p style="margin-top:8px"><strong>Common mistake 2:</strong> Using $F = mg$ or $F = ma$ with $a = g$. That is the <em>free-fall</em> force, valid only while the ball is falling. During contact the deceleration is $a = v/\Delta t = 1129$ m/s² ≈ 115 g — that is the number that produces the large force.</p>
+  <p style="margin-top:8px"><strong>Common mistake 3:</strong> Using the drop height directly in an energy balance, e.g. $F = mgh/\Delta t$. Energy methods need a <em>stopping distance</em>, not a stopping time. Since only a time is given here, the impulse–momentum route is the correct one.</p>
+  <p style="margin-top:8px"><strong>Common mistake 4:</strong> Reporting the sign carelessly. Quote the magnitude 28.2 kN and state the direction in words; a bare "−28.2 kN" is only meaningful once the positive direction is declared.</p>
+</div>
+
+<div class="footer">MCEN2002 – Fundamentals of Mechanical Design &nbsp;|&nbsp; Tutorial 5.1 &nbsp;|&nbsp; Curtin University</div>
+</div>
+</body>
+</html>

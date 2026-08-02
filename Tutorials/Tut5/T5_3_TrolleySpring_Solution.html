@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>T5.3 – Trolley Impacting a Spring</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css"/>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]})"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+body{font-family:'Segoe UI',Arial,sans-serif;font-size:15px;line-height:1.75;color:#1a1a1a;background:#f5f6f8;margin:0;padding:24px 16px 56px}
+.page{max-width:860px;margin:0 auto;background:#fff;border-radius:10px;box-shadow:0 2px 14px rgba(0,0,0,.10);padding:40px 52px 52px}
+
+/* Header */
+.uni-header{text-align:center;border-bottom:2px solid #1a3c6e;padding-bottom:16px;margin-bottom:32px}
+.uni-header p{margin:0;line-height:1.4;font-size:13.5px;color:#555}
+.uni-header h2{margin:8px 0 0;font-size:20px;color:#1a3c6e}
+
+/* Section headings */
+h3{color:#1a3c6e;border-left:4px solid #1a3c6e;padding-left:10px;margin:28px 0 10px;font-size:15.5px}
+h4{color:#1a3c6e;font-size:14.5px;margin:18px 0 6px}
+
+/* Steps */
+.step{margin-bottom:10px}
+.step details{border:1px solid #d1d9e8;border-radius:8px;overflow:hidden;margin-top:6px}
+.step details summary{
+  list-style:none;cursor:pointer;padding:11px 15px;
+  background:#f0f4fb;color:#1a3c6e;font-weight:500;font-size:14.5px;
+  display:flex;align-items:center;gap:10px;user-select:none;
+}
+.step details summary::-webkit-details-marker{display:none}
+.step details summary::before{display:none}
+.step details summary::after{content:'▼';font-size:11px;color:#f97316;transition:transform 0.2s;flex-shrink:0;margin-left:auto;padding-left:8px}
+.step details[open] summary::after{transform:rotate(180deg)}
+.step details summary .step-label{font-size:12px;font-weight:500;color:#f97316;margin-right:4px}
+.step details[open] summary{background:#e8eef9;border-bottom:1px solid #d1d9e8}
+.step-body{padding:16px 20px}
+.step-heading{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.step-num{background:#1a3c6e;color:#fff;font-size:12px;font-weight:700;border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.step-title{font-size:15px;font-weight:600;color:#1a3c6e}
+.try-hint{font-size:12.5px;color:#6b7280;font-style:italic;margin-left:auto}
+
+/* Callouts */
+.callout{border-radius:6px;padding:13px 18px;margin:14px 0;font-size:14.5px}
+.callout p{margin:4px 0}
+.info{background:#eef4ff;border-left:4px solid #3b82f6}
+.given{background:#f0fdf4;border-left:4px solid #22c55e}
+.answer{background:#fff7ed;border-left:4px solid #f97316;font-size:16px;font-weight:600}
+.note{background:#faf5ff;border-left:4px solid #a855f7;font-size:14px}
+.warn{background:#fffbeb;border-left:4px solid #f59e0b;font-size:14px}
+
+/* Math display */
+.math-block{background:#f8f9fb;border:1px solid #e2e6ef;border-radius:6px;padding:14px 20px;margin:12px 0;overflow-x:auto;text-align:center}
+
+/* Table */
+table{width:100%;border-collapse:collapse;margin:18px 0;font-size:13.5px}
+th{background:#1a3c6e;color:#fff;padding:9px 10px;text-align:center;font-weight:600;font-size:13px}
+td{padding:8px 10px;text-align:center;border-bottom:1px solid #e5e7eb;vertical-align:middle}
+td.left{text-align:left;font-weight:600}
+tr:nth-child(even) td{background:#f8f9fb}
+tr.total td{font-weight:700;background:#eef4ff;border-top:2px solid #1a3c6e}
+
+/* Diagram */
+.diagram-wrap{text-align:center;margin:24px 0 8px}
+.diagram-wrap figcaption{font-size:13px;color:#555;margin-top:8px;font-style:italic}
+
+.footer{margin-top:40px;border-top:1px solid #e5e7eb;padding-top:12px;font-size:12px;color:#999;text-align:center}
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- ═══════════════════════════ HEADER ═══════════════════════════ -->
+<div class="uni-header">
+  <p>Curtin University &nbsp;·&nbsp; School of Civil and Mechanical Engineering</p>
+  <p>MCEN2002 – Fundamentals of Mechanical Design</p>
+  <p style="margin-top:8px"><strong>Dr Azma Putra Azis</strong></p>
+  <h2>Tutorial 5.3 &nbsp;–&nbsp; Trolley Impacting a Spring</h2>
+</div>
+
+<!-- ═══════════════════════════ PROBLEM ═══════════════════════════ -->
+<h3>Problem Statement</h3>
+<p>A trolley of mass <strong>1 kg</strong> moves at a speed of <strong>3 m/s</strong> towards a spring of unknown stiffness. The trolley comes to a stop when the spring has deflected by <strong>2 cm</strong>. Neglect frictional effects. Determine the <strong>stiffness required in the spring</strong> and the <strong>impact force on the spring</strong>.</p>
+<p style="font-size:13.5px;color:#666">(prob 2-46, <em>Engineering Mechanics of Solids</em>, Popov E.P., 1990, Prentice-Hall)</p>
+
+<div class="callout given">
+  <p><strong>Given answer:</strong> &nbsp; $k = 22.5\ \text{kN/m}$, &nbsp; $F_e = 450\ \text{N}$</p>
+</div>
+
+<!-- Diagram -->
+<div class="diagram-wrap">
+<figure>
+<svg viewBox="0 0 560 320" width="500" xmlns="http://www.w3.org/2000/svg" font-family="Arial,sans-serif" font-size="12">
+
+  <!-- rigid wall -->
+  <line x1="60" y1="40" x2="60" y2="255" stroke="#1a3c6e" stroke-width="2.5"/>
+  <g stroke="#1a3c6e" stroke-width="1.2">
+    <line x1="60" y1="50" x2="46" y2="62"/><line x1="60" y1="72" x2="46" y2="84"/>
+    <line x1="60" y1="94" x2="46" y2="106"/><line x1="60" y1="116" x2="46" y2="128"/>
+    <line x1="60" y1="138" x2="46" y2="150"/><line x1="60" y1="160" x2="46" y2="172"/>
+    <line x1="60" y1="182" x2="46" y2="194"/><line x1="60" y1="204" x2="46" y2="216"/>
+    <line x1="60" y1="226" x2="46" y2="238"/><line x1="60" y1="248" x2="46" y2="260"/>
+  </g>
+
+  <!-- ground -->
+  <line x1="60" y1="255" x2="510" y2="255" stroke="#1a3c6e" stroke-width="2.5"/>
+  <g stroke="#1a3c6e" stroke-width="1.2">
+    <line x1="75" y1="255" x2="63" y2="269"/><line x1="105" y1="255" x2="93" y2="269"/>
+    <line x1="135" y1="255" x2="123" y2="269"/><line x1="165" y1="255" x2="153" y2="269"/>
+    <line x1="195" y1="255" x2="183" y2="269"/><line x1="225" y1="255" x2="213" y2="269"/>
+    <line x1="255" y1="255" x2="243" y2="269"/><line x1="285" y1="255" x2="273" y2="269"/>
+    <line x1="315" y1="255" x2="303" y2="269"/><line x1="345" y1="255" x2="333" y2="269"/>
+    <line x1="375" y1="255" x2="363" y2="269"/><line x1="405" y1="255" x2="393" y2="269"/>
+    <line x1="435" y1="255" x2="423" y2="269"/><line x1="465" y1="255" x2="453" y2="269"/>
+    <line x1="495" y1="255" x2="483" y2="269"/>
+  </g>
+
+  <!-- spring coils -->
+  <path d="M 60 150 L 74 150 L 82 132 L 96 168 L 110 132 L 124 168 L 138 132 L 152 168 L 160 150 L 174 150"
+        fill="none" stroke="#1a3c6e" stroke-width="2"/>
+  <!-- spring platen -->
+  <rect x="174" y="128" width="12" height="44" fill="#fff" stroke="#1a3c6e" stroke-width="2"/>
+  <text x="88" y="118" fill="#1a3c6e" font-size="13" font-weight="bold">k = ?</text>
+
+  <!-- trolley body -->
+  <rect x="192" y="105" width="230" height="115" fill="#7fe3ec" fill-opacity="0.85" stroke="#1a3c6e" stroke-width="2"/>
+  <text x="290" y="100" fill="#1a3c6e" font-size="13" font-weight="bold">m = 1 kg</text>
+  <!-- wheels -->
+  <circle cx="240" cy="238" r="17" fill="#fff" stroke="#1a3c6e" stroke-width="2"/>
+  <circle cx="374" cy="238" r="17" fill="#fff" stroke="#1a3c6e" stroke-width="2"/>
+
+  <!-- velocity arrow -->
+  <line x1="380" y1="162" x2="256" y2="162" stroke="#f97316" stroke-width="2.6"/>
+  <polygon points="246,162 262,156 262,168" fill="#f97316"/>
+  <text x="290" y="152" fill="#f97316" font-size="13" font-weight="bold">v = 3 m/s</text>
+
+  <!-- deflection dimension -->
+  <line x1="186" y1="290" x2="186" y2="200" stroke="#555" stroke-width="0.9" stroke-dasharray="3,3"/>
+  <line x1="232" y1="290" x2="232" y2="222" stroke="#555" stroke-width="0.9" stroke-dasharray="3,3"/>
+  <line x1="186" y1="290" x2="232" y2="290" stroke="#555" stroke-width="1"/>
+  <polygon points="186,290 198,286 198,294" fill="#555"/>
+  <polygon points="232,290 220,286 220,294" fill="#555"/>
+  <text x="242" y="295" fill="#333" font-size="12.5">δ = 2 cm (spring compression at standstill)</text>
+
+  <!-- reaction force on spring -->
+  <line x1="452" y1="60" x2="452" y2="60" stroke="none"/>
+  <text x="430" y="45" fill="#dc2626" font-size="12.5" font-weight="bold">frictionless</text>
+  <text x="440" y="62" fill="#dc2626" font-size="12.5">(no energy lost)</text>
+
+</svg>
+<figcaption>The trolley arrives with kinetic energy ½mv² and stops when the spring has stored all of it as strain energy ½kδ². With friction neglected, no energy leaves the system.</figcaption>
+</figure>
+</div>
+
+<!-- ═══════════════════════════ SOLUTION ═══════════════════════════ -->
+<h3>Solution</h3>
+
+<div class="step">
+  <div class="step-heading">
+    <div class="step-num">1</div>
+    <div class="step-title">Choose the right principle: energy, not impulse</div>
+    <div class="try-hint">Try it first, then reveal ↓</div>
+  </div>
+  <details>
+    <summary><span class="step-label">Step 1</span> What the given data tells you to use</summary>
+    <div class="step-body">
+      <p>Look at what the problem gives you: a <strong>distance</strong> (2 cm), not a time. That single observation selects the method.</p>
+      <div class="callout info">
+        <p><strong>Rule of thumb for impact problems:</strong></p>
+        <p>• Given a <strong>stopping time</strong> → use impulse–momentum, $F\Delta t = m\Delta v$ &nbsp;(see T5.1)</p>
+        <p>• Given a <strong>stopping distance or deflection</strong> → use work–energy, $\tfrac{1}{2}mv^2 = U$</p>
+      </div>
+      <p>Here the trolley's kinetic energy is entirely converted into strain energy stored in the spring, because friction is neglected and the motion is horizontal (so no change in gravitational potential energy):</p>
+      <div class="math-block">$$\underbrace{\tfrac{1}{2}mv^{2}}_{\text{kinetic energy in}} \;=\; \underbrace{\tfrac{1}{2}k\delta^{2}}_{\text{strain energy stored}}$$</div>
+      <p>At the instant of maximum compression the trolley is momentarily at rest, so <em>all</em> kinetic energy has been transferred. That is the condition the problem describes.</p>
+    </div>
+  </details>
+</div>
+
+<div class="step">
+  <div class="step-heading">
+    <div class="step-num">2</div>
+    <div class="step-title">Solve for the required stiffness k</div>
+    <div class="try-hint">Try it first, then reveal ↓</div>
+  </div>
+  <details>
+    <summary><span class="step-label">Step 2</span> Rearrange the energy balance — watch the cm → m conversion</summary>
+    <div class="step-body">
+      <p>Rearranging $\tfrac{1}{2}mv^2 = \tfrac{1}{2}k\delta^2$ (the halves cancel):</p>
+      <div class="math-block">$$k = \frac{m v^{2}}{\delta^{2}}$$</div>
+      <p>Convert the deflection first: $\delta = 2\ \text{cm} = 0.02$ m. Then</p>
+      <div class="math-block">$$k = \frac{1 \times (3)^{2}}{(0.02)^{2}} = \frac{9}{0.0004} = 22\,500\ \text{N/m}$$</div>
+      <div class="callout answer">
+        <p>$$k = 22\,500\ \text{N/m} = 22.5\ \text{kN/m}$$</p>
+      </div>
+      <div class="callout note">
+        <p><strong>Physical reading:</strong> 22.5 kN/m means 22.5 N of force per millimetre of compression. Note the strong sensitivity: $k \propto 1/\delta^2$. Allowing the spring to travel 4 cm instead of 2 cm would need only a quarter of the stiffness — and would halve the peak force. Softer and longer-travel is almost always the better impact-absorbing design.</p>
+      </div>
+    </div>
+  </details>
+</div>
+
+<div class="step">
+  <div class="step-heading">
+    <div class="step-num">3</div>
+    <div class="step-title">Find the impact force on the spring</div>
+    <div class="try-hint">Try it first, then reveal ↓</div>
+  </div>
+  <details>
+    <summary><span class="step-label">Step 3</span> Peak force occurs at maximum deflection</summary>
+    <div class="step-body">
+      <p>A linear spring obeys $F = k x$, so the force is greatest when the compression is greatest — at $x = \delta = 0.02$ m, the instant the trolley stops:</p>
+      <div class="math-block">$$F_e = k\,\delta = 22\,500 \times 0.02 = 450\ \text{N}$$</div>
+      <div class="callout answer">
+        <p>$$F_e = 450\ \text{N}$$</p>
+      </div>
+      <div class="callout note">
+        <p><strong>Energy cross-check:</strong> because the force builds linearly from 0 to $F_e$, the <em>average</em> force over the stroke is $F_e/2 = 225$ N. The work it does is</p>
+        <p style="text-align:center">$$225 \times 0.02 = 4.5\ \text{J}$$</p>
+        <p>and the incoming kinetic energy is $\tfrac{1}{2}(1)(3)^2 = 4.5$ J. ✓ The two match exactly, confirming both $k$ and $F_e$.</p>
+      </div>
+      <div class="callout info">
+        <p><strong>Shortcut worth remembering:</strong> combining the two steps eliminates $k$ entirely — $F_e = mv^2/\delta$. Substituting: $1 \times 9 / 0.02 = 450$ N. Equivalently, $F_e = 2 \times (\text{KE}) / \delta$: peak force equals twice the energy divided by the stroke, for any linear spring.</p>
+      </div>
+    </div>
+  </details>
+</div>
+
+<div class="step">
+  <div class="step-heading">
+    <div class="step-num">4</div>
+    <div class="step-title">Interpret the result: how severe is this impact?</div>
+    <div class="try-hint">Try it first, then reveal ↓</div>
+  </div>
+  <details>
+    <summary><span class="step-label">Step 4</span> Deceleration and contact time — linking back to T5.1</summary>
+    <div class="step-body">
+      <p>The peak deceleration follows from Newton's second law:</p>
+      <div class="math-block">$$a = \frac{F_e}{m} = \frac{450}{1} = 450\ \text{m/s}^2 = 45.9\,g$$</div>
+      <p>Although no time was given, we can now find one. A mass on a spring stops in exactly one quarter of a natural period:</p>
+      <div class="math-block">$$\omega_n = \sqrt{\frac{k}{m}} = \sqrt{\frac{22\,500}{1}} = 150\ \text{rad/s}, \qquad \Delta t = \frac{\pi}{2\omega_n} = 0.0105\ \text{s}$$</div>
+      <p>Checking against the impulse–momentum result of T5.1, the <em>average</em> force over that time is</p>
+      <div class="math-block">$$\bar{F} = \frac{m v}{\Delta t} = \frac{1 \times 3}{0.0105} = 286\ \text{N}$$</div>
+      <p>which is $2/\pi \approx 0.64$ times the peak of 450 N — exactly the mean-to-peak ratio of a quarter sine wave. ✓</p>
+      <div class="callout note">
+        <p><strong>Why this matters:</strong> impulse–momentum gives the <em>average</em> force; energy methods give the <em>peak</em>. Design against the peak. Using the average would under-predict the load by 36 % here.</p>
+      </div>
+    </div>
+  </details>
+</div>
+
+<div class="step">
+  <div class="step-heading">
+    <div class="step-num">5</div>
+    <div class="step-title">Summary Table</div>
+  </div>
+  <details>
+    <summary><span class="step-label">Step 5</span> All quantities in one place</summary>
+    <div class="step-body">
+<table>
+  <thead>
+    <tr>
+      <th>Quantity</th>
+      <th>Symbol</th>
+      <th>Expression</th>
+      <th>Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td class="left">Trolley mass</td><td>$m$</td><td>given</td><td>1 kg</td></tr>
+    <tr><td class="left">Approach speed</td><td>$v$</td><td>given</td><td>3 m/s</td></tr>
+    <tr><td class="left">Spring deflection at standstill</td><td>$\delta$</td><td>2 cm</td><td>0.02 m</td></tr>
+    <tr><td class="left">Kinetic energy in</td><td>$\tfrac{1}{2}mv^2$</td><td>$0.5 \times 1 \times 3^2$</td><td>4.5 J</td></tr>
+    <tr class="total"><td class="left">Required stiffness</td><td>$k$</td><td>$mv^2/\delta^2$</td><td>22 500 N/m = 22.5 kN/m</td></tr>
+    <tr class="total"><td class="left">Peak impact force</td><td>$F_e$</td><td>$k\delta = mv^2/\delta$</td><td>450 N</td></tr>
+    <tr><td class="left">Peak deceleration</td><td>$a$</td><td>$F_e/m$</td><td>450 m/s² ≈ 45.9 g</td></tr>
+    <tr><td class="left">Contact duration</td><td>$\Delta t$</td><td>$\tfrac{\pi}{2}\sqrt{m/k}$</td><td>10.5 ms</td></tr>
+  </tbody>
+</table>
+      <div class="callout info">
+        <p><strong>Impact factor:</strong> the trolley's weight is only $mg = 9.81$ N, yet the spring sees 450 N — a factor of <strong>46</strong>. As in T5.1, the lesson is that a component sized for the static weight of a moving object is nowhere near adequate.</p>
+      </div>
+    </div>
+  </details>
+</div>
+
+<!-- ═══════════════════════════ COMMON MISTAKES ═══════════════════════════ -->
+<div class="callout warn">
+  <p><strong>Common mistake 1:</strong> Leaving $\delta$ in centimetres. Substituting $\delta = 2$ gives $k = 2.25$ N/m — off by 10 000, since $\delta$ is squared. Convert to metres <em>before</em> substituting, not afterwards.</p>
+  <p style="margin-top:8px"><strong>Common mistake 2:</strong> Writing $F_e = \tfrac{1}{2}k\delta$ or $F_e = \tfrac{1}{2}mv^2/\delta = 225$ N. The factor of $\tfrac{1}{2}$ belongs to the <em>energy</em> expressions, not to the force. The spring force at full compression is the full $k\delta$; 225 N is the average force during the stroke, not the peak.</p>
+  <p style="margin-top:8px"><strong>Common mistake 3:</strong> Trying $F = mv/\Delta t$ without a given $\Delta t$, then inventing one. No time is supplied — that is the deliberate signal to use energy. (The 10.5 ms in Step 4 was <em>derived</em> from $k$, not assumed.)</p>
+  <p style="margin-top:8px"><strong>Common mistake 4:</strong> Including a $mgh$ term. The trolley moves horizontally, so gravitational potential energy does not change. That term appears only for dropped or vertically-moving masses (T5.5, T5.6).</p>
+</div>
+
+<div class="footer">MCEN2002 – Fundamentals of Mechanical Design &nbsp;|&nbsp; Tutorial 5.3 &nbsp;|&nbsp; Curtin University</div>
+</div>
+</body>
+</html>

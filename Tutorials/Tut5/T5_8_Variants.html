@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>T5.8 &ndash; Diving Board: Impact Force and Dynamic Deflection</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css"/>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<style>*,*::before,*::after{box-sizing:border-box}
+body{font-family:'Segoe UI',Arial,sans-serif;font-size:15px;line-height:1.75;color:#1a1a1a;background:#f5f6f8;margin:0;padding:24px 16px 56px}
+.page{max-width:880px;margin:0 auto;background:#fff;border-radius:10px;box-shadow:0 2px 14px rgba(0,0,0,.10);padding:40px 52px 52px}
+.uni-header{text-align:center;border-bottom:2px solid #1a3c6e;padding-bottom:16px;margin-bottom:24px}
+.uni-header p{margin:0;line-height:1.4;font-size:13.5px;color:#555}
+.uni-header h2{margin:8px 0 0;font-size:20px;color:#1a3c6e}
+h3{color:#1a3c6e;border-left:4px solid #1a3c6e;padding-left:10px;margin:28px 0 10px;font-size:15.5px}
+h4{color:#1a3c6e;font-size:14.5px;margin:20px 0 6px}
+.step{margin-bottom:10px}
+.step details{border:1px solid #d1d9e8;border-radius:8px;overflow:hidden;margin-top:6px}
+.step details summary{list-style:none;cursor:pointer;padding:11px 15px;background:#f0f4fb;color:#1a3c6e;font-weight:500;font-size:14.5px;display:flex;align-items:center;gap:10px;user-select:none}
+.step details summary::-webkit-details-marker{display:none}
+.step details summary::before{display:none}
+.step details summary::after{content:'\25BC';font-size:11px;color:#f97316;transition:transform .2s;flex-shrink:0;margin-left:auto;padding-left:8px}
+.step details[open] summary::after{transform:rotate(180deg)}
+.step details[open] summary{background:#e8eef9;border-bottom:1px solid #d1d9e8}
+.step details summary .step-label{font-size:12px;font-weight:500;color:#f97316;margin-right:4px}
+.step-body{padding:16px 20px}
+.step-heading{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.step-num{background:#1a3c6e;color:#fff;font-size:12px;font-weight:700;border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.step-title{font-size:15px;font-weight:600;color:#1a3c6e}
+.try-hint{font-size:12.5px;color:#6b7280;font-style:italic;margin-left:auto}
+.callout{border-radius:6px;padding:13px 18px;margin:14px 0;font-size:14.5px}
+.callout p{margin:4px 0}
+.info{background:#eef4ff;border-left:4px solid #3b82f6}
+.given{background:#f0fdf4;border-left:4px solid #22c55e}
+.answer{background:#fff7ed;border-left:4px solid #f97316;font-size:16px;font-weight:600}
+.note{background:#faf5ff;border-left:4px solid #a855f7;font-size:14px}
+.warn{background:#fffbeb;border-left:4px solid #f59e0b;font-size:14px}
+.math-block{background:#f8f9fb;border:1px solid #e2e6ef;border-radius:6px;padding:14px 20px;margin:12px 0;overflow-x:auto;text-align:center}
+table{width:100%;border-collapse:collapse;margin:18px 0;font-size:13.5px}
+th{background:#1a3c6e;color:#fff;padding:9px 10px;text-align:center;font-weight:600;font-size:13px}
+td{padding:8px 10px;text-align:center;border-bottom:1px solid #e5e7eb;vertical-align:middle}
+td.left{text-align:left;font-weight:600}
+tr:nth-child(even) td{background:#f8f9fb}
+tr.total td{font-weight:700;background:#eef4ff;border-top:2px solid #1a3c6e}
+.diagram-wrap{text-align:center;margin:22px 0 8px}
+.diagram-wrap figure{margin:0}
+.diagram-wrap svg{max-width:100%;height:auto}
+.diagram-wrap figcaption{font-size:13px;color:#555;margin-top:6px;font-style:italic;line-height:1.5}
+.footer{margin-top:40px;border-top:1px solid #e5e7eb;padding-top:12px;font-size:12px;color:#999;text-align:center}
+.switcher{background:#f0f4fb;border:1px solid #d1d9e8;border-radius:8px;padding:14px 18px;margin-bottom:26px}
+.switcher .sw-label{font-size:12.5px;font-weight:600;color:#1a3c6e;text-transform:uppercase;letter-spacing:.06em;margin-bottom:9px}
+.sw-btns{display:flex;flex-wrap:wrap;gap:8px}
+.sw-btns button{font-family:inherit;font-size:13.5px;font-weight:500;padding:8px 15px;border-radius:6px;border:1px solid #b9c6df;background:#fff;color:#1a3c6e;cursor:pointer;transition:.15s}
+.sw-btns button:hover{background:#e8eef9;border-color:#1a3c6e}
+.sw-btns button[aria-pressed="true"]{background:#1a3c6e;border-color:#1a3c6e;color:#fff;box-shadow:0 1px 4px rgba(26,60,110,.3)}
+.sw-desc{font-size:13px;color:#555;margin-top:10px;font-style:italic}</style>
+</head>
+<body>
+<div class="page">
+
+<div class="uni-header">
+  <p>Curtin University &nbsp;&middot;&nbsp; School of Civil and Mechanical Engineering</p>
+  <p>MCEN2002 &ndash; Fundamentals of Mechanical Design</p>
+  <p style="margin-top:8px"><strong>Dr Azma Putra Azis</strong></p>
+  <h2>Tutorial 5.8 &nbsp;&ndash;&nbsp; Diving Board: Impact Force and Dynamic Deflection</h2>
+</div>
+
+<div class="switcher">
+  <div class="sw-label">Choose a problem</div>
+  <div class="sw-btns" id="swBtns"></div>
+  <div class="sw-desc" id="swDesc"></div>
+</div>
+
+<div id="doc"></div>
+
+<div class="footer">MCEN2002 &ndash; Tutorial 5.8 &middot; Worked solution &middot; Curtin University</div>
+</div>
+
+<script>
+/* ===========================================================================
+   GENERATED FILE - do not edit by hand.
+   Source: _engine/impact_engine.js  +  _engine/build.py
+   Rebuild with:  python3 _engine/build.py
+   =========================================================================== */
+
+/* ══════════════════════════════════════════════════════════════════════════
+   MCEN2002 — SHARED IMPACT / ENERGY-METHOD ENGINE
+   Single source of truth for the T5.x "impact factor" family:
+       T5.2  falling mass on a rod, with and without a series rubber washer
+       T5.5  weight dropped on a bar, plus the struck-member mass correction
+       T5.6  wooden post — inverse problem, solve for the drop height
+       T5.8  diving board — stiffness inferred from a measured deflection
+
+   Edit this file, then run  _engine/build.py  to regenerate the HTML files.
+   (The engine is inlined into each generated page, so every page is
+    self-contained and can be uploaded to Blackboard on its own.)
+
+   ─── MODEL ────────────────────────────────────────────────────────────────
+   Everything reduces to one linear spring struck by a falling weight.
+
+     W    = m g                        weight of the striker            [N]
+     k    = A E / L      or   W/dstGiven                                [N/mm]
+     keq  = series(k, kExtra)          optional soft element in series  [N/mm]
+     dst  = W / keq                    static deflection                [mm]
+     eta  = 1/(1 + mMember/(3 m))      energy retained after the plastic
+                                       collision with the struck member [-]
+     n    = 1 + sqrt(1 + 2 h eta/dst)  impact factor                    [-]
+
+     F = n W,   delta = n dst,   sigma = n W/A
+
+   Inverse mode instead takes a target stress and returns the drop height:
+     n = sigma/sst,   h = dst[(n-1)^2 - 1] / (2 eta)
+
+   ─── PARAMETERS (one variant object) ──────────────────────────────────────
+     m         striker / person mass                              [kg]
+     h         drop height                                        [m]   (forward)
+     sigTgt    target impact stress                               [MPa] (inverse)
+     shape     'round' | 'square' | null      (null => no stress reported)
+     d         diameter                                           [mm]
+     b         side of square section                             [mm]
+     L         member length                                      [mm]
+     E         modulus                                            [MPa = N/mm2]
+     kExtra    stiffness of a series element, e.g. a washer       [N/mm]
+     dstGiven  measured static deflection (replaces geometry)     [mm]
+     rho       density, enables the mass correction from geometry [kg/m3]
+     mMember   struck-member mass given directly                  [kg]
+     corr      true => apply eta
+     mode      'forward' | 'inverse'
+   ══════════════════════════════════════════════════════════════════════════ */
+
+var G = 9.81;
+
+/* ─────────────────────────── number formatting ─────────────────────────── */
+
+function sig(x, s) {
+  if (x === 0) return '0';
+  s = s || 4;
+  var a = Math.abs(x), e = Math.floor(Math.log10(a));
+  if (a >= 1e6 || a < 1e-3) {
+    var mant = x / Math.pow(10, e);
+    return trim(mant.toFixed(3)) + ' \\times 10^{' + e + '}';
+  }
+  var dp = Math.min(6, Math.max(0, s - 1 - e));
+  return trim(x.toFixed(dp));
+}
+function trim(r) {
+  if (r.indexOf('.') >= 0) r = r.replace(/0+$/, '').replace(/\.$/, '');
+  return r;
+}
+/* thousands-separated, for prose and tables */
+function grp(x, dp) {
+  var v = (dp === undefined) ? x.toFixed(0) : x.toFixed(dp);
+  var parts = v.split('.');
+  parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, '\u202f');
+  return parts.join('.');
+}
+var fmt = { sig: sig, grp: grp };
+
+/* ─────────────────────────────── solver ────────────────────────────────── */
+
+function solve(p) {
+  var S = { p: p };
+
+  S.W = p.m * G;                                   // N
+
+  /* section area */
+  if (p.shape === 'round')       S.A = Math.PI * p.d * p.d / 4;
+  else if (p.shape === 'square') S.A = p.b * p.b;
+  else                           S.A = null;
+
+  /* member stiffness */
+  if (p.dstGiven) { S.kMem = S.W / p.dstGiven; S.fromMeasured = true; }
+  else            { S.kMem = S.A * p.E / p.L;  S.fromMeasured = false; }
+
+  /* struck-member mass */
+  if (p.mMember)   S.mMem = p.mMember;
+  else if (p.rho)  S.mMem = p.rho * S.A * p.L * 1e-9;   // mm2 * mm -> m3
+  else             S.mMem = null;
+
+  S.eta = (p.corr && S.mMem) ? 1 / (1 + S.mMem / (3 * p.m)) : 1;
+  S.hasCorr = !!(p.corr && S.mMem);
+
+  S.sst = S.A ? S.W / S.A : null;                   // MPa
+
+  /* the cases to report: with the series element, and without it */
+  S.cases = [];
+  if (p.kExtra) {
+    S.kEq = 1 / (1 / S.kMem + 1 / p.kExtra);
+    S.cases.push(mkCase('(a) with washer', S.kEq, S, p));
+    S.cases.push(mkCase('(b) washer removed', S.kMem, S, p));
+    S.twoCase = true;
+  } else {
+    S.kEq = S.kMem;
+    S.cases.push(mkCase('', S.kEq, S, p));
+    S.twoCase = false;
+  }
+  S.main = S.cases[0];
+  S.dst = S.main.dst;
+
+  return S;
+}
+
+function mkCase(name, k, S, p) {
+  var c = { name: name, k: k };
+  c.dst = S.W / k;                                  // mm
+  if (p.mode === 'inverse') {
+    c.n = p.sigTgt / S.sst;
+    c.h = c.dst * ((c.n - 1) * (c.n - 1) - 1) / (2 * S.eta) / 1000;   // m
+    c.sigma = p.sigTgt;
+  } else {
+    var hmm = p.h * 1000;
+    c.n = 1 + Math.sqrt(1 + 2 * hmm * S.eta / c.dst);
+    c.h = p.h;
+    c.sigma = S.sst ? c.n * S.sst : null;
+    /* the same case with the mass correction switched off - part (a) of the
+       textbook questions always asks for this "no dissipation" value */
+    c.nNo = 1 + Math.sqrt(1 + 2 * hmm / c.dst);
+    c.sigmaNo = S.sst ? c.nNo * S.sst : null;
+    c.FNo = c.nNo * S.W;
+    c.deltaNo = c.nNo * c.dst;
+  }
+  c.F = c.n * S.W;                                  // N
+  c.delta = c.n * c.dst;                            // mm
+  c.ratio = 2 * (c.h * 1000) * S.eta / c.dst;
+  return c;
+}
+
+/* ───────────────────────── small HTML helpers ──────────────────────────── */
+
+function mb(s)            { return '<div class="math-block">$$' + s + '$$</div>'; }
+function call(cls, html)  { return '<div class="callout ' + cls + '">' + html + '</div>'; }
+function P(html)          { return '<p>' + html + '</p>'; }
+
+var STEPN = 0;
+function step(title, summary, body, noHint) {
+  STEPN++;
+  return '<div class="step">'
+    + '<div class="step-heading"><div class="step-num">' + STEPN + '</div>'
+    + '<div class="step-title">' + title + '</div>'
+    + (noHint ? '' : '<div class="try-hint">Try it first, then reveal \u2193</div>')
+    + '</div><details><summary><span class="step-label">Step ' + STEPN + '</span> '
+    + summary + '</summary><div class="step-body">' + body + '</div></details></div>';
+}
+
+var CIRCLED = ['\u2460', '\u2461', '\u2462', '\u2463', '\u2464'];
+
+/* ═══════════════════════════ DIAGRAMS ═══════════════════════════════════ */
+/* Schematic figures. Key dimensions are redrawn in proportion where that is
+   meaningful; labels always follow the current variant.                    */
+
+function hatchV(x, y0, y1, col) {   /* vertical hatched face (a wall) */
+  var s = '<line x1="' + x + '" y1="' + y0 + '" x2="' + x + '" y2="' + y1 + '" stroke="' + col + '" stroke-width="2.5"/><g stroke="' + col + '" stroke-width="1.2">';
+  for (var y = y0 + 10; y < y1; y += 22) s += '<line x1="' + x + '" y1="' + y + '" x2="' + (x - 14) + '" y2="' + (y + 12) + '"/>';
+  return s + '</g>';
+}
+function hatchH(y, x0, x1, col) {   /* horizontal hatched ground */
+  var s = '<line x1="' + x0 + '" y1="' + y + '" x2="' + x1 + '" y2="' + y + '" stroke="' + col + '" stroke-width="2.5"/><g stroke="' + col + '" stroke-width="1.2">';
+  for (var x = x0 + 10; x < x1; x += 25) s += '<line x1="' + x + '" y1="' + y + '" x2="' + (x - 12) + '" y2="' + (y + 14) + '"/>';
+  return s + '</g>';
+}
+function dimV(x, y0, y1, label, col) {
+  col = col || '#555';
+  return '<line x1="' + x + '" y1="' + y0 + '" x2="' + x + '" y2="' + y1 + '" stroke="' + col + '" stroke-width="1"/>'
+    + '<polygon points="' + x + ',' + y0 + ' ' + (x - 4) + ',' + (y0 + 11) + ' ' + (x + 4) + ',' + (y0 + 11) + '" fill="' + col + '"/>'
+    + '<polygon points="' + x + ',' + y1 + ' ' + (x - 4) + ',' + (y1 - 11) + ' ' + (x + 4) + ',' + (y1 - 11) + '" fill="' + col + '"/>'
+    + '<text x="' + (x - 8) + '" y="' + ((y0 + y1) / 2) + '" font-size="13" fill="#333" text-anchor="end">' + label + '</text>';
+}
+function txt(x, y, s, col, size, bold) {
+  return '<text x="' + x + '" y="' + y + '" font-size="' + (size || 12) + '" fill="' + (col || '#333') + '"'
+    + (bold ? ' font-weight="bold"' : '') + '>' + s + '</text>';
+}
+
+var FIGS = {
+
+/* ── T5.2 — rod hanging from a ceiling, collar falls onto a washer ──────── */
+rodWasher: function (S) {
+  var p = S.p, s = '';
+  s += hatchH(40, 200, 380, '#1a3c6e');
+  s += '<rect x="283" y="40" width="14" height="330" fill="#7fe3ec" fill-opacity="0.85" stroke="#1a3c6e" stroke-width="1.8"/>';
+  s += '<rect x="243" y="105" width="94" height="46" fill="#fde68a" fill-opacity="0.9" stroke="#b45309" stroke-width="2"/>';
+  s += txt(345, 126, fmt.sig(p.m, 3) + ' kg', '#7c2d12', 13, true);
+  s += txt(345, 143, 'slides freely on rod', '#7c2d12', 11.5);
+  /* washer stack */
+  s += '<rect x="252" y="345" width="76" height="12" fill="#e5e7eb" stroke="#1a3c6e" stroke-width="1.6"/>';
+  s += '<rect x="252" y="357" width="76" height="18" fill="#c4b5fd" fill-opacity="0.85" stroke="#5b21b6" stroke-width="1.8"/>';
+  s += '<rect x="252" y="375" width="76" height="12" fill="#e5e7eb" stroke="#1a3c6e" stroke-width="1.6"/>';
+  s += txt(160, 412, 'rubber compression washer, k = ' + fmt.sig(p.kExtra, 3) + ' N/mm', '#5b21b6', 12.5);
+  s += '<line x1="290" y1="387" x2="290" y2="398" stroke="#5b21b6" stroke-width="1"/>';
+  s += '<line x1="200" y1="175" x2="200" y2="300" stroke="#f97316" stroke-width="2.4"/><polygon points="200,310 194,294 206,294" fill="#f97316"/>';
+  s += txt(158, 245, 'falls', '#f97316', 12.5, true);
+  s += dimV(90, 40, 357, 'L = ' + fmt.sig(p.L / 1000, 3) + ' m');
+  s += '<line x1="84" y1="40" x2="200" y2="40" stroke="#555" stroke-width="0.9" stroke-dasharray="3,3"/>';
+  s += '<line x1="84" y1="357" x2="252" y2="357" stroke="#555" stroke-width="0.9" stroke-dasharray="3,3"/>';
+  s += dimV(150, 151, 345, 'h = ' + fmt.sig(p.h, 3) + ' m');
+  s += '<line x1="144" y1="151" x2="243" y2="151" stroke="#555" stroke-width="0.9" stroke-dasharray="3,3"/>';
+  s += '<line x1="144" y1="345" x2="252" y2="345" stroke="#555" stroke-width="0.9" stroke-dasharray="3,3"/>';
+  s += txt(345, 255, fmt.sig(p.d, 3) + ' mm round bar', '#1a3c6e', 12.5, true);
+  s += txt(345, 272, 'E = ' + fmt.sig(p.E / 1000, 3) + ' GPa', '#1a3c6e', 11.5);
+  s += '<line x1="297" y1="250" x2="340" y2="250" stroke="#1a3c6e" stroke-width="0.9"/>';
+  return '<svg viewBox="0 0 520 430" width="420" xmlns="http://www.w3.org/2000/svg" font-family="Arial,sans-serif" font-size="12">' + s + '</svg>';
+},
+
+/* ── T5.5 — weight dropped onto a vertical bar on a rigid base ──────────── */
+barDrop: function (S) {
+  var p = S.p, s = '';
+  var barPx = Math.round(Math.max(90, Math.min(210, p.L * 0.55)));      /* scale with L   */
+  var gapPx = Math.round(Math.max(26, Math.min(90, p.h * 1000 * 0.42))); /* scale with h  */
+  var yTop = 300 - barPx, yW = yTop - gapPx;
+  var wPx = 2 * Math.round(Math.max(16, Math.min(40, p.d * 2.2)) / 2);
+  s += hatchH(300, 130, 400, '#1a3c6e');
+  s += txt(320, 330, 'rigid foundation', '#1a3c6e', 12);
+  s += '<rect x="' + (261 - wPx / 2) + '" y="' + yTop + '" width="' + wPx + '" height="' + barPx + '" fill="#7fe3ec" fill-opacity="0.85" stroke="#1a3c6e" stroke-width="2"/>';
+  s += '<rect x="222" y="' + (yW - 52) + '" width="78" height="52" fill="#fde68a" fill-opacity="0.9" stroke="#b45309" stroke-width="2"/>';
+  s += txt(232, yW - 20, fmt.sig(p.m, 3) + ' kg', '#7c2d12', 13, true);
+  s += dimV(180, yW, yTop, 'h = ' + fmt.sig(p.h * 1000, 3) + ' mm');
+  s += '<line x1="174" y1="' + yW + '" x2="222" y2="' + yW + '" stroke="#555" stroke-width="0.9" stroke-dasharray="3,3"/>';
+  s += '<line x1="174" y1="' + yTop + '" x2="' + (261 - wPx / 2) + '" y2="' + yTop + '" stroke="#555" stroke-width="0.9" stroke-dasharray="3,3"/>';
+  s += dimV(400, yTop, 300, '');
+  s += txt(408, (yTop + 300) / 2, 'L = ' + fmt.sig(p.L, 3) + ' mm', '#333', 13);
+  s += '<line x1="' + (261 + wPx / 2) + '" y1="' + yTop + '" x2="407" y2="' + yTop + '" stroke="#555" stroke-width="0.9" stroke-dasharray="3,3"/>';
+  s += txt(118, 250, 'd = ' + fmt.sig(p.d, 3) + ' mm', '#333', 12.5);
+  s += '<line x1="' + (261 - wPx / 2) + '" y1="255" x2="200" y2="262" stroke="#555" stroke-width="0.9"/>';
+  s += txt(46, 150, 'steel bar', '#1a3c6e', 12, true);
+  s += txt(46, 167, 'E = ' + fmt.sig(p.E / 1000, 3) + ' GPa', '#1a3c6e', 12);
+  s += txt(46, 184, '\u03c1 = ' + fmt.grp(p.rho) + ' kg/m\u00b3', '#1a3c6e', 12);
+  return '<svg viewBox="0 0 520 350" width="440" xmlns="http://www.w3.org/2000/svg" font-family="Arial,sans-serif" font-size="12">' + s + '</svg>';
+},
+
+/* ── T5.6 — square timber post, drop height unknown ─────────────────────── */
+post: function (S) {
+  var p = S.p, s = '';
+  var postPx = Math.round(Math.max(110, Math.min(200, p.L * 0.145)));
+  var yTop = 330 - postPx, wPx = 2 * Math.round(Math.max(40, Math.min(80, p.b * 0.6)) / 2);
+  s += hatchH(330, 130, 410, '#1a3c6e');
+  s += txt(322, 362, 'rigid foundation', '#1a3c6e', 12);
+  s += '<rect x="' + (268 - wPx / 2) + '" y="' + yTop + '" width="' + wPx + '" height="' + postPx + '" fill="#d9a066" fill-opacity="0.65" stroke="#7c4a1e" stroke-width="2"/>';
+  for (var i = 1; i < 4; i++) {
+    var gx = 268 - wPx / 2 + wPx * i / 4;
+    s += '<line x1="' + gx + '" y1="' + (yTop + 2) + '" x2="' + gx + '" y2="328" stroke="#7c4a1e" stroke-width="0.7" stroke-opacity="0.5"/>';
+  }
+  s += '<rect x="222" y="' + (yTop - 100) + '" width="92" height="56" fill="#fde68a" fill-opacity="0.9" stroke="#b45309" stroke-width="2"/>';
+  s += txt(232, yTop - 66, fmt.sig(p.m, 3) + ' kg', '#7c2d12', 13, true);
+  s += dimV(175, yTop - 44, yTop, 'h = ?', '#dc2626');
+  s += '<line x1="169" y1="' + (yTop - 44) + '" x2="222" y2="' + (yTop - 44) + '" stroke="#dc2626" stroke-width="0.9" stroke-dasharray="3,3"/>';
+  s += '<line x1="169" y1="' + yTop + '" x2="' + (268 - wPx / 2) + '" y2="' + yTop + '" stroke="#dc2626" stroke-width="0.9" stroke-dasharray="3,3"/>';
+  s += dimV(420, yTop, 330, '');
+  s += txt(428, (yTop + 330) / 2, 'L = ' + fmt.sig(p.L / 1000, 3) + ' m', '#333', 13);
+  s += '<line x1="' + (268 + wPx / 2) + '" y1="' + yTop + '" x2="427" y2="' + yTop + '" stroke="#555" stroke-width="0.9" stroke-dasharray="3,3"/>';
+  s += txt(210, 310, fmt.sig(p.b, 3) + ' \u00d7 ' + fmt.sig(p.b, 3) + ' mm', '#333', 12);
+  s += txt(40, 190, 'wooden post', '#7c4a1e', 12.5, true);
+  s += txt(40, 208, 'E = ' + fmt.sig(p.E / 1000, 4) + ' GPa', '#7c4a1e', 12);
+  s += txt(40, 234, 'target: \u03c3 = ' + fmt.sig(p.sigTgt, 3) + ' MPa', '#f97316', 12.5, true);
+  return '<svg viewBox="0 0 520 400" width="440" xmlns="http://www.w3.org/2000/svg" font-family="Arial,sans-serif" font-size="12">' + s + '</svg>';
+},
+
+/* ── T5.8 — overhung diving board ───────────────────────────────────────── */
+board: function (S) {
+  var p = S.p, s = '';
+  var sagPx = Math.round(Math.max(40, Math.min(130, p.dstGiven * 0.9)));
+  var yTip = 158 + sagPx;
+  s += '<rect x="60" y="150" width="46" height="150" fill="#cbd5e1" stroke="#1a3c6e" stroke-width="2"/>';
+  s += hatchH(300, 40, 130, '#1a3c6e');
+  s += txt(44, 332, 'fixed support', '#1a3c6e', 12);
+  s += '<rect x="106" y="144" width="330" height="14" fill="none" stroke="#94a3b8" stroke-width="1.6" stroke-dasharray="6,4"/>';
+  s += txt(330, 138, 'unloaded board', '#94a3b8', 11.5);
+  s += '<path d="M 106 158 Q 300 ' + (158 + sagPx * 0.2) + ' 436 ' + yTip + ' L 436 ' + (yTip + 14) + ' Q 300 ' + (172 + sagPx * 0.2) + ' 106 172 Z" fill="#7fe3ec" fill-opacity="0.85" stroke="#1a3c6e" stroke-width="2"/>';
+  s += txt(150, 200, 'board, ' + fmt.sig(p.mMember, 3) + ' kg', '#1a3c6e', 12.5, true);
+  /* diver */
+  var yh = yTip - 106;
+  s += '<circle cx="424" cy="' + yh + '" r="13" fill="#fde68a" stroke="#b45309" stroke-width="2"/>';
+  s += '<line x1="424" y1="' + (yh + 13) + '" x2="424" y2="' + (yh + 46) + '" stroke="#b45309" stroke-width="2.4"/>';
+  s += '<line x1="424" y1="' + (yh + 22) + '" x2="408" y2="' + (yh + 8) + '" stroke="#b45309" stroke-width="2"/>';
+  s += '<line x1="424" y1="' + (yh + 22) + '" x2="440" y2="' + (yh + 8) + '" stroke="#b45309" stroke-width="2"/>';
+  s += '<line x1="424" y1="' + (yh + 46) + '" x2="414" y2="' + (yh + 68) + '" stroke="#b45309" stroke-width="2.2"/>';
+  s += '<line x1="424" y1="' + (yh + 46) + '" x2="434" y2="' + (yh + 68) + '" stroke="#b45309" stroke-width="2.2"/>';
+  s += txt(452, yh + 14, fmt.sig(p.m, 3) + ' kg', '#7c2d12', 12.5, true);
+  var hPx = Math.round(Math.max(30, Math.min(110, p.h * 1000 * 0.22)));
+  s += dimV(502, yTip - 18 - hPx, yTip - 18, '');
+  s += txt(510, yTip - 18 - hPx / 2, 'h = ' + fmt.sig(p.h * 100, 3) + ' cm', '#333', 12.5);
+  s += dimV(470, 151, 151 + sagPx, '', '#a855f7');
+  s += '<line x1="436" y1="151" x2="476" y2="151" stroke="#a855f7" stroke-width="0.9" stroke-dasharray="3,3"/>';
+  s += '<line x1="436" y1="' + (151 + sagPx) + '" x2="476" y2="' + (151 + sagPx) + '" stroke="#a855f7" stroke-width="0.9" stroke-dasharray="3,3"/>';
+  s += txt(300, 300, '\u03b4st = ' + fmt.sig(p.dstGiven / 10, 3) + ' cm (person standing still)', '#a855f7', 12.5, true);
+  s += '<line x1="130" y1="330" x2="540" y2="330" stroke="#38bdf8" stroke-width="2" stroke-opacity="0.6"/>';
+  return '<svg viewBox="0 0 560 350" width="480" xmlns="http://www.w3.org/2000/svg" font-family="Arial,sans-serif" font-size="12">' + s + '</svg>';
+}
+
+};
+
+/* ═══════════════════════════ DOCUMENT BUILDER ══════════════════════════ */
+
+function build(CONFIG, p) {
+  var S = solve(p);
+  STEPN = 0;
+  var U = CONFIG.units || {};
+  var h = '';
+
+  /* ── problem statement ───────────────────────────────────────────────── */
+  h += '<h3>Problem Statement</h3>';
+  h += P(CONFIG.question(S, fmt));
+  if (CONFIG.source) h += '<p style="font-size:13.5px;color:#666">' + CONFIG.source + '</p>';
+  h += call('given', P('<strong>' + (p.book ? 'Given answer:' : 'Computed answer:') + '</strong> &nbsp; ' + CONFIG.answer(S, fmt)));
+
+  /* ── diagram ─────────────────────────────────────────────────────────── */
+  h += '<div class="diagram-wrap"><figure>' + FIGS[CONFIG.fig](S)
+     + '<figcaption>' + CONFIG.caption(S, fmt) + '</figcaption></figure></div>';
+
+  h += '<h3>Solution</h3>';
+
+  /* ── STEP: stiffness and static reference values ─────────────────────── */
+  var b = '';
+  if (S.fromMeasured) {
+    b += P('No dimensions, no $I$, no $E$ &mdash; and none are needed. The measured static deflection <em>is</em> '
+         + 'the stiffness at the point of interest:');
+    b += mb('W = mg = ' + fmt.sig(p.m, 4) + ' \\times 9.81 = ' + fmt.sig(S.W, 4) + '\\ \\text{N}');
+    b += mb('k = \\frac{W}{\\delta_{st}} = \\frac{' + fmt.sig(S.W, 4) + '}{' + fmt.sig(p.dstGiven, 4) + '} = '
+          + fmt.sig(S.kMem, 4) + '\\ \\text{N/mm}');
+    b += call('info', P('<strong>Why a measured $k$ beats a calculated one:</strong> for a cantilever you could use '
+         + '$k = 3EI/L^3$, but a measured load&ndash;deflection pair captures the real boundary conditions, the joint '
+         + 'and the lay-up &mdash; everything the formula idealises away.'));
+  } else {
+    b += P('Work in N and mm throughout, so $E = ' + fmt.grp(p.E) + '$ N/mm\u00b2 and $W = mg = '
+         + fmt.sig(p.m, 4) + ' \\times 9.81 = ' + fmt.sig(S.W, 4) + '$ N.');
+    if (p.shape === 'round') b += mb('A = \\frac{\\pi d^{2}}{4} = \\frac{\\pi (' + fmt.sig(p.d, 4) + ')^{2}}{4} = ' + fmt.sig(S.A, 4) + '\\ \\text{mm}^{2}');
+    else                     b += mb('A = ' + fmt.sig(p.b, 4) + ' \\times ' + fmt.sig(p.b, 4) + ' = ' + fmt.grp(S.A) + '\\ \\text{mm}^{2}');
+    b += mb('k = \\frac{AE}{L} = \\frac{' + fmt.sig(S.A, 4) + ' \\times ' + fmt.grp(p.E) + '}{' + fmt.sig(p.L, 4) + '} = ' + fmt.sig(S.kMem, 4) + '\\ \\text{N/mm}');
+    b += mb('\\sigma_{st} = \\frac{W}{A} = ' + fmt.sig(S.sst, 4) + '\\ \\text{N/mm}^{2} \\qquad '
+          + '\\delta_{st} = \\frac{WL}{AE} = ' + fmt.sig(S.W / S.kMem, 4) + '\\ \\text{mm}');
+    b += call('note', P('<strong>Read the numbers before continuing.</strong> The member\u2019s own static deflection is '
+         + fmt.sig(S.W / S.kMem, 3) + ' mm. Everything that follows is driven by how that compares with the drop height.'));
+  }
+  h += step('Stiffness and static reference values',
+            'Find $A$, $k$ and the static deflection $\\delta_{st}$', b);
+
+  /* ── STEP: series combination (only if a soft element is present) ────── */
+  if (p.kExtra) {
+    var r = S.kMem / p.kExtra;
+    b = P('The falling collar pushes on the washer, the washer pushes on the rod. The <em>same force</em> passes '
+        + 'through both and their deflections <em>add</em> &mdash; that is the definition of springs in <strong>series</strong>:');
+    b += mb('\\frac{1}{k_{eq}} = \\frac{1}{k_{rod}} + \\frac{1}{k_{washer}}');
+    b += call('info', P('<strong>Look at the two stiffnesses before doing any algebra:</strong> the rod is '
+        + fmt.grp(S.kMem) + ' N/mm and the washer ' + fmt.sig(p.kExtra, 3) + ' N/mm &mdash; a ratio of <strong>'
+        + fmt.grp(r) + ' : 1</strong>. In series the <em>softest</em> element dominates, so $k_{eq}$ will land just '
+        + 'under ' + fmt.sig(p.kExtra, 3) + '. The rubber washer governs the whole system.'));
+    b += mb('k_{eq} = \\left(\\frac{1}{' + fmt.grp(S.kMem) + '} + \\frac{1}{' + fmt.sig(p.kExtra, 4) + '}\\right)^{-1} = '
+        + fmt.sig(S.kEq, 5) + '\\ \\text{N/mm}');
+    b += P('Only ' + fmt.sig(100 * (p.kExtra - S.kEq) / p.kExtra, 2) + '\u202f% below the washer\u2019s own stiffness, as predicted.');
+    h += step('Combine the washer and the rod in series', 'Add the flexibilities, not the stiffnesses', b);
+  }
+
+  /* ── STEP: derivation of the impact factor ───────────────────────────── */
+  b = P('A weight $W$ released from height $h$ above the point of contact keeps falling through the extra '
+      + 'deflection $\\delta$ as the system yields. Over the whole descent:');
+  b += mb('\\underbrace{W(h + \\delta)}_{\\text{potential energy released}} = \\underbrace{\\tfrac{1}{2}k\\delta^{2}}_{\\text{strain energy stored}}');
+  b += P('With $\\delta_{st} = W/k$ this rearranges to a quadratic in $\\delta$, whose positive root is:');
+  b += mb('n = 1 + \\sqrt{1 + \\frac{2h}{\\delta_{st}}}, \\qquad \\delta = n\\,\\delta_{st}, \\qquad F = n\\,W, \\qquad \\sigma = n\\,\\sigma_{st}');
+  b += call('note', P('<strong>Where the &ldquo;+1&rdquo; comes from:</strong> it accounts for the weight continuing to do work '
+      + 'as the system deflects. Drop it and you assume the mass arrives with kinetic energy but then weighs nothing. '
+      + 'At $h = 0$ the correct result is $n = 2$ &mdash; a suddenly applied load produces twice the static stress.'));
+  h += step('Set up the impact factor', 'Derive $n = 1 + \\sqrt{1 + 2h/\\delta_{st}}$ from energy conservation', b);
+
+  /* ── STEP: mass correction ───────────────────────────────────────────── */
+  if (S.hasCorr) {
+    var ratio = S.mMem / p.m;
+    b = P('The step above treated the struck member as massless. In reality the impact must also set '
+        + (S.fromMeasured ? 'the board' : 'the bar') + '\u2019s own mass in motion, and that sudden sharing of momentum is a '
+        + '<strong>perfectly inelastic collision</strong> &mdash; which always destroys kinetic energy.');
+    if (!S.fromMeasured)
+      b += mb('m_{mem} = \\rho A L = ' + fmt.grp(p.rho) + ' \\times ' + fmt.sig(S.A * 1e-6, 4) + ' \\times ' + fmt.sig(p.L / 1000, 3) + ' = ' + fmt.sig(S.mMem, 4) + '\\ \\text{kg}');
+    b += P('Only the struck end moves at full speed; the supported end does not move at all. Integrating the kinetic '
+        + 'energy over a linear velocity distribution gives an <strong>effective mass of one third</strong>:');
+    b += mb('\\eta = \\frac{1}{1 + \\dfrac{m_{mem}}{3m}} = \\frac{1}{1 + \\dfrac{' + fmt.sig(S.mMem, 4) + '}{3 \\times ' + fmt.sig(p.m, 4) + '}} = ' + fmt.sig(S.eta, 4));
+    b += call('answer', P('$$\\eta = ' + fmt.sig(S.eta, 3) + '\\quad\\Rightarrow\\quad ' + fmt.sig(100 * (1 - S.eta), 2) + '\\%\\ \\text{of the landing energy is lost}$$'));
+    var m0 = S.main, chg = 100 * (1 - (m0.sigma !== null ? m0.sigma / m0.sigmaNo : m0.F / m0.FNo));
+    b += P('Applying $\\eta$ to the energy delivered by the fall &mdash; i.e. to the $2h$ term inside the root &mdash; changes the answer from');
+    b += mb((m0.sigma !== null
+        ? '\\sigma = ' + fmt.sig(m0.sigmaNo, 4) + '\\ \\text{MPa} \\quad \\longrightarrow \\quad ' + fmt.sig(m0.sigma, 4) + '\\ \\text{MPa}'
+        : 'F_e = ' + fmt.sig(m0.FNo, 5) + '\\ \\text{N} \\quad \\longrightarrow \\quad ' + fmt.sig(m0.F, 5) + '\\ \\text{N}')
+      + ' \\qquad (' + fmt.sig(chg, 2) + '\\%)');
+    var verdict = Math.abs(chg) < 2
+      ? 'The mass ratio $m_{mem}/m = ' + fmt.sig(ratio, 3) + '$ is small, so the change is only ' + fmt.sig(chg, 2)
+        + ' % &mdash; far inside the scatter of the inputs ($E$ for steel varies by ±3 % on its own). It always '
+        + '<em>reduces</em> the prediction, so ignoring it is <strong>conservative</strong>. <strong>Not worthwhile</strong> here, '
+        + 'but it would be if $m_{mem}$ approached $3m$.'
+      : 'The mass ratio $m_{mem}/m = ' + fmt.sig(ratio, 3) + '$ shifts the answer by ' + fmt.sig(chg, 2) + ' %. That is large '
+        + 'enough to matter &mdash; unlike the light-member cases, this correction cannot be waved away.';
+    b += call('note', P('<strong>Is it worth it?</strong> ' + verdict));
+    h += step('Correct for the struck member\u2019s own mass', 'Compute $\\eta = 1/(1 + m_{mem}/3m)$', b);
+  }
+
+  /* ── STEP: the numbers ───────────────────────────────────────────────── */
+  b = '';
+  if (p.mode === 'inverse') {
+    var c0 = S.main;
+    b += P('This problem runs the chain <em>backwards</em>: the target stress is given, the drop height is unknown. '
+         + 'Start by turning the target stress into the impact factor it demands:');
+    b += mb('n = \\frac{\\sigma}{\\sigma_{st}} = \\frac{' + fmt.sig(p.sigTgt, 4) + '}{' + fmt.sig(S.sst, 4) + '} = ' + fmt.sig(c0.n, 4));
+    b += P('Then isolate $h$. Move the 1 across <em>before</em> squaring:');
+    b += mb('(n-1)^{2} = 1 + \\frac{2h}{\\delta_{st}} \\qquad \\Longrightarrow \\qquad h = \\frac{\\delta_{st}}{2}\\left[(n-1)^{2} - 1\\right]');
+    b += mb('h = \\frac{' + fmt.sig(c0.dst, 4) + '}{2}\\left[(' + fmt.sig(c0.n - 1, 4) + ')^{2} - 1\\right] = ' + fmt.sig(c0.h * 1000, 4) + '\\ \\text{mm}');
+    b += call('answer', P('$$h = ' + fmt.sig(c0.h * 1000, 4) + '\\ \\text{mm} \\approx ' + fmt.sig(c0.h, 2) + '\\ \\text{m}$$'));
+    b += call('note', P('<strong>Forward check</strong> &mdash; always verify an inverse answer by running it forwards: '
+         + '$n = 1 + \\sqrt{1 + 2(' + fmt.sig(c0.h * 1000, 4) + ')/' + fmt.sig(c0.dst, 4) + '} = ' + fmt.sig(c0.n, 4)
+         + '$, so $\\sigma = ' + fmt.sig(c0.n, 4) + ' \\times ' + fmt.sig(S.sst, 4) + ' = ' + fmt.sig(c0.n * S.sst, 4) + '$ MPa \u2713'));
+    b += mb('F = nW = ' + fmt.grp(c0.F) + '\\ \\text{N} \\qquad \\delta = n\\delta_{st} = ' + fmt.sig(c0.delta, 4) + '\\ \\text{mm}');
+  } else {
+    for (var i = 0; i < S.cases.length; i++) {
+      var c = S.cases[i];
+      if (S.twoCase) b += '<h4>' + c.name + '</h4>';
+      b += mb('\\delta_{st} = \\frac{W}{k} = \\frac{' + fmt.sig(S.W, 4) + '}{' + fmt.sig(c.k, 4) + '} = ' + fmt.sig(c.dst, 4) + '\\ \\text{mm}');
+      if (S.hasCorr) {
+        b += P('First <strong>with no dissipation</strong> ($\\eta = 1$), which is what part (a) of these questions asks for:');
+        b += mb('n = 1 + \\sqrt{1 + \\frac{2 \\times ' + fmt.sig(p.h * 1000, 4) + '}{' + fmt.sig(c.dst, 4) + '}} = ' + fmt.sig(c.nNo, 5));
+        b += call('answer', P('$$' + (c.sigmaNo
+              ? '\\sigma_a = ' + fmt.sig(c.sigmaNo, 4) + '\\ \\text{MPa}'
+              : 'F_e = ' + fmt.sig(c.FNo, 5) + '\\ \\text{N} \\qquad \\delta = ' + fmt.sig(c.deltaNo / 1000, 3) + '\\ \\text{m}') + '$$'));
+        b += P('Now <strong>with the mass correction</strong> $\\eta = ' + fmt.sig(S.eta, 4) + '$ from the previous step:');
+      }
+      b += mb('n = 1 + \\sqrt{1 + \\frac{2 \\times ' + fmt.sig(p.h * 1000, 4) + (S.hasCorr ? ' \\times ' + fmt.sig(S.eta, 4) : '')
+            + '}{' + fmt.sig(c.dst, 4) + '}} = 1 + \\sqrt{' + fmt.sig(1 + c.ratio, 5) + '} = ' + fmt.sig(c.n, 5));
+      b += mb('F = nW = ' + fmt.sig(c.n, 5) + ' \\times ' + fmt.sig(S.W, 4) + ' = ' + fmt.grp(c.F) + '\\ \\text{N}'
+            + (c.sigma ? ' \\qquad \\sigma = \\frac{F}{A} = ' + fmt.sig(c.sigma, 4) + '\\ \\text{MPa}' : ''));
+      b += call('answer', P('$$' + (c.sigma
+            ? '\\sigma' + (S.twoCase ? '_{' + (i === 0 ? 'a' : 'b') + '}' : (S.hasCorr ? '_b' : '')) + ' = ' + fmt.sig(c.sigma, 4) + '\\ \\text{MPa}'
+            : 'F_e = ' + fmt.sig(c.F, 5) + '\\ \\text{N} \\qquad \\delta = ' + fmt.sig(c.delta / 1000, 3) + '\\ \\text{m}') + '$$'));
+      if (!c.sigma) b += call('note', P('<strong>Cross-check:</strong> $k\\delta = ' + fmt.sig(c.k, 4) + ' \\times '
+            + fmt.sig(c.delta, 4) + ' = ' + fmt.sig(c.k * c.delta, 5) + '$ N \u2713 &mdash; two independent routes to the same force. '
+            + 'The diver feels a peak acceleration of $(n-1)g = ' + fmt.sig(c.n - 1, 3) + 'g$.'));
+    }
+    if (S.twoCase) {
+      var rr = S.cases[1].sigma / S.cases[0].sigma;
+      b += call('info', P('<strong>The two cases differ by a factor of ' + fmt.sig(rr, 3) + '</strong> from adding a single soft '
+          + 'component that carries no extra load and adds almost no mass. For large drops $n \\approx \\sqrt{2h/\\delta_{st}}$, '
+          + 'so $\\sigma \\propto \\sqrt{k}$: softening the system by a factor of ' + fmt.grp(S.kMem / p.kExtra) + ' cuts the stress by '
+          + '$\\sqrt{' + fmt.grp(S.kMem / p.kExtra) + '} = ' + fmt.sig(Math.sqrt(S.kMem / p.kExtra), 3) + '$. '
+          + '<strong>To survive an impact, get softer, not stronger.</strong>'));
+    }
+  }
+  h += step(p.mode === 'inverse' ? 'Solve for the drop height' : 'Impact factor, force and stress',
+            p.mode === 'inverse' ? 'Run the impact factor backwards' : 'Substitute and interpret the result', b);
+
+  /* ── STEP: summary table ─────────────────────────────────────────────── */
+  b = '<table><thead><tr><th>Quantity</th><th>Symbol</th><th>Expression</th>'
+    + (S.twoCase ? '<th>' + S.cases[0].name + '</th><th>' + S.cases[1].name + '</th>' : '<th>Value</th>') + '</tr></thead><tbody>';
+  function row(q, sym, ex, v1, v2, tot) {
+    return '<tr' + (tot ? ' class="total"' : '') + '><td class="left">' + q + '</td><td>' + sym + '</td><td>' + ex + '</td>'
+      + '<td>' + v1 + '</td>' + (S.twoCase ? '<td>' + (v2 === undefined ? v1 : v2) + '</td>' : '') + '</tr>';
+  }
+  if (S.A) b += row('Section area', '$A$', p.shape === 'round' ? '$\\pi d^2/4$' : '$b^2$', fmt.sig(S.A, 4) + ' mm\u00b2');
+  b += row('Striker weight', '$W$', '$mg$', fmt.sig(S.W, 4) + ' N');
+  b += row('Member stiffness', '$k$', S.fromMeasured ? '$W/\\delta_{st}$' : '$AE/L$', fmt.sig(S.kMem, 4) + ' N/mm');
+  if (p.kExtra) b += row('System stiffness', '$k_{eq}$', 'series', fmt.sig(S.cases[0].k, 5) + ' N/mm', fmt.sig(S.cases[1].k, 5) + ' N/mm');
+  if (S.sst) b += row('Static stress', '$\\sigma_{st}$', '$W/A$', fmt.sig(S.sst, 4) + ' MPa');
+  b += row('Static deflection', '$\\delta_{st}$', '$W/k_{eq}$', fmt.sig(S.cases[0].dst, 4) + ' mm', S.twoCase ? fmt.sig(S.cases[1].dst, 4) + ' mm' : undefined);
+  if (S.hasCorr) {
+    b += row('Impact factor, no dissipation', '$n_a$', '$1+\\sqrt{1+2h/\\delta_{st}}$', fmt.sig(S.main.nNo, 5));
+    b += row(S.sst ? 'Stress, no dissipation (a)' : 'Force, no dissipation (a)', S.sst ? '$\\sigma_a$' : '$F_a$',
+             '$n_a\\sigma_{st}$', S.sst ? fmt.sig(S.main.sigmaNo, 4) + ' MPa' : fmt.sig(S.main.FNo, 5) + ' N', undefined, true);
+    b += row('Struck-member mass', '$m_{mem}$', S.fromMeasured ? 'given' : '$\\rho A L$', fmt.sig(S.mMem, 4) + ' kg');
+    b += row('Correction factor (b)', '$\\eta$', '$1/(1+m_{mem}/3m)$', fmt.sig(S.eta, 4), undefined, true);
+  }
+  b += row('Impact factor', '$n$', '$1+\\sqrt{1+2h\\eta/\\delta_{st}}$', fmt.sig(S.cases[0].n, 5), S.twoCase ? fmt.sig(S.cases[1].n, 5) : undefined);
+  b += row('Dynamic deflection', '$\\delta$', '$n\\delta_{st}$', fmt.sig(S.cases[0].delta, 4) + ' mm', S.twoCase ? fmt.sig(S.cases[1].delta, 4) + ' mm' : undefined);
+  b += row('Impact force', '$F$', '$nW$', fmt.grp(S.cases[0].F) + ' N', S.twoCase ? fmt.grp(S.cases[1].F) + ' N' : undefined, !S.sst);
+  if (S.sst && p.mode !== 'inverse')
+    b += row('Maximum stress', '$\\sigma$', '$n\\sigma_{st}$', fmt.sig(S.cases[0].sigma, 4) + ' MPa', S.twoCase ? fmt.sig(S.cases[1].sigma, 4) + ' MPa' : undefined, true);
+  if (p.mode === 'inverse')
+    b += row('Required drop height', '$h$', '$\\tfrac{\\delta_{st}}{2}[(n-1)^2-1]$', fmt.sig(S.main.h * 1000, 4) + ' mm', undefined, true);
+  b += '</tbody></table>';
+  if (CONFIG.extraTable) b += CONFIG.extraTable(S, fmt);
+  h += step('Summary Table', 'Review the complete set of values for this variant', b, true);
+
+  /* ── adaptive common mistakes ────────────────────────────────────────── */
+  var mis = [];
+  if (p.kExtra) mis.push('<strong>Adding the stiffnesses instead of the flexibilities.</strong> $k_{rod} + k_{washer}$ treats them as '
+      + 'parallel and makes the washer look useless. Series elements share the force and add deflections &mdash; it is the '
+      + '<em>reciprocals</em> that add.');
+  if (p.kExtra) mis.push('<strong>Using the washer\u2019s stiffness to compute the stress.</strong> The washer sets the compliance and '
+      + 'hence $n$, but the stress is in the rod, so it is always $F/A_{rod}$.');
+  if (p.mode === 'inverse') mis.push('<strong>Using $n$ instead of $(n-1)$ when squaring.</strong> $h = \\tfrac{\\delta_{st}}{2}(n^2-1)$ '
+      + 'gives ' + fmt.sig(S.main.dst * (S.main.n * S.main.n - 1) / 2, 4) + ' mm instead of ' + fmt.sig(S.main.h * 1000, 4)
+      + ' mm &mdash; close enough to look right, which makes it dangerous.');
+  if (S.hasCorr) mis.push('<strong>Using the full member mass instead of $m_{mem}/3$.</strong> That would give '
+      + '$\\eta = ' + fmt.sig(1 / (1 + S.mMem / p.m), 4) + '$ &mdash; three times the correction, and wrong. The one third comes from '
+      + 'the linear velocity distribution along the member.');
+  if (!S.hasCorr && S.A) mis.push('<strong>Using $\\delta_{st}$ as the dynamic deflection.</strong> The formula in the question is the '
+      + '<em>static</em> deflection &mdash; the reference value that feeds the impact factor. The real deflection is $n$ times larger.');
+  mis.push('<strong>Dropping the &ldquo;+1&rdquo;</strong> and using $n = \\sqrt{2h/\\delta_{st}} = ' + fmt.sig(S.main.n - 1, 5) + '$. '
+      + 'Here it changes the answer by only ' + fmt.sig(100 / S.main.n, 2) + '\u202f%, which tempts students into using it habitually '
+      + '&mdash; but at $h = 0$ it gives $n = 0$ instead of the correct $n = 2$.');
+  mis.push('<strong>Mixing units.</strong> Work consistently in N and mm ($E$ in N/mm\u00b2, $h$ in mm) and the stress falls out '
+      + 'directly in MPa. Density calculations must be done separately in SI.');
+  if (CONFIG.mistakes) mis = mis.concat(CONFIG.mistakes(S, fmt));
+  h += call('warn', '<p><strong>Common mistakes:</strong></p>'
+      + mis.slice(0, 5).map(function (m, i) { return '<p style="margin-top:6px">' + CIRCLED[i] + ' ' + m + '</p>'; }).join(''));
+
+  return h;
+}
+
+
+/* ------------------- tutorial configuration ------------------- */
+var CONFIG = {
+  fig: "board",
+  question: function(S,fmt){
+        return 'Determine the <strong>impact force</strong> and <strong>dynamic deflection</strong> that will result when a '
+          + '<strong>' + fmt.sig(S.p.m,3) + ' kg</strong> person jumps up <strong>' + fmt.sig(S.p.h*100,3) + ' cm</strong> and '
+          + 'lands back on an overhung diving board. Assume that the board weighs <strong>' + fmt.sig(S.p.mMember,3)
+          + ' kg</strong> and deflects <strong>' + fmt.sig(S.p.dstGiven/10,3) + ' cm</strong> statically when the person '
+          + 'stands on it.';
+      },
+  answer: function(S,fmt){
+        return '$F_e = ' + fmt.sig(S.main.F,5) + '$ N &nbsp;&nbsp;&nbsp; $\\delta = ' + fmt.sig(S.main.delta/1000,3) + '$ m';
+      },
+  caption: function(S,fmt){
+        return 'The board is an overhung (cantilever) beam. Its stiffness is not calculated from geometry - it is inferred '
+          + 'from the given static deflection, $k = W/\\delta_{st}$. The board\u2019s own mass is a large fraction of the '
+          + 'person\u2019s, so the mass correction genuinely matters here. Sag and jump height are drawn in proportion.';
+      },
+  mistakes: function(S,fmt){
+        return ['<strong>Adding the board\u2019s weight to $W$.</strong> The board\u2019s weight is carried by the board '
+          + 'continuously; it is not part of the impacting load. It enters only through $\\eta$, as inertia.',
+          '<strong>Using $h = ' + fmt.sig(S.p.h*100,3) + ' + ' + fmt.sig(S.p.dstGiven/10,3) + '$ cm</strong> &ldquo;because the '
+          + 'board is already deflected&rdquo;. The jump is measured from the already-deflected position, and the extra travel '
+          + 'during impact is $\\delta$, which the &ldquo;+1&rdquo; already accounts for.',
+          '<strong>Reporting $\\delta$ as the additional deflection.</strong> It is the total from the unloaded position; '
+          + 'the extra travel beyond standing still is ' + fmt.sig((S.main.delta - S.p.dstGiven)/1000,3) + ' m.'];
+      }
+};
+var VARIANTS = [
+  {
+    "btn": "Original",
+    "desc": "The tutorial sheet problem - 70 kg person, 25 cm jump, 30 kg board that sags 10 cm.",
+    "m": 70,
+    "mMember": 30,
+    "dstGiven": 100,
+    "h": 0.25,
+    "corr": true,
+    "mode": "forward",
+    "book": true
+  },
+  {
+    "btn": "Variant 1 - new magnitudes",
+    "desc": "Same board, but a heavier 90 kg diver with a bigger 40 cm jump. Note that the heavier diver changes the static deflection AND the correction factor, so two things move at once.",
+    "m": 90,
+    "mMember": 30,
+    "dstGiven": 100,
+    "h": 0.4,
+    "corr": true,
+    "mode": "forward"
+  },
+  {
+    "btn": "Variant 2 - new geometry",
+    "desc": "Same 70 kg diver and same 25 cm jump, but a stiffer board: it sags only 6 cm and weighs 45 kg. Stiffer means less travel but a much larger impact factor - see which effect wins on the force.",
+    "m": 70,
+    "mMember": 45,
+    "dstGiven": 60,
+    "h": 0.25,
+    "corr": true,
+    "mode": "forward"
+  }
+];
+
+/* ------------------- wiring ------------------- */
+function render(i){
+  var v = VARIANTS[i];
+  document.getElementById('doc').innerHTML = build(CONFIG, v);
+  document.getElementById('swDesc').textContent = v.desc;
+  var btns = document.querySelectorAll('#swBtns button');
+  for(var j=0;j<btns.length;j++) btns[j].setAttribute('aria-pressed', j===i ? 'true' : 'false');
+  if(window.renderMathInElement){
+    renderMathInElement(document.getElementById('doc'), {
+      delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}],
+      throwOnError:false
+    });
+  }
+}
+function init(){
+  var box = document.getElementById('swBtns');
+  VARIANTS.forEach(function(v,i){
+    var b = document.createElement('button');
+    b.textContent = v.btn;
+    b.setAttribute('aria-pressed','false');
+    b.onclick = function(){ render(i); };
+    box.appendChild(b);
+  });
+  render(0);
+}
+window.addEventListener('load', init);
+</script>
+</body>
+</html>
