@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>T6.1 – Acme Screw Jack</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css"/>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]})"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+body{font-family:'Segoe UI',Arial,sans-serif;font-size:15px;line-height:1.75;color:#1a1a1a;background:#f5f6f8;margin:0;padding:24px 16px 56px}
+.page{max-width:860px;margin:0 auto;background:#fff;border-radius:10px;box-shadow:0 2px 14px rgba(0,0,0,.10);padding:40px 52px 52px}
+.uni-header{text-align:center;border-bottom:2px solid #1a3c6e;padding-bottom:16px;margin-bottom:32px}
+.uni-header p{margin:0;line-height:1.4;font-size:13.5px;color:#555}
+.uni-header h2{margin:8px 0 0;font-size:20px;color:#1a3c6e}
+h3{color:#1a3c6e;border-left:4px solid #1a3c6e;padding-left:10px;margin:28px 0 10px;font-size:15.5px}
+h4{color:#1a3c6e;font-size:14.5px;margin:18px 0 6px}
+.step{margin-bottom:10px}
+.step details{border:1px solid #d1d9e8;border-radius:8px;overflow:hidden;margin-top:6px}
+.step details summary{list-style:none;cursor:pointer;padding:11px 15px;background:#f0f4fb;color:#1a3c6e;font-weight:500;font-size:14.5px;display:flex;align-items:center;gap:10px;user-select:none}
+.step details summary::-webkit-details-marker{display:none}
+.step details summary::before{display:none}
+.step details summary::after{content:'▼';font-size:11px;color:#f97316;transition:transform 0.2s;flex-shrink:0;margin-left:auto;padding-left:8px}
+.step details[open] summary::after{transform:rotate(180deg)}
+.step details summary .step-label{font-size:12px;font-weight:500;color:#f97316;margin-right:4px}
+.step details[open] summary{background:#e8eef9;border-bottom:1px solid #d1d9e8}
+.step-body{padding:16px 20px}
+.step-heading{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.step-num{background:#1a3c6e;color:#fff;font-size:12px;font-weight:700;border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.step-title{font-size:15px;font-weight:600;color:#1a3c6e}
+.try-hint{font-size:12.5px;color:#6b7280;font-style:italic;margin-left:auto}
+.callout{border-radius:6px;padding:13px 18px;margin:14px 0;font-size:14.5px}
+.callout p{margin:4px 0}
+.info{background:#eef4ff;border-left:4px solid #3b82f6}
+.given{background:#f0fdf4;border-left:4px solid #22c55e}
+.answer{background:#fff7ed;border-left:4px solid #f97316;font-size:16px;font-weight:600}
+.note{background:#faf5ff;border-left:4px solid #a855f7;font-size:14px}
+.warn{background:#fffbeb;border-left:4px solid #f59e0b;font-size:14px}
+.math-block{background:#f8f9fb;border:1px solid #e2e6ef;border-radius:6px;padding:14px 20px;margin:12px 0;overflow-x:auto;text-align:center}
+table{width:100%;border-collapse:collapse;margin:18px 0;font-size:13.5px}
+th{background:#1a3c6e;color:#fff;padding:9px 10px;text-align:center;font-weight:600;font-size:13px}
+td{padding:8px 10px;text-align:center;border-bottom:1px solid #e5e7eb;vertical-align:middle}
+td.left{text-align:left;font-weight:600}
+tr:nth-child(even) td{background:#f8f9fb}
+tr.total td{font-weight:700;background:#eef4ff;border-top:2px solid #1a3c6e}
+.diagram-wrap{text-align:center;margin:24px 0 8px}
+.diagram-wrap figcaption{font-size:13px;color:#555;margin-top:8px;font-style:italic}
+.footer{margin-top:40px;border-top:1px solid #e5e7eb;padding-top:12px;font-size:12px;color:#999;text-align:center}
+
+/* variant switcher */
+.switcher{background:#f0f4fb;border:1px solid #d1d9e8;border-radius:8px;padding:14px 18px;margin:18px 0 22px}
+.switcher .sw-label{font-size:12.5px;font-weight:600;color:#1a3c6e;text-transform:uppercase;letter-spacing:.06em;margin-bottom:9px}
+.sw-btns{display:flex;flex-wrap:wrap;gap:8px}
+.sw-btns button{font-family:inherit;font-size:13.5px;font-weight:500;padding:8px 15px;border-radius:6px;border:1px solid #b9c6df;background:#fff;color:#1a3c6e;cursor:pointer;transition:.15s}
+.sw-btns button:hover{background:#e8eef9;border-color:#1a3c6e}
+.sw-btns button[aria-pressed="true"]{background:#1a3c6e;border-color:#1a3c6e;color:#fff;box-shadow:0 1px 4px rgba(26,60,110,.3)}
+.sw-desc{font-size:13px;color:#555;margin-top:10px;font-style:italic}
+</style>
+</head>
+<body>
+<div class="page">
+
+<div class="uni-header">
+  <p>Curtin University &nbsp;·&nbsp; School of Civil and Mechanical Engineering</p>
+  <p>MCEN2002 – Fundamentals of Mechanical Design</p>
+  <p style="margin-top:8px"><strong>Dr Azma Putra Azis</strong></p>
+  <h2>Tutorial 6.1 &nbsp;–&nbsp; Acme Screw Jack: Torque, Efficiency &amp; Self-Locking</h2>
+</div>
+
+<h3>Problem Statement</h3>
+<p>A screw jack with a <strong>25 mm double Acme screw</strong> (pitch $p = 5$ mm) raises a load $W = 44\,480$ N. A <strong>plain thrust collar</strong> of mean diameter $d_c = 51$ mm is used. Running friction coefficients are $f = 0.13$ at the thread and $f_c = 0.10$ at the collar.</p>
+<p>(a) Find the screw <strong>lead</strong>, <strong>thread depth</strong>, <strong>mean pitch diameter</strong>, and <strong>helix (lead) angle</strong>. &nbsp;(b) Estimate the <strong>starting torque</strong> to raise and to lower the load. &nbsp;(c) Estimate the <strong>efficiency</strong> when raising. &nbsp;(d) Is the jack <strong>self-locking</strong>?</p>
+
+<div class="callout given">
+  <p><strong>Given answers:</strong> &nbsp;(a) $L = 10$ mm, thread depth $= 2.5$ mm, $d_m = 22.5$ mm, $\lambda = 8.05^\circ$ &nbsp;&nbsp;(b) $T_R = 315.15$ N·m, $T_L = 168.96$ N·m &nbsp;&nbsp;(c) $27.87\%$ &nbsp;&nbsp;(d) No</p>
+</div>
+
+<div class="diagram-wrap">
+<figure>
+<svg viewBox="0 0 600 340" width="535" xmlns="http://www.w3.org/2000/svg" font-family="Arial,sans-serif" font-size="12">
+  <!-- Load block -->
+  <rect x="150" y="20" width="150" height="42" fill="#fde68a" stroke="#1a3c6e" stroke-width="2"/>
+  <text x="225" y="38" text-anchor="middle" font-weight="bold" fill="#1a3c6e">Load W</text>
+  <text x="225" y="54" text-anchor="middle" fill="#1a3c6e">44 480 N</text>
+  <!-- downward load arrow -->
+  <line x1="225" y1="0" x2="225" y2="18" stroke="#dc2626" stroke-width="2"/>
+  <polygon points="225,20 220,10 230,10" fill="#dc2626"/>
+  <!-- Screw body (threaded) -->
+  <rect x="196" y="62" width="58" height="150" fill="#e5edf7" stroke="#1a3c6e" stroke-width="2"/>
+  <!-- thread hatching -->
+  <g stroke="#1a3c6e" stroke-width="1">
+    <line x1="196" y1="74" x2="254" y2="82"/><line x1="196" y1="90" x2="254" y2="98"/>
+    <line x1="196" y1="106" x2="254" y2="114"/><line x1="196" y1="122" x2="254" y2="130"/>
+    <line x1="196" y1="138" x2="254" y2="146"/><line x1="196" y1="154" x2="254" y2="162"/>
+    <line x1="196" y1="170" x2="254" y2="178"/><line x1="196" y1="186" x2="254" y2="194"/>
+  </g>
+  <text x="150" y="120" fill="#333">f</text>
+  <line x1="160" y1="117" x2="196" y2="130" stroke="#333" stroke-width="1"/>
+  <!-- Nut / frame -->
+  <rect x="150" y="200" width="150" height="26" fill="#cbd5e1" stroke="#1a3c6e" stroke-width="2"/>
+  <!-- Collar -->
+  <rect x="176" y="226" width="98" height="16" fill="#94a3b8" stroke="#1a3c6e" stroke-width="1.6"/>
+  <text x="118" y="238" fill="#333">f_c</text>
+  <line x1="132" y1="235" x2="176" y2="234" stroke="#333" stroke-width="1"/>
+  <!-- legs -->
+  <polygon points="150,226 120,300 138,300 168,226" fill="#e5edf7" stroke="#1a3c6e" stroke-width="1.6"/>
+  <polygon points="300,226 330,300 312,300 282,226" fill="#e5edf7" stroke="#1a3c6e" stroke-width="1.6"/>
+  <!-- dm dimension -->
+  <line x1="196" y1="262" x2="254" y2="262" stroke="#555" stroke-width="1"/>
+  <line x1="196" y1="256" x2="196" y2="268" stroke="#555" stroke-width="1"/>
+  <line x1="254" y1="256" x2="254" y2="268" stroke="#555" stroke-width="1"/>
+  <text x="225" y="278" text-anchor="middle" fill="#333">d_m</text>
+  <!-- dc dimension -->
+  <line x1="176" y1="290" x2="274" y2="290" stroke="#555" stroke-width="1"/>
+  <line x1="176" y1="284" x2="176" y2="296" stroke="#555" stroke-width="1"/>
+  <line x1="274" y1="284" x2="274" y2="296" stroke="#555" stroke-width="1"/>
+  <text x="225" y="306" text-anchor="middle" fill="#333">d_c</text>
+
+  <!-- Unwrapped thread triangle (helix angle) -->
+  <g transform="translate(380,150)">
+    <text x="70" y="-70" text-anchor="middle" font-weight="bold" fill="#1a3c6e">Unwrapped thread</text>
+    <polygon points="0,60 140,60 140,0" fill="#7fe3ec" fill-opacity="0.6" stroke="#1a3c6e" stroke-width="2"/>
+    <!-- angle arc -->
+    <path d="M 30 60 A 30 30 0 0 0 30 55" fill="none"/>
+    <path d="M 34 60 A 34 34 0 0 0 21 46.5" fill="none" stroke="#f97316" stroke-width="1.5"/>
+    <text x="44" y="55" fill="#f97316" font-weight="bold">&#955;</text>
+    <text x="70" y="76" text-anchor="middle" fill="#333">&#960; d_m = 70.7 mm</text>
+    <text x="150" y="34" fill="#333">L = 10</text>
+    <text x="150" y="48" fill="#333">mm</text>
+  </g>
+</svg>
+<figcaption>Screw-jack schematic (left): load W bears on the Acme screw; friction acts at the thread ($f$) and at the plain thrust collar ($f_c$, mean diameter $d_c$). Right: one thread turn "unwrapped" into a right triangle — rise $L$ over circumference $\pi d_m$ gives the helix angle $\lambda$. Dimensions in millimetres.</figcaption>
+</figure>
+</div>
+
+<h3>Solution</h3>
+
+<div class="step">
+  <div class="step-heading">
+    <div class="step-num">1</div>
+    <div class="step-title">Screw geometry: lead, thread depth, mean diameter, helix angle</div>
+    <div class="try-hint">Try it first, then reveal ↓</div>
+  </div>
+  <details>
+    <summary><span class="step-label">Step 1</span> Turn the given dimensions into the four geometric quantities</summary>
+    <div class="step-body">
+      <p><strong>Lead</strong> is the axial advance per one full turn. A <em>double</em> (two-start) thread advances two pitches per turn:</p>
+      <div class="math-block">$$L = n_{\text{starts}}\,p = 2 \times 5 = 10\text{ mm}$$</div>
+      <p>For an <strong>Acme thread</strong> the basic thread depth (and the amount by which the mean diameter sits below the major diameter) is half the pitch:</p>
+      <div class="math-block">$$\text{depth} = \tfrac{p}{2} = \tfrac{5}{2} = 2.5\text{ mm} \qquad d_m = d - \tfrac{p}{2} = 25 - 2.5 = 22.5\text{ mm}$$</div>
+      <p>The <strong>helix (lead) angle</strong> $\lambda$ comes from unwrapping one turn of the thread at the mean radius — the rise $L$ over the circumference $\pi d_m$:</p>
+      <div class="math-block">$$\lambda = \tan^{-1}\!\left(\frac{L}{\pi d_m}\right) = \tan^{-1}\!\left(\frac{10}{\pi \times 22.5}\right) = \tan^{-1}(0.1415) = 8.05^\circ$$</div>
+      <div class="callout answer">
+        <p>$$L = 10\text{ mm}, \quad \text{depth} = 2.5\text{ mm}, \quad d_m = 22.5\text{ mm}, \quad \lambda = 8.05^\circ$$</p>
+      </div>
+      <div class="callout note">
+        <p><strong>Why <em>mean</em> diameter?</strong> The thread force really acts spread over the flank, but its resultant is well modelled as acting at the mean radius $d_m/2$. Using the major diameter would overstate every torque; using the root would understate it.</p>
+      </div>
+    </div>
+  </details>
+</div>
+
+<div class="step">
+  <div class="step-heading">
+    <div class="step-num">2</div>
+    <div class="step-title">Set up the Acme torque equations (thread + collar)</div>
+    <div class="try-hint">Try it first, then reveal ↓</div>
+  </div>
+  <details>
+    <summary><span class="step-label">Step 2</span> The raising / lowering torque formulas and the Acme angle correction</summary>
+    <div class="step-body">
+      <p>Total torque at the screw = <strong>thread torque</strong> + <strong>collar torque</strong>. For a thread with flank half-angle $\alpha$ (Acme: included angle $29^\circ$, so $\alpha = 14.5^\circ$), the friction on the flank is magnified by $\sec\alpha$ because the flank is tilted:</p>
+      <div class="math-block">$$T_R = \underbrace{\frac{W d_m}{2}\left(\frac{L + \pi f d_m \sec\alpha}{\pi d_m - f L \sec\alpha}\right)}_{\text{raise the load (thread)}} + \underbrace{\frac{f_c W d_c}{2}}_{\text{collar}}$$</div>
+      <div class="math-block">$$T_L = \frac{W d_m}{2}\left(\frac{\pi f d_m \sec\alpha - L}{\pi d_m + f L \sec\alpha}\right) + \frac{f_c W d_c}{2}$$</div>
+      <div class="callout info">
+        <p><strong>Starting vs. running friction.</strong> The problem gives <em>running</em> (kinetic) coefficients but asks for the <strong>starting</strong> torque. Static friction is higher — a standard estimate is $f_s \approx \tfrac{4}{3} f$. We therefore use $f_s = \tfrac{4}{3}(0.13) = 0.1733$ and $f_{c,s} = \tfrac{4}{3}(0.10) = 0.1333$ for the starting torque in part (b). Part (c) uses the running values because efficiency describes steady motion.</p>
+      </div>
+      <p>With $\alpha = 14.5^\circ$, $\sec\alpha = 1.0329$.</p>
+    </div>
+  </details>
+</div>
+
+<div class="step">
+  <div class="step-heading">
+    <div class="step-num">3</div>
+    <div class="step-title">(b) Starting torque to raise the load</div>
+    <div class="try-hint">Try it first, then reveal ↓</div>
+  </div>
+  <details>
+    <summary><span class="step-label">Step 3</span> Substitute the static coefficients into $T_R$</summary>
+    <div class="step-body">
+      <p>Thread term, with $f_s = 0.1733$:</p>
+      <div class="math-block">$$T_{R,\text{thread}} = \frac{44\,480 \times 22.5}{2}\left(\frac{10 + \pi (0.1733)(22.5)(1.0329)}{\pi (22.5) - (0.1733)(10)(1.0329)}\right)$$</div>
+      <div class="math-block">$$= 500\,400 \times \frac{10 + 12.65}{70.69 - 1.79} = 500\,400 \times 0.3288 = 164\,540\text{ N}\cdot\text{mm}$$</div>
+      <p>Collar term, with $f_{c,s} = 0.1333$:</p>
+      <div class="math-block">$$T_{R,\text{collar}} = \frac{0.1333 \times 44\,480 \times 51}{2} = 151\,200\text{ N}\cdot\text{mm}$$</div>
+      <div class="math-block">$$T_R = 164\,540 + 151\,200 = 315\,700\text{ N}\cdot\text{mm} \approx 315.7\text{ N}\cdot\text{m}$$</div>
+      <div class="callout answer">
+        <p>$$T_R \approx 315\text{ N}\cdot\text{m} \quad(\text{book } 315.15\text{ N}\cdot\text{m})$$</p>
+      </div>
+      <div class="callout note">
+        <p><strong>The collar carries ~48% of the torque.</strong> A plain thrust collar of 51 mm mean diameter is almost as big a friction source as the thread itself. Replacing it with a thrust <em>bearing</em> ($f_c \to \sim0.01$) would nearly halve the required torque.</p>
+      </div>
+    </div>
+  </details>
+</div>
+
+<div class="step">
+  <div class="step-heading">
+    <div class="step-num">4</div>
+    <div class="step-title">(b) Starting torque to lower the load</div>
+    <div class="try-hint">Try it first, then reveal ↓</div>
+  </div>
+  <details>
+    <summary><span class="step-label">Step 4</span> Use the $T_L$ form (thread sign flips, collar unchanged)</summary>
+    <div class="step-body">
+      <p>Thread term:</p>
+      <div class="math-block">$$T_{L,\text{thread}} = 500\,400 \times \frac{\pi(0.1733)(22.5)(1.0329) - 10}{\pi(22.5) + (0.1733)(10)(1.0329)} = 500\,400 \times \frac{12.65 - 10}{70.69 + 1.79} = 18\,320\text{ N}\cdot\text{mm}$$</div>
+      <p>Collar term is the same as before ($151\,200$ N·mm — the collar doesn't care which way you turn):</p>
+      <div class="math-block">$$T_L = 18\,320 + 151\,200 = 169\,500\text{ N}\cdot\text{mm} \approx 169.5\text{ N}\cdot\text{m}$$</div>
+      <div class="callout answer">
+        <p>$$T_L \approx 169\text{ N}\cdot\text{m} \quad(\text{book } 168.96\text{ N}\cdot\text{m})$$</p>
+      </div>
+      <div class="callout note">
+        <p>$T_L$ is still positive, meaning you must apply torque to lower — but that is almost entirely the <em>collar</em> contribution. The <em>thread's</em> own lowering torque ($18.3$ N·m) is small and positive here; that margin is what part (d) examines.</p>
+      </div>
+    </div>
+  </details>
+</div>
+
+<div class="step">
+  <div class="step-heading">
+    <div class="step-num">5</div>
+    <div class="step-title">(c) Efficiency when raising</div>
+    <div class="try-hint">Try it first, then reveal ↓</div>
+  </div>
+  <details>
+    <summary><span class="step-label">Step 5</span> Compare useful work out to work in, per turn (running conditions)</summary>
+    <div class="step-body">
+      <p>Efficiency is the useful axial work $W L$ done per revolution divided by the input work $2\pi T_R$ per revolution. Efficiency describes <em>steady</em> operation, so use the <strong>running</strong> torque (with $f = 0.13$, $f_c = 0.10$). Re-evaluating $T_R$ with the running coefficients gives $T_{R,\text{run}} = 254.1$ N·m:</p>
+      <div class="math-block">$$e = \frac{W L}{2\pi T_{R,\text{run}}} = \frac{44\,480 \times 0.010}{2\pi \times 254.1} = \frac{444.8}{1596.6} = 0.2786$$</div>
+      <div class="callout answer">
+        <p>$$e = 27.9\% \quad(\text{book } 27.87\%)$$</p>
+      </div>
+      <div class="callout note">
+        <p><strong>Low efficiency is normal — and often the point.</strong> Power screws routinely run at 15–40% efficiency; the "wasted" work is what makes the jack safe to leave under load. High efficiency and self-locking are mutually exclusive.</p>
+      </div>
+    </div>
+  </details>
+</div>
+
+<div class="step">
+  <div class="step-heading">
+    <div class="step-num">6</div>
+    <div class="step-title">(d) Is it self-locking?</div>
+    <div class="try-hint">Try it first, then reveal ↓</div>
+  </div>
+  <details>
+    <summary><span class="step-label">Step 6</span> Test the thread alone: does friction beat the helix?</summary>
+    <div class="step-body">
+      <p>A screw is <strong>self-locking</strong> if, with the collar ignored, the load cannot drive the screw back down on its own — i.e. the thread's lowering torque is positive. The condition is:</p>
+      <div class="math-block">$$f \sec\alpha \; \ge \; \tan\lambda$$</div>
+      <p>Using the given running coefficient $f = 0.13$:</p>
+      <div class="math-block">$$f\sec\alpha = 0.13 \times 1.0329 = 0.1343 \qquad \tan\lambda = 0.1415$$</div>
+      <div class="math-block">$$0.1343 \; < \; 0.1415 \;\;\Rightarrow\;\; \text{not self-locking}$$</div>
+      <div class="callout answer">
+        <p><strong>No — the screw thread is <em>not</em> self-locking.</strong> On the thread alone the load would overhaul (back-drive).</p>
+      </div>
+      <div class="callout note">
+        <p><strong>Reconcile with part (b):</strong> $T_L$ came out positive only because the <em>collar</em> friction ($151$ N·m) masks the thread's tiny overhauling tendency. The self-locking test looks at the <em>thread</em> in isolation, so it is the thread condition $f\sec\alpha \ge \tan\lambda$ that decides. Here it fails by a whisker ($0.1343$ vs $0.1415$), so in practice the jack relies on the collar friction to hold — not a robust design margin.</p>
+      </div>
+    </div>
+  </details>
+</div>
+
+<div class="step">
+  <div class="step-heading">
+    <div class="step-num">7</div>
+    <div class="step-title">Summary</div>
+  </div>
+  <details>
+    <summary><span class="step-label">Step 7</span> All results in one place</summary>
+    <div class="step-body">
+<table>
+  <thead><tr><th>Quantity</th><th>Symbol</th><th>Value</th><th>Book</th></tr></thead>
+  <tbody>
+    <tr><td class="left">Lead (double thread)</td><td>$L$</td><td>10 mm</td><td>10 mm</td></tr>
+    <tr><td class="left">Thread depth</td><td>—</td><td>2.5 mm</td><td>2.5 mm</td></tr>
+    <tr><td class="left">Mean diameter</td><td>$d_m$</td><td>22.5 mm</td><td>22.5 mm</td></tr>
+    <tr><td class="left">Helix angle</td><td>$\lambda$</td><td>8.05°</td><td>8.05°</td></tr>
+    <tr><td class="left">Starting torque – raise</td><td>$T_R$</td><td>315.7 N·m</td><td>315.15 N·m</td></tr>
+    <tr><td class="left">Starting torque – lower</td><td>$T_L$</td><td>169.5 N·m</td><td>168.96 N·m</td></tr>
+    <tr><td class="left">Efficiency (raising, running)</td><td>$e$</td><td>27.9%</td><td>27.87%</td></tr>
+    <tr class="total"><td class="left">Self-locking?</td><td>—</td><td>No</td><td>No</td></tr>
+  </tbody>
+</table>
+    </div>
+  </details>
+</div>
+
+<div class="callout warn">
+  <p><strong>Common mistake 1:</strong> Forgetting the two-start thread. A double thread has $L = 2p = 10$ mm, not $5$ mm. Using $L = 5$ halves $\tan\lambda$ and gives the wrong torque <em>and</em> the wrong self-locking conclusion.</p>
+  <p style="margin-top:8px"><strong>Common mistake 2:</strong> Dropping the Acme $\sec\alpha$ factor. Treating the Acme thread as square ($\alpha = 0$) understates thread friction by ~3% and can flip a marginal self-locking judgement.</p>
+  <p style="margin-top:8px"><strong>Common mistake 3:</strong> Using running friction for the "starting" torque. Starting torque needs the static coefficient ($f_s \approx \tfrac{4}{3}f$); using running values gives $T_R \approx 254$ N·m instead of $315$ N·m — a 20% underestimate of what the operator must actually apply to break the jack loose.</p>
+  <p style="margin-top:8px"><strong>Common mistake 4:</strong> Including collar friction in the self-locking test. Self-locking is a property of the <em>thread</em>; the collar is a separate, order-dependent friction source.</p>
+</div>
+
+
+<h3>Interactive variants &mdash; try the method on new numbers</h3>
+<p>Same solution method, different inputs. Switch between the tutorial-sheet problem and two variants; every value below is recomputed live. <em>Variant 1</em> keeps the geometry and changes the load; <em>Variant 2</em> changes the screw geometry.</p>
+<div class="switcher">
+  <div class="sw-label">Choose a problem</div>
+  <div class="sw-btns" id="swBtns"></div>
+  <div class="sw-desc" id="swDesc"></div>
+</div>
+<div id="psResults"></div>
+<script>
+(function(){
+  var CFG = {"num": "6.1", "kind": "jackFull", "handleName": null, "variants": [{"btn": "Original", "type": "acme", "dGiven": "major", "d": 25, "pitch": 5, "starts": 2, "W": 44480, "dc": 51, "f": 0.13, "fc": 0.1, "desc": "The tutorial sheet problem \u2014 25 mm double Acme screw, 44.48 kN load, 51 mm collar."}, {"btn": "Variant 1 \u2014 new load magnitudes", "type": "acme", "dGiven": "major", "d": 25, "pitch": 5, "starts": 2, "W": 60000, "dc": 51, "f": 0.13, "fc": 0.1, "desc": "Same screw geometry, heavier 60 kN load. Every torque scales up in proportion to W; the geometry, helix angle, efficiency and self-locking verdict are unchanged."}, {"btn": "Variant 2 \u2014 new geometry", "type": "acme", "dGiven": "major", "d": 32, "pitch": 6, "starts": 2, "W": 44480, "dc": 60, "f": 0.13, "fc": 0.1, "desc": "Same 44.48 kN load, but a larger 32 mm double Acme screw (6 mm pitch) on a 60 mm collar. The bigger mean diameter lowers the helix angle to 7.5 deg, which now makes the thread self-locking \u2014 note the verdict flips to Yes."}]};
+  var K = 4/3;                         // static-friction bump for starting torque
+  function solve(p){
+    var alpha = (p.type==='acme') ? 14.5*Math.PI/180 : 0;
+    var sec = 1/Math.cos(alpha);
+    var L = p.starts*p.pitch;
+    var depth = p.pitch/2;
+    var dm = (p.dGiven==='mean') ? p.d : p.d - p.pitch/2;
+    var major = dm + p.pitch/2;
+    var lam = Math.atan(L/(Math.PI*dm));
+    var W=p.W, dc=p.dc;
+    function tq(f,fc){
+      var tR = W*dm/2*(L+Math.PI*f*dm*sec)/(Math.PI*dm - f*L*sec);
+      var tL = W*dm/2*(Math.PI*f*dm*sec - L)/(Math.PI*dm + f*L*sec);
+      var c  = fc*W*dc/2;
+      return {tR:tR,tL:tL,c:c};
+    }
+    var r=tq(p.f,p.fc), s=tq(p.f*K,p.fc*K);
+    var o={L:L,depth:depth,dm:dm,major:major,lam:lam*180/Math.PI,
+      runTR:(r.tR+r.c)/1000, runTL:(r.tL+r.c)/1000,
+      startTR:(s.tR+s.c)/1000, startTL:(s.tL+s.c)/1000,
+      eff:W*L/(2*Math.PI*(r.tR+r.c))*100,
+      selflock:(p.f*sec >= Math.tan(lam)),
+      fmin:Math.tan(lam), fsec:p.f*sec, tanlam:Math.tan(lam)};
+    if(p.R){ o.Frun=(r.tR+r.c)/p.R; o.Fstart=(s.tR+s.c)/p.R; o.R=p.R; }
+    return o;
+  }
+  function n(x,d){ return x.toFixed(d===undefined?2:d); }
+  function row(k,v){ return '<tr><td class="left">'+k+'</td><td>'+v+'</td></tr>'; }
+  function render(i){
+    var p=CFG.variants[i], o=solve(p);
+    var typ = (p.type==='acme')?'Acme (&alpha; = 14.5&deg;)':'Square (&alpha; = 0)';
+    var starts = (p.starts===2)?'double (2-start)':'single (1-start)';
+    var given='<div class="callout given"><p><strong>Inputs:</strong> '+typ+' thread, '+starts+
+      '; '+(p.dGiven==='mean'?'mean':'major')+' diameter '+n(p.d,1)+' mm, pitch '+n(p.pitch,1)+
+      ' mm; load W = '+ (p.W>=1000? n(p.W/1000,2)+' kN':n(p.W,0)+' N') +
+      '; collar d<sub>c</sub> = '+n(p.dc,0)+' mm; f = '+n(p.f,2)+', f<sub>c</sub> = '+n(p.fc,2)+
+      (p.R?('; '+(CFG.handleName||'handle')+' R = '+(p.R>=1000?n(p.R/1000,2)+' m':n(p.R,0)+' mm')):'')+'.</p></div>';
+    var t='<table><thead><tr><th>Quantity</th><th>Value</th></tr></thead><tbody>';
+    t+=row('Lead $L = n_{\\text{starts}}\\,p$', n(o.L,1)+' mm');
+    t+=row('Thread depth $p/2$', n(o.depth,2)+' mm');
+    t+=row('Mean diameter $d_m$', n(o.dm,2)+' mm');
+    t+=row('Major diameter $d = d_m + p/2$', n(o.major,1)+' mm');
+    t+=row('Helix angle $\\lambda$', n(o.lam,2)+'&deg;');
+    t+=row('Running raise torque $T_R$', n(o.runTR,1)+' N&middot;m');
+    t+=row('Starting raise torque $T_R$ (static, $\\tfrac{4}{3}f$)', n(o.startTR,1)+' N&middot;m');
+    t+=row('Starting lower torque $T_L$', n(o.startTL,1)+' N&middot;m');
+    t+=row('Efficiency (raising, running)', n(o.eff,1)+'%');
+    t+=row('Self-locking? &nbsp;$f\\sec\\alpha$ vs $\\tan\\lambda$', n(o.fsec,4)+' vs '+n(o.tanlam,4)+' &rarr; <strong>'+(o.selflock?'Yes':'No')+'</strong>');
+    if(o.R!==undefined){
+      t+=row('Handle force (running) $F = T_R/R$', n(o.Frun,1)+' N');
+      t+=row('Handle force (starting)', n(o.Fstart,1)+' N');
+    }
+    t+='</tbody></table>';
+    var head='';
+    if(CFG.kind==='jackFull')
+      head='Starting torque to raise <strong>'+n(o.startTR,1)+' N&middot;m</strong>, to lower <strong>'+n(o.startTL,1)+
+           ' N&middot;m</strong>; efficiency <strong>'+n(o.eff,1)+'%</strong>; self-locking: <strong>'+(o.selflock?'Yes':'No')+'</strong>.';
+    else if(CFG.kind==='jackEff')
+      head='Starting torque to raise <strong>'+n(o.startTR,1)+' N&middot;m</strong>, to lower <strong>'+n(o.startTL,1)+
+           ' N&middot;m</strong>; efficiency <strong>'+n(o.eff,1)+'%</strong>.';
+    else if(CFG.kind==='squareStart')
+      head='Major diameter <strong>'+n(o.major,1)+' mm</strong>; starting raise torque <strong>'+n(o.startTR,1)+
+           ' N&middot;m</strong>; min. thread friction to prevent overhauling (no collar) <strong>'+n(o.fmin,3)+'</strong>.';
+    else if(CFG.kind==='clampForce')
+      head=(CFG.handleName==='wrench'?'Raising torque <strong>'+n(o.runTR,1)+' N&middot;m</strong>; ':'')+
+           'force at the '+(CFG.handleName||'handle')+' end (running) <strong>'+n(o.Frun,1)+' N</strong>.';
+    var ans='<div class="callout answer"><p>'+head+'</p></div>';
+    var el=document.getElementById('psResults');
+    el.innerHTML=given+t+ans;
+    if(window.renderMathInElement){renderMathInElement(el,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]});}
+    var btns=document.querySelectorAll('#swBtns button');
+    for(var j=0;j<btns.length;j++){btns[j].setAttribute('aria-pressed', j===i?'true':'false');}
+    document.getElementById('swDesc').innerHTML=p.desc;
+  }
+  var bar=document.getElementById('swBtns');
+  CFG.variants.forEach(function(p,i){
+    var b=document.createElement('button'); b.textContent=p.btn;
+    b.onclick=function(){render(i);}; bar.appendChild(b);
+  });
+  render(0);
+})();
+</script>
+
+<div class="footer">MCEN2002 – Fundamentals of Mechanical Design &nbsp;|&nbsp; Tutorial 6.1 &nbsp;|&nbsp; Curtin University</div>
+</div>
+</body>
+</html>
