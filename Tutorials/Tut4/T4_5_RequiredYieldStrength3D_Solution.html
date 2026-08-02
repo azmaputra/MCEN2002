@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>T4.5 &ndash; Required Yield Strength for aGeneral 3-D Stress State</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css"/>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+body{font-family:'Segoe UI',Arial,sans-serif;font-size:15px;line-height:1.75;color:#1a1a1a;background:#f5f6f8;margin:0;padding:24px 16px 56px}
+.page{max-width:880px;margin:0 auto;background:#fff;border-radius:10px;box-shadow:0 2px 14px rgba(0,0,0,.10);padding:40px 52px 52px}
+.uni-header{text-align:center;border-bottom:2px solid #1a3c6e;padding-bottom:16px;margin-bottom:24px}
+.uni-header p{margin:0;line-height:1.4;font-size:13.5px;color:#555}
+.uni-header h2{margin:8px 0 0;font-size:20px;color:#1a3c6e}
+h3{color:#1a3c6e;border-left:4px solid #1a3c6e;padding-left:10px;margin:28px 0 10px;font-size:15.5px}
+h4{color:#1a3c6e;font-size:14.5px;margin:20px 0 6px}
+.step{margin-bottom:10px}
+.step details{border:1px solid #d1d9e8;border-radius:8px;overflow:hidden;margin-top:6px}
+.step details summary{list-style:none;cursor:pointer;padding:11px 15px;background:#f0f4fb;color:#1a3c6e;font-weight:500;font-size:14.5px;display:flex;align-items:center;gap:10px;user-select:none}
+.step details summary::-webkit-details-marker{display:none}
+.step details summary::before{display:none}
+.step details summary::after{content:'\25BC';font-size:11px;color:#f97316;transition:transform .2s;flex-shrink:0;margin-left:auto;padding-left:8px}
+.step details[open] summary::after{transform:rotate(180deg)}
+.step details[open] summary{background:#e8eef9;border-bottom:1px solid #d1d9e8}
+.step details summary .step-label{font-size:12px;font-weight:500;color:#f97316;margin-right:4px}
+.step-body{padding:16px 20px}
+.step-heading{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.step-num{background:#1a3c6e;color:#fff;font-size:12px;font-weight:700;border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.step-title{font-size:15px;font-weight:600;color:#1a3c6e}
+.try-hint{font-size:12.5px;color:#6b7280;font-style:italic;margin-left:auto}
+.callout{border-radius:6px;padding:13px 18px;margin:14px 0;font-size:14.5px}
+.callout p{margin:4px 0}
+.info{background:#eef4ff;border-left:4px solid #3b82f6}
+.given{background:#f0fdf4;border-left:4px solid #22c55e}
+.answer{background:#fff7ed;border-left:4px solid #f97316;font-size:16px;font-weight:600}
+.note{background:#faf5ff;border-left:4px solid #a855f7;font-size:14px}
+.warn{background:#fffbeb;border-left:4px solid #f59e0b;font-size:14px}
+.math-block{background:#f8f9fb;border:1px solid #e2e6ef;border-radius:6px;padding:14px 20px;margin:12px 0;overflow-x:auto;text-align:center}
+table{width:100%;border-collapse:collapse;margin:18px 0;font-size:13.5px}
+th{background:#1a3c6e;color:#fff;padding:9px 10px;text-align:center;font-weight:600;font-size:13px}
+td{padding:8px 10px;text-align:center;border-bottom:1px solid #e5e7eb;vertical-align:middle}
+td.left{text-align:left;font-weight:600}
+tr:nth-child(even) td{background:#f8f9fb}
+tr.total td{font-weight:700;background:#eef4ff;border-top:2px solid #1a3c6e}
+.diagram-wrap{text-align:center;margin:22px 0 8px}
+.diagram-wrap figure{margin:0}
+.diagram-wrap svg{max-width:100%;height:auto}
+.diagram-wrap figcaption{font-size:13px;color:#555;margin-top:6px;font-style:italic;line-height:1.5}
+.footer{margin-top:40px;border-top:1px solid #e5e7eb;padding-top:12px;font-size:12px;color:#999;text-align:center}
+.switcher{background:#f0f4fb;border:1px solid #d1d9e8;border-radius:8px;padding:14px 18px;margin-bottom:26px}
+.switcher .sw-label{font-size:12.5px;font-weight:600;color:#1a3c6e;text-transform:uppercase;letter-spacing:.06em;margin-bottom:9px}
+.sw-btns{display:flex;flex-wrap:wrap;gap:8px}
+.sw-btns button{font-family:inherit;font-size:13.5px;font-weight:500;padding:8px 15px;border-radius:6px;border:1px solid #b9c6df;background:#fff;color:#1a3c6e;cursor:pointer;transition:.15s}
+.sw-btns button:hover{background:#e8eef9;border-color:#1a3c6e}
+.sw-btns button[aria-pressed="true"]{background:#1a3c6e;border-color:#1a3c6e;color:#fff;box-shadow:0 1px 4px rgba(26,60,110,.3)}
+.sw-desc{font-size:13px;color:#555;margin-top:10px;font-style:italic}
+</style>
+</head>
+<body>
+<div class="page">
+
+<div class="uni-header">
+  <p>Curtin University &nbsp;&middot;&nbsp; School of Civil and Mechanical Engineering</p>
+  <p>MCEN2002 &ndash; Fundamentals of Mechanical Design</p>
+  <p style="margin-top:8px"><strong>Dr Azma Putra Azis</strong></p>
+  <h2>Tutorial 4.5 &nbsp;&ndash;&nbsp; Required Yield Strength for a<br/>General 3-D Stress State</h2>
+</div>
+
+<div class="switcher">
+  <div class="sw-label">Choose a problem</div>
+  <div class="sw-btns" id="swBtns"></div>
+  <div class="sw-desc" id="swDesc"></div>
+</div>
+
+<div id="doc"></div>
+
+<div class="footer">MCEN2002 &ndash; Fundamentals of Mechanical Design &nbsp;|&nbsp; Tutorial 4.5 &nbsp;|&nbsp; Curtin University</div>
+</div>
+
+<script>
+/* ═══════════════════════════════════════════════════════════════════════════
+   GENERATED FILE — do not edit by hand.
+   Source: _engine/stress_engine.js  +  _engine/build.py
+   Rebuild with:  python3 _engine/build.py
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ══════════════════════════════════════════════════════════════════════════
+   MCEN2002 — SHARED RENDERING LIBRARY
+   Used by every tutorial engine (T3.x, T4.x, ...). Contains no physics:
+   number formatting, the self-bounding SVG builder, and the HTML block
+   helpers that produce the step/callout/figure markup.
+
+   Inlined into each generated page by that tutorial's build.py, so the
+   published HTML files stay self-contained.
+   ══════════════════════════════════════════════════════════════════════════ */
+
+/* ─────────────────── number formatting ─────────────────── */
+function r1(v){ return fixed(v,1); }
+function r2(v){ return fixed(v,2); }
+function fixed(v,dp){
+  if(Math.abs(v) < 5e-13) v = 0;
+  var s = v.toFixed(dp);
+  if(s === '-0' || /^-0\.0*$/.test(s)) s = s.slice(1);
+  return s;
+}
+/* trim trailing zeros: 140.60 -> 140.6, 45.00 -> 45 */
+function trim(v,dp){
+  var s = fixed(v, dp===undefined ? 4 : dp);
+  if(s.indexOf('.') >= 0) s = s.replace(/0+$/,'').replace(/\.$/,'');
+  return s;
+}
+/* minus sign for prose/SVG (true minus, not hyphen) */
+function mn(s){ return String(s).replace(/-/g,'\u2212'); }
+/* thousands grouped with a LaTeX thin space: 19769 -> 19\,769 */
+function grp(v,dp){
+  var s = fixed(v, dp===undefined ? 0 : dp), neg = s.charAt(0)==='-';
+  if(neg) s = s.slice(1);
+  var p = s.split('.'), i = p[0], out = '';
+  while(i.length > 3){ out = '\\,' + i.slice(-3) + out; i = i.slice(0,-3); }
+  out = i + out + (p[1] ? '.'+p[1] : '');
+  return (neg?'-':'') + out;
+}
+/* parenthesise a negative number inside a product: 4(-56)^2 */
+function par(v,dp){
+  var s = trim(v,dp);
+  return v < 0 ? '('+s+')' : s;
+}
+
+/* ═══════════════════ self-bounding SVG builder ═══════════════════ */
+function Svg(){
+  this.p  = [];
+  this.bb = {x0: 1e9, y0: 1e9, x1: -1e9, y1: -1e9};
+  this.defs = [];
+}
+Svg.prototype.ink = function(x0,y0,x1,y1){
+  var b = this.bb;
+  b.x0 = Math.min(b.x0, x0, x1); b.x1 = Math.max(b.x1, x0, x1);
+  b.y0 = Math.min(b.y0, y0, y1); b.y1 = Math.max(b.y1, y0, y1);
+  return this;
+};
+Svg.prototype.raw = function(s){ this.p.push(s); return this; };
+Svg.prototype.def = function(s){ this.defs.push(s); return this; };
+Svg.prototype.line = function(x1,y1,x2,y2,stroke,w,dash){
+  this.p.push('<line x1="'+n3(x1)+'" y1="'+n3(y1)+'" x2="'+n3(x2)+'" y2="'+n3(y2)+
+    '" stroke="'+stroke+'" stroke-width="'+(w||1.6)+'"'+
+    (dash ? ' stroke-dasharray="'+dash+'"' : '')+'/>');
+  return this.ink(x1,y1,x2,y2);
+};
+/* arrow drawn from (x1,y1) to (x2,y2), head at the far end */
+Svg.prototype.arrow = function(x1,y1,x2,y2,stroke,w){
+  this.line(x1,y1,x2,y2,stroke,w||2.4);
+  var a = Math.atan2(y2-y1, x2-x1), h = 9, sp = 4.2;
+  var bx = x2 - h*Math.cos(a), by = y2 - h*Math.sin(a);
+  var px = -Math.sin(a)*sp, py = Math.cos(a)*sp;
+  this.p.push('<polygon points="'+n3(x2)+','+n3(y2)+' '+n3(bx+px)+','+n3(by+py)+
+              ' '+n3(bx-px)+','+n3(by-py)+'" fill="'+stroke+'"/>');
+  return this.ink(bx-sp, by-sp, x2+sp, y2+sp);
+};
+Svg.prototype.circle = function(cx,cy,rad,fill,stroke,w,dash){
+  this.p.push('<circle cx="'+n3(cx)+'" cy="'+n3(cy)+'" r="'+n3(rad)+'" fill="'+(fill||'none')+
+    '"'+(stroke ? ' stroke="'+stroke+'" stroke-width="'+(w||2.2)+'"' : '')+
+    (dash ? ' stroke-dasharray="'+dash+'"' : '')+'/>');
+  return this.ink(cx-rad, cy-rad, cx+rad, cy+rad);
+};
+Svg.prototype.dot = function(cx,cy,rad,fill){
+  return this.circle(cx,cy,rad,fill);
+};
+Svg.prototype.poly = function(pts,fill,stroke,w,op){
+  var s = pts.map(function(q){ return n3(q[0])+','+n3(q[1]); }).join(' ');
+  this.p.push('<polygon points="'+s+'" fill="'+(fill||'none')+'"'+
+    (op!==undefined ? ' fill-opacity="'+op+'"' : '')+
+    (stroke ? ' stroke="'+stroke+'" stroke-width="'+(w||2)+'"' : '')+'/>');
+  var self = this;
+  pts.forEach(function(q){ self.ink(q[0],q[1],q[0],q[1]); });
+  return this;
+};
+Svg.prototype.polyline = function(pts,stroke,w){
+  var s = pts.map(function(q){ return n3(q[0])+','+n3(q[1]); }).join(' ');
+  this.p.push('<polyline points="'+s+'" fill="none" stroke="'+stroke+'" stroke-width="'+(w||2.2)+'"/>');
+  var self = this;
+  pts.forEach(function(q){ self.ink(q[0],q[1],q[0],q[1]); });
+  return this;
+};
+/* Arial advance width is ~0.55 em averaged over mixed-case text; 0.62 keeps a
+   margin for wide glyphs and the Greek sigma/tau/phi used throughout. */
+Svg.prototype.text = function(x,y,s,o){
+  o = o || {};
+  var size = o.size || 12, anchor = o.anchor || 'start';
+  var w = 0.62 * size * String(s).replace(/&[a-z]+;|&#\d+;/g,'X').length;
+  var x0 = anchor==='middle' ? x - w/2 : (anchor==='end' ? x - w : x);
+  this.p.push('<text x="'+n3(x)+'" y="'+n3(y)+'" font-size="'+size+'"'+
+    (anchor!=='start' ? ' text-anchor="'+anchor+'"' : '')+
+    (o.weight ? ' font-weight="'+o.weight+'"' : '')+
+    (o.style  ? ' font-style="'+o.style+'"'   : '')+
+    ' fill="'+(o.fill||'#222')+'">'+s+'</text>');
+  return this.ink(x0, y - size*0.82, x0 + w, y + size*0.26);
+};
+/* circular arc from angle a0 to a1 (degrees, CCW positive, screen y is down) */
+Svg.prototype.arc = function(cx,cy,rad,a0,a1,stroke,markerId,w){
+  var A = a0*Math.PI/180, B = a1*Math.PI/180;
+  var x0 = cx + rad*Math.cos(A), y0 = cy - rad*Math.sin(A);
+  var x1 = cx + rad*Math.cos(B), y1 = cy - rad*Math.sin(B);
+  var d = a1 - a0;
+  var large = Math.abs(d) > 180 ? 1 : 0;
+  var sweep = d > 0 ? 0 : 1;            /* CCW in maths = sweep 0 on screen */
+  this.p.push('<path d="M '+n3(x0)+','+n3(y0)+' A '+n3(rad)+','+n3(rad)+
+    ' 0 '+large+','+sweep+' '+n3(x1)+','+n3(y1)+'" fill="none" stroke="'+stroke+
+    '" stroke-width="'+(w||1.7)+'"'+(markerId ? ' marker-end="url(#'+markerId+')"' : '')+'/>');
+  /* ink the whole arc box — cheap and always safe */
+  return this.ink(cx-rad, cy-rad, cx+rad, cy+rad);
+};
+Svg.prototype.marker = function(id,fill){
+  this.def('<marker id="'+id+'" markerWidth="8" markerHeight="8" refX="5" refY="3" '+
+    'orient="auto" markerUnits="userSpaceOnUse"><path d="M0,0 L6,3 L0,6 Z" fill="'+fill+'"/></marker>');
+  return id;
+};
+Svg.prototype.render = function(widthPx, pad){
+  pad = pad===undefined ? 10 : pad;
+  var b = this.bb;
+  var x = b.x0 - pad, y = b.y0 - pad,
+      w = (b.x1 - b.x0) + 2*pad, h = (b.y1 - b.y0) + 2*pad;
+  return '<svg viewBox="'+n3(x)+' '+n3(y)+' '+n3(w)+' '+n3(h)+'" width="'+widthPx+
+    '" xmlns="http://www.w3.org/2000/svg" font-family="Arial,sans-serif" font-size="12">'+
+    (this.defs.length ? '<defs>'+this.defs.join('')+'</defs>' : '')+
+    this.p.join('')+'</svg>';
+};
+function n3(v){ return String(Math.round(v*100)/100); }
+
+/* ═══════════════════ HTML helpers ═══════════════════ */
+var CIRCLED = ['&#9312;','&#9313;','&#9314;','&#9315;','&#9316;','&#9317;'];
+
+function stepBlock(n, title, hint, body, noHint){
+  return '<div class="step"><div class="step-heading"><div class="step-num">'+n+'</div>'
+    + '<div class="step-title">'+title+'</div>'
+    + (noHint ? '' : '<div class="try-hint">Try it first, then reveal &darr;</div>')
+    + '</div><details><summary><span class="step-label">Step '+n+'</span> '+hint+'</summary>'
+    + '<div class="step-body">'+body+'</div></details></div>';
+}
+function mb(s){ return '<div class="math-block">$$'+s+'$$</div>'; }
+function co(kind, s){ return '<div class="callout '+kind+'"><p>'+s+'</p></div>'; }
+function fig(svg, cap){
+  return '<div class="diagram-wrap"><figure>'+svg+'<figcaption>'+cap+'</figcaption></figure></div>';
+}
+function mistakes(list){
+  return '<div class="callout warn"><p><strong>Common mistakes:</strong></p>'
+    + list.slice(0,4).map(function(m,i){
+        return '<p style="margin-top:7px">'+CIRCLED[i]+' '+m+'</p>'; }).join('')
+    + '</div>';
+}
+
+function tableRows(rows){
+  return '<table><thead><tr><th>Quantity</th><th>Value</th></tr></thead><tbody>'
+    + rows.map(function(q,i){
+        return '<tr'+(i===rows.length-1 ? ' class="total"' : '')+'><td class="left">'+q[0]+'</td><td>'+q[1]+'</td></tr>';
+      }).join('')
+    + '</tbody></table>';
+}
+
+
+/* ══════════════════════════════════════════════════════════════════════════
+   MCEN2002 — SHARED STRESS / FAILURE-THEORY ENGINE  (Tutorial 4.x)
+   Single source of truth for every T4.x tutorial solution page.
+   Edit this file, then run  _engine/build.py  to regenerate the HTML files.
+   (The HTML files are self-contained — the engine is inlined into each one —
+   so they can be emailed or uploaded on their own.)
+
+   ─── MODEL ───────────────────────────────────────────────────────────────
+   A variant is described by ONE of two input forms:
+
+     PLANE STRESS      {sx, sy, txy}      — surface element, so sigma_3 = 0
+     PRINCIPAL STRESS  {ps: [a, b, c]}    — three principal values, any order
+
+   plus, depending on the mode, either
+     Sy  (given strength  -> solve for the safety factor n)
+     n   (given target n  -> solve for the required strength Sy)
+
+   ─── SIGN CONVENTION (carried unchanged from T4.2) ───────────────────────
+   tau_xy is POSITIVE when it tends to rotate the element COUNTER-CLOCKWISE
+   on the x-face. On Mohr's circle the x-face point is plotted as
+   X(sigma_x, -tau_xy) and the y-face point as Y(sigma_y, +tau_xy), so that a
+   rotation on the circle turns the SAME way as the physical element.
+   phi_p is then the physical rotation, CCW positive, from the x-face to the
+   sigma_1 plane, and                 2*phi_p = atan2(2*tau_xy, sx - sy)
+   which resolves the quadrant automatically — no manual +/-180 correction.
+
+   ─── MODES ───────────────────────────────────────────────────────────────
+   'n_principal'   given principal stresses + Sy   -> n_MSST, n_DE      (T4.1, T4.3)
+   'sy_principal'  given principal stresses + n    -> required Sy       (T4.5)
+   'n_plane'       given sx,sy,txy + Sy            -> n, both routes    (T4.2)
+   'sy_plane'      given sx,sy,txy + n             -> required Sy, Mohr (T4.4)
+   'transform'     given sx,sy,txy                 -> principal + Mohr (T4.6)
+
+   ─── SVG ─────────────────────────────────────────────────────────────────
+   Diagrams use the self-bounding builder in _shared/render_lib.js, which
+   derives each viewBox from the accumulated ink (text included) so a label
+   can never fall outside the canvas.
+   ══════════════════════════════════════════════════════════════════════════ */
+
+/* ─────────────────── solver ─────────────────── */
+function sortDesc(a){ return a.slice().sort(function(u,v){ return v-u; }); }
+
+function vonMises3(s1,s2,s3){
+  return Math.sqrt(((s1-s2)*(s1-s2) + (s2-s3)*(s2-s3) + (s3-s1)*(s3-s1)) / 2);
+}
+
+function solve(cfg, v){
+  var S = { cfg: cfg, v: v, plane: false };
+
+  if(v.ps){
+    /* principal stresses given, in any order */
+    S.given = v.ps.slice();
+    var srt = sortDesc(v.ps);
+    S.s1 = srt[0]; S.s2 = srt[1]; S.s3 = srt[2];
+    S.wasOrdered = v.ps.every(function(x,i){ return Math.abs(x - srt[i]) < 1e-12; });
+    S.anyZero = v.ps.some(function(x){ return Math.abs(x) < 1e-12; });
+  } else {
+    /* plane stress: sigma_3 = 0 at a free surface */
+    S.plane = true;
+    var sx = S.sx = v.sx, sy = S.sy = (v.sy || 0), txy = S.txy = v.txy;
+    S.C = (sx+sy)/2;
+    S.R = Math.sqrt(((sx-sy)/2)*((sx-sy)/2) + txy*txy);
+    S.sA = S.C + S.R;              /* larger in-plane root  */
+    S.sB = S.C - S.R;              /* smaller in-plane root */
+    S.tauInPlane = S.R;
+    S.twoPhi = Math.atan2(2*txy, sx-sy) * 180/Math.PI;
+    S.phi    = S.twoPhi/2;
+    S.ccw    = S.phi >= 0;
+    S.quadrantFix = Math.abs(S.twoPhi) > 90 + 1e-9;   /* raw atan would mislead */
+    var srtp = sortDesc([S.sA, S.sB, 0]);
+    S.s1 = srtp[0]; S.s2 = srtp[1]; S.s3 = srtp[2];
+    S.syZero   = Math.abs(sy) < 1e-12;
+    S.straddle = S.sA > 1e-9 && S.sB < -1e-9;   /* in-plane roots straddle zero */
+    /* MSST shortcut sqrt(sx^2+4txy^2) is only the true sigma_1-sigma_3 when
+       sigma_y = 0 (which forces the roots to straddle zero).                */
+    S.shortcutOK = S.syZero;
+    S.shortcutVal = Math.sqrt(sx*sx + 4*txy*txy);
+    /* plane-stress von Mises form — valid for ANY sigma_y, since sigma_3 = 0 */
+    S.dePlane = Math.sqrt(sx*sx - sx*sy + sy*sy + 3*txy*txy);
+  }
+
+  /* pairwise differences and the two equivalent stresses */
+  S.d12 = Math.abs(S.s1-S.s2);
+  S.d23 = Math.abs(S.s2-S.s3);
+  S.d13 = Math.abs(S.s1-S.s3);
+  S.eqMSST = S.s1 - S.s3;                       /* always the governing pair */
+  S.eqDE   = vonMises3(S.s1, S.s2, S.s3);
+  S.tauAbs = S.eqMSST/2;                        /* absolute max shear stress */
+  /* which pair is largest, for the T4.1-style enumeration */
+  S.govPair = (S.d13 >= S.d12 - 1e-9 && S.d13 >= S.d23 - 1e-9) ? '13'
+            : (S.d12 >= S.d23 ? '12' : '23');
+
+  if(v.Sy !== undefined){
+    S.Sy = v.Sy;
+    S.nMSST = v.Sy / S.eqMSST;
+    S.nDE   = v.Sy / S.eqDE;
+  }
+  if(v.n !== undefined){
+    S.n = v.n;
+    S.SyMSST = v.n * S.eqMSST;
+    S.SyDE   = v.n * S.eqDE;
+  }
+  return S;
+}
+
+/* ═══════════════════ diagram: 2-D stress element ═══════════════════ */
+/* Square element with sigma_x on the x-faces, sigma_y on the y-faces and the
+   four tau_xy arrows. Tension points OUTWARD, compression INWARD; positive
+   tau_xy forms a counter-clockwise couple.                                  */
+function figElement(S){
+  var g = new Svg(), cx = 150, cy = 150, a = 45;   /* half-side */
+  var RED = '#e11d48', GRN = '#22c55e', TEAL = '#0891a8';
+  g.poly([[cx-a,cy-a],[cx+a,cy-a],[cx+a,cy+a],[cx-a,cy+a]], '#7fe3ec', '#1a3c6e', 2, 0.85);
+
+  var L = 40, sx = S.sx, sy = S.sy, txy = S.txy;
+
+  /* sigma_x — horizontal faces */
+  if(Math.abs(sx) > 1e-12){
+    var outX = sx > 0;
+    if(outX){ g.arrow(cx+a, cy, cx+a+L, cy, RED); g.arrow(cx-a, cy, cx-a-L, cy, RED); }
+    else    { g.arrow(cx+a+L, cy, cx+a, cy, RED); g.arrow(cx-a-L, cy, cx-a, cy, RED); }
+    g.text(cx+a+6, cy-10, '&#963;x = '+mn(trim(sx,2)), {size:13, fill:RED});
+  }
+  /* sigma_y — vertical faces */
+  if(Math.abs(sy) > 1e-12){
+    var outY = sy > 0;
+    if(outY){ g.arrow(cx, cy-a, cx, cy-a-L, GRN); g.arrow(cx, cy+a, cx, cy+a+L, GRN); }
+    else    { g.arrow(cx, cy-a-L, cx, cy-a, GRN); g.arrow(cx, cy+a+L, cx, cy+a, GRN); }
+    g.text(cx+8, cy-a-L-8, '&#963;y = '+mn(trim(sy,2)), {size:13, fill:GRN});
+  }
+  /* tau_xy — four faces, CCW couple when positive */
+  if(Math.abs(txy) > 1e-12){
+    var s = txy > 0 ? 1 : -1, e = 26;
+    /* right face: up for CCW(+) */
+    g.arrow(cx+a, cy + s*e, cx+a, cy - s*e, TEAL, 2.2);
+    g.arrow(cx-a, cy - s*e, cx-a, cy + s*e, TEAL, 2.2);
+    /* top face: to +x for CCW(+) */
+    g.arrow(cx - s*e, cy-a, cx + s*e, cy-a, TEAL, 2.2);
+    g.arrow(cx + s*e, cy+a, cx - s*e, cy+a, TEAL, 2.2);
+    g.text(cx+a+6, cy-a+4, '&#964;xy = '+mn(trim(txy,2)), {size:13, fill:TEAL});
+  }
+  g.text(cx, cy+a+L+34, 'Stresses in MPa', {size:11, anchor:'middle', fill:'#888', style:'italic'});
+  return g.render(250);
+}
+
+/* ═══════════════════ diagram: Mohr's circle (2-D) ═══════════════════ */
+function figMohr(S){
+  var g = new Svg();
+  /* data -> screen: fit both the sigma range and the radius */
+  var xs = [S.sA, S.sB, 0, S.C], ys = [S.R, -S.R];
+  var xmax = Math.max.apply(null, xs), xmin = Math.min.apply(null, xs);
+  var span = Math.max(xmax - xmin, 2*S.R, 1e-9);
+  var k = 380 / span;                         /* px per MPa */
+  var ox = 0, oy = 0;                         /* origin of the sigma-tau axes */
+  function X(s){ return ox + s*k; }
+  function Y(t){ return oy - t*k; }
+
+  var axL = X(Math.min(xmin, 0)) - 40, axR = X(Math.max(xmax, 0)) + 40;
+  g.line(axL, oy, axR, oy, '#222', 1.6);
+  g.arrow(axR-14, oy, axR, oy, '#222', 1.6);
+  g.line(ox, Y(-S.R) + 40, ox, Y(S.R) - 40, '#222', 1.6);
+  g.arrow(ox, Y(S.R)-26, ox, Y(S.R)-40, '#222', 1.6);
+  g.text(axR+8, oy+4, '&#963; (MPa)', {size:14, weight:'bold'});
+  g.text(ox+6, Y(S.R)-44, '&#964; (MPa)', {size:14, weight:'bold'});
+
+  /* the circle */
+  g.circle(X(S.C), oy, S.R*k, 'none', '#7fe3ec', 2.4);
+
+  /* diameter X -- Y.  X = (sx, -txy), Y = (sy, +txy) */
+  var Xp = [X(S.sx), Y(-S.txy)], Yp = [X(S.sy), Y(S.txy)];
+  g.line(Xp[0], Xp[1], Yp[0], Yp[1], '#555', 1.2);
+
+  g.dot(X(S.C), oy, 3.4, '#1a3c6e');
+  g.text(X(S.C)+6, oy+17, 'C ('+mn(trim(S.C,2))+', 0)', {size:11.5, fill:'#1a3c6e'});
+
+  var below = S.txy > 0;   /* X sits below the axis when txy is positive */
+  g.dot(Xp[0], Xp[1], 4.5, '#f97316');
+  g.text(Xp[0]-8, Xp[1] + (below ? 20 : -12), 'X ('+mn(trim(S.sx,2))+', '+mn(trim(-S.txy,2))+')',
+         {size:12, anchor:'end', fill:'#f97316'});
+  g.dot(Yp[0], Yp[1], 4.5, '#f97316');
+  g.text(Yp[0]+8, Yp[1] + (below ? -12 : 20), 'Y ('+mn(trim(S.sy,2))+', '+mn(trim(S.txy,2))+')',
+         {size:12, fill:'#f97316'});
+
+  /* principal points */
+  g.dot(X(S.sA), oy, 4.2, '#0891a8');
+  g.text(X(S.sA)+6, oy-14, '&#963;&#8321; = '+mn(trim(S.sA,1)), {size:12, fill:'#0891a8'});
+  g.dot(X(S.sB), oy, 4.2, '#0891a8');
+  g.text(X(S.sB)-6, oy-14, '&#963;&#8322; = '+mn(trim(S.sB,1)), {size:12, anchor:'end', fill:'#0891a8'});
+
+  /* tau_max at the top of the circle */
+  g.dot(X(S.C), Y(S.R), 4, '#a855f7');
+  g.line(X(S.C), oy, X(S.C), Y(S.R), '#a855f7', 1, '4,3');
+  g.text(X(S.C)+7, Y(S.R)-6, '&#964;max = '+mn(trim(S.R,1)), {size:12, fill:'#a855f7'});
+
+  /* the 2*phi_p arc, from radius CX round to the positive sigma axis.
+     Angle of CX on the circle, measured CCW from the +sigma direction:      */
+  var aX = Math.atan2(-(Xp[1]-oy), Xp[0]-X(S.C)) * 180/Math.PI;
+  var mk = g.marker('mkArc'+(S.uid||''), '#a855f7');
+  var rad = Math.min(S.R*k*0.42, 58);
+  g.arc(X(S.C), oy, rad, aX, 0, '#a855f7', mk, 1.7);
+  var midA = (aX + 0)/2 * Math.PI/180;
+  g.text(X(S.C) + (rad+10)*Math.cos(midA), oy - (rad+10)*Math.sin(midA) + 4,
+         '2&#966;p = '+mn(trim(S.twoPhi,1))+'&#176; ('+(S.ccw?'CCW':'CW')+')',
+         {size:11.5, fill:'#a855f7', anchor: Math.cos(midA) < 0 ? 'end' : 'start'});
+
+  g.text(X(S.C), Y(-S.R) + 46, 'Radius R = '+trim(S.R,1)+' MPa &#8226; stresses in MPa',
+         {size:11, anchor:'middle', fill:'#888', style:'italic'});
+  return g.render(480);
+}
+
+/* ═══════════════════ diagram: rotated principal element ═══════════════════ */
+function figPrincipal(S){
+  var g = new Svg(), cx = 0, cy = 0, a = 62;
+  var ph = S.phi * Math.PI/180;
+  var ux = Math.cos(ph),  uy = -Math.sin(ph);    /* sigma_1 direction (screen) */
+  var vx = -Math.sin(ph), vy = -Math.cos(ph);    /* sigma_2 direction (screen) */
+  var AX = 150;
+
+  g.line(cx-AX, cy, cx+AX, cy, '#222', 1.6);
+  g.arrow(cx+AX-14, cy, cx+AX, cy, '#222', 1.6);
+  g.line(cx, cy+AX, cx, cy-AX, '#222', 1.6);
+  g.arrow(cx, cy-AX+14, cx, cy-AX, '#222', 1.6);
+  g.text(cx+AX+8, cy+4, 'x', {size:14, weight:'bold'});
+  g.text(cx+7, cy-AX-6, 'y', {size:14, weight:'bold'});
+  g.text(cx-14, cy+15, 'O', {size:13});
+
+  /* corners of the rotated square */
+  var P = [[ 1, 1],[-1, 1],[-1,-1],[ 1,-1]].map(function(q){
+    return [cx + a*(q[0]*ux + q[1]*vx), cy + a*(q[0]*uy + q[1]*vy)];
+  });
+  g.poly(P, '#7fe3ec', '#1a3c6e', 2, 0.85);
+
+  var RED = '#e11d48', TEAL = '#0891a8', L = 54;
+  /* sigma_1 on the faces normal to u */
+  var s1 = S.sA, s2 = S.sB;
+  var f1 = [cx + a*ux, cy + a*uy], f1b = [cx - a*ux, cy - a*uy];
+  if(s1 >= 0){
+    g.arrow(f1[0], f1[1], f1[0]+L*ux, f1[1]+L*uy, RED, 2.6);
+    g.arrow(f1b[0], f1b[1], f1b[0]-L*ux, f1b[1]-L*uy, RED, 2.6);
+    g.text(f1[0]+(L+8)*ux, f1[1]+(L+8)*uy, mn(trim(Math.abs(s1),1))+' MPa (tension)', {size:12.5, fill:RED});
+  } else {
+    g.arrow(f1[0]+L*ux, f1[1]+L*uy, f1[0], f1[1], RED, 2.6);
+    g.arrow(f1b[0]-L*ux, f1b[1]-L*uy, f1b[0], f1b[1], RED, 2.6);
+    g.text(f1[0]+(L+8)*ux, f1[1]+(L+8)*uy, mn(trim(Math.abs(s1),1))+' MPa (compression)', {size:12.5, fill:RED});
+  }
+  /* sigma_2 on the faces normal to v */
+  var f2 = [cx + a*vx, cy + a*vy], f2b = [cx - a*vx, cy - a*vy];
+  if(s2 >= 0){
+    g.arrow(f2[0], f2[1], f2[0]+L*vx, f2[1]+L*vy, TEAL, 2.6);
+    g.arrow(f2b[0], f2b[1], f2b[0]-L*vx, f2b[1]-L*vy, TEAL, 2.6);
+    g.text(f2[0]+(L+8)*vx, f2[1]+(L+8)*vy, mn(trim(Math.abs(s2),1))+' MPa (tension)', {size:12.5, anchor:'end', fill:TEAL});
+  } else {
+    g.arrow(f2[0]+L*vx, f2[1]+L*vy, f2[0], f2[1], TEAL, 2.6);
+    g.arrow(f2b[0]-L*vx, f2b[1]-L*vy, f2b[0], f2b[1], TEAL, 2.6);
+    g.text(f2[0]+(L+8)*vx, f2[1]+(L+8)*vy, mn(trim(Math.abs(s2),1))+' MPa (compression)', {size:12.5, anchor:'end', fill:TEAL});
+  }
+
+  /* phi_p arc from the +x axis round to the sigma_1 direction */
+  var mk = g.marker('mkPhi'+(S.uid||''), '#f97316');
+  g.arc(cx, cy, 46, 0, S.phi, '#f97316', mk, 1.8);
+  var mA = S.phi/2 * Math.PI/180;
+  g.text(cx + 58*Math.cos(mA), cy - 58*Math.sin(mA) + 4,
+         '&#966;p = '+mn(trim(S.phi,1))+'&#176;', {size:13, fill:'#f97316'});
+
+  g.text(cx, cy + AX + 34,
+    'Rotated '+trim(Math.abs(S.phi),1)+'&#176; '+(S.ccw?'counter-clockwise':'clockwise')+
+    ' from the x-axis &#8226; no shear on these faces',
+    {size:11, anchor:'middle', fill:'#888', style:'italic'});
+  return g.render(430);
+}
+
+/* ═══════════════════ diagram: three Mohr's circles ═══════════════════ */
+function figThreeMohr(S){
+  var g = new Svg();
+  var s1 = S.s1, s2 = S.s2, s3 = S.s3;
+  var span = Math.max(s1 - s3, 1e-9);
+  var k = 380 / span;
+  function X(s){ return s*k; }
+  var oy = 0;
+
+  var axL = X(Math.min(s3, 0)) - 45, axR = X(Math.max(s1, 0)) + 45;
+  g.line(axL, oy, axR, oy, '#222', 1.6);
+  g.arrow(axR-14, oy, axR, oy, '#222', 1.6);
+  g.text(axR+8, oy+4, '&#963; (MPa)', {size:14, weight:'bold'});
+
+  /* big circle (s1,s3), then (s1,s2) and (s2,s3) */
+  g.circle(X((s1+s3)/2), oy, (s1-s3)/2*k, 'none', '#1a3c6e', 2.4);
+  g.circle(X((s1+s2)/2), oy, (s1-s2)/2*k, 'none', '#7fe3ec', 2.2);
+  g.circle(X((s2+s3)/2), oy, (s2-s3)/2*k, 'none', '#f97316', 2.2);
+
+  [['&#963;&#8321;', s1, 'start'], ['&#963;&#8322;', s2, 'middle'], ['&#963;&#8323;', s3, 'end']]
+  .forEach(function(q){
+    g.dot(X(q[1]), oy, 4.2, '#0891a8');
+    g.text(X(q[1]) + (q[2]==='start' ? 6 : (q[2]==='end' ? -6 : 0)), oy+20,
+           q[0]+' = '+mn(trim(q[1],1)), {size:12.5, anchor:q[2], fill:'#0891a8'});
+  });
+
+  var tm = (s1-s3)/2;
+  g.dot(X((s1+s3)/2), oy - tm*k, 4, '#a855f7');
+  g.line(X((s1+s3)/2), oy, X((s1+s3)/2), oy - tm*k, '#a855f7', 1, '4,3');
+  g.text(X((s1+s3)/2)+7, oy - tm*k - 6, '&#964;max = '+mn(trim(tm,1)), {size:12.5, fill:'#a855f7'});
+
+  g.text(X((s1+s3)/2), oy + tm*k + 42,
+    'Navy = (&#963;&#8321;,&#963;&#8323;) &#8226; teal = (&#963;&#8321;,&#963;&#8322;) &#8226; orange = (&#963;&#8322;,&#963;&#8323;)',
+    {size:11, anchor:'middle', fill:'#888', style:'italic'});
+  return g.render(500);
+}
+
+/* ═══════════════════ diagram: Tresca / von Mises envelopes ═══════════════════ */
+function figEnvelope(S){
+  var g = new Svg(), Sy = S.Sy, k = 210/Sy;
+  /* plot the two non-zero principal values as the (sigma_a, sigma_b) point */
+  var vals = [S.s1, S.s2, S.s3].filter(function(x){ return Math.abs(x) > 1e-12; });
+  var pa = vals.length >= 1 ? vals[0] : 0, pb = vals.length >= 2 ? vals[1] : 0;
+
+  function X(s){ return s*k; }
+  function Y(s){ return -s*k; }
+  var lim = 1.18*Sy*k;
+
+  g.line(-lim, 0, lim, 0, '#222', 1.6); g.arrow(lim-14, 0, lim, 0, '#222', 1.6);
+  g.line(0, lim, 0, -lim, '#222', 1.6); g.arrow(0, -lim+14, 0, -lim, '#222', 1.6);
+  g.text(lim+8, 4, '&#963;a', {size:14, weight:'bold'});
+  g.text(7, -lim-6, '&#963;b', {size:14, weight:'bold'});
+
+  /* Tresca hexagon */
+  g.poly([[X(Sy),Y(0)],[X(Sy),Y(Sy)],[X(0),Y(Sy)],[X(-Sy),Y(0)],[X(-Sy),Y(-Sy)],[X(0),Y(-Sy)]],
+         'none', '#1a3c6e', 2.2);
+  /* von Mises ellipse: a^2 - ab + b^2 = Sy^2 */
+  var pts = [];
+  for(var i=0;i<=120;i++){
+    var t = i/120*2*Math.PI, c = Math.cos(t), s = Math.sin(t);
+    var rr = Sy/Math.sqrt(1 - c*s);
+    pts.push([X(rr*c), Y(rr*s)]);
+  }
+  g.polyline(pts, '#7fe3ec', 2.2);
+
+  /* load point and the proportional load line out to each boundary */
+  g.line(0, 0, X(pa*S.nDE), Y(pb*S.nDE), '#888', 1.2, '5,4');
+  g.dot(X(pa), Y(pb), 4.5, '#f97316');
+  g.text(X(pa)+8, Y(pb)-6, 'Load ('+mn(trim(pa,1))+', '+mn(trim(pb,1))+')', {size:12, fill:'#f97316'});
+  g.dot(X(pa*S.nMSST), Y(pb*S.nMSST), 4, '#1a3c6e');
+  g.text(X(pa*S.nMSST)+8, Y(pb*S.nMSST)+14, 'Tresca boundary, n = '+trim(S.nMSST,2), {size:11.5, fill:'#1a3c6e'});
+  g.dot(X(pa*S.nDE), Y(pb*S.nDE), 4, '#0891a8');
+  g.text(X(pa*S.nDE)+8, Y(pb*S.nDE)+30, 'von Mises boundary, n = '+trim(S.nDE,2), {size:11.5, fill:'#0891a8'});
+
+  g.text(X(Sy), 16, 'S&#7777;', {size:11, anchor:'middle'});
+  g.text(X(-Sy), 16, mn('-')+'S&#7777;', {size:11, anchor:'middle'});
+  g.text(9, Y(Sy)+4, 'S&#7777;', {size:11});
+  g.text(9, Y(-Sy)+4, mn('-')+'S&#7777;', {size:11});
+  g.text(0, lim + 40,
+    'Hexagon = Tresca (MSST) &#8226; oval = von Mises (DE), both at S&#7777; = '+trim(Sy,1)+' MPa',
+    {size:11, anchor:'middle', fill:'#888', style:'italic'});
+  return g.render(470);
+}
+
+/* ═══════════════════ shared step builders ═══════════════════ */
+
+/* enumerate the three pair differences and pick the governing one */
+function stepMSST(S, k, mode){
+  var b = '';
+  b += '<p>MSST predicts yielding when the maximum shear stress reaches the shear strength '
+     + 'implied by a uniaxial tension test. In terms of principal stresses:</p>';
+  b += mb(mode==='sy' ? 'n_{MSST} = \\frac{S_y}{\\sigma_{max}-\\sigma_{min}} \\;\\;\\Rightarrow\\;\\; S_y = n(\\sigma_1-\\sigma_3)'
+                      : 'n_{MSST} = \\frac{S_y}{\\sigma_{max}-\\sigma_{min}}');
+  b += '<p>where $\\sigma_{max}-\\sigma_{min}$ is the <em>largest</em> of the three principal stress '
+     + 'differences. Checking all three:</p>';
+  b += mb('|\\sigma_1-\\sigma_2| = '+trim(S.d12,2)+' \\qquad |\\sigma_2-\\sigma_3| = '+trim(S.d23,2)
+        + ' \\qquad |\\sigma_1-\\sigma_3| = '+trim(S.d13,2)+'\\ \\text{MPa}');
+  b += '<p>The largest is always $\\sigma_1-\\sigma_3$ &mdash; the extreme pair &mdash; so the middle '
+     + 'principal stress $\\sigma_2$ never enters the MSST calculation.</p>';
+  if(mode==='sy'){
+    b += mb('S_y = '+trim(S.n,3)+' \\times ('+trim(S.s1,2)+' - '+par(S.s3,2)+') = '+trim(S.n,3)
+          + ' \\times '+trim(S.eqMSST,2));
+    b += co('answer','$$S_y = '+trim(S.SyMSST,1)+'\\text{ MPa}$$');
+  } else {
+    b += mb('n_{MSST} = \\frac{'+trim(S.Sy,1)+'}{'+trim(S.eqMSST,2)+'} = '+trim(S.nMSST,3));
+    b += co('answer','$$n_{MSST} = '+trim(S.nMSST,2)+'$$');
+    if(Math.abs(S.nMSST - 1) < 0.05)
+      b += co('note','<strong>Interpretation:</strong> $n\\approx1$ means the component sits right on the '
+        + 'MSST yield boundary &mdash; no margin at all according to this theory.');
+  }
+  return stepBlock(k, (mode==='sy' ? '(a) Required $S_y$ &mdash; ' : '')+'Maximum Shear Stress Theory (Tresca)',
+    mode==='sy' ? 'rearrange $n = S_y/(\\sigma_1-\\sigma_3)$' : 'largest principal stress difference, then $n = S_y/$ that difference', b);
+}
+
+function stepDE(S, k, mode){
+  var b = '', biax = Math.abs(S.s3) < 1e-12 || Math.abs(S.s2) < 1e-12;
+  b += '<p>The distortion-energy theory compares the von Mises equivalent stress $\\sigma\'$ with $S_y$. '
+     + 'The general (triaxial) form uses all three principal stress differences:</p>';
+  b += mb('\\sigma\' = \\sqrt{\\frac{(\\sigma_1-\\sigma_2)^2+(\\sigma_2-\\sigma_3)^2+(\\sigma_3-\\sigma_1)^2}{2}}');
+  b += mb('\\sigma\' = \\sqrt{\\frac{('+trim(S.s1,2)+'-'+par(S.s2,2)+')^2+('+trim(S.s2,2)+'-'+par(S.s3,2)
+        + ')^2+('+trim(S.s3,2)+'-'+par(S.s1,2)+')^2}{2}}');
+  b += mb('\\sigma\' = \\sqrt{\\frac{'+grp((S.s1-S.s2)*(S.s1-S.s2))+'+'+grp((S.s2-S.s3)*(S.s2-S.s3))
+        + '+'+grp((S.s3-S.s1)*(S.s3-S.s1))+'}{2}} = \\sqrt{'+grp(S.eqDE*S.eqDE)+'} = '+trim(S.eqDE,2)+'\\text{ MPa}');
+  if(biax){
+    var zeroName = Math.abs(S.s3) < 1e-12 ? '\\sigma_3' : '\\sigma_2';
+    b += co('info','<strong>Biaxial shortcut:</strong> because '+zeroName+'$ = 0$, the general form collapses to '
+      + '$\\sigma\'=\\sqrt{\\sigma_a^2-\\sigma_a\\sigma_b+\\sigma_b^2}$ using only the two non-zero values. '
+      + 'It is the same expression, not an approximation &mdash; but the general form above always works, '
+      + 'so there is no need to memorise the special case.');
+  }
+  if(mode==='sy'){
+    b += mb('S_y = n\\,\\sigma\' = '+trim(S.n,3)+' \\times '+trim(S.eqDE,2)+' = '+trim(S.SyDE,2)+'\\text{ MPa}');
+    b += co('answer','$$S_y = '+trim(S.SyDE,1)+'\\text{ MPa}$$');
+    b += co('note','<strong>DE always asks for less:</strong> the required yield strength from DE ('
+      + trim(S.SyDE,1)+' MPa) is below the MSST figure ('+trim(S.SyMSST,1)+' MPa) for the same target '
+      + 'safety factor, because MSST is the more conservative theory. The gap here is '
+      + trim(100*(S.SyMSST/S.SyDE - 1),1)+'%.');
+  } else {
+    b += mb('n_{DE} = \\frac{S_y}{\\sigma\'} = \\frac{'+trim(S.Sy,1)+'}{'+trim(S.eqDE,2)+'} = '+trim(S.nDE,3));
+    b += co('answer','$$n_{DE} = '+trim(S.nDE,2)+'$$');
+  }
+  return stepBlock(k, (mode==='sy' ? '(b) Required $S_y$ &mdash; ' : '')+'Maximum Distortion-Energy Theory (von Mises)',
+    mode==='sy' ? 'rearrange $n = S_y/\\sigma\'$' : 'compute $\\sigma\'$, then $n = S_y/\\sigma\'$', b);
+}
+
+function stepThreeMohr(S, k){
+  var b = '';
+  b += '<p>With three distinct principal stresses the complete state needs <strong>three</strong> '
+     + 'Mohr\'s circles &mdash; one for each pair $(\\sigma_1,\\sigma_2)$, $(\\sigma_2,\\sigma_3)$ and '
+     + '$(\\sigma_1,\\sigma_3)$. The largest circle spans $\\sigma_1$ to $\\sigma_3$ and sets the '
+     + 'absolute maximum shear stress:</p>';
+  b += mb('\\tau_{max} = \\frac{\\sigma_1-\\sigma_3}{2} = \\frac{'+trim(S.s1,2)+'-'+par(S.s3,2)+'}{2} = '
+        + trim(S.tauAbs,2)+'\\text{ MPa}');
+  b += fig(figThreeMohr(S),
+      'The three Mohr\'s circles for $\\sigma_1='+trim(S.s1,1)+'$, $\\sigma_2='+trim(S.s2,1)+'$, $\\sigma_3='
+      + trim(S.s3,1)+'$ MPa. The largest circle spans the full range and gives $\\tau_{max}='+trim(S.tauAbs,1)
+      + '$ MPa &mdash; exactly the quantity behind the MSST result.');
+  b += co('note','<strong>Why MSST used only two of the three values:</strong> the two smaller circles always '
+    + 'lie <em>inside</em> the big one, so the largest shear stress anywhere in the state comes from the '
+    + 'largest-minus-smallest pair. That is the structural reason $\\sigma_2$ is absent from the MSST formula.');
+  return stepBlock(k, 'Depict the state on the three Mohr&rsquo;s circles',
+    'a fully 3-D state needs three circles, not one', b);
+}
+
+/* principal stresses from a plane stress state */
+function stepPrincipal(S, k, title){
+  var b = '';
+  b += mb('\\sigma_{1,2} = \\frac{\\sigma_x+\\sigma_y}{2} \\pm \\sqrt{\\left(\\frac{\\sigma_x-\\sigma_y}{2}\\right)^2+\\tau_{xy}^2}');
+  b += mb('\\sigma_{1,2} = \\frac{'+trim(S.sx,2)+(S.sy<0?'':'+')+trim(S.sy,2)+'}{2} \\pm \\sqrt{\\left(\\frac{'
+        + trim(S.sx,2)+(S.sy<0?'':'-')+trim(-S.sy,2)+'}{2}\\right)^2+'+par(S.txy,2)+'^2} = '
+        + trim(S.C,2)+' \\pm '+trim(S.R,2));
+  b += mb('\\sigma_1 = '+trim(S.sA,2)+'\\text{ MPa}, \\qquad \\sigma_2 = '+trim(S.sB,2)
+        + '\\text{ MPa}, \\qquad \\sigma_3 = 0');
+  if(Math.abs(S.C) < 1e-9)
+    b += '<p>Because $\\sigma_x = -\\sigma_y$, the centre of the circle sits exactly at the origin, '
+       + 'so the two principal stresses come out symmetric, $\\pm R$.</p>';
+  b += '<p>The maximum <em>in-plane</em> shear stress is the radius of Mohr\'s circle:</p>';
+  b += mb('\\tau_{max} = \\frac{\\sigma_1-\\sigma_2}{2} = \\frac{'+trim(S.sA,2)+'-'+par(S.sB,2)+'}{2} = '
+        + trim(S.R,2)+'\\text{ MPa}');
+  b += co('answer','$$\\sigma_1 = '+trim(S.sA,1)+'\\text{ MPa}, \\qquad \\sigma_2 = '+trim(S.sB,1)
+        + '\\text{ MPa}, \\qquad \\tau_{max} = '+trim(S.R,1)+'\\text{ MPa}$$');
+  if(!S.straddle){
+    b += co('warn','<strong>In-plane is not the absolute maximum here.</strong> Both in-plane roots have the '
+      + 'same sign, so the third principal stress $\\sigma_3=0$ becomes the extreme value: the sorted set is '
+      + '$('+trim(S.s1,1)+',\\ '+trim(S.s2,1)+',\\ '+trim(S.s3,1)+')$ and the <em>absolute</em> maximum shear '
+      + 'stress is $(\\sigma_1-\\sigma_3)/2 = '+trim(S.tauAbs,1)+'$ MPa, larger than the in-plane $'
+      + trim(S.R,1)+'$ MPa. It is the absolute value that governs yielding.');
+  } else if(Math.abs(S.C) < 1e-9){
+    b += co('note','<strong>Neat coincidence:</strong> with $C=0$, $\\tau_{max}$ equals both $\\sigma_1$ and '
+      + '$|\\sigma_2|$ exactly. That happens only for a balanced state $\\sigma_x=-\\sigma_y$, not in general.');
+  }
+  return stepBlock(k, title || 'Principal stresses and maximum shear stress',
+    '$\\sigma_1,\\sigma_2$ from the standard formula', b);
+}
+
+/* Mohr's circle, phi_p, and the rotated principal element */
+function stepMohr(S, k, sym){
+  sym = sym || '\\phi_p';
+  var b = '';
+  b += '<p>Using the sign convention carried through this tutorial &mdash; $\\tau_{xy}$ positive '
+     + 'counter-clockwise, plotted as $X(\\sigma_x,-\\tau_{xy})$ and $Y(\\sigma_y,+\\tau_{xy})$ so the circle '
+     + 'and the physical element rotate the same way:</p>';
+  b += mb('X('+trim(S.sx,2)+',\\ '+trim(-S.txy,2)+'), \\qquad Y('+trim(S.sy,2)+',\\ '+trim(S.txy,2)+')');
+  b += mb('C = \\left(\\frac{\\sigma_x+\\sigma_y}{2},\\,0\\right) = ('+trim(S.C,2)+',\\,0) \\qquad R = '
+        + trim(S.R,2)+'\\text{ MPa}');
+  b += fig(figMohr(S),
+      'Mohr\'s circle for $\\sigma_x='+trim(S.sx,1)+'$, $\\sigma_y='+trim(S.sy,1)+'$, $\\tau_{xy}='
+      + trim(S.txy,1)+'$ MPa. $X$ plots '+(S.txy>0?'below':'above')+' the $\\sigma$-axis because $\\tau_{xy}$ is '
+      + (S.txy>0?'positive':'negative')+', and the $'+trim(Math.abs(S.twoPhi),1)+'^\\circ$ arc from $X$ to '
+      + '$\\sigma_1$ sweeps '+(S.ccw?'counter-clockwise':'clockwise')+' &mdash; matching the '
+      + (S.ccw?'counter-clockwise':'clockwise')+' physical rotation $'+sym+'='+trim(S.phi,1)+'^\\circ$.');
+  b += mb('\\tan(2'+sym+') = \\frac{2\\tau_{xy}}{\\sigma_x-\\sigma_y} = \\frac{2'+par(S.txy,2)+'}{'
+        + trim(S.sx,2)+(S.sy<0?'+':'-')+trim(Math.abs(S.sy),2)+'} = '+trim(2*S.txy/(S.sx-S.sy),3));
+  if(S.quadrantFix){
+    b += '<p>The denominator $\\sigma_x-\\sigma_y$ is negative, so $2'+sym+'$ does <strong>not</strong> lie in '
+       + 'the range a calculator\'s $\\tan^{-1}$ returns &mdash; it must be placed in the correct quadrant:</p>';
+    b += mb('2'+sym+' = '+trim(S.twoPhi,2)+'^\\circ \\quad\\text{(not }'
+          + trim(Math.atan(2*S.txy/(S.sx-S.sy))*180/Math.PI,2)+'^\\circ\\text{)}');
+  } else {
+    b += mb('2'+sym+' = '+trim(S.twoPhi,2)+'^\\circ');
+  }
+  b += mb(sym+' = '+trim(S.phi,2)+'^\\circ');
+  b += co('answer','$$'+sym+' = '+trim(S.phi,1)+'^\\circ \\text{ ('+(S.ccw?'counter-clockwise':'clockwise')
+        + ' from the x-face to the }\\sigma_1\\text{ plane)}$$');
+  if(S.quadrantFix){
+    b += co('note','<strong>Watch the quadrant:</strong> $\\tan^{-1}$ on a calculator returns $'
+      + trim(Math.atan(2*S.txy/(S.sx-S.sy))*180/Math.PI,1)+'^\\circ$ here, which is wrong. Check the signs of '
+      + 'the numerator $2\\tau_{xy}$ and the denominator $\\sigma_x-\\sigma_y$ <em>separately</em> to place '
+      + '$2'+sym+'$, or use $\\text{atan2}(2\\tau_{xy},\\,\\sigma_x-\\sigma_y)$, which does it for you.');
+  }
+  b += '<p>The principal element, rotated $'+trim(Math.abs(S.phi),1)+'^\\circ$ <strong>'
+     + (S.ccw?'counter-clockwise':'clockwise')+'</strong> from the original x&ndash;y axes:</p>';
+  b += fig(figPrincipal(S),
+      'Principal stress element rotated $'+sym+'='+trim(S.phi,1)+'^\\circ$ from the x-axis. $\\sigma_1='
+      + trim(S.sA,1)+'$ MPa acts '+(S.sA>=0?'outward (tension)':'inward (compression)')+'; $\\sigma_2='
+      + trim(S.sB,1)+'$ MPa acts '+(S.sB>=0?'outward (tension)':'inward (compression)')
+      + '. No shear acts on these faces.');
+  return stepBlock(k, 'Mohr&rsquo;s circle and the principal plane orientation',
+    'plot $X$ and $Y$, then read off $'+sym+'$', b);
+}
+
+/* ═══════════════════ page assembly ═══════════════════ */
+function build(cfg, v){
+  var S = solve(cfg, v);
+  S.uid = (v.uid || 'v');
+  var h = '', k = 1;
+
+  /* ---- problem statement ---- */
+  h += '<h3>Problem Statement</h3>' + cfg.question(S);
+  /* The Original variant quotes the textbook answer verbatim (v.bookAns); the
+     generated variants have no book answer, so the engine's own values are
+     shown instead and labelled differently to make that explicit. */
+  h += '<div class="callout given"><p><strong>' + (v.bookAns ? 'Given answer:' : 'Answer to check against:')
+     + '</strong> &nbsp; ' + (v.bookAns || cfg.answer(S)) + '</p></div>';
+  if(v.figHtml) h += v.figHtml;
+
+  /* ---- lead diagram ---- */
+  if(cfg.mode === 'n_plane' || cfg.mode === 'sy_plane' || cfg.mode === 'transform'){
+    h += fig(figElement(S),
+      'Stress element at the critical point: $\\sigma_x='+trim(S.sx,1)+'$ MPa ('
+      + (S.sx>=0?'tension, outward':'compression, inward')+'), $\\sigma_y='+trim(S.sy,1)+'$ MPa'
+      + (Math.abs(S.sy)>1e-12 ? ' ('+(S.sy>0?'tension':'compression')+')' : '')
+      + ', $\\tau_{xy}='+trim(S.txy,1)+'$ MPa. Positive $\\tau_{xy}$ rotates the element counter-clockwise '
+      + 'on the x-face; here the shear is '+(S.txy>0?'positive (counter-clockwise)':'negative (clockwise)')+'.');
+  }
+  if(cfg.mode === 'n_principal' && Math.abs(S.s3) < 1e-12 || cfg.mode === 'n_principal' && Math.abs(S.s2) < 1e-12){
+    if(cfg.envelope) h += fig(figEnvelope(S),
+      'The load point lies inside both failure envelopes, so the component is safe. Scaling the load '
+      + 'proportionally out to each boundary gives that theory\'s safety factor &mdash; the Tresca hexagon is '
+      + 'reached first ($n='+trim(S.nMSST,2)+'$), the von Mises oval circumscribes it and is reached later ($n='
+      + trim(S.nDE,2)+'$), since MSST is always conservative relative to DE.');
+  }
+
+  h += '<h3>Solution</h3>';
+
+  /* ---- steps ---- */
+  if(cfg.mode === 'n_principal' || cfg.mode === 'sy_principal'){
+    var b1 = '';
+    if(S.wasOrdered){
+      b1 += '<p>The three values are already labelled in descending order:</p>';
+    } else {
+      b1 += '<p>The given values ('+S.given.map(function(x){ return mn(trim(x,2)); }).join(', ')
+          + ') are principal stresses but are <strong>not</strong> listed in order. Sort them '
+          + 'algebraically &mdash; by value, not by magnitude:</p>';
+    }
+    b1 += mb('\\sigma_1 = '+trim(S.s1,2)+'\\text{ MPa}, \\qquad \\sigma_2 = '+trim(S.s2,2)
+           + '\\text{ MPa}, \\qquad \\sigma_3 = '+trim(S.s3,2)+'\\text{ MPa}');
+    b1 += '<p>' + (S.anyZero
+        ? 'One of the three happens to be zero, which is typical of a free surface &mdash; but note it is $\\sigma_'
+          + (Math.abs(S.s1)<1e-12?'1':(Math.abs(S.s2)<1e-12?'2':'3'))+'$, so do not assume the zero is always $\\sigma_3$.'
+        : 'All three are non-zero: this is a fully triaxial state, and no biaxial shortcut applies.')
+      + '</p>';
+    if(cfg.extraStep1) b1 += cfg.extraStep1(S);
+    h += stepBlock(k++, S.wasOrdered ? 'Confirm the principal stresses are ordered' : 'Order the principal stresses',
+                   '$\\sigma_1 \\ge \\sigma_2 \\ge \\sigma_3$', b1);
+    var md = cfg.mode === 'sy_principal' ? 'sy' : 'n';
+    h += stepMSST(S, k++, md);
+    h += stepDE(S, k++, md);
+    if(cfg.threeMohr) h += stepThreeMohr(S, k++);
+  }
+
+  if(cfg.mode === 'n_plane'){
+    var b0 = '<p>The loading produces a normal stress along the axis and a shear stress on the same '
+           + 'surface element:</p>'
+           + mb('\\sigma_x = '+trim(S.sx,2)+'\\text{ MPa}, \\qquad \\sigma_y = '+trim(S.sy,2)
+               +'\\text{ MPa}, \\qquad \\tau_{xy} = '+trim(S.txy,2)+'\\text{ MPa}')
+           + '<p>This is plane stress at the surface, so the third principal stress, normal to the free '
+           + 'surface, is zero: $\\sigma_3=0$.</p>';
+    h += stepBlock(k++, 'Identify the plane stress state', '$\\sigma_x$, $\\sigma_y$, $\\tau_{xy}$ from the loading', b0);
+
+    var b2 = '';
+    if(S.shortcutOK){
+      b2 += '<p>With $\\sigma_y=0$, both theories reduce to closed-form equivalent stresses in $\\sigma_x$ '
+          + 'and $\\tau_{xy}$ alone &mdash; no need to find the principal stresses first:</p>';
+      b2 += mb('\\text{MSST:}\\quad \\sigma_{eq} = \\sqrt{\\sigma_x^2+4\\tau_{xy}^2} \\qquad\\qquad '
+             + '\\text{DE:}\\quad \\sigma_{eq} = \\sqrt{\\sigma_x^2+3\\tau_{xy}^2}');
+      b2 += '<p><strong>MSST:</strong></p>';
+      b2 += mb('\\sigma_{eq} = \\sqrt{'+par(S.sx,2)+'^2+4'+par(S.txy,2)+'^2} = \\sqrt{'+grp(S.sx*S.sx)+'+'
+             + grp(4*S.txy*S.txy)+'} = \\sqrt{'+grp(S.shortcutVal*S.shortcutVal)+'} = '+trim(S.shortcutVal,2)+'\\text{ MPa}');
+      b2 += mb('n_{MSST} = \\frac{'+trim(S.Sy,1)+'}{'+trim(S.shortcutVal,2)+'} = '+trim(S.Sy/S.shortcutVal,3));
+      b2 += '<p><strong>DE:</strong></p>';
+      b2 += mb('\\sigma_{eq} = \\sqrt{'+par(S.sx,2)+'^2+3'+par(S.txy,2)+'^2} = \\sqrt{'+grp(S.sx*S.sx)+'+'
+             + grp(3*S.txy*S.txy)+'} = \\sqrt{'+grp(S.dePlane*S.dePlane)+'} = '+trim(S.dePlane,2)+'\\text{ MPa}');
+      b2 += mb('n_{DE} = \\frac{'+trim(S.Sy,1)+'}{'+trim(S.dePlane,2)+'} = '+trim(S.Sy/S.dePlane,3));
+      b2 += co('answer','$$n_{MSST} = '+trim(S.nMSST,2)+' \\qquad n_{DE} = '+trim(S.nDE,2)+'$$');
+    } else {
+      b2 += co('warn','<strong>The shortcuts do not apply here.</strong> $\\sqrt{\\sigma_x^2+4\\tau_{xy}^2}$ and '
+        + '$\\sqrt{\\sigma_x^2+3\\tau_{xy}^2}$ are derived for $\\sigma_y=0$. Here $\\sigma_y='+trim(S.sy,2)
+        + '$ MPa, so they must not be used &mdash; go via the principal stresses in the next step.');
+      b2 += '<p>The DE form does generalise, because $\\sigma_3=0$ still holds at a free surface:</p>';
+      b2 += mb('\\sigma\' = \\sqrt{\\sigma_x^2-\\sigma_x\\sigma_y+\\sigma_y^2+3\\tau_{xy}^2} = '+trim(S.dePlane,2)+'\\text{ MPa}');
+      b2 += '<p>but the MSST equivalent stress genuinely requires the sorted principal values, since '
+          + '$\\sigma_1-\\sigma_3$ depends on whether the in-plane roots straddle zero.</p>';
+    }
+    h += stepBlock(k++, '(a) Safety factors directly from $\\sigma_x$, $\\tau_{xy}$',
+      S.shortcutOK ? 'closed-form MSST and DE equivalent stresses' : 'check first whether the shortcuts are legitimate', b2);
+
+    var b3 = '';
+    b3 += mb('\\sigma_{1,2} = \\frac{\\sigma_x+\\sigma_y}{2} \\pm \\sqrt{\\left(\\frac{\\sigma_x-\\sigma_y}{2}\\right)^2+\\tau_{xy}^2} = '
+           + trim(S.C,2)+' \\pm '+trim(S.R,2));
+    b3 += mb('\\sigma_1 = '+trim(S.sA,2)+'\\text{ MPa}, \\qquad \\sigma_2 = '+trim(S.sB,2)+'\\text{ MPa}, \\qquad \\sigma_3 = 0');
+    b3 += '<p>Sorted, the state is $('+trim(S.s1,2)+',\\ '+trim(S.s2,2)+',\\ '+trim(S.s3,2)
+        + ')$ MPa. Now apply both theories exactly as for a principal-stress problem:</p>';
+    b3 += mb('\\sigma_1-\\sigma_3 = '+trim(S.eqMSST,2)+' \\;\\Rightarrow\\; n_{MSST} = \\frac{'+trim(S.Sy,1)+'}{'
+           + trim(S.eqMSST,2)+'} = '+trim(S.nMSST,3));
+    b3 += mb('\\sigma\' = \\sqrt{\\frac{(\\sigma_1-\\sigma_2)^2+(\\sigma_2-\\sigma_3)^2+(\\sigma_3-\\sigma_1)^2}{2}} = '
+           + trim(S.eqDE,2)+' \\;\\Rightarrow\\; n_{DE} = '+trim(S.nDE,3));
+    b3 += co('answer','$$n_{MSST} = '+trim(S.nMSST,2)+' \\qquad n_{DE} = '+trim(S.nDE,2)
+           + (S.shortcutOK ? ' \\quad \\text{— identical to Step 2}' : '')+'$$');
+    if(S.shortcutOK){
+      b3 += co('note','<strong>Why the two routes agree exactly:</strong> the closed forms in Step 2 are '
+        + '<em>algebraically derived</em> from the principal-stress definitions for the case $\\sigma_y=0$. '
+        + 'They are shortcuts, not approximations. Converting to principal stresses first is extra work here '
+        + '&mdash; but it is essential as soon as $\\sigma_y \\ne 0$.');
+    }
+    h += stepBlock(k++, '(b) Convert to principal stresses first, then recompute',
+      '$\\sigma_1,\\sigma_2$ from the standard formula', b3);
+    h += stepMohr(S, k++, cfg.angleSym);
+  }
+
+  if(cfg.mode === 'sy_plane'){
+    var c1 = '';
+    if(S.shortcutOK){
+      c1 += '<p>With $\\sigma_y=0$, MSST uses the biaxial shortcut $\\sigma_{eq}=\\sqrt{\\sigma_x^2+4\\tau_{xy}^2}$:</p>';
+      c1 += mb('\\sigma_{eq} = \\sqrt{'+par(S.sx,2)+'^2+4'+par(S.txy,2)+'^2} = \\sqrt{'+grp(S.sx*S.sx)+'+'
+             + grp(4*S.txy*S.txy)+'} = \\sqrt{'+grp(S.eqMSST*S.eqMSST)+'} = '+trim(S.eqMSST,2)+'\\text{ MPa}');
+    } else {
+      c1 += co('warn','<strong>No shortcut here.</strong> $\\sqrt{\\sigma_x^2+4\\tau_{xy}^2}$ assumes $\\sigma_y=0$. '
+        + 'With $\\sigma_y='+trim(S.sy,2)+'$ MPa it gives $'+trim(S.shortcutVal,1)+'$ MPa, whereas the true '
+        + 'MSST equivalent stress is $\\sigma_1-\\sigma_3='+trim(S.eqMSST,1)+'$ MPa &mdash; an error of '
+        + trim(100*Math.abs(S.shortcutVal/S.eqMSST-1),1)+'%. The principal stresses must be found first.');
+      c1 += mb('\\sigma_{1,2} = '+trim(S.C,2)+' \\pm '+trim(S.R,2)+' \\;\\Rightarrow\\; \\sigma_1 = '+trim(S.sA,2)
+             + ',\\ \\sigma_2 = '+trim(S.sB,2)+',\\ \\sigma_3 = 0');
+      c1 += '<p>Sorted: $\\sigma_1='+trim(S.s1,2)+'$, $\\sigma_2='+trim(S.s2,2)+'$, $\\sigma_3='+trim(S.s3,2)
+          + '$ MPa, so the MSST equivalent stress is</p>';
+      c1 += mb('\\sigma_{eq} = \\sigma_1-\\sigma_3 = '+trim(S.eqMSST,2)+'\\text{ MPa}');
+    }
+    c1 += '<p>Rearranging $n=S_y/\\sigma_{eq}$ for the required yield strength:</p>';
+    c1 += mb('S_y = n\\,\\sigma_{eq} = '+trim(S.n,3)+' \\times '+trim(S.eqMSST,2)+' = '+trim(S.SyMSST,2)+'\\text{ MPa}');
+    c1 += co('answer','$$S_y = '+trim(S.SyMSST,1)+'\\text{ MPa}$$');
+    h += stepBlock(k++, '(a) Required $S_y$ &mdash; Maximum Shear Stress Theory',
+      'rearrange $n = S_y/\\sigma_{eq}$ to solve for $S_y$', c1);
+
+    var c2 = '';
+    c2 += '<p>The DE equivalent stress for plane stress ($\\sigma_3=0$) is valid for any $\\sigma_y$:</p>';
+    c2 += mb('\\sigma_{eq} = \\sqrt{\\sigma_x^2-\\sigma_x\\sigma_y+\\sigma_y^2+3\\tau_{xy}^2}'
+           + (S.shortcutOK ? ' = \\sqrt{\\sigma_x^2+3\\tau_{xy}^2}\\quad(\\sigma_y=0)' : ''));
+    c2 += mb('\\sigma_{eq} = \\sqrt{'+grp(S.sx*S.sx)+(S.sx*S.sy>=0?'-':'+')+grp(Math.abs(S.sx*S.sy))+'+'
+           + grp(S.sy*S.sy)+'+'+grp(3*S.txy*S.txy)+'} = \\sqrt{'+grp(S.eqDE*S.eqDE)+'} = '+trim(S.eqDE,2)+'\\text{ MPa}');
+    c2 += mb('S_y = n\\,\\sigma_{eq} = '+trim(S.n,3)+' \\times '+trim(S.eqDE,2)+' = '+trim(S.SyDE,2)+'\\text{ MPa}');
+    c2 += co('answer','$$S_y = '+trim(S.SyDE,1)+'\\text{ MPa}$$');
+    c2 += co('note','<strong>Why DE requires a lower $S_y$:</strong> its equivalent stress ('+trim(S.eqDE,1)
+      + ' MPa) is smaller than MSST\'s ('+trim(S.eqMSST,1)+' MPa) for the same stress state, so the same target '
+      + 'safety factor of '+trim(S.n,3)+' needs a less-strong material &mdash; '+trim(100*(S.SyMSST/S.SyDE-1),1)
+      + '% less here. Same conservative-vs-realistic relationship as the rest of the chapter.');
+    h += stepBlock(k++, '(b) Required $S_y$ &mdash; Maximum Distortion-Energy Theory', 'same idea, DE form this time', c2);
+
+    h += stepPrincipal(S, k++, '(c) Maximum shear stress and principal stresses');
+    h += stepMohr(S, k++, cfg.angleSym);
+  }
+
+  if(cfg.mode === 'transform'){
+    h += stepPrincipal(S, k++);
+    h += stepMohr(S, k++, cfg.angleSym);
+  }
+
+  /* ---- summary table ---- */
+  h += stepBlock(k++, 'Summary Table', 'all results together', cfg.summary(S), true);
+
+  /* ---- common mistakes ---- */
+  h += mistakes(cfg.mistakes(S));
+  return h;
+}
+
+
+/* ─────────────────── tutorial configuration ─────────────────── */
+var CONFIG = {
+  mode: "sy_principal",
+  threeMohr: true,
+  question: function(S){
+      return '<p>The surface of a steel machine member is subjected to principal stresses of '
+        + '<strong>$\\sigma_1 = '+trim(S.given[0],2)+'$ MPa</strong>, <strong>$\\sigma_2 = '
+        + trim(S.given[1],2)+'$ MPa</strong>, and <strong>$\\sigma_3 = '+trim(S.given[2],2)
+        + '$ MPa</strong>. What tensile yield strength is required to provide a safety factor of '
+        + trim(S.n,3)+' with respect to initial yielding:</p>'
+        + '<p><strong>(a)</strong> According to the maximum shear stress theory?<br/>'
+        + '<strong>(b)</strong> According to the maximum distortion-energy theory?</p>';
+    },
+  answer: function(S){
+      return '(a) $S_y = '+trim(S.SyMSST,1)+'$ MPa &nbsp;&nbsp; (b) $S_y = '+trim(S.SyDE,1)+'$ MPa';
+    },
+  summary: function(S){
+      return tableRows([
+        ['$\\sigma_1$, $\\sigma_2$, $\\sigma_3$ (sorted)',
+         mn(trim(S.s1,1))+', '+mn(trim(S.s2,1))+', '+mn(trim(S.s3,1))+' MPa'],
+        ['MSST equivalent stress $\\sigma_1-\\sigma_3$', trim(S.eqMSST,2)+' MPa'],
+        ['DE equivalent stress $\\sigma\''+'$', trim(S.eqDE,2)+' MPa'],
+        ['$\\tau_{max}$', trim(S.tauAbs,2)+' MPa'],
+        ['Required $S_y$ &mdash; MSST', trim(S.SyMSST,1)+' MPa'],
+        ['Required $S_y$ &mdash; DE', trim(S.SyDE,1)+' MPa']
+      ]);
+    },
+  mistakes: function(S){
+      var m = [];
+      m.push('<strong>Inverting the relationship.</strong> With $n$ given, $S_y = n\\,\\sigma_{eq}$. '
+        + 'Dividing instead of multiplying gives an answer that looks plausible but is out by a factor of '
+        + trim(S.n*S.n,2)+'.');
+      m.push('<strong>Letting $\\sigma_2$ into the MSST calculation.</strong> Only $\\sigma_1-\\sigma_3 = '
+        + trim(S.eqMSST,1)+'$ MPa matters. It appears in DE, never in MSST.');
+      if(S.s1 < 0)
+        m.push('<strong>Thinking an all-compressive state must be safe.</strong> It is the <em>differences</em> '
+          + 'between principal stresses that cause yielding, not their absolute level. Adding the same stress '
+          + 'to all three values &mdash; a purely hydrostatic change &mdash; leaves both $\\sigma_1-\\sigma_3$ '
+          + 'and $\\sigma\''+'$ completely unchanged.');
+      else
+        m.push('<strong>Rounding $\\sigma\''+'$ before multiplying by $n$.</strong> Rounding '+trim(S.eqDE,2)
+          + ' to '+trim(S.eqDE,0)+' shifts the required $S_y$ by about '
+          + trim(Math.abs(S.n*(S.eqDE-Math.round(S.eqDE))),1)+' MPa &mdash; carry the extra digits to the end.');
+      m.push('<strong>Reading the DE answer as the safer specification.</strong> DE asks for less strength ('
+        + trim(S.SyDE,1)+' MPa versus '+trim(S.SyMSST,1)+' MPa) because it is the less conservative theory. '
+        + 'Specifying the MSST figure buys margin; specifying the DE figure is the more realistic estimate.');
+      return m;
+    },
+  extraStep1: function(S){
+      return '<p>The task is the <em>reverse</em> of T4.3: the safety factor $n='+trim(S.n,3)+'$ is given, '
+        + 'and the required yield strength is the unknown.</p>';
+    }
+};
+var VARIANTS = [
+  {btn: "Original", desc: "The tutorial sheet problem — already sorted, spanning tension through compression.", uid: "v0", ps: [100, 20, -80], n: 2.5, bookAns: "(a) $S_y = 450$ MPa &nbsp;&nbsp; (b) $S_y = 390.5$ MPa"},
+  {btn: "Variant 1 — new numbers", desc: "Same structure: already sorted, same sign pattern, same target safety factor. Only the magnitudes change, so this is a clean re-run of the method.", uid: "v1", ps: [140, 40, -60], n: 2.5},
+  {btn: "Variant 2 — all three in compression", desc: "Structural change: every principal stress is now compressive. Both theories still work unchanged, because they depend only on the DIFFERENCES between principal stresses. Adding a uniform compression to all three — a hydrostatic change — would not alter either answer at all, which is the physical heart of both theories and easy to miss when every problem happens to include a tensile stress.", uid: "v2", ps: [-20, -60, -140], n: 2.5}
+];
+
+/* ─────────────────── wiring ─────────────────── */
+function render(i){
+  var v = VARIANTS[i];
+  document.getElementById('doc').innerHTML = build(CONFIG, v);
+  document.getElementById('swDesc').textContent = v.desc;
+  var btns = document.querySelectorAll('#swBtns button');
+  for(var j=0;j<btns.length;j++) btns[j].setAttribute('aria-pressed', j===i ? 'true' : 'false');
+  if(window.renderMathInElement){
+    renderMathInElement(document.getElementById('doc'), {
+      delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}],
+      throwOnError:false
+    });
+  }
+}
+function init(){
+  var box = document.getElementById('swBtns');
+  VARIANTS.forEach(function(v,i){
+    var b = document.createElement('button');
+    b.textContent = v.btn;
+    b.setAttribute('aria-pressed','false');
+    b.onclick = function(){ render(i); };
+    box.appendChild(b);
+  });
+  render(0);
+}
+window.addEventListener('load', init);
+</script>
+</body>
+</html>
