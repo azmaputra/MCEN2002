@@ -7,7 +7,9 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css"/>
 <script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
 <script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
-<style>
+<style>/* MCEN2002 — shared stylesheet for every generated tutorial page.
+   Inlined into each self-contained HTML file by that chapter's build.py. */
+
 *,*::before,*::after{box-sizing:border-box}
 body{font-family:'Segoe UI',Arial,sans-serif;font-size:15px;line-height:1.75;color:#1a1a1a;background:#f5f6f8;margin:0;padding:24px 16px 56px}
 .page{max-width:880px;margin:0 auto;background:#fff;border-radius:10px;box-shadow:0 2px 14px rgba(0,0,0,.10);padding:40px 52px 52px}
@@ -21,7 +23,7 @@ h4{color:#1a3c6e;font-size:14.5px;margin:20px 0 6px}
 .step details summary{list-style:none;cursor:pointer;padding:11px 15px;background:#f0f4fb;color:#1a3c6e;font-weight:500;font-size:14.5px;display:flex;align-items:center;gap:10px;user-select:none}
 .step details summary::-webkit-details-marker{display:none}
 .step details summary::before{display:none}
-.step details summary::after{content:'\\25BC';font-size:11px;color:#f97316;transition:transform .2s;flex-shrink:0;margin-left:auto;padding-left:8px}
+.step details summary::after{content:'\25BC';font-size:11px;color:#f97316;transition:transform .2s;flex-shrink:0;margin-left:auto;padding-left:8px}
 .step details[open] summary::after{transform:rotate(180deg)}
 .step details[open] summary{background:#e8eef9;border-bottom:1px solid #d1d9e8}
 .step details summary .step-label{font-size:12px;font-weight:500;color:#f97316;margin-right:4px}
@@ -56,6 +58,18 @@ tr.total td{font-weight:700;background:#eef4ff;border-top:2px solid #1a3c6e}
 .sw-btns button:hover{background:#e8eef9;border-color:#1a3c6e}
 .sw-btns button[aria-pressed="true"]{background:#1a3c6e;border-color:#1a3c6e;color:#fff;box-shadow:0 1px 4px rgba(26,60,110,.3)}
 .sw-desc{font-size:13px;color:#555;margin-top:10px;font-style:italic}
+/* Collapsible manufacturer's-table reference, embedded in the page */
+.ref{border:1px solid #bbf7d0;border-radius:8px;margin:16px 0;overflow:hidden}
+.ref>summary{list-style:none;cursor:pointer;padding:11px 16px;background:#f0fdf4;color:#166534;font-weight:600;font-size:14px;display:flex;align-items:center;gap:10px;user-select:none}
+.ref>summary::-webkit-details-marker{display:none}
+.ref>summary::after{content:'\25BC';font-size:11px;color:#22c55e;margin-left:auto}
+.ref[open]>summary::after{content:'\25B2'}
+.ref[open]>summary{border-bottom:1px solid #bbf7d0}
+.ref .refbody{padding:16px}
+.ref figure{margin:0 0 18px}
+.ref figure:last-child{margin-bottom:0}
+.ref img{max-width:100%;height:auto;border:1px solid #e5e7eb;border-radius:4px}
+.ref figcaption{font-size:12.5px;color:#555;font-style:italic;margin-top:8px;text-align:center}
 </style>
 </head>
 <body>
@@ -225,6 +239,16 @@ Svg.prototype.render = function(widthPx, pad){
     '" xmlns="http://www.w3.org/2000/svg" font-family="Arial,sans-serif" font-size="12">'+
     (this.defs.length ? '<defs>'+this.defs.join('')+'</defs>' : '')+
     this.p.join('')+'</svg>';
+};
+/* Render at 1:1 between internal units and CSS pixels, clamped to a sensible
+   band. A fixed display width makes wide-but-shallow drawings appear tiny,
+   because the viewBox grows with the side annotations while the display width
+   does not — which is why the T3.2 section used to render at 57% scale.
+   The page CSS keeps `max-width:100%`, so narrow screens still scale down.  */
+Svg.prototype.renderAuto = function(minPx, maxPx, pad){
+  pad = pad===undefined ? 10 : pad;
+  var w = (this.bb.x1 - this.bb.x0) + 2*pad;
+  return this.render(Math.round(Math.max(minPx || 320, Math.min(maxPx || 760, w))), pad);
 };
 function n3(v){ return String(Math.round(v*100)/100); }
 
@@ -560,7 +584,7 @@ function figSection(S, opts){
          {size:11.5, anchor:'middle', fill:'#1a3c6e'});
   g.text(X(wMax/2), Y(0)+40, 'Dimensions in mm',
          {size:11, anchor:'middle', fill:'#888', style:'italic'});
-  return g.render(opts.width || 330);
+  return g.renderAuto(opts.min || 340, opts.max || 760);
 }
 
 /* ═══════════════════ diagram: the beam ═══════════════════ */
@@ -613,7 +637,7 @@ function figBeam(S, opts){
   }
   if(opts.note)
     g.text(X(Lt/2), y+96, opts.note, {size:11, anchor:'middle', fill:'#888', style:'italic'});
-  return g.render(opts.width || 470);
+  return g.renderAuto(380, 760);
 }
 
 /* ═══════════════════ diagram: bending moment diagram ═══════════════════ */
@@ -648,7 +672,7 @@ function figBMD(S){
   g.text(X(Lt/2), Math.max(Y(-Mmax), Y(Mmax)) + 56,
          'Sagging plotted above the axis &#8226; the curve is parabolic throughout because the load is a UDL',
          {size:11, anchor:'middle', fill:'#888', style:'italic'});
-  return g.render(470);
+  return g.renderAuto(420, 760);
 }
 
 /* ═══════════════════ shared step builders ═══════════════════ */
@@ -741,6 +765,7 @@ function build(cfg, v){
   h += '<div class="callout given"><p><strong>' + (v.bookAns ? 'Given answer:' : 'Answer to check against:')
      + '</strong> &nbsp; ' + (v.bookAns || cfg.answer(S)) + '</p></div>';
   if(cfg.tableNote) h += co('info', cfg.tableNote(S));
+  if(cfg.tableFigs) h += cfg.tableFigs(S);
 
   /* lead diagrams */
   if(cfg.mode !== 'select' && S.beam)
