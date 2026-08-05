@@ -3,534 +3,1159 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>T1.2 – Centroid of Composite Area</title>
+<title>T1.2 – Centroid of a Composite Area</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css"/>
 <script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
-<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"
-  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]})"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
 <style>
 *,*::before,*::after{box-sizing:border-box}
 body{font-family:'Segoe UI',Arial,sans-serif;font-size:15px;line-height:1.75;color:#1a1a1a;background:#f5f6f8;margin:0;padding:24px 16px 56px}
-.page{max-width:840px;margin:0 auto;background:#fff;border-radius:10px;box-shadow:0 2px 14px rgba(0,0,0,.10);padding:40px 52px 52px}
-
-/* Header */
-.uni-header{text-align:center;border-bottom:2px solid #1a3c6e;padding-bottom:16px;margin-bottom:32px}
+.page{max-width:880px;margin:0 auto;background:#fff;border-radius:10px;box-shadow:0 2px 14px rgba(0,0,0,.10);padding:40px 52px 52px}
+.uni-header{text-align:center;border-bottom:2px solid #1a3c6e;padding-bottom:16px;margin-bottom:24px}
 .uni-header p{margin:0;line-height:1.4;font-size:13.5px;color:#555}
 .uni-header h2{margin:8px 0 0;font-size:20px;color:#1a3c6e}
-
-/* Section headings */
 h3{color:#1a3c6e;border-left:4px solid #1a3c6e;padding-left:10px;margin:28px 0 10px;font-size:15.5px}
-
-/* Method header band */
-.method-header{
-  background:#1a3c6e;color:#fff;
-  padding:11px 18px;border-radius:7px;
-  margin:36px 0 16px;font-size:15px;font-weight:700;
-  display:flex;align-items:center;gap:12px;
-}
-.method-badge{
-  background:#f97316;color:#fff;font-size:12px;font-weight:700;
-  border-radius:4px;padding:2px 10px;letter-spacing:0.04em;flex-shrink:0;
-}
-
-/* Step list */
-.steps{margin-bottom:4px}
+h4{color:#1a3c6e;font-size:14.5px;margin:20px 0 6px}
 .step{margin-bottom:10px}
-
-/* Toggle (details/summary) */
 .step details{border:1px solid #d1d9e8;border-radius:8px;overflow:hidden;margin-top:6px}
-.step details summary{
-  list-style:none;cursor:pointer;padding:11px 15px;
-  background:#f0f4fb;color:#1a3c6e;font-weight:600;font-size:14.5px;
-  display:flex;align-items:center;gap:10px;user-select:none;
-}
+.step details summary{list-style:none;cursor:pointer;padding:11px 15px;background:#f0f4fb;color:#1a3c6e;font-weight:500;font-size:14.5px;display:flex;align-items:center;gap:10px;user-select:none}
 .step details summary::-webkit-details-marker{display:none}
-.step details summary::before{content:'▶';font-size:11px;color:#f97316;transition:transform 0.2s;flex-shrink:0}
-.step details[open] summary::before{transform:rotate(90deg)}
-.step details summary .step-label{font-size:12px;font-weight:500;color:#f97316;margin-right:4px}
+.step details summary::after{content:'\25BC';font-size:11px;color:#f97316;transition:transform .2s;flex-shrink:0;margin-left:auto;padding-left:8px}
+.step details[open] summary::after{transform:rotate(180deg)}
 .step details[open] summary{background:#e8eef9;border-bottom:1px solid #d1d9e8}
 .step-body{padding:16px 20px}
-
-.step-heading{display:flex;align-items:center;gap:10px;margin-bottom:6px}
-.step-num{
-  background:#1a3c6e;color:#fff;font-size:12px;font-weight:700;
-  border-radius:50%;width:26px;height:26px;
-  display:flex;align-items:center;justify-content:center;flex-shrink:0;
-}
+.step-num{background:#1a3c6e;color:#fff;font-size:12px;font-weight:700;border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .step-title{font-size:15px;font-weight:600;color:#1a3c6e}
 .try-hint{font-size:12.5px;color:#6b7280;font-style:italic;margin-left:auto}
-
-/* Callouts */
 .callout{border-radius:6px;padding:13px 18px;margin:14px 0;font-size:14.5px}
 .callout p{margin:4px 0}
 .info{background:#eef4ff;border-left:4px solid #3b82f6}
 .given{background:#f0fdf4;border-left:4px solid #22c55e}
-.answer{background:#fff7ed;border-left:4px solid #f97316;font-size:15.5px;font-weight:600}
+.answer{background:#fff7ed;border-left:4px solid #f97316;font-size:16px;font-weight:600}
 .note{background:#faf5ff;border-left:4px solid #a855f7;font-size:14px}
-.agree{background:#ecfdf5;border-left:4px solid #10b981;font-size:15px}
-
-/* Math display */
-.math-display{background:#f8f9fb;border:1px solid #e2e6ef;border-radius:6px;padding:13px 18px;margin:10px 0;overflow-x:auto;text-align:center}
-
-/* Table */
-table{width:100%;border-collapse:collapse;margin:14px 0;font-size:14px}
-th{background:#1a3c6e;color:#fff;padding:9px 12px;text-align:center;font-weight:600}
-td{padding:8px 12px;text-align:center;border-bottom:1px solid #e5e7eb;vertical-align:middle}
-td.left{text-align:left}
-tr:nth-child(even) td{background:#f8f9fb}
-tr.total td{font-weight:700;background:#eef4ff;border-top:2px solid #1a3c6e}
-tr.void-row td{color:#b91c1c}
-tr.void-row td.left{color:#b91c1c}
-
-/* Diagram */
-.diagram-wrap{text-align:center;margin:20px 0 6px}
-.diagram-wrap figcaption{font-size:13px;color:#555;margin-top:6px;font-style:italic}
-
-/* Method decomp SVG wrapper */
-.decomp-wrap{display:flex;align-items:flex-start;gap:20px;flex-wrap:wrap;margin:14px 0 18px}
-.decomp-svg-box{flex:0 0 auto;text-align:center}
-.decomp-desc{flex:1;min-width:200px;font-size:14px;color:#333;line-height:1.8;padding-top:4px}
-.decomp-desc ul{margin:6px 0 6px 20px}
-.decomp-desc li{margin-bottom:4px}
-
+.warn{background:#fffbeb;border-left:4px solid #f59e0b;font-size:14px}
+.math-block{background:#f8f9fb;border:1px solid #e2e6ef;border-radius:6px;padding:14px 20px;margin:12px 0;overflow-x:auto;text-align:center}
+.diagram-wrap{text-align:center;margin:22px 0 8px}
+.diagram-wrap figure{margin:0}
+.diagram-wrap svg{max-width:100%;height:auto}
+.diagram-wrap figcaption{font-size:13px;color:#555;margin-top:2px;font-style:italic;line-height:1.5}
 .footer{margin-top:40px;border-top:1px solid #e5e7eb;padding-top:12px;font-size:12px;color:#999;text-align:center}
+.switcher{background:#f0f4fb;border:1px solid #d1d9e8;border-radius:8px;padding:14px 18px;margin-bottom:26px}
+.switcher .sw-label{font-size:12.5px;font-weight:600;color:#1a3c6e;text-transform:uppercase;letter-spacing:.06em;margin-bottom:9px}
+.sw-btns{display:flex;flex-wrap:wrap;gap:8px}
+.sw-btns button{font-family:inherit;font-size:13.5px;font-weight:500;padding:8px 15px;border-radius:6px;border:1px solid #b9c6df;background:#fff;color:#1a3c6e;cursor:pointer;transition:.15s}
+.sw-btns button:hover{background:#e8eef9;border-color:#1a3c6e}
+.sw-btns button[aria-pressed="true"]{background:#1a3c6e;border-color:#1a3c6e;color:#fff;box-shadow:0 1px 4px rgba(26,60,110,.3)}
+.sw-desc{font-size:13px;color:#555;margin-top:10px;font-style:italic}
 </style>
 </head>
 <body>
 <div class="page">
 
-<!-- ══ UNIVERSITY HEADER ══ -->
 <div class="uni-header">
-  <p>Curtin University &nbsp;·&nbsp; School of Civil and Mechanical Engineering</p>
-  <p>MCEN2002 – Fundamentals of Mechanical Design</p>
+  <p>Curtin University &nbsp;&middot;&nbsp; School of Civil and Mechanical Engineering</p>
+  <p>MCEN2002 &ndash; Fundamentals of Mechanical Design</p>
   <p style="margin-top:8px"><strong>Dr Azma Putra Azis</strong></p>
-  <h2>Tutorial 1.2 &nbsp;–&nbsp; Centroid of a Composite Area</h2>
+  <h2>Tutorial 1.2 &nbsp;&ndash;&nbsp; Centroid of a Composite Area</h2>
 </div>
 
-<!-- ══ PROBLEM STATEMENT ══ -->
-<h3 style="border-left-color:#6366f1;color:#6366f1">Problem Statement</h3>
-<p>Find the centroidal coordinates $\bar{x}$ and $\bar{y}$ of the composite shape shown below.
-The shape is a <strong>channel section (U-channel)</strong> with a <strong>circular hole</strong> in the right arm.
-All dimensions in millimetres (mm).</p>
-
-<div class="callout given">
-  <p><strong>Given answer:</strong> &nbsp; $\bar{x} = 217.1\ \text{mm}$ &nbsp;&nbsp; $\bar{y} = 198.5\ \text{mm}$</p>
+<div class="switcher">
+  <div class="sw-label">Choose a problem</div>
+  <div class="sw-btns" id="swBtns"></div>
+  <div class="sw-desc" id="swDesc"></div>
 </div>
 
-<!-- ══ PROBLEM DIAGRAM ══ -->
-<div class="diagram-wrap">
-<figure>
-<svg viewBox="0 0 560 430" width="100%" style="max-width:560px;font-family:Arial,sans-serif">
-  <defs>
-    <marker id="ah"  markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="#444"/></marker>
-    <marker id="ahr" markerWidth="7" markerHeight="7" refX="1" refY="3.5" orient="auto"><path d="M7,0 L0,3.5 L7,7 Z" fill="#444"/></marker>
-    <marker id="ahB"  markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="#666"/></marker>
-    <marker id="ahrB" markerWidth="7" markerHeight="7" refX="1" refY="3.5" orient="auto"><path d="M7,0 L0,3.5 L7,7 Z" fill="#666"/></marker>
-  </defs>
+<div id="doc"></div>
 
-  <!-- Axes -->
-  <line x1="35" y1="380" x2="370" y2="380" stroke="#333" stroke-width="1.6" marker-end="url(#ah)"/>
-  <line x1="55" y1="400" x2="55" y2="75" stroke="#333" stroke-width="1.6" marker-end="url(#ah)"/>
-  <text x="375" y="385" font-size="14" fill="#333" font-style="italic">x</text>
-  <text x="48" y="72" font-size="14" fill="#333" font-style="italic">y</text>
-  <text x="36" y="395" font-size="11" fill="#666">O</text>
-
-  <!-- U-channel shape -->
-  <!-- x: left=55, L-inner=148, R-inner=242, right=335  |  y: top=100, void-floor=287, bottom=380  (scale 0.622) -->
-  <path d="M55,380 L335,380 L335,100 L242,100 L242,287 L148,287 L148,100 L55,100 Z"
-        fill="#93c5fd" fill-opacity="0.45" stroke="#1a3c6e" stroke-width="2"/>
-
-  <!-- Circular hole -->
-  <circle cx="289" cy="193" r="31" fill="white" stroke="#1a3c6e" stroke-width="1.8"/>
-
-  <!-- Part labels -->
-  <text x="102" y="200" font-size="13" fill="#1e40af" font-weight="bold" text-anchor="middle">①</text>
-  <text x="102" y="214" font-size="11" fill="#1e40af" text-anchor="middle">Left arm</text>
-  <text x="195" y="345" font-size="13" fill="#1e40af" font-weight="bold" text-anchor="middle">②</text>
-  <text x="195" y="359" font-size="11" fill="#1e40af" text-anchor="middle">Base</text>
-  <text x="289" y="122" font-size="13" fill="#1e40af" font-weight="bold" text-anchor="middle">③</text>
-  <text x="289" y="136" font-size="11" fill="#1e40af" text-anchor="middle">Right arm</text>
-  <!-- ④ hole: diameter arrow at centre y=193, label above; ④ text slightly below centre -->
-  <line x1="258" y1="193" x2="320" y2="193" stroke="#666" stroke-width="1" marker-start="url(#ahrB)" marker-end="url(#ahB)"/>
-  <text x="289" y="187" font-size="11" fill="#555" text-anchor="middle">⌀ 100</text>
-  <text x="289" y="206" font-size="10" fill="#888" text-anchor="middle">④ hole</text>
-
-  <!-- Dimension lines -->
-  <!-- Total width 450 -->
-  <line x1="55" y1="408" x2="335" y2="408" stroke="#555" stroke-width="1" marker-start="url(#ahr)" marker-end="url(#ah)"/>
-  <text x="195" y="422" font-size="12" fill="#333" text-anchor="middle">450</text>
-  <!-- Total height 450 -->
-  <line x1="26" y1="100" x2="26" y2="380" stroke="#555" stroke-width="1" marker-start="url(#ahr)" marker-end="url(#ah)"/>
-  <text x="16" y="245" font-size="12" fill="#333" text-anchor="middle" transform="rotate(-90,16,245)">450</text>
-  <!-- Width segments at top -->
-  <line x1="55"  y1="86" x2="148" y2="86" stroke="#555" stroke-width="1" marker-start="url(#ahr)" marker-end="url(#ah)"/>
-  <text x="101"  y="79" font-size="11" fill="#333" text-anchor="middle">150</text>
-  <line x1="148" y1="86" x2="242" y2="86" stroke="#555" stroke-width="1" marker-start="url(#ahr)" marker-end="url(#ah)"/>
-  <text x="195"  y="79" font-size="11" fill="#333" text-anchor="middle">150</text>
-  <line x1="242" y1="86" x2="335" y2="86" stroke="#555" stroke-width="1" marker-start="url(#ahr)" marker-end="url(#ah)"/>
-  <text x="288"  y="79" font-size="11" fill="#333" text-anchor="middle">150</text>
-  <!-- Right side: 150 top (arm top → circle centre), 150 bottom (circle centre → void floor) -->
-  <line x1="350" y1="100" x2="350" y2="193" stroke="#555" stroke-width="1" stroke-dasharray="3,2" marker-start="url(#ahr)" marker-end="url(#ah)"/>
-  <text x="368"  y="152" font-size="11" fill="#333" text-anchor="middle">150</text>
-  <line x1="350" y1="193" x2="350" y2="287" stroke="#555" stroke-width="1" stroke-dasharray="3,2" marker-start="url(#ahr)" marker-end="url(#ah)"/>
-  <text x="368"  y="245" font-size="11" fill="#333" text-anchor="middle">150</text>
-  <!-- 75 mm from inner right edge to circle centre -->
-  <line x1="242" y1="300" x2="289" y2="300" stroke="#555" stroke-width="1" marker-start="url(#ahr)" marker-end="url(#ah)"/>
-  <text x="265"  y="314" font-size="11" fill="#333" text-anchor="middle">75</text>
-  <!-- Dashed reference lines for circle centre -->
-  <line x1="289" y1="193" x2="350" y2="193" stroke="#aaa" stroke-width="0.8" stroke-dasharray="4,3"/>
-  <line x1="289" y1="193" x2="289" y2="300" stroke="#aaa" stroke-width="0.8" stroke-dasharray="4,3"/>
-  <!-- Centroid marker -->
-  <!-- x̄=217.1 → SVG x=55+217.1×0.622=190  |  ȳ=198.5 → SVG y=380−198.5×0.622=257 -->
-  <circle cx="190" cy="257" r="5" fill="#f97316" stroke="white" stroke-width="2"/>
-  <line x1="179" y1="257" x2="201" y2="257" stroke="#f97316" stroke-width="1.5"/>
-  <line x1="190" y1="246" x2="190" y2="268" stroke="#f97316" stroke-width="1.5"/>
-  <text x="196" y="251" font-size="10" fill="#f97316">C(217.1, 198.5)</text>
-</svg>
-<figcaption>Figure 1.2 — Channel section with circular hole. Origin O at bottom-left corner.</figcaption>
-</figure>
+<div class="footer">MCEN2002 &ndash; Tutorial 1.2 &middot; Worked solution &middot; Curtin University</div>
 </div>
 
-<!-- ══ COMPOSITE FORMULA ══ -->
-<div class="callout info">
-  <p><strong>Composite Area Method</strong></p>
-  <div class="math-display">
-    $$\bar{x} = \frac{\sum A_i\,\bar{x}_i}{\sum A_i} \qquad \bar{y} = \frac{\sum A_i\,\bar{y}_i}{\sum A_i}$$
-  </div>
-  <p>Voids (holes and cutouts) are treated as <strong>negative areas</strong>. Two methods are shown below — both yield the same result.</p>
-</div>
+<script>
+/* ═══════════════════════════════════════════════════════════════════════════
+   GENERATED FILE - do not edit by hand.
+   Source: _engine/{geom,draw,pages}.js + _engine/build.py
+   Rebuild with:  python3 _engine/build.py
+   ═══════════════════════════════════════════════════════════════════════════ */
+/* ══════════════════════════════════════════════════════════════════════════
+   MCEN2002 — SHARED COMPOSITE-AREA ENGINE  (Tutorial 1: centroids, second
+   moments, polar moments, balancing)
+   Single source of truth for every T1.x solution page.
+   Edit this file, then run  _engine/build.py  to regenerate the HTML files.
+   The HTML files are self-contained — the engine is inlined into each one.
+
+   ─── MODEL ───────────────────────────────────────────────────────────────
+   A section is a list of PARTS. Each part carries sign = +1 (material) or
+   -1 (hole / cut-out / notch). Everything else — areas, centroids, second
+   moments, the summary table, the figure — is derived.
+
+     {k:'rect', x, y, w, h}          lower-left corner at (x,y)
+     {k:'tri',  p:[[x,y],[x,y],[x,y]]}
+     {k:'circ', cx, cy, r}
+     {k:'semi', cx, cy, r, dir}      (cx,cy) = MIDPOINT OF THE FLAT EDGE;
+                                     dir ∈ 'up','down','left','right' = the
+                                     direction the bulge points
+   Optional per part: sign (default +1), name, at:[x,y] label position.
+
+   Sign convention: holes enter EVERY sum negatively — area, first moment and
+   second moment alike. That single rule is what the whole tutorial rests on.
+   ══════════════════════════════════════════════════════════════════════════ */
+
+var NAVY='#1a3c6e', ORANGE='#f97316', GREY='#555', FILL='#7fe3ec', CUT='#b45309';
+var CIRCLED=['①','②','③','④','⑤','⑥'];
+
+/* ─────────────────── number formatting ─────────────────── */
+function fx(v,d){ if(d===undefined) d=0;
+  var s=Number(v).toFixed(d), neg=s[0]==='-'; if(neg) s=s.slice(1);
+  var q=s.split('.'); q[0]=q[0].replace(/\B(?=(\d{3})+(?!\d))/g,'\\,');
+  return (neg?'-':'')+q.join('.');
+}
+function fxh(v,d){ return fx(v,d).replace(/\\,/g,' '); }   /* thin space, for HTML */
+/* engineering form  a.bcd × 10^n */
+function eng(v,sig){ if(sig===undefined) sig=3;
+  if(Math.abs(v)<1e-12) return '0';
+  var e=Math.floor(Math.log10(Math.abs(v))), m=v/Math.pow(10,e);
+  return m.toFixed(sig)+' \\times 10^{'+e+'}';
+}
+
+/* ─────────────────── geometry primitives ─────────────────── */
+function pArea(p){
+  switch(p.k){
+    case 'rect': return p.w*p.h;
+    case 'tri' : var q=p.p; return Math.abs((q[1][0]-q[0][0])*(q[2][1]-q[0][1])-(q[2][0]-q[0][0])*(q[1][1]-q[0][1]))/2;
+    case 'circ': return Math.PI*p.r*p.r;
+    case 'semi': return Math.PI*p.r*p.r/2;
+  }
+}
+function pC(p){
+  switch(p.k){
+    case 'rect': return [p.x+p.w/2, p.y+p.h/2];
+    case 'tri' : var q=p.p; return [(q[0][0]+q[1][0]+q[2][0])/3, (q[0][1]+q[1][1]+q[2][1])/3];
+    case 'circ': return [p.cx, p.cy];
+    case 'semi': var e=4*p.r/(3*Math.PI), D={up:[0,1],down:[0,-1],left:[-1,0],right:[1,0]}[p.dir];
+                 return [p.cx+D[0]*e, p.cy+D[1]*e];
+  }
+}
+/* second moments about the part's OWN centroidal axes, parallel to x and y */
+function pIbar(p){
+  var A=pArea(p);
+  switch(p.k){
+    case 'rect': return [p.w*Math.pow(p.h,3)/12, p.h*Math.pow(p.w,3)/12];
+    case 'tri' : var q=p.p,
+        sx=Math.pow(q[0][0]-q[1][0],2)+Math.pow(q[1][0]-q[2][0],2)+Math.pow(q[2][0]-q[0][0],2),
+        sy=Math.pow(q[0][1]-q[1][1],2)+Math.pow(q[1][1]-q[2][1],2)+Math.pow(q[2][1]-q[0][1],2);
+        return [A*sy/36, A*sx/36];
+    case 'circ': var I=Math.PI*Math.pow(p.r,4)/4; return [I,I];
+    case 'semi': var Id=Math.PI*Math.pow(p.r,4)/8, e=4*p.r/(3*Math.PI), Ie=Id-A*e*e;
+        /* Id is about the diameter; Ie about the parallel centroidal axis */
+        return (p.dir==='up'||p.dir==='down') ? [Ie,Id] : [Id,Ie];
+  }
+}
+function pName(p,i){ return p.name || ('Part '+CIRCLED[i]); }
+
+/* ─────────────────── composite reduction ─────────────────── */
+function reduce(parts){
+  var rows=[], A=0, Sx=0, Sy=0;
+  parts.forEach(function(p,i){
+    var s=(p.sign===undefined?1:p.sign), a=s*pArea(p), c=pC(p), ib=pIbar(p);
+    rows.push({p:p,i:i,sign:s,A:a,x:c[0],y:c[1],Ibx:s*ib[0],Iby:s*ib[1],
+               name:pName(p,i), mark:CIRCLED[i]});
+    A+=a; Sx+=a*c[0]; Sy+=a*c[1];
+  });
+  return {rows:rows, A:A, Sx:Sx, Sy:Sy, xb:Sx/A, yb:Sy/A};
+}
+/* second moments of the whole section about axes through (ax,ay) */
+function inertiaAbout(R, ax, ay){
+  var Ix=0, Iy=0;
+  R.rows.forEach(function(r){
+    r.dy = r.y-ay; r.dx = r.x-ax;
+    r.Ix = r.Ibx + r.A*r.dy*r.dy;
+    r.Iy = r.Iby + r.A*r.dx*r.dx;
+    Ix += r.Ix; Iy += r.Iy;
+  });
+  return {Ix:Ix, Iy:Iy, J:Ix+Iy, k:Math.sqrt((Ix+Iy)/R.A),
+          kx:Math.sqrt(Ix/R.A), ky:Math.sqrt(Iy/R.A)};
+}
+
+/* ─────────────────── SVG figure builder ───────────────────
+   The figure is derived from the SAME parts list the algebra uses, so a
+   variant can never drift away from its own diagram. Positive parts are
+   drawn first (their union is the silhouette, and the internal edges double
+   as the decomposition lines); negative parts are then painted white on top.
+   Optional per-variant annotation: dims[] and notes[].                     */
+
+function View(parts, opt){
+  opt = opt || {};
+  var bb = bbox(parts.length?parts:[{k:'rect',x:0,y:0,w:1,h:1}]);
+  var pad = (opt.pad===undefined) ? 0.06 : opt.pad;
+  var mL = opt.mL===undefined?14:opt.mL, mR = opt.mR===undefined?14:opt.mR,
+      mT = opt.mT===undefined?30:opt.mT, mB = opt.mB===undefined?34:opt.mB;
+  var gx=(bb.x1-bb.x0)*pad, gy=(bb.y1-bb.y0)*pad;
+  var x0=Math.min(bb.x0-gx,0), x1=Math.max(bb.x1+gx,0),
+      y0=Math.min(bb.y0-gy,0), y1=Math.max(bb.y1+gy,0);
+  /* keep the axes visible even when the section does not touch the origin */
+  var ex=(x1-x0)*0.06, ey=(y1-y0)*0.06;
+  x0-=ex; x1+=ex; y0-=ey; y1+=ey;
+  var W = opt.W || 720, Wi = W-mL-mR;
+  var s = Wi/(x1-x0), Hi=(y1-y0)*s;
+  this.s=s; this.W=W; this.H=Hi+mT+mB;
+  this.ox=mL-x0*s; this.oy=mT+y1*s; this.b=[]; this.bb=bb;
+  this.mT=mT; this.mB=mB; this.mL=mL; this.mR=mR;
+}
+View.prototype.X=function(x){ return this.ox+this.s*x; };
+View.prototype.Y=function(y){ return this.oy-this.s*y; };
+View.prototype.add=function(t){ this.b.push(t); return this; };
+View.prototype.txt=function(px,py,t,o){ o=o||{};
+  return this.add('<text x="'+px.toFixed(1)+'" y="'+py.toFixed(1)+'" font-size="'+(o.size||13)+
+   '" fill="'+(o.col||'#1a1a1a')+'" text-anchor="'+(o.anchor||'middle')+'" font-weight="'+(o.weight||'normal')+
+   '" font-family="Segoe UI,Arial,sans-serif">'+t+'</text>'); };
+View.prototype.line=function(x1,y1,x2,y2,o){ o=o||{};
+  return this.add('<line x1="'+x1.toFixed(1)+'" y1="'+y1.toFixed(1)+'" x2="'+x2.toFixed(1)+'" y2="'+y2.toFixed(1)+
+   '" stroke="'+(o.col||GREY)+'" stroke-width="'+(o.sw||1.2)+'"'+(o.dash?' stroke-dasharray="'+o.dash+'"':'')+
+   (o.marker?' marker-end="url(#'+o.marker+')"':'')+'/>'); };
+View.prototype.mline=function(a,b,o){ return this.line(this.X(a[0]),this.Y(a[1]),this.X(b[0]),this.Y(b[1]),o); };
+
+function bbox(parts){
+  var x0=1e18,y0=1e18,x1=-1e18,y1=-1e18;
+  parts.forEach(function(p){
+    var e;
+    if(p.k==='rect') e=[p.x,p.y,p.x+p.w,p.y+p.h];
+    else if(p.k==='tri'){ var xs=p.p.map(function(q){return q[0];}), ys=p.p.map(function(q){return q[1];});
+      e=[Math.min.apply(0,xs),Math.min.apply(0,ys),Math.max.apply(0,xs),Math.max.apply(0,ys)]; }
+    else e=[p.cx-p.r,p.cy-p.r,p.cx+p.r,p.cy+p.r];
+    x0=Math.min(x0,e[0]); y0=Math.min(y0,e[1]); x1=Math.max(x1,e[2]); y1=Math.max(y1,e[3]);
+  });
+  return {x0:x0,y0:y0,x1:x1,y1:y1};
+}
+
+/* draw one part */
+View.prototype.part=function(p,hole){
+  var fill = hole ? '#ffffff' : FILL, op = hole ? 1 : 0.8,
+      stroke = hole ? CUT : NAVY, dash = hole ? '7,5' : null, sw = hole ? 1.6 : 2, self=this;
+  function poly(pts){
+    var d=pts.map(function(q){ return self.X(q[0]).toFixed(1)+','+self.Y(q[1]).toFixed(1); }).join(' ');
+    self.add('<polygon points="'+d+'" fill="'+fill+'" fill-opacity="'+op+'" stroke="'+stroke+
+             '" stroke-width="'+sw+'"'+(dash?' stroke-dasharray="'+dash+'"':'')+'/>');
+  }
+  if(p.k==='rect') poly([[p.x,p.y],[p.x+p.w,p.y],[p.x+p.w,p.y+p.h],[p.x,p.y+p.h]]);
+  else if(p.k==='tri') poly(p.p);
+  else if(p.k==='circ')
+    this.add('<circle cx="'+this.X(p.cx).toFixed(1)+'" cy="'+this.Y(p.cy).toFixed(1)+'" r="'+(p.r*this.s).toFixed(1)+
+      '" fill="'+fill+'" fill-opacity="'+op+'" stroke="'+stroke+'" stroke-width="'+sw+'"'+(dash?' stroke-dasharray="'+dash+'"':'')+'/>');
+  else if(p.k==='semi'){
+    var D={up:[1,0],down:[-1,0],left:[0,1],right:[0,-1]}[p.dir];   /* flat-edge direction */
+    var a=[p.cx-D[0]*p.r, p.cy-D[1]*p.r], b=[p.cx+D[0]*p.r, p.cy+D[1]*p.r], rr=p.r*this.s;
+    this.add('<path d="M'+this.X(a[0]).toFixed(1)+','+this.Y(a[1]).toFixed(1)+' A'+rr.toFixed(1)+','+rr.toFixed(1)+
+      ' 0 0 1 '+this.X(b[0]).toFixed(1)+','+this.Y(b[1]).toFixed(1)+' Z" fill="'+fill+'" fill-opacity="'+op+
+      '" stroke="'+stroke+'" stroke-width="'+sw+'"'+(dash?' stroke-dasharray="'+dash+'"':'')+'/>');
+  }
+  return this;
+};
+
+/* dimension lines */
+View.prototype.hdim=function(x1,x2,y,label,off,size,lx){
+  var Y=this.Y(y)+(off||0), a=this.X(x1), b=this.X(x2), t=5;
+  this.line(a,Y,b,Y,{sw:1});
+  this.line(a,Y-t,a,Y+t,{sw:1}); this.line(b,Y-t,b,Y+t,{sw:1});
+  this.line(a,Y,a+9,Y-3.5,{sw:1}); this.line(a,Y,a+9,Y+3.5,{sw:1});
+  this.line(b,Y,b-9,Y-3.5,{sw:1}); this.line(b,Y,b-9,Y+3.5,{sw:1});
+  return this.txt((a+b)/2+(lx||0),Y-7,label,{size:size||12.5,col:GREY});
+};
+View.prototype.vdim=function(y1,y2,x,label,off,size,right){
+  var X=this.X(x)+(off||0), a=this.Y(y1), b=this.Y(y2), t=5;
+  this.line(X,a,X,b,{sw:1});
+  this.line(X-t,a,X+t,a,{sw:1}); this.line(X-t,b,X+t,b,{sw:1});
+  this.line(X,a,X-3.5,a-9,{sw:1}); this.line(X,a,X+3.5,a-9,{sw:1});
+  this.line(X,b,X-3.5,b+9,{sw:1}); this.line(X,b,X+3.5,b+9,{sw:1});
+  return this.txt(X+(right?9:-9),(a+b)/2+4,label,{size:size||12.5,col:GREY,anchor:right?'start':'end'});
+};
+View.prototype.axes=function(labels){
+  labels=labels||['x','y'];
+  this.line(4,this.oy,this.W-6,this.oy,{col:'#000',sw:1.4,dash:'7,4',marker:'arrow'});
+  this.line(this.ox,this.H-4,this.ox,14,{col:'#000',sw:1.4,dash:'7,4',marker:'arrow'});
+  this.txt(this.W-10,this.oy+17,labels[0],{size:14,weight:'bold'});
+  this.txt(this.ox-13,24,labels[1],{size:14,weight:'bold'});
+  return this;
+};
+View.prototype.dot=function(x,y,label,dx,dy,col){
+  this.add('<circle cx="'+this.X(x).toFixed(1)+'" cy="'+this.Y(y).toFixed(1)+'" r="4.6" fill="'+(col||ORANGE)+'"/>');
+  if(label) this.txt(this.X(x)+(dx||0),this.Y(y)+(dy||-11),label,{size:12.5,col:col||ORANGE,weight:'bold'});
+  return this;
+};
+View.prototype.render=function(){
+  return '<svg viewBox="0 0 '+this.W.toFixed(0)+' '+this.H.toFixed(0)+'" width="100%" style="max-width:'+this.W.toFixed(0)+
+   'px" xmlns="http://www.w3.org/2000/svg" font-family="Segoe UI,Arial,sans-serif">'+
+   '<defs><marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="3" orient="auto">'+
+   '<path d="M0,0 L0,6 L8,3 z" fill="#000"/></marker></defs>'+this.b.join('')+'</svg>';
+};
+
+/* one-call figure for a section */
+function sectionFig(v, opt){
+  opt = opt || {};
+  var o=v.fig||{}, parts=v.parts;
+  var V=new View(parts,{W:o.W||opt.W||720, pad:o.pad, mL:o.mL, mR:o.mR, mT:o.mT, mB:o.mB});
+  parts.forEach(function(p){ if((p.sign||1)>0) V.part(p,false); });
+  parts.forEach(function(p){ if((p.sign||1)<0) V.part(p,true); });
+  V.axes(v.axLabels);
+  V.txt(V.ox-13,V.oy+18,v.originName||'O',{size:14,weight:'bold'});
+  /* part marks */
+  parts.forEach(function(p,i){
+    var c = p.at || pC(p);
+    V.txt(V.X(c[0]), V.Y(c[1])+5, CIRCLED[i], {size:15, col:(p.sign||1)<0?CUT:NAVY, weight:'bold'});
+  });
+  (v.dims||[]).forEach(function(d){
+    if(d[0]==='h') V.hdim(d[1],d[2],d[3],d[4],d[5],d[6],d[7]);
+    else           V.vdim(d[1],d[2],d[3],d[4],d[5],d[6],d[7]);
+  });
+  (v.notes||[]).forEach(function(t){ V.txt(V.X(t[0]),V.Y(t[1]),t[2],{size:t[4]||12,col:t[3]||GREY,anchor:t[5]||'middle'}); });
+  if(opt.centroid) V.dot(opt.centroid[0],opt.centroid[1],opt.centroidLabel,opt.cdx,opt.cdy);
+  (opt.extra||[]).forEach(function(fn){ fn(V); });
+  return V.render();
+}
+
+/* ═══════════════ shared block helpers ═══════════════ */
+function stepBlock(n,title,summary,body){
+  return '<div class="step"><div class="step-heading" style="display:flex;align-items:center;gap:10px;margin-bottom:6px">'+
+    '<div class="step-num">'+n+'</div><div class="step-title">'+title+'</div>'+
+    '<div class="try-hint">Try it first, then reveal &darr;</div></div>'+
+    '<details><summary><span class="step-label" style="font-size:12px;font-weight:500;color:#f97316;margin-right:4px">Step '+n+
+    '</span> '+summary+'</summary><div class="step-body">'+body+'</div></details></div>';
+}
+function mb(t){ return '<div class="math-block">$$'+t+'$$</div>'; }
+function co(cls,t){ return '<div class="callout '+cls+'">'+t+'</div>'; }
+function fig(svg,cap){ return '<div class="diagram-wrap"><figure>'+svg+'<figcaption>'+cap+'</figcaption></figure></div>'; }
+function mistakes(list){
+  return co('warn','<p><strong>Common mistakes:</strong></p>'+list.map(function(m,i){
+    return '<p style="margin-top:7px">'+CIRCLED[i]+' '+m+'</p>'; }).join(''));
+}
+
+/* ═══════════════ automatic part descriptions ═══════════════ */
+function triLegs(p){                       /* right triangle with legs on the axes? */
+  var q=p.p;
+  for(var i=0;i<3;i++) for(var j=0;j<3;j++){ if(i===j) continue;
+    var kk=3-i-j;
+    if(Math.abs(q[i][0]-q[j][0])<1e-9 && Math.abs(q[i][1]-q[kk][1])<1e-9)
+      return {b:Math.abs(q[kk][0]-q[i][0]), h:Math.abs(q[j][1]-q[i][1])};
+  }
+  return null;
+}
+function pDesc(p,i){
+  var s=(p.sign||1)<0, tail = s? ' &mdash; <em>subtracted</em>':'';
+  if(p.desc) return p.desc+tail;
+  switch(p.k){
+    case 'rect': return 'rectangle '+fxh(p.w)+' &times; '+fxh(p.h)+' mm, spanning $x = '+fxh(p.x)+' \\to '+fxh(p.x+p.w)+
+                        '$, $y = '+fxh(p.y)+' \\to '+fxh(p.y+p.h)+'$ mm'+tail;
+    case 'tri' : var L=triLegs(p);
+                 return 'right triangle'+(L?', legs '+fxh(L.b)+' &times; '+fxh(L.h)+' mm':'')+', vertices '+
+                        p.p.map(function(q){return '$('+fxh(q[0])+',\\,'+fxh(q[1])+')$';}).join(', ')+' mm'+tail;
+    case 'circ': return 'circle $r = '+fxh(p.r)+'$ mm, centre $('+fxh(p.cx)+',\\,'+fxh(p.cy)+')$ mm'+tail;
+    case 'semi': return 'semicircle $r = '+fxh(p.r)+'$ mm, flat edge centred at $('+fxh(p.cx)+',\\,'+fxh(p.cy)+
+                        ')$ mm, bulging '+p.dir+tail;
+  }
+}
+function pAreaMath(p){
+  var A=pArea(p), s=(p.sign||1)<0?'-':'';
+  switch(p.k){
+    case 'rect': return s+fx(p.w)+' \\times '+fx(p.h)+' = '+s+fx(A)+'\\text{ mm}^2';
+    case 'tri' : var L=triLegs(p);
+                 return (L? s+'\\tfrac{1}{2} \\times '+fx(L.b)+' \\times '+fx(L.h)+' = ' : s)+s+fx(A)+'\\text{ mm}^2';
+    case 'circ': return s+'\\pi r^2 = '+s+'\\pi ('+fx(p.r)+')^2 = '+s+fx(A,1)+'\\text{ mm}^2';
+    case 'semi': return s+'\\tfrac{1}{2}\\pi r^2 = '+s+'\\tfrac{1}{2}\\pi ('+fx(p.r)+')^2 = '+s+fx(A,1)+'\\text{ mm}^2';
+  }
+}
+function pCMath(p){
+  var c=pC(p);
+  switch(p.k){
+    case 'rect': return '\\bar{x} = \\tfrac{'+fx(p.x)+'+'+fx(p.x+p.w)+'}{2} = '+fx(c[0],2)+
+                        '\\text{ mm} \\qquad \\bar{y} = \\tfrac{'+fx(p.y)+'+'+fx(p.y+p.h)+'}{2} = '+fx(c[1],2)+'\\text{ mm}';
+    case 'tri' : var q=p.p;
+                 return '\\bar{x} = \\tfrac{'+fx(q[0][0])+'+'+fx(q[1][0])+'+'+fx(q[2][0])+'}{3} = '+fx(c[0],2)+
+                        '\\text{ mm} \\qquad \\bar{y} = \\tfrac{'+fx(q[0][1])+'+'+fx(q[1][1])+'+'+fx(q[2][1])+'}{3} = '+fx(c[1],2)+'\\text{ mm}';
+    case 'circ': return '\\bar{x} = '+fx(c[0],2)+'\\text{ mm} \\qquad \\bar{y} = '+fx(c[1],2)+'\\text{ mm}';
+    case 'semi': return '\\frac{4r}{3\\pi} = \\frac{4('+fx(p.r)+')}{3\\pi} = '+fx(4*p.r/(3*Math.PI),2)+
+                        '\\text{ mm} \\quad\\Rightarrow\\quad \\bar{x} = '+fx(c[0],2)+'\\text{ mm},\\ \\ \\bar{y} = '+fx(c[1],2)+'\\text{ mm}';
+  }
+}
+function pIbarMath(p){
+  switch(p.k){
+    case 'rect': return '\\bar{I}_x = \\tfrac{bh^3}{12} = \\tfrac{'+fx(p.w)+'\\times'+fx(p.h)+'^3}{12} = '+fx(pIbar(p)[0],0)+
+                        ' \\qquad \\bar{I}_y = \\tfrac{hb^3}{12} = \\tfrac{'+fx(p.h)+'\\times'+fx(p.w)+'^3}{12} = '+fx(pIbar(p)[1],0);
+    case 'tri' : var L=triLegs(p), I=pIbar(p);
+                 return L ? '\\bar{I}_x = \\tfrac{bh^3}{36} = \\tfrac{'+fx(L.b)+'\\times'+fx(L.h)+'^3}{36} = '+fx(I[0],0)+
+                            ' \\qquad \\bar{I}_y = \\tfrac{hb^3}{36} = \\tfrac{'+fx(L.h)+'\\times'+fx(L.b)+'^3}{36} = '+fx(I[1],0)
+                          : '\\bar{I}_x = '+fx(I[0],0)+' \\qquad \\bar{I}_y = '+fx(I[1],0);
+    case 'circ': return '\\bar{I}_x = \\bar{I}_y = \\tfrac{\\pi r^4}{4} = \\tfrac{\\pi ('+fx(p.r)+')^4}{4} = '+fx(pIbar(p)[0],0);
+    case 'semi': var I=pIbar(p);
+                 return '\\bar{I}_x = '+fx(I[0],0)+' \\qquad \\bar{I}_y = '+fx(I[1],0)+
+                        '\\quad\\text{(from }\\tfrac{\\pi r^4}{8}\\text{, shifted by }\\tfrac{4r}{3\\pi}\\text{ where needed)}';
+  }
+}
+
+/* ═══════════════ BUILDER 1 — centroid of a composite area ═══════════════ */
+function buildCentroid(cfg, v){
+  var R=reduce(v.parts), h='';
+  h += '<h3>Problem Statement</h3><p>'+(v.question||cfg.question)+'</p>';
+  h += co('given','<p><strong>Answer:</strong> &nbsp; $\\bar{x} = '+fx(R.xb,1)+'\\ \\text{mm}$ &nbsp;&nbsp; $\\bar{y} = '+
+        fx(R.yb,1)+'\\ \\text{mm}$'+(v.book?' &nbsp;&nbsp;<span style="font-size:13px;color:#555">(tutorial sheet: '+v.book+')</span>':'')+'</p>');
+  h += fig(sectionFig(v,{W:cfg.figW||720,
+        centroid:[R.xb,R.yb], centroidLabel:'C ('+fxh(R.xb,1)+', '+fxh(R.yb,1)+')', cdx:v.cdx||10, cdy:v.cdy||-12}),
+        v.caption||'Composite area and its decomposition. The orange dot is the computed centroid C. Dimensions in millimetres.');
+  h += co('info','<p><strong>Composite area method:</strong></p>'+
+      mb('\\bar{x} = \\frac{\\sum A_i\\,\\bar{x}_i}{\\sum A_i} \\qquad \\bar{y} = \\frac{\\sum A_i\\,\\bar{y}_i}{\\sum A_i}')+
+      '<p>Holes, notches and cut-outs are <strong>negative areas</strong>: they enter the numerator and the denominator with a minus sign.</p>');
+
+  h += '<h3>Solution</h3>';
+  /* step 1 */
+  var b1 = '<p>Place the origin at '+(v.originText||'the bottom-left corner')+'. The section decomposes into '+
+           R.rows.length+' parts:</p><ul>'+
+           R.rows.map(function(r){ return '<li><strong>'+r.mark+'</strong> &mdash; '+pDesc(r.p,r.i)+'</li>'; }).join('')+'</ul>';
+  if(v.splitNote) b1 += co('note','<p>'+v.splitNote+'</p>');
+  b1 += co('warn','<p><strong>Every point of the section must belong to exactly one positive part.</strong> '+
+      'Overlapping parts double-count material; gaps lose it. Before going further, check the gross area of your parts against '+
+      'the area you can compute from the outline.</p>');
+  h += stepBlock(1,'Set up the axes and decompose the section','which parts, and where the origin sits',b1);
+
+  /* step 2 */
+  var b2 = R.rows.map(function(r){
+    return '<p><strong>'+r.mark+' '+(r.p.title||'')+'</strong></p>'+mb('A_{'+(r.i+1)+'} = '+pAreaMath(r.p)); }).join('');
+  b2 += '<p>Net area:</p>'+mb('A = \\sum A_i = '+fx(R.A,1)+'\\text{ mm}^2');
+  h += stepBlock(2,'Area of each part','remember the sign of every hole',b2);
+
+  /* step 3 */
+  var b3 = R.rows.map(function(r){
+    return '<p><strong>'+r.mark+'</strong></p>'+mb(pCMath(r.p)); }).join('');
+  if(R.rows.some(function(r){return r.p.k==='tri';}))
+    b3 += co('info','<p>For a triangle the centroid is the <strong>average of the three vertices</strong>. '+
+      'That rule works in any orientation, which is why it is safer than trying to remember which leg the &ldquo;one third&rdquo; is measured from.</p>');
+  if(R.rows.some(function(r){return r.p.k==='semi';}))
+    b3 += co('info','<p>A semicircle&rsquo;s centroid does <em>not</em> lie on its flat edge: it sits $4r/3\\pi$ from the flat edge, toward the bulge.</p>');
+  h += stepBlock(3,'Locate the centroid of each part','standard shapes, one at a time',b3);
+
+  /* step 4 */
+  var rows = R.rows.map(function(r){
+    return '<tr><td class="left">'+r.mark+' '+r.name+'</td><td>'+fxh(r.A,1)+'</td><td>'+fxh(r.x,2)+'</td><td>'+
+      fxh(r.y,2)+'</td><td>'+fxh(r.A*r.x,0)+'</td><td>'+fxh(r.A*r.y,0)+'</td></tr>'; }).join('');
+  var b4 = '<table><tr><th>Part</th><th>$A_i$ (mm&sup2;)</th><th>$\\bar{x}_i$ (mm)</th><th>$\\bar{y}_i$ (mm)</th>'+
+    '<th>$A_i\\bar{x}_i$ (mm&sup3;)</th><th>$A_i\\bar{y}_i$ (mm&sup3;)</th></tr>'+rows+
+    '<tr class="total"><td class="left">&Sigma;</td><td>'+fxh(R.A,1)+'</td><td>&mdash;</td><td>&mdash;</td><td>'+
+    fxh(R.Sx,0)+'</td><td>'+fxh(R.Sy,0)+'</td></tr></table>'+
+    mb('\\bar{x} = \\frac{'+fx(R.Sx,0)+'}{'+fx(R.A,1)+'} = '+fx(R.xb,2)+'\\text{ mm} \\qquad \\bar{y} = \\frac{'+
+       fx(R.Sy,0)+'}{'+fx(R.A,1)+'} = '+fx(R.yb,2)+'\\text{ mm}')+
+    co('answer','<p>'+mb('\\bar{x} = '+fx(R.xb,1)+'\\text{ mm} \\qquad \\bar{y} = '+fx(R.yb,1)+'\\text{ mm}')+'</p>');
+  if(v.check) b4 += co('note','<p>'+v.check+'</p>');
+  h += stepBlock(4,'Summary table and final answer','first moments, then one division',b4);
+
+  /* mistakes */
+  var mis=[];
+  if(R.rows.some(function(r){return r.sign<0;}))
+    mis.push('<strong>Subtracting a hole from the area but not from the first moment.</strong> A void must be negative in <em>both</em> sums. '+
+      'Dropping it from the numerator alone gives $\\bar{y} = '+fx((R.Sy-R.rows.filter(function(r){return r.sign<0;})
+      .reduce(function(a,r){return a+r.A*r.y;},0))/R.A,2)+'$ mm instead of '+fx(R.yb,2)+' mm.');
+  mis.push('<strong>Overlapping decomposition.</strong> If two positive parts share a region, that region is counted twice. '+
+      'Split the section along a single clean line and assign every corner block to exactly one part.');
+  if(R.rows.some(function(r){return r.p.k==='tri';}))
+    mis.push('<strong>Using $h/2$ for a triangle.</strong> The centroid of a triangle is at one third of the height from the base, not half.');
+  mis.push('<strong>Measuring a part&rsquo;s centroid from its own edge instead of from the origin.</strong> '+
+      'A distance <em>within</em> a part must be added to that part&rsquo;s offset before it enters the table.');
+  mis.push('<strong>Not checking the answer against the figure.</strong> The centroid must lie between the extreme coordinates of the section, '+
+      'and it should sit toward the bulkiest region. On a re-entrant shape (an L or a channel) it may legitimately fall outside the material.');
+  if(v.mistakes) mis = v.mistakes.concat(mis);
+  h += '<h3>Common Mistakes</h3>'+mistakes(mis.slice(0,5));
+  return h;
+}
+
+/* ═══════════════ BUILDER 2 — second moments / polar moment ═══════════════ */
+function buildInertia(cfg, v){
+  var R=reduce(v.parts), h='', ax, ay, axName;
+  if(v.about==='centroid'){ ax=R.xb; ay=R.yb; axName='the centroidal axes through C'; }
+  else { ax=(v.origin||[0,0])[0]; ay=(v.origin||[0,0])[1]; axName='the $x$&ndash;$y$ axes shown, through '+(v.originName||'O'); }
+  var I=inertiaAbout(R,ax,ay), wantJ=(v.want||{}).J, wantK=(v.want||{}).k;
+
+  h += '<h3>Problem Statement</h3><p>'+(v.question||cfg.question)+'</p>';
+  var ans='$I_x = '+eng(I.Ix)+'\\ \\text{mm}^4$ &nbsp;&nbsp; $I_y = '+eng(I.Iy)+'\\ \\text{mm}^4$';
+  if(wantJ) ans += ' &nbsp;&nbsp; $J = '+eng(I.J)+'\\ \\text{mm}^4$';
+  if(wantK) ans += ' &nbsp;&nbsp; $k = '+fx(I.k,1)+'\\ \\text{mm}$';
+  h += co('given','<p><strong>Answer:</strong> &nbsp; '+ans+(v.book?' &nbsp;&nbsp;<span style="font-size:13px;color:#555">(tutorial sheet: '+v.book+')</span>':'')+'</p>');
+  h += fig(sectionFig(v,{W:cfg.figW||720,
+        centroid: v.about==='centroid'?[R.xb,R.yb]:null,
+        centroidLabel: v.about==='centroid'?('C ('+fxh(R.xb,1)+', '+fxh(R.yb,1)+')'):null, cdx:v.cdx||10, cdy:v.cdy||-12}),
+        v.caption||'Section and its decomposition. Dimensions in millimetres.');
+
+  h += co('info','<p><strong>Parallel axis theorem</strong> &mdash; the whole problem reduces to this, applied part by part:</p>'+
+      mb('I_x = \\bar{I}_x + A\\,d_y^{\\,2} \\qquad I_y = \\bar{I}_y + A\\,d_x^{\\,2}')+
+      '<p>$\\bar{I}$ is the second moment about the part&rsquo;s <em>own</em> centroidal axis; $d_y$ is the perpendicular distance '+
+      'from that axis to the reference $x$-axis, and $d_x$ to the reference $y$-axis. Transfer distances are <strong>squared</strong>, '+
+      'so they are always positive &mdash; and a part far from the axis dominates the total.</p>');
+
+  h += '<h3>Solution</h3>';
+  var st=1;
+  /* step: geometry / centroid */
+  var b1='<p>The section decomposes into '+R.rows.length+' parts:</p><ul>'+
+     R.rows.map(function(r){ return '<li><strong>'+r.mark+'</strong> &mdash; '+pDesc(r.p,r.i)+'</li>'; }).join('')+'</ul>';
+  if(v.about==='centroid'){
+    b1 += '<p>The moments are wanted about the <strong>centroidal</strong> axes, so the centroid must be found first:</p>'+
+      '<table><tr><th>Part</th><th>$A_i$ (mm&sup2;)</th><th>$\\bar{x}_i$</th><th>$\\bar{y}_i$</th><th>$A_i\\bar{x}_i$</th><th>$A_i\\bar{y}_i$</th></tr>'+
+      R.rows.map(function(r){ return '<tr><td class="left">'+r.mark+' '+r.name+'</td><td>'+fxh(r.A,1)+'</td><td>'+fxh(r.x,2)+
+        '</td><td>'+fxh(r.y,2)+'</td><td>'+fxh(r.A*r.x,0)+'</td><td>'+fxh(r.A*r.y,0)+'</td></tr>'; }).join('')+
+      '<tr class="total"><td class="left">&Sigma;</td><td>'+fxh(R.A,1)+'</td><td>&mdash;</td><td>&mdash;</td><td>'+
+      fxh(R.Sx,0)+'</td><td>'+fxh(R.Sy,0)+'</td></tr></table>'+
+      mb('\\bar{x} = '+fx(R.xb,2)+'\\text{ mm} \\qquad \\bar{y} = '+fx(R.yb,2)+'\\text{ mm}');
+  } else {
+    b1 += '<p>The reference axes are '+axName+'. No centroid calculation is needed &mdash; the transfer distances are read straight off the figure:</p>';
+  }
+  b1 += '<p>Transfer distances from each part&rsquo;s own centroid to the reference axes:</p>'+
+    '<table><tr><th>Part</th><th>$A_i$ (mm&sup2;)</th><th>$\\bar{x}_i$ (mm)</th><th>$\\bar{y}_i$ (mm)</th>'+
+    '<th>$d_x = \\bar{x}_i - '+fx(ax,2)+'$</th><th>$d_y = \\bar{y}_i - '+fx(ay,2)+'$</th></tr>'+
+    R.rows.map(function(r){ return '<tr><td class="left">'+r.mark+' '+r.name+'</td><td>'+fxh(r.A,1)+'</td><td>'+
+      fxh(r.x,2)+'</td><td>'+fxh(r.y,2)+'</td><td>'+fxh(r.dx,2)+'</td><td>'+fxh(r.dy,2)+'</td></tr>'; }).join('')+'</table>';
+  if(v.setupNote) b1 += co('note','<p>'+v.setupNote+'</p>');
+  h += stepBlock(st++, v.about==='centroid'?'Decompose the section and locate the centroid':'Decompose the section and read off the transfer distances',
+        'areas, part centroids, and $d_x$, $d_y$', b1);
+
+  /* step: Ibar of each part */
+  var b2 = R.rows.map(function(r){
+    return '<p><strong>'+r.mark+' '+r.name+'</strong></p>'+mb(pIbarMath(r.p)); }).join('')+
+    co('note','<p>These are the values <em>about each part&rsquo;s own centroid</em> &mdash; they know nothing yet about where the part sits. '+
+      'The position enters only through the transfer term $A d^2$ in the next step.</p>');
+  h += stepBlock(st++,'Centroidal second moments of each part','$bh^3/12$, $bh^3/36$, $\\pi r^4/4$ &hellip;',b2);
+
+  /* step: Ix */
+  var b3='<p>Apply $I_x = \\bar{I}_x + A d_y^2$ to every part and add:</p>'+
+    '<table><tr><th>Part</th><th>$\\bar{I}_x$ (mm&#8308;)</th><th>$A$ (mm&sup2;)</th><th>$d_y$ (mm)</th><th>$A d_y^2$ (mm&#8308;)</th><th>$I_x$ (mm&#8308;)</th></tr>'+
+    R.rows.map(function(r){ return '<tr><td class="left">'+r.mark+' '+r.name+'</td><td>'+fxh(r.Ibx,0)+'</td><td>'+fxh(r.A,1)+
+      '</td><td>'+fxh(r.dy,2)+'</td><td>'+fxh(r.A*r.dy*r.dy,0)+'</td><td>'+fxh(r.Ix,0)+'</td></tr>'; }).join('')+
+    '<tr class="total"><td class="left">&Sigma;</td><td>&mdash;</td><td>'+fxh(R.A,1)+'</td><td>&mdash;</td><td>&mdash;</td><td>'+fxh(I.Ix,0)+'</td></tr></table>'+
+    co('answer','<p>'+mb('I_x = '+eng(I.Ix)+'\\text{ mm}^4')+'</p>');
+  h += stepBlock(st++,'Second moment about the $x$-axis, $I_x$','parallel axis theorem, part by part',b3);
+
+  /* step: Iy */
+  var b4='<p>Now $I_y = \\bar{I}_y + A d_x^2$:</p>'+
+    '<table><tr><th>Part</th><th>$\\bar{I}_y$ (mm&#8308;)</th><th>$A$ (mm&sup2;)</th><th>$d_x$ (mm)</th><th>$A d_x^2$ (mm&#8308;)</th><th>$I_y$ (mm&#8308;)</th></tr>'+
+    R.rows.map(function(r){ return '<tr><td class="left">'+r.mark+' '+r.name+'</td><td>'+fxh(r.Iby,0)+'</td><td>'+fxh(r.A,1)+
+      '</td><td>'+fxh(r.dx,2)+'</td><td>'+fxh(r.A*r.dx*r.dx,0)+'</td><td>'+fxh(r.Iy,0)+'</td></tr>'; }).join('')+
+    '<tr class="total"><td class="left">&Sigma;</td><td>&mdash;</td><td>'+fxh(R.A,1)+'</td><td>&mdash;</td><td>&mdash;</td><td>'+fxh(I.Iy,0)+'</td></tr></table>'+
+    co('answer','<p>'+mb('I_y = '+eng(I.Iy)+'\\text{ mm}^4')+'</p>');
+  h += stepBlock(st++,'Second moment about the $y$-axis, $I_y$','same theorem, distances measured the other way',b4);
+
+  /* step: J and k */
+  if(wantJ||wantK){
+    var b5='<p>The polar second moment about the reference point follows from the perpendicular axis theorem &mdash; no new integration is needed:</p>'+
+      mb('J = I_x + I_y = '+fx(I.Ix,0)+' + '+fx(I.Iy,0)+' = '+eng(I.J)+'\\text{ mm}^4');
+    if(wantK) b5 += '<p>The polar radius of gyration is the radius at which the whole area could be concentrated as a thin ring '+
+      'without changing $J$:</p>'+
+      mb('k = \\sqrt{\\frac{J}{A}} = \\sqrt{\\frac{'+fx(I.J,0)+'}{'+fx(R.A,1)+'}} = '+fx(I.k,2)+'\\text{ mm}')+
+      co('note','<p>Compare $k = '+fx(I.k,1)+'$ mm with the size of the section. It should land somewhere in the outer half of the '+
+        'material &mdash; a radius of gyration much smaller than the section, or larger than its extreme fibre, means an arithmetic slip.</p>');
+    b5 += co('answer','<p>'+mb((wantJ?'J = '+eng(I.J)+'\\text{ mm}^4':'')+(wantJ&&wantK?' \\qquad ':'')+(wantK?'k = '+fx(I.k,1)+'\\text{ mm}':''))+'</p>');
+    h += stepBlock(st++,'Polar second moment'+(wantK?' and radius of gyration':''),'$J = I_x + I_y$',b5);
+  }
+
+  /* summary */
+  var b6='<table><tr><th>Quantity</th><th>Value</th><th>Units</th></tr>'+
+    '<tr><td class="left">Net area $A$</td><td>'+fxh(R.A,1)+'</td><td>mm&sup2;</td></tr>'+
+    (v.about==='centroid'?'<tr><td class="left">Centroid $(\\bar{x}, \\bar{y})$</td><td>('+fxh(R.xb,2)+', '+fxh(R.yb,2)+')</td><td>mm</td></tr>':'')+
+    '<tr><td class="left">$I_x$</td><td>'+fxh(I.Ix,0)+'</td><td>mm&#8308;</td></tr>'+
+    '<tr><td class="left">$I_y$</td><td>'+fxh(I.Iy,0)+'</td><td>mm&#8308;</td></tr>'+
+    '<tr class="total"><td class="left">$J = I_x+I_y$</td><td>'+fxh(I.J,0)+'</td><td>mm&#8308;</td></tr>'+
+    '<tr><td class="left">$k_x = \\sqrt{I_x/A}$</td><td>'+fxh(I.kx,2)+'</td><td>mm</td></tr>'+
+    '<tr><td class="left">$k_y = \\sqrt{I_y/A}$</td><td>'+fxh(I.ky,2)+'</td><td>mm</td></tr>'+
+    '<tr><td class="left">$k = \\sqrt{J/A}$</td><td>'+fxh(I.k,2)+'</td><td>mm</td></tr></table>'+
+    co('note','<p><strong>Consistency check:</strong> $k_x^2 + k_y^2 = '+fx(I.kx*I.kx+I.ky*I.ky,1)+' = k^2 = '+
+      fx(I.k*I.k,1)+'$ mm&sup2;. &#10003; This follows directly from $J = I_x + I_y$ and is a quick way to catch a slip.</p>');
+  if(v.check) b6 += co('note','<p>'+v.check+'</p>');
+  h += stepBlock(st++,'Summary','all results in one place',b6);
+
+  var mis=[];
+  mis.push('<strong>Forgetting the transfer term.</strong> Adding only the $\\bar{I}$ column gives $I_x = '+
+    fx(R.rows.reduce(function(a,r){return a+r.Ibx;},0),0)+'$ mm&#8308; instead of '+fx(I.Ix,0)+' mm&#8308;. '+
+    'For parts far from the axis, $Ad^2$ is usually the <em>larger</em> term.');
+  mis.push('<strong>Swapping $b$ and $h$.</strong> $\\bar{I}_x = bh^3/12$ cubes the dimension <em>perpendicular</em> to the axis. '+
+    'Getting this backwards on a tall thin part changes the answer by a large factor.');
+  mis.push('<strong>Using $d$ instead of $d^2$, or carrying a sign.</strong> Transfer distances are squared, so their sign is irrelevant &mdash; '+
+    'but the <em>part&rsquo;s</em> sign is not: a hole subtracts both $\\bar{I}$ and $Ad^2$.');
+  if(R.rows.some(function(r){return r.p.k==='tri';}))
+    mis.push('<strong>Using $bh^3/12$ for a triangle.</strong> About its own centroid a triangle gives $bh^3/36$; $bh^3/12$ is the value about its base.');
+  if(wantK) mis.push('<strong>Computing $k$ with the gross area.</strong> $k = \\sqrt{J/A}$ needs the <em>net</em> area '+
+    fx(R.A,1)+' mm&sup2;. Using the gross area gives a smaller, wrong radius of gyration.');
+  mis.push('<strong>Mixing reference axes between $I_x$ and $I_y$.</strong> Both must be taken about the same point, or $J = I_x + I_y$ is meaningless.');
+  if(v.mistakes) mis = v.mistakes.concat(mis);
+  h += '<h3>Common Mistakes</h3>'+mistakes(mis.slice(0,5));
+  return h;
+}
+
+/* ═══════════════ BUILDER 3 — balancing a rotating disk ═══════════════
+   Holes: [{d, r, ang}]  (ang in degrees, anticlockwise from +x).
+   One further hole of unknown diameter D at radius ru and unknown angle θ
+   must bring the mass centre back to O.  Solving ΣA_i x_i = ΣA_i y_i = 0:
+       A_D·ru·cosθ = −Mx ,  A_D·ru·sinθ = −My
+   so θ = atan2(−My,−Mx) and A_D = |M|/ru.                                */
+function solveBalance(v){
+  var Mx=0, My=0, hs=v.holes.map(function(o){
+    var A=Math.PI*o.d*o.d/4, t=o.ang*Math.PI/180,
+        x=o.r*Math.cos(t), y=o.r*Math.sin(t);
+    Mx+=A*x; My+=A*y;
+    return {d:o.d,r:o.r,ang:o.ang,A:A,x:x,y:y,Ax:A*x,Ay:A*y,name:o.name};
+  });
+  var ru=v.ru, th=Math.atan2(-My,-Mx), Au=Math.hypot(Mx,My)/ru, D=Math.sqrt(4*Au/Math.PI);
+  var deg=(th*180/Math.PI+360)%360;
+  return {hs:hs,Mx:Mx,My:My,ru:ru,th:th,deg:deg,Au:Au,D:D,
+          x:ru*Math.cos(th), y:ru*Math.sin(th)};
+}
+function diskFig(v,S){
+  var Rd=v.R, V=new View([{k:'circ',cx:0,cy:0,r:Rd}],{W:v.figW||620,pad:0.02,mL:132,mR:132,mT:58,mB:58});
+  V.add('<circle cx="'+V.X(0).toFixed(1)+'" cy="'+V.Y(0).toFixed(1)+'" r="'+(Rd*V.s).toFixed(1)+
+        '" fill="'+FILL+'" fill-opacity="0.5" stroke="'+NAVY+'" stroke-width="2"/>');
+  var radii={}; S.hs.forEach(function(o){radii[o.r]=1;}); radii[S.ru]=1;
+  Object.keys(radii).forEach(function(rr){
+    V.add('<circle cx="'+V.X(0).toFixed(1)+'" cy="'+V.Y(0).toFixed(1)+'" r="'+(rr*V.s).toFixed(1)+
+          '" fill="none" stroke="'+GREY+'" stroke-width="1" stroke-dasharray="9,4,2,4" opacity="0.6"/>');
+  });
+  V.axes(['x','y']);
+  function place(ang,txt,col,size){
+    var t=ang*Math.PI/180, c=Math.cos(t), sn=Math.sin(t);
+    var px=V.X(Rd*1.06*c), py=V.Y(Rd*1.06*sn)+4;
+    if(Math.abs(sn)<0.30) py -= 15;            /* lift clear of the x-axis   */
+    if(Math.abs(c) <0.30) py += (sn>0?-8:16);  /* clear of the disk edge      */
+    V.txt(px,py,txt,{size:size||12,col:col,weight:'bold',anchor: c>0.25?'start':(c<-0.25?'end':'middle')});
+  }
+  S.hs.forEach(function(o,i){
+    V.add('<circle cx="'+V.X(o.x).toFixed(1)+'" cy="'+V.Y(o.y).toFixed(1)+'" r="'+(o.d/2*V.s).toFixed(1)+
+          '" fill="#fff" stroke="'+NAVY+'" stroke-width="1.8"/>');
+    V.mline([0,0],[o.x,o.y],{col:GREY,sw:1,dash:'5,4'});
+    V.txt(V.X(o.x),V.Y(o.y)+4,CIRCLED[i],{size:12,col:NAVY,weight:'bold'});
+    place(o.ang, o.name || ('d = '+fxh(o.d)+' at r = '+fxh(o.r)), NAVY);
+  });
+  V.add('<circle cx="'+V.X(S.x).toFixed(1)+'" cy="'+V.Y(S.y).toFixed(1)+'" r="'+(S.D/2*V.s).toFixed(1)+
+        '" fill="#fff" stroke="'+ORANGE+'" stroke-width="2" stroke-dasharray="7,5"/>');
+  V.mline([0,0],[S.x,S.y],{col:ORANGE,sw:1.4,dash:'6,4'});
+  V.txt(V.X(S.x),V.Y(S.y)+4,'?',{size:13,col:ORANGE,weight:'bold'});
+  place(S.deg,'D at &#952;  (r = '+fxh(S.ru)+')',ORANGE,12.5);
+  V.txt(V.ox-14,V.oy+19,'O',{size:14,weight:'bold'});
+  return V.render();
+}
+function buildBalance(cfg,v){
+  var S=solveBalance(v), h='';
+  h += '<h3>Problem Statement</h3><p>'+(v.question||cfg.question)+'</p>';
+  h += co('given','<p><strong>Answer:</strong> &nbsp; $\\theta = '+fx(S.deg,1)+'^\\circ$ &nbsp;&nbsp; $D = '+fx(S.D,2)+
+        '\\ \\text{mm}$'+(v.exact?' &nbsp;&nbsp;<span style="font-size:13px;color:#555">(exactly '+v.exact+')</span>':'')+
+        (v.book?' &nbsp;&nbsp;<span style="font-size:13px;color:#555">(tutorial sheet: '+v.book+')</span>':'')+'</p>');
+  h += fig(diskFig(v,S), v.caption||('Disk of radius '+fxh(v.R)+' mm. Existing holes in navy; the balancing hole (dashed orange) '+
+        'has unknown diameter $D$ and unknown angular position $\\theta$, measured anticlockwise from the positive $x$-axis. '+
+        'Dash-dot circles are the pitch circles on which the holes lie.'));
+  h += co('info','<p><strong>Balance condition.</strong> The disk is balanced when its mass centre stays at O. For a plate of uniform '+
+      'thickness and density this is a pure <em>area</em> statement:</p>'+
+      mb('\\bar{x} = \\frac{\\sum A_i \\bar{x}_i}{\\sum A_i} = 0 \\qquad \\bar{y} = \\frac{\\sum A_i \\bar{y}_i}{\\sum A_i} = 0')+
+      '<p>Since $\\sum A_i \\neq 0$, the only way these can vanish is if the <strong>numerators</strong> do:</p>'+
+      mb('\\sum A_i \\bar{x}_i = 0 \\qquad \\sum A_i \\bar{y}_i = 0')+
+      '<p>Those are the two equations, and they carry the two unknowns $D$ and $\\theta$.</p>');
+
+  h += '<h3>Solution</h3>';
+  var b1='<p>Work with the <em>removed</em> areas only. The solid disk is symmetric about O, so it contributes nothing to either '+
+    'first moment &mdash; it cancels out of both equations and can be ignored entirely. Each hole of diameter $d$ at radius $r$ and '+
+    'angle $\\alpha$ has area $\\pi d^2/4$ and centroid $(r\\cos\\alpha,\\ r\\sin\\alpha)$.</p>'+
+    '<table><tr><th>Hole</th><th>$d$ (mm)</th><th>$r$ (mm)</th><th>$\\alpha$</th><th>$A$ (mm&sup2;)</th>'+
+    '<th>$\\bar{x}$ (mm)</th><th>$\\bar{y}$ (mm)</th><th>$A\\bar{x}$ (mm&sup3;)</th><th>$A\\bar{y}$ (mm&sup3;)</th></tr>'+
+    S.hs.map(function(o,i){ return '<tr><td class="left">'+CIRCLED[i]+'</td><td>'+fxh(o.d)+'</td><td>'+fxh(o.r)+'</td><td>'+
+      fxh(o.ang)+'&deg;</td><td>'+fxh(o.A,1)+'</td><td>'+fxh(o.x,2)+'</td><td>'+fxh(o.y,2)+'</td><td>'+fxh(o.Ax,0)+
+      '</td><td>'+fxh(o.Ay,0)+'</td></tr>'; }).join('')+
+    '<tr class="total"><td class="left">&Sigma; existing</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td><td>&mdash;</td>'+
+    '<td>&mdash;</td><td>&mdash;</td><td>'+fxh(S.Mx,0)+'</td><td>'+fxh(S.My,0)+'</td></tr></table>'+
+    co('note','<p>Every hole area is <em>positive</em> in this table. The sign information lives entirely in the coordinates '+
+      '$\\bar{x}$ and $\\bar{y}$ &mdash; that is what makes a hole on the $-x$ side pull the balance the opposite way to one on $+x$.</p>');
+  h += stepBlock(1,'Reduce the existing holes to a single unbalance','the solid disk contributes nothing &mdash; only the holes matter',b1);
+
+  var b2='<p>Writing the balance equations with the unknown hole (area $A_D = \\pi D^2/4$, radius $r = '+fxh(S.ru)+'$ mm, angle $\\theta$):</p>'+
+    mb('A_D\\,'+fx(S.ru)+'\\cos\\theta = -\\left(\\sum A_i\\bar{x}_i\\right) = '+fx(-S.Mx,0))+
+    mb('A_D\\,'+fx(S.ru)+'\\sin\\theta = -\\left(\\sum A_i\\bar{y}_i\\right) = '+fx(-S.My,0))+
+    '<p>Dividing the second by the first eliminates $A_D$ and gives the angle directly:</p>'+
+    mb('\\tan\\theta = \\frac{'+fx(-S.My,0)+'}{'+fx(-S.Mx,0)+'} = '+fx(S.My/S.Mx,4))+
+    co('answer','<p>'+mb('\\theta = '+fx(S.deg,2)+'^\\circ')+'</p>')+
+    co('warn','<p><strong>Quadrant matters.</strong> $\\tan^{-1}$ on a calculator returns an angle in $(-90^\\circ, 90^\\circ)$. '+
+      'Here the right-hand sides are $'+fx(-S.Mx,0)+'$ and $'+fx(-S.My,0)+'$, so $\\cos\\theta$ is '+(Math.cos(S.th)<0?'negative':'positive')+
+      ' and $\\sin\\theta$ is '+(Math.sin(S.th)<0?'negative':'positive')+' &mdash; the '+
+      (S.deg<90?'first':S.deg<180?'second':S.deg<270?'third':'fourth')+' quadrant. The answer is $'+fx(S.deg,2)+
+      '^\\circ$, not the bare calculator value.</p>');
+  h += stepBlock(2,'Apply the balance condition and find $\\theta$','two equations; divide one by the other',b2);
+
+  var b3='<p>With $\\theta$ known, either equation gives $A_D$. Using the resultant magnitude avoids dividing by a small cosine:</p>'+
+    mb('A_D\\,'+fx(S.ru)+' = \\sqrt{\\left(\\sum A_i\\bar{x}_i\\right)^2 + \\left(\\sum A_i\\bar{y}_i\\right)^2} = \\sqrt{'+
+       fx(S.Mx,0)+'^2 + '+fx(S.My,0)+'^2} = '+fx(Math.hypot(S.Mx,S.My),0))+
+    mb('A_D = \\frac{'+fx(Math.hypot(S.Mx,S.My),0)+'}{'+fx(S.ru)+'} = '+fx(S.Au,1)+'\\text{ mm}^2')+
+    mb('\\frac{\\pi D^2}{4} = '+fx(S.Au,1)+' \\quad\\Rightarrow\\quad D = \\sqrt{\\frac{4('+fx(S.Au,1)+')}{\\pi}} = '+fx(S.D,3)+'\\text{ mm}')+
+    co('answer','<p>'+mb('D = '+fx(S.D,2)+'\\text{ mm} \\qquad \\theta = '+fx(S.deg,1)+'^\\circ')+'</p>');
+  if(v.exactNote) b3 += co('note','<p>'+v.exactNote+'</p>');
+  h += stepBlock(3,'Find the diameter $D$','the magnitude of the unbalance sets the area',b3);
+
+  var rx=S.Mx+S.Au*S.x, ry=S.My+S.Au*S.y;
+  var b4='<p>Substitute the answer back into both equations:</p>'+
+    '<table><tr><th></th><th>$\\sum A\\bar{x}$ (mm&sup3;)</th><th>$\\sum A\\bar{y}$ (mm&sup3;)</th></tr>'+
+    '<tr><td class="left">Existing holes</td><td>'+fxh(S.Mx,0)+'</td><td>'+fxh(S.My,0)+'</td></tr>'+
+    '<tr><td class="left">New hole $D$ at $\\theta$</td><td>'+fxh(S.Au*S.x,0)+'</td><td>'+fxh(S.Au*S.y,0)+'</td></tr>'+
+    '<tr class="total"><td class="left">&Sigma;</td><td>'+fxh(Math.abs(rx)<1e-6?0:rx,0)+'</td><td>'+fxh(Math.abs(ry)<1e-6?0:ry,0)+'</td></tr></table>'+
+    co('note','<p>Both sums close to zero, so the mass centre is back at O. &#10003;</p>'+
+      '<p><strong>Physical reading:</strong> the new hole must sit <em>diametrically opposite the resultant of the existing holes</em>. '+
+      'Removing material on one side is equivalent to adding weight on the other &mdash; the balancing hole always goes on the heavy side.</p>');
+  if(v.check) b4 += co('note','<p>'+v.check+'</p>');
+  h += stepBlock(4,'Check the solution','substitute back &mdash; both sums must vanish',b4);
+
+  var mis=[
+    '<strong>Balancing the holes instead of the disk.</strong> The condition is that the <em>remaining material</em> is balanced. '+
+      'It reduces to a statement about the holes only because the intact disk is symmetric &mdash; not because the holes matter in their own right.',
+    '<strong>Giving hole areas a negative sign here.</strong> If every hole is made negative, both equations are simply multiplied by $-1$ '+
+      'and $\\theta$ is unchanged &mdash; but mixing signs (some holes negative, some not) is fatal. Be consistent.',
+    '<strong>Taking $\\tan^{-1}$ without checking the quadrant.</strong> Two angles $180^\\circ$ apart share the same tangent; only one balances the disk. '+
+      'The other puts the new hole on the same side as the unbalance and makes it worse.',
+    '<strong>Solving for $D$ instead of $D^2$.</strong> The unknown enters as an <em>area</em>, $\\pi D^2/4$. Doubling the required area multiplies $D$ by $\\sqrt{2}$, not by 2.',
+    '<strong>Assuming the balancing hole must be the same size as the others.</strong> Only the product (area &times; radius) is fixed; '+
+      'moving the hole to a different pitch radius changes the required diameter.'];
+  if(v.mistakes) mis = v.mistakes.concat(mis);
+  h += '<h3>Common Mistakes</h3>'+mistakes(mis.slice(0,5));
+  return h;
+}
 
 
-<!-- ══════════════════════════════════════════
-     METHOD 1 — Three Rectangles + Hole
-══════════════════════════════════════════ -->
-<div class="method-header">
-  <span class="method-badge">Method 1</span>
-  Decompose into Three Rectangles and a Circular Hole
-</div>
+var CONFIG = {
+ "question": "Find the centroidal coordinates $\\\\bar{x}$ and $\\\\bar{y}$ of the composite shape shown."
+};
+var VARIANTS = [
+ {
+  "btn": "Original",
+  "desc": "The tutorial sheet problem &mdash; a U-channel with a circular hole in the right arm.",
+  "question": "Find the centroidal coordinates $\\bar{x}$ and $\\bar{y}$ of the composite shape shown below. The shape is a <strong>channel section (U-channel)</strong> with a <strong>circular hole in the right arm</strong>. All dimensions in millimetres (mm).",
+  "book": "$\\bar{x} = 217.1$ mm, $\\bar{y} = 198.5$ mm",
+  "parts": [
+   {
+    "k": "rect",
+    "x": 0,
+    "y": 150,
+    "w": 150,
+    "h": 300,
+    "name": "Left arm",
+    "title": "Left arm 150 &times; 300 mm",
+    "at": [
+     75,
+     380
+    ]
+   },
+   {
+    "k": "rect",
+    "x": 0,
+    "y": 0,
+    "w": 450,
+    "h": 150,
+    "name": "Base",
+    "title": "Base 450 &times; 150 mm"
+   },
+   {
+    "k": "rect",
+    "x": 300,
+    "y": 150,
+    "w": 150,
+    "h": 300,
+    "name": "Right arm",
+    "title": "Right arm 150 &times; 300 mm",
+    "at": [
+     375,
+     410
+    ]
+   },
+   {
+    "k": "circ",
+    "cx": 375,
+    "cy": 300,
+    "r": 50,
+    "sign": -1,
+    "name": "Hole",
+    "title": "Circular hole, r = 50 mm",
+    "at": [
+     375,
+     275
+    ]
+   }
+  ],
+  "fig": {
+   "mT": 50,
+   "mB": 86,
+   "mL": 78,
+   "mR": 238,
+   "W": 790
+  },
+  "dims": [
+   [
+    "h",
+    0,
+    450,
+    0,
+    "450",
+    62
+   ],
+   [
+    "h",
+    0,
+    150,
+    450,
+    "150",
+    -32
+   ],
+   [
+    "h",
+    150,
+    300,
+    450,
+    "150",
+    -32
+   ],
+   [
+    "h",
+    300,
+    450,
+    450,
+    "150",
+    -32
+   ],
+   [
+    "v",
+    0,
+    450,
+    0,
+    "450",
+    -52
+   ],
+   [
+    "v",
+    0,
+    150,
+    450,
+    "150",
+    58,
+    12.5,
+    1
+   ]
+  ],
+  "notes": [
+   [
+    468,
+    300,
+    "hole centre (375, 300)",
+    "#f97316",
+    12,
+    "start"
+   ],
+   [
+    468,
+    265,
+    "75 mm in from the inner face,",
+    "#555",
+    11.5,
+    "start"
+   ],
+   [
+    468,
+    232,
+    "midway up the arm",
+    "#555",
+    11.5,
+    "start"
+   ]
+  ],
+  "cdx": -16,
+  "cdy": -14,
+  "splitNote": "Take the base as the <em>full-width</em> 450 mm strip and start each arm at $y = 150$ mm. The two corner blocks then belong to the base alone. Splitting the other way (full-height arms, short base) is equally valid &mdash; but you must choose one and stick to it.",
+  "check": "<strong>Symmetry check.</strong> Without the hole the channel is symmetric about $x = 225$ mm, so $\\bar{x}$ would be exactly 225 mm. The hole removes 7 854 mm&sup2; from the right arm and shifts the centroid left to 217.1 mm. <strong>Vertical check:</strong> the section is bottom-heavy, so $\\bar{y} = 198.5$ mm sits below mid-height (225 mm). &#10003;"
+ },
+ {
+  "btn": "Variant 1 \u2014 same shape, new dimensions",
+  "desc": "The same U-channel, resized: 360 &times; 360 mm overall, 120 mm walls, 40 mm hole radius. The hole is again concentric with the right arm, so the same symmetry argument applies.",
+  "question": "Find the centroidal coordinates $\\bar{x}$ and $\\bar{y}$ of the <strong>channel section</strong> shown, which carries a <strong>circular hole in the right arm</strong>. All dimensions in millimetres (mm).",
+  "parts": [
+   {
+    "k": "rect",
+    "x": 0,
+    "y": 120,
+    "w": 120,
+    "h": 240,
+    "name": "Left arm",
+    "title": "Left arm 120 &times; 240 mm",
+    "at": [
+     60,
+     300
+    ]
+   },
+   {
+    "k": "rect",
+    "x": 0,
+    "y": 0,
+    "w": 360,
+    "h": 120,
+    "name": "Base",
+    "title": "Base 360 &times; 120 mm"
+   },
+   {
+    "k": "rect",
+    "x": 240,
+    "y": 120,
+    "w": 120,
+    "h": 240,
+    "name": "Right arm",
+    "title": "Right arm 120 &times; 240 mm",
+    "at": [
+     300,
+     330
+    ]
+   },
+   {
+    "k": "circ",
+    "cx": 300,
+    "cy": 240,
+    "r": 40,
+    "sign": -1,
+    "name": "Hole",
+    "title": "Circular hole, r = 40 mm",
+    "at": [
+     300,
+     220
+    ]
+   }
+  ],
+  "fig": {
+   "mT": 50,
+   "mB": 86,
+   "mL": 78,
+   "mR": 238,
+   "W": 790
+  },
+  "dims": [
+   [
+    "h",
+    0,
+    360,
+    0,
+    "360",
+    62
+   ],
+   [
+    "h",
+    0,
+    120,
+    360,
+    "120",
+    -32
+   ],
+   [
+    "h",
+    120,
+    240,
+    360,
+    "120",
+    -32
+   ],
+   [
+    "h",
+    240,
+    360,
+    360,
+    "120",
+    -32
+   ],
+   [
+    "v",
+    0,
+    360,
+    0,
+    "360",
+    -52
+   ],
+   [
+    "v",
+    0,
+    120,
+    360,
+    "120",
+    58,
+    12.5,
+    1
+   ]
+  ],
+  "notes": [
+   [
+    376,
+    240,
+    "hole centre (300, 240)",
+    "#f97316",
+    12,
+    "start"
+   ],
+   [
+    376,
+    212,
+    "60 mm in from the inner face",
+    "#555",
+    11.5,
+    "start"
+   ]
+  ],
+  "cdx": -16,
+  "cdy": -14,
+  "splitNote": "Same split as the original: full-width base up to $y = 120$ mm, arms above it.",
+  "check": "<strong>Symmetry check.</strong> Without the hole $\\bar{x}$ would be 180 mm exactly; the hole shifts it to 173.7 mm. The shift is smaller than in the original because this hole removes a smaller fraction of the arm. &#10003;"
+ },
+ {
+  "btn": "Variant 2 \u2014 angle section with a cut-out",
+  "desc": "Different geometry: an unequal angle (L) section with a rectangular cut-out machined out of the vertical leg. There is no axis of symmetry at all, so neither coordinate can be written down by inspection &mdash; and the centroid lands outside the material.",
+  "question": "Determine the centroidal coordinates $\\bar{x}$ and $\\bar{y}$ of the <strong>unequal angle (L) section</strong> shown. A <strong>rectangular cut-out</strong> 60 &times; 40 mm has been machined out of the vertical leg. All dimensions in millimetres (mm).",
+  "parts": [
+   {
+    "k": "rect",
+    "x": 0,
+    "y": 0,
+    "w": 80,
+    "h": 300,
+    "name": "Vertical leg",
+    "title": "Vertical leg 80 &times; 300 mm",
+    "at": [
+     40,
+     120
+    ]
+   },
+   {
+    "k": "rect",
+    "x": 80,
+    "y": 0,
+    "w": 180,
+    "h": 80,
+    "name": "Horizontal leg",
+    "title": "Horizontal leg 180 &times; 80 mm"
+   },
+   {
+    "k": "rect",
+    "x": 10,
+    "y": 200,
+    "w": 60,
+    "h": 40,
+    "sign": -1,
+    "name": "Cut-out",
+    "title": "Rectangular cut-out 60 &times; 40 mm",
+    "at": [
+     40,
+     214
+    ]
+   }
+  ],
+  "fig": {
+   "mT": 48,
+   "mB": 86,
+   "mL": 78,
+   "mR": 40,
+   "W": 700
+  },
+  "dims": [
+   [
+    "h",
+    0,
+    260,
+    0,
+    "260",
+    62
+   ],
+   [
+    "h",
+    0,
+    80,
+    300,
+    "80",
+    -32
+   ],
+   [
+    "v",
+    0,
+    300,
+    0,
+    "300",
+    -52
+   ],
+   [
+    "v",
+    0,
+    80,
+    260,
+    "80",
+    56,
+    12.5,
+    1
+   ],
+   [
+    "h",
+    10,
+    70,
+    240,
+    "60",
+    -34,
+    11.5
+   ],
+   [
+    "v",
+    200,
+    240,
+    80,
+    "40",
+    44,
+    11.5,
+    1
+   ],
+   [
+    "h",
+    0,
+    10,
+    186,
+    "10",
+    26,
+    11
+   ]
+  ],
+  "notes": [
+   [
+    150,
+    232,
+    "cut-out, lower-left corner at (10, 200)",
+    "#b45309",
+    11.5,
+    "start"
+   ]
+  ],
+  "cdx": 14,
+  "cdy": -14,
+  "splitNote": "The $80 \\times 80$ mm corner block belongs to the vertical leg, so the horizontal leg starts at $x = 80$ mm.",
+  "check": "<strong>Is the centroid inside the material?</strong> No &mdash; $(92,\\ 101.3)$ mm lies in the empty re-entrant region of the L. That is correct and expected: only convex shapes are guaranteed to contain their own centroid. <strong>Effect of the cut-out:</strong> without it $\\bar{y}$ would be 108.8 mm; removing 2 400 mm&sup2; from high up drops it to 101.3 mm. &#10003;",
+  "mistakes": [
+   "<strong>Rejecting a centroid that falls outside the section.</strong> For an angle or a channel this is normal, not an arithmetic error. Verify it with an independent check instead of forcing it back inside."
+  ]
+ }
+];
+var BUILDER = buildCentroid;
 
-<!-- Method 1 decomposition diagram -->
-<div class="decomp-wrap">
-  <div class="decomp-svg-box">
-    <!--
-      Scale 0.5: 450mm → 225px.  Origin at (45, 265).
-      Column width: 75px  |  Bottom bar: 75px  |  Arm height: 150px
-      x: 45, 120, 195, 270  |  y: 40, 190, 265
-      Circle: cx=45+375×0.5=233, cy=265−300×0.5=115, r=25
-    -->
-    <svg viewBox="0 0 320 290" width="270" style="font-family:Arial,sans-serif">
-      <!-- U-shape -->
-      <path d="M45,265 L270,265 L270,40 L195,40 L195,190 L120,190 L120,40 L45,40 Z"
-            fill="#93c5fd" fill-opacity="0.35" stroke="#1a3c6e" stroke-width="1.8"/>
-      <!-- Separator line at void floor (y=190 = 150 mm from bottom) -->
-      <line x1="45" y1="190" x2="120" y2="190" stroke="#1a3c6e" stroke-width="1.2" stroke-dasharray="4,3"/>
-      <line x1="195" y1="190" x2="270" y2="190" stroke="#1a3c6e" stroke-width="1.2" stroke-dasharray="4,3"/>
-      <!-- Vertical separator: show base extends full width (dashed hint) -->
-      <line x1="120" y1="190" x2="120" y2="265" stroke="#1a3c6e" stroke-width="1" stroke-dasharray="3,3" opacity="0.4"/>
-      <line x1="195" y1="190" x2="195" y2="265" stroke="#1a3c6e" stroke-width="1" stroke-dasharray="3,3" opacity="0.4"/>
-      <!-- Circle hole -->
-      <circle cx="233" cy="115" r="25" fill="white" stroke="#1a3c6e" stroke-width="1.6"/>
-      <!-- Part labels -->
-      <!-- ① Left arm: x=45–120, y=40–190. Centre (82, 115). -->
-      <text x="82"  y="109" font-size="14" fill="#1e40af" font-weight="bold" text-anchor="middle">①</text>
-      <text x="82"  y="124" font-size="10" fill="#1e40af" text-anchor="middle">Left arm</text>
-      <!-- ② Base: x=45–270, y=190–265. Centre (157, 228). -->
-      <text x="157" y="222" font-size="14" fill="#1e40af" font-weight="bold" text-anchor="middle">②</text>
-      <text x="157" y="237" font-size="10" fill="#1e40af" text-anchor="middle">Base</text>
-      <!-- ③ Right arm: x=195–270, y=40–190. Place ABOVE circle (circle top ≈ y=90). -->
-      <text x="233" y="62"  font-size="14" fill="#1e40af" font-weight="bold" text-anchor="middle">③</text>
-      <text x="233" y="76"  font-size="10" fill="#1e40af" text-anchor="middle">Right arm</text>
-      <!-- ④ hole: circle centre (233,115). Label slightly below centre. -->
-      <text x="233" y="122" font-size="10" fill="#888"    text-anchor="middle">④ hole</text>
-    </svg>
-    <div style="font-size:12px;color:#555;margin-top:4px;font-style:italic">Fig. M1 — Four-part decomposition</div>
-  </div>
-
-  <div class="decomp-desc">
-    <p>Split the U-channel into three solid rectangles, then subtract the circular hole:</p>
-    <ul>
-      <li><strong>① Left arm</strong> — $150 \times 300\ \text{mm}$</li>
-      <li><strong>② Base</strong> — $450 \times 150\ \text{mm}$ (full-width bottom strip)</li>
-      <li><strong>③ Right arm</strong> — $150 \times 300\ \text{mm}$</li>
-      <li><strong>④ Hole</strong> — circle $r = 50\ \text{mm}$ &nbsp;(subtract)</li>
-    </ul>
-    <p style="font-size:13px;color:#555">The dashed lines show where the base ② meets the two arms.</p>
-  </div>
-</div>
-
-<!-- Method 1 Steps -->
-<div class="steps">
-
-<div class="step">
-  <div class="step-heading">
-    <div class="step-num">1</div>
-    <div class="step-title">Locate the Centroid of Each Part</div>
-    <div class="try-hint">Try it first, then reveal ↓</div>
-  </div>
-  <details>
-    <summary><span class="step-label">Step 1</span> Show solution</summary>
-    <div class="step-body">
-      <p>Origin O is at the <strong>bottom-left corner</strong>. The void floor (bottom of the opening) is at $y = 150\ \text{mm}$, so the arms each span $300\ \text{mm}$ above it.</p>
-      <p><strong>① Left arm</strong> — $150 \times 300\ \text{mm}$, spanning $x = 0 \to 150$, $y = 150 \to 450$:</p>
-      <div class="math-display">$$\bar{x}_1 = \dfrac{0+150}{2} = 75\ \text{mm} \qquad \bar{y}_1 = \dfrac{150+450}{2} = 300\ \text{mm}$$</div>
-      <p><strong>② Base</strong> — $450 \times 150\ \text{mm}$, spanning $x = 0 \to 450$, $y = 0 \to 150$:</p>
-      <div class="math-display">$$\bar{x}_2 = \dfrac{0+450}{2} = 225\ \text{mm} \qquad \bar{y}_2 = \dfrac{0+150}{2} = 75\ \text{mm}$$</div>
-      <p><strong>③ Right arm</strong> — $150 \times 300\ \text{mm}$, spanning $x = 300 \to 450$, $y = 150 \to 450$:</p>
-      <div class="math-display">$$\bar{x}_3 = \dfrac{300+450}{2} = 375\ \text{mm} \qquad \bar{y}_3 = \dfrac{150+450}{2} = 300\ \text{mm}$$</div>
-      <p><strong>④ Circular hole</strong> — $r = 50\ \text{mm}$, centre located $75\ \text{mm}$ from the inner face of the right arm at $x = 300$, and midway between the void floor and the arm top:</p>
-      <div class="math-display">$$\bar{x}_4 = 300 + 75 = 375\ \text{mm} \qquad \bar{y}_4 = 150 + 150 = 300\ \text{mm}$$</div>
-    </div>
-  </details>
-</div>
-
-<div class="step">
-  <div class="step-heading">
-    <div class="step-num">2</div>
-    <div class="step-title">Complete the Centroid Table</div>
-    <div class="try-hint">Try it first, then reveal ↓</div>
-  </div>
-  <details>
-    <summary><span class="step-label">Step 2</span> Show solution</summary>
-    <div class="step-body">
-      <table>
-        <thead>
-          <tr>
-            <th style="text-align:left;min-width:165px">Part</th>
-            <th>$A_i$ (mm²)</th>
-            <th>$\bar{x}_i$ (mm)</th>
-            <th>$\bar{y}_i$ (mm)</th>
-            <th>$A_i\bar{x}_i$ (mm³)</th>
-            <th>$A_i\bar{y}_i$ (mm³)</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="left">① Left arm 150×300</td>
-            <td>+45,000</td><td>75</td><td>300</td>
-            <td>+3,375,000</td><td>+13,500,000</td>
-          </tr>
-          <tr>
-            <td class="left">② Base 450×150</td>
-            <td>+67,500</td><td>225</td><td>75</td>
-            <td>+15,187,500</td><td>+5,062,500</td>
-          </tr>
-          <tr>
-            <td class="left">③ Right arm 150×300</td>
-            <td>+45,000</td><td>375</td><td>300</td>
-            <td>+16,875,000</td><td>+13,500,000</td>
-          </tr>
-          <tr class="void-row">
-            <td class="left">④ Hole &nbsp;$r=50$</td>
-            <td>−7,854</td><td>375</td><td>300</td>
-            <td>−2,945,250</td><td>−2,356,200</td>
-          </tr>
-          <tr class="total">
-            <td class="left">Σ (net)</td>
-            <td>149,646</td><td>—</td><td>—</td>
-            <td>32,492,250</td><td>29,706,300</td>
-          </tr>
-        </tbody>
-      </table>
-      <div class="callout note">
-        <p>$A_4 = \pi r^2 = \pi(50)^2 = 7{,}854\ \text{mm}^2$ (negative — hole is subtracted)</p>
-      </div>
-    </div>
-  </details>
-</div>
-
-<div class="step">
-  <div class="step-heading">
-    <div class="step-num">3</div>
-    <div class="step-title">Apply the Centroid Formula</div>
-    <div class="try-hint">Try it first, then reveal ↓</div>
-  </div>
-  <details>
-    <summary><span class="step-label">Step 3</span> Show solution</summary>
-    <div class="step-body">
-      <div class="math-display">
-        $$\bar{x} = \frac{32{,}492{,}250}{149{,}646} = \mathbf{217.1\ mm}$$
-      </div>
-      <div class="math-display">
-        $$\bar{y} = \frac{29{,}706{,}300}{149{,}646} = \mathbf{198.5\ mm}$$
-      </div>
-      <div class="callout answer">
-        <p>$\bar{x} = 217.1\ \text{mm}$ &nbsp;&nbsp; $\bar{y} = 198.5\ \text{mm}$ &nbsp; ✓</p>
-      </div>
-    </div>
-  </details>
-</div>
-
-</div><!-- end Method 1 steps -->
-
-
-<!-- ══════════════════════════════════════════
-     METHOD 2 — Full Rectangle − Void − Hole
-══════════════════════════════════════════ -->
-<div class="method-header">
-  <span class="method-badge">Method 2</span>
-  Full Rectangle Minus Rectangular Void Minus Circular Hole
-</div>
-
-<!-- Method 2 decomposition diagram -->
-<div class="decomp-wrap">
-  <div class="decomp-svg-box">
-    <!--
-      Same coordinate system as Method 1 SVG (scale 0.5).
-      ① Full 450×450 rect: x=45–270, y=40–265  (whole bounding box)
-      ② Void 150×300 rect: x=120–195, y=40–190  (the gap between arms)
-      ③ Circle: cx=233, cy=115, r=25
-    -->
-    <svg viewBox="0 0 320 290" width="270" style="font-family:Arial,sans-serif">
-      <!-- ① Full bounding rectangle (dashed outline) -->
-      <rect x="45" y="40" width="225" height="225" fill="#93c5fd" fill-opacity="0.25"
-            stroke="#1a3c6e" stroke-width="1.5" stroke-dasharray="5,3"/>
-      <!-- U-shape on top (actual material, stronger fill) -->
-      <path d="M45,265 L270,265 L270,40 L195,40 L195,190 L120,190 L120,40 L45,40 Z"
-            fill="#93c5fd" fill-opacity="0.55" stroke="none"/>
-      <!-- ② Void rectangle (subtracted) — red fill -->
-      <rect x="120" y="40" width="75" height="150" fill="#fca5a5" fill-opacity="0.65"
-            stroke="#b91c1c" stroke-width="1.5" stroke-dasharray="4,2"/>
-      <!-- ③ Circle (subtracted) — red fill -->
-      <circle cx="233" cy="115" r="25" fill="#fca5a5" fill-opacity="0.75"
-              stroke="#b91c1c" stroke-width="1.6"/>
-      <!-- Border of full rect and U-shape outline on top -->
-      <path d="M45,265 L270,265 L270,40 L195,40 L195,190 L120,190 L120,40 L45,40 Z"
-            fill="none" stroke="#1a3c6e" stroke-width="1.8"/>
-      <!-- Part labels -->
-      <!-- ① Full rect: label in lower-left solid area -->
-      <text x="82"  y="233" font-size="14" fill="#1e40af" font-weight="bold" text-anchor="middle">①</text>
-      <text x="82"  y="247" font-size="10" fill="#1e40af" text-anchor="middle">Full rect</text>
-      <!-- ② Void rect: inside the red rectangle -->
-      <text x="157" y="109" font-size="14" fill="#b91c1c" font-weight="bold" text-anchor="middle">②</text>
-      <text x="157" y="123" font-size="10" fill="#b91c1c" text-anchor="middle">void</text>
-      <!-- ③ Circle: inside the circle -->
-      <text x="233" y="119" font-size="14" fill="#b91c1c" font-weight="bold" text-anchor="middle">③</text>
-    </svg>
-    <div style="font-size:12px;color:#555;margin-top:4px;font-style:italic">Fig. M2 — Subtraction approach</div>
-  </div>
-
-  <div class="decomp-desc">
-    <p>Start with a complete bounding rectangle and subtract two voids:</p>
-    <ul>
-      <li><strong>① Full rectangle</strong> — $450 \times 450\ \text{mm}$ &nbsp;(add)</li>
-      <li><strong>② Rectangular void</strong> — $150 \times 300\ \text{mm}$, the gap between the arms &nbsp;(subtract)</li>
-      <li><strong>③ Circular hole</strong> — $r = 50\ \text{mm}$ &nbsp;(subtract)</li>
-    </ul>
-    <p style="font-size:13px;color:#555">Red regions are <em>subtracted</em>. The dashed outline shows the full $450\times450$ bounding rectangle.</p>
-  </div>
-</div>
-
-<!-- Method 2 Steps -->
-<div class="steps">
-
-<div class="step">
-  <div class="step-heading">
-    <div class="step-num">1</div>
-    <div class="step-title">Locate the Centroid of Each Part</div>
-    <div class="try-hint">Try it first, then reveal ↓</div>
-  </div>
-  <details>
-    <summary><span class="step-label">Step 1</span> Show solution</summary>
-    <div class="step-body">
-      <p><strong>① Full rectangle</strong> — $450 \times 450\ \text{mm}$, spanning $x = 0 \to 450$, $y = 0 \to 450$:</p>
-      <div class="math-display">$$\bar{x}_1 = \frac{450}{2} = 225\ \text{mm} \qquad \bar{y}_1 = \frac{450}{2} = 225\ \text{mm}$$</div>
-      <p><strong>② Rectangular void</strong> — $150 \times 300\ \text{mm}$, spanning $x = 150 \to 300$, $y = 150 \to 450$ (the gap between the arms):</p>
-      <div class="math-display">$$\bar{x}_2 = 150 + \frac{150}{2} = 225\ \text{mm} \qquad \bar{y}_2 = 150 + \frac{300}{2} = 300\ \text{mm}$$</div>
-      <p><strong>③ Circular hole</strong> — $r = 50\ \text{mm}$, centre $75\ \text{mm}$ from inner face of right arm at $x = 300$, midway between void floor and arm top:</p>
-      <div class="math-display">$$\bar{x}_3 = 300 + 75 = 375\ \text{mm} \qquad \bar{y}_3 = 150 + 150 = 300\ \text{mm}$$</div>
-    </div>
-  </details>
-</div>
-
-<div class="step">
-  <div class="step-heading">
-    <div class="step-num">2</div>
-    <div class="step-title">Complete the Centroid Table</div>
-    <div class="try-hint">Try it first, then reveal ↓</div>
-  </div>
-  <details>
-    <summary><span class="step-label">Step 2</span> Show solution</summary>
-    <div class="step-body">
-      <table>
-        <thead>
-          <tr>
-            <th style="text-align:left;min-width:185px">Part</th>
-            <th>$A_i$ (mm²)</th>
-            <th>$\bar{x}_i$ (mm)</th>
-            <th>$\bar{y}_i$ (mm)</th>
-            <th>$A_i\bar{x}_i$ (mm³)</th>
-            <th>$A_i\bar{y}_i$ (mm³)</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="left">① Full rect 450×450</td>
-            <td>+202,500</td><td>225</td><td>225</td>
-            <td>+45,562,500</td><td>+45,562,500</td>
-          </tr>
-          <tr class="void-row">
-            <td class="left">② Rect. void 150×300</td>
-            <td>−45,000</td><td>225</td><td>300</td>
-            <td>−10,125,000</td><td>−13,500,000</td>
-          </tr>
-          <tr class="void-row">
-            <td class="left">③ Hole &nbsp;$r=50$</td>
-            <td>−7,854</td><td>375</td><td>300</td>
-            <td>−2,945,250</td><td>−2,356,200</td>
-          </tr>
-          <tr class="total">
-            <td class="left">Σ (net)</td>
-            <td>149,646</td><td>—</td><td>—</td>
-            <td>32,492,250</td><td>29,706,300</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </details>
-</div>
-
-<div class="step">
-  <div class="step-heading">
-    <div class="step-num">3</div>
-    <div class="step-title">Apply the Centroid Formula</div>
-    <div class="try-hint">Try it first, then reveal ↓</div>
-  </div>
-  <details>
-    <summary><span class="step-label">Step 3</span> Show solution</summary>
-    <div class="step-body">
-      <div class="math-display">
-        $$\bar{x} = \frac{32{,}492{,}250}{149{,}646} = \mathbf{217.1\ mm}$$
-      </div>
-      <div class="math-display">
-        $$\bar{y} = \frac{29{,}706{,}300}{149{,}646} = \mathbf{198.5\ mm}$$
-      </div>
-      <div class="callout answer">
-        <p>$\bar{x} = 217.1\ \text{mm}$ &nbsp;&nbsp; $\bar{y} = 198.5\ \text{mm}$ &nbsp; ✓</p>
-      </div>
-    </div>
-  </details>
-</div>
-
-</div><!-- end Method 2 steps -->
-
-
-<!-- ══ BOTH METHODS AGREE ══ -->
-<div class="callout agree" style="margin-top:30px">
-  <p><strong>Both methods yield the same result:</strong></p>
-  <p style="font-size:16px;font-weight:600;margin-top:6px">
-    $\bar{x} = 217.1\ \text{mm}$ &nbsp;&nbsp;&nbsp; $\bar{y} = 198.5\ \text{mm}$
-  </p>
-  <p style="font-size:13.5px;margin-top:8px;color:#374151">
-    The centroid lies below and to the left of the geometric centre $(225,\ 225)\ \text{mm}$,
-    because the circular hole removes material from the upper-right area of the shape.
-  </p>
-</div>
-
-<!-- ══ FOOTER ══ -->
-<div class="footer">
-  MCEN2002 – Fundamentals of Mechanical Design &nbsp;·&nbsp; Curtin University &nbsp;·&nbsp; Dr Azma Putra Azis
-</div>
-
-</div><!-- end .page -->
+function render(i){
+  var v = VARIANTS[i];
+  document.getElementById('doc').innerHTML = BUILDER(CONFIG, v);
+  document.getElementById('swDesc').innerHTML = v.desc;
+  var btns = document.querySelectorAll('#swBtns button');
+  for(var j=0;j<btns.length;j++) btns[j].setAttribute('aria-pressed', j===i ? 'true' : 'false');
+  if(window.renderMathInElement){
+    renderMathInElement(document.getElementById('doc'), {
+      delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}],
+      throwOnError:false});
+  }
+}
+function init(){
+  var box = document.getElementById('swBtns');
+  VARIANTS.forEach(function(v,i){
+    var b = document.createElement('button');
+    b.textContent = v.btn;
+    b.setAttribute('aria-pressed','false');
+    b.onclick = function(){ render(i); };
+    box.appendChild(b);
+  });
+  render(0);
+}
+window.addEventListener('load', init);
+</script>
 </body>
 </html>
