@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>T7.1 – Eccentrically Loaded Bolted Bracket</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css"/>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+body{font-family:'Segoe UI',Arial,sans-serif;font-size:15px;line-height:1.75;color:#1a1a1a;background:#f5f6f8;margin:0;padding:24px 16px 56px}
+.page{max-width:880px;margin:0 auto;background:#fff;border-radius:10px;box-shadow:0 2px 14px rgba(0,0,0,.10);padding:40px 52px 52px}
+.uni-header{text-align:center;border-bottom:2px solid #1a3c6e;padding-bottom:16px;margin-bottom:24px}
+.uni-header p{margin:0;line-height:1.4;font-size:13.5px;color:#555}
+.uni-header h2{margin:8px 0 0;font-size:20px;color:#1a3c6e}
+h3{color:#1a3c6e;border-left:4px solid #1a3c6e;padding-left:10px;margin:28px 0 10px;font-size:15.5px}
+h4{color:#1a3c6e;font-size:14.5px;margin:20px 0 6px}
+.step{margin-bottom:10px}
+.step details{border:1px solid #d1d9e8;border-radius:8px;overflow:hidden;margin-top:6px}
+.step details summary{list-style:none;cursor:pointer;padding:11px 15px;background:#f0f4fb;color:#1a3c6e;font-weight:500;font-size:14.5px;display:flex;align-items:center;gap:10px;user-select:none}
+.step details summary::-webkit-details-marker{display:none}
+.step details summary::after{content:'\25BC';font-size:11px;color:#f97316;transition:transform .2s;flex-shrink:0;margin-left:auto;padding-left:8px}
+.step details[open] summary::after{transform:rotate(180deg)}
+.step details[open] summary{background:#e8eef9;border-bottom:1px solid #d1d9e8}
+.step-body{padding:16px 20px}
+.step-num{background:#1a3c6e;color:#fff;font-size:12px;font-weight:700;border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.step-title{font-size:15px;font-weight:600;color:#1a3c6e}
+.try-hint{font-size:12.5px;color:#6b7280;font-style:italic;margin-left:auto}
+.callout{border-radius:6px;padding:13px 18px;margin:14px 0;font-size:14.5px}
+.callout p{margin:4px 0}
+.info{background:#eef4ff;border-left:4px solid #3b82f6}
+.given{background:#f0fdf4;border-left:4px solid #22c55e}
+.answer{background:#fff7ed;border-left:4px solid #f97316;font-size:16px;font-weight:600}
+.note{background:#faf5ff;border-left:4px solid #a855f7;font-size:14px}
+.warn{background:#fffbeb;border-left:4px solid #f59e0b;font-size:14px}
+.math-block{background:#f8f9fb;border:1px solid #e2e6ef;border-radius:6px;padding:14px 20px;margin:12px 0;overflow-x:auto;text-align:center}
+.diagram-wrap{text-align:center;margin:22px 0 8px}
+.diagram-wrap figure{margin:0}
+.diagram-wrap svg{max-width:100%;height:auto}
+.diagram-wrap figcaption{font-size:13px;color:#555;margin-top:2px;font-style:italic;line-height:1.5}
+table.sum{border-collapse:collapse;width:100%;margin:14px 0;font-size:14px}
+table.sum th{background:#1a3c6e;color:#fff;font-weight:600;padding:8px 10px;text-align:center;border:1px solid #1a3c6e}
+table.sum td{padding:7px 10px;text-align:center;border:1px solid #d1d9e8}
+table.sum tr.total td{background:#fff7ed;font-weight:700;border-top:2px solid #f97316}
+table.sum tr:nth-child(even) td{background:#f8f9fb}
+table.sum tr.total:nth-child(even) td{background:#fff7ed}
+.footer{margin-top:40px;border-top:1px solid #e5e7eb;padding-top:12px;font-size:12px;color:#999;text-align:center}
+.switcher{background:#f0f4fb;border:1px solid #d1d9e8;border-radius:8px;padding:14px 18px;margin-bottom:26px}
+.switcher .sw-label{font-size:12.5px;font-weight:600;color:#1a3c6e;text-transform:uppercase;letter-spacing:.06em;margin-bottom:9px}
+.sw-btns{display:flex;flex-wrap:wrap;gap:8px}
+.sw-btns button{font-family:inherit;font-size:13.5px;font-weight:500;padding:8px 15px;border-radius:6px;border:1px solid #b9c6df;background:#fff;color:#1a3c6e;cursor:pointer;transition:.15s}
+.sw-btns button:hover{background:#e8eef9;border-color:#1a3c6e}
+.sw-btns button[aria-pressed="true"]{background:#1a3c6e;border-color:#1a3c6e;color:#fff;box-shadow:0 1px 4px rgba(26,60,110,.3)}
+.sw-desc{font-size:13px;color:#555;margin-top:10px;font-style:italic}
+</style>
+</head>
+<body>
+<div class="page">
+
+<div class="uni-header">
+  <p>Curtin University &nbsp;·&nbsp; School of Civil and Mechanical Engineering</p>
+  <p>MCEN2002 – Fundamentals of Mechanical Design</p>
+  <p style="margin-top:8px"><strong>Dr Azma Putra Azis</strong></p>
+  <h2>Tutorial 7.1 &nbsp;–&nbsp; Eccentrically Loaded Bolted Bracket</h2>
+</div>
+
+<div class="switcher">
+  <div class="sw-label">Choose a problem</div>
+  <div class="sw-btns" id="swBtns"></div>
+  <div class="sw-desc" id="swDesc"></div>
+</div>
+
+<div id="doc"></div>
+
+<div class="footer">MCEN2002 – Fundamentals of Mechanical Design | Tutorial 7.1 | Curtin University</div>
+</div>
+
+<script>
+/* ══════════════════════════════════════════════════════════════════════════
+   MCEN2002 — SHARED BOLT-GROUP (ECCENTRIC SHEAR) ENGINE
+   Single source of truth for T7.1 and T7.2.
+
+   ─── MODEL ───────────────────────────────────────────────────────────────
+   A rigid member is fastened to a rigid support by n bolts. An in-plane
+   force F acts at a point that does NOT pass through the bolt-group
+   centroid, so every bolt carries two shear components:
+
+     PRIMARY (direct)   F'_i  = F / n            same for every bolt
+     SECONDARY (moment) F''_i = M r_i / Σr²      ⟂ to r_i, grows with r_i
+
+   where r_i is the vector from the bolt-group centroid G to bolt i and
+   M is the moment of F about G.
+
+   Working in components avoids every sign trap. With M taken about the
+   z-axis (out of the page, counter-clockwise positive):
+
+     M  = x_F·F_y − y_F·F_x        (position of the load relative to G)
+     F''_i,x = − M·y_i / Σr²
+     F''_i,y = + M·x_i / Σr²
+     F'_i    = ( F_x/n , F_y/n )
+
+   The signs above are fixed by requiring that the set of bolt forces be
+   statically equivalent to the applied load: ΣF_i = F and Σ(r_i × F_i) = M.
+   The code asserts BOTH (equilOK), because the force check alone passes for
+   either sign of the secondary term — only the moment check pins it down.
+   Getting this backwards makes the bolts on the far side of the group look
+   critical when in fact the near ones are.
+
+   ─── COORDINATES ─────────────────────────────────────────────────────────
+   Bolt positions are given in ABSOLUTE millimetres in whatever datum is
+   convenient for the figure; the solver finds G itself. x is to the right,
+   y is UP (note that SVG y runs downward, so every figure flips it).
+
+   The load direction is given as `ang`, the angle of the force VECTOR
+   measured counter-clockwise from +x. A load acting straight down is
+   ang = −90; T7.2's 45° down-and-right load is ang = −45.
+   ══════════════════════════════════════════════════════════════════════════ */
+
+/* ─────────────────── number formatting ─────────────────── */
+function nf(v,dp){
+  if(dp===undefined) dp = 2;
+  var r = Number(v);
+  if(Math.abs(r) < 5e-12) r = 0;
+  var s = r.toFixed(dp);
+  if(s === '-' + (0).toFixed(dp)) s = (0).toFixed(dp);
+  return s;
+}
+function sgn(v,dp){ return (v<0?'':'+') + nf(v,dp); }
+
+/* ─────────────────── solver ─────────────────── */
+function solve(p){
+  var bolts = p.bolts, n = bolts.length;
+  var Gx = 0, Gy = 0, i;
+  for(i=0;i<n;i++){ Gx += bolts[i].x; Gy += bolts[i].y; }
+  Gx /= n; Gy /= n;
+
+  var th = p.ang*Math.PI/180;
+  var Fx = p.F*Math.cos(th), Fy = p.F*Math.sin(th);
+  /* load position relative to the centroid */
+  var ex = p.xF - Gx, ey = p.yF - Gy;
+  var M  = ex*Fy - ey*Fx;
+
+  var Sr2 = 0, r = [];
+  for(i=0;i<n;i++){
+    var rx = bolts[i].x - Gx, ry = bolts[i].y - Gy;
+    r.push({x:rx, y:ry, r:Math.hypot(rx,ry)});
+    Sr2 += rx*rx + ry*ry;
+  }
+
+  var out = [];
+  for(i=0;i<n;i++){
+    var px = Fx/n,  py = Fy/n;                 /* primary   */
+    var sx = -M*r[i].y/Sr2, sy = M*r[i].x/Sr2; /* secondary */
+    out.push({name:bolts[i].name, x:bolts[i].x, y:bolts[i].y,
+              rx:r[i].x, ry:r[i].y, r:r[i].r,
+              px:px, py:py, p:Math.hypot(px,py),
+              sx:sx, sy:sy, s:Math.hypot(sx,sy),
+              tx:px+sx, ty:py+sy, t:Math.hypot(px+sx,py+sy)});
+  }
+
+  /* ── equilibrium self-check: the bolt forces must reproduce F and M ── */
+  var cx=0, cy=0, cm=0;
+  for(i=0;i<n;i++){ cx+=out[i].tx; cy+=out[i].ty; cm+=out[i].rx*out[i].ty - out[i].ry*out[i].tx; }
+  var ok = Math.abs(cx-Fx) < 1e-6*Math.max(1,Math.abs(Fx))+1e-6
+        && Math.abs(cy-Fy) < 1e-6*Math.max(1,Math.abs(Fy))+1e-6
+        && Math.abs(cm-M)  < 1e-6*Math.max(1,Math.abs(M)) +1e-6;
+
+  var Fmax = 0, imax = 0;
+  for(i=0;i<n;i++) if(out[i].t > Fmax+1e-9){ Fmax = out[i].t; imax = i; }
+
+  return {p:p, n:n, Gx:Gx, Gy:Gy, Fx:Fx, Fy:Fy, ex:ex, ey:ey, M:M,
+          Sr2:Sr2, bolts:out, Fmax:Fmax, worst:out[imax], equilOK:ok};
+}
+
+/* ─────────────────── SVG primitives ─────────────────── */
+var NAVY='#1a3c6e', RED='#c0392b', BLUE='#1a6fc4', ORANGE='#f97316',
+    GREY='#555', GREEN='#15803d';
+function n1(v){ return Number(v).toFixed(1); }
+
+/* arrow from (x1,y1) to (x2,y2) in SVG pixel space */
+function arrow(x1,y1,x2,y2,col,w,label,lsz,ldx,ldy){
+  var dx=x2-x1, dy=y2-y1, L=Math.hypot(dx,dy);
+  if(L < 1e-9) return '';
+  var ux=dx/L, uy=dy/L, hl=Math.min(11, L*0.45), hw=Math.min(4.5, L*0.18);
+  var bx=x2-ux*hl, by=y2-uy*hl, px=-uy, py=ux;
+  var s = '<line x1="'+n1(x1)+'" y1="'+n1(y1)+'" x2="'+n1(bx)+'" y2="'+n1(by)+'" stroke="'+col+'" stroke-width="'+(w||2)+'"/>'
+        + '<polygon points="'+n1(x2)+','+n1(y2)+' '+n1(bx+px*hw)+','+n1(by+py*hw)+' '+n1(bx-px*hw)+','+n1(by-py*hw)+'" fill="'+col+'"/>';
+  if(label) s += '<text x="'+n1(x2+(ldx||0))+'" y="'+n1(y2+(ldy||0))+'" font-size="'+(lsz||12)+'" fill="'+col
+              +  '" text-anchor="middle" font-weight="bold">'+label+'</text>';
+  return s;
+}
+function hatchBand(x,y,w,h,col){
+  var s = '<rect x="'+n1(x)+'" y="'+n1(y)+'" width="'+n1(w)+'" height="'+n1(h)+'" fill="'+col+'" fill-opacity="0.35" stroke="'+NAVY+'" stroke-width="1.2"/>';
+  return s;
+}
+function dimH(xa,xb,y,txt,col){
+  col = col || GREY;
+  return '<line x1="'+n1(xa)+'" y1="'+n1(y-5)+'" x2="'+n1(xa)+'" y2="'+n1(y+5)+'" stroke="'+col+'" stroke-width="1"/>'
+       + '<line x1="'+n1(xb)+'" y1="'+n1(y-5)+'" x2="'+n1(xb)+'" y2="'+n1(y+5)+'" stroke="'+col+'" stroke-width="1"/>'
+       + '<line x1="'+n1(xa)+'" y1="'+n1(y)+'" x2="'+n1(xb)+'" y2="'+n1(y)+'" stroke="'+col+'" stroke-width="1"/>'
+       + '<text x="'+n1((xa+xb)/2)+'" y="'+n1(y-7)+'" font-size="11.5" fill="#333" text-anchor="middle">'+txt+'</text>';
+}
+function dimV(x,ya,yb,txt,col){
+  col = col || GREY;
+  return '<line x1="'+n1(x-5)+'" y1="'+n1(ya)+'" x2="'+n1(x+5)+'" y2="'+n1(ya)+'" stroke="'+col+'" stroke-width="1"/>'
+       + '<line x1="'+n1(x-5)+'" y1="'+n1(yb)+'" x2="'+n1(x+5)+'" y2="'+n1(yb)+'" stroke="'+col+'" stroke-width="1"/>'
+       + '<line x1="'+n1(x)+'" y1="'+n1(ya)+'" x2="'+n1(x)+'" y2="'+n1(yb)+'" stroke="'+col+'" stroke-width="1"/>'
+       + '<text x="'+n1(x+7)+'" y="'+n1((ya+yb)/2+4)+'" font-size="11.5" fill="#333" text-anchor="start">'+txt+'</text>';
+}
+function boltSym(cx,cy,rr,col){
+  col = col || NAVY;
+  var pts = '', k;
+  for(k=0;k<6;k++){ var a = Math.PI/6 + k*Math.PI/3;
+    pts += n1(cx+rr*Math.cos(a))+','+n1(cy+rr*Math.sin(a))+' '; }
+  return '<polygon points="'+pts.trim()+'" fill="#fff" stroke="'+col+'" stroke-width="1.4"/>'
+       + '<circle cx="'+n1(cx)+'" cy="'+n1(cy)+'" r="'+n1(rr*0.55)+'" fill="none" stroke="'+col+'" stroke-width="1"/>';
+}
+/* Curved couple symbol, CENTRED on (cx,cy) — normally the bolt-group centroid,
+   because a couple has no point of application and drawing it off to one side
+   invites the reading that it acts "somewhere else".
+   Clock-angle convention: 0 = 12 o'clock, increasing clockwise;
+   point on circle = (cx + r·sinθ, cy − r·cosθ). The arc deliberately leaves a
+   gap across the top, which is where the force arrow enters. */
+function momentArc(cx,cy,r,label,col,cw,labelBelow){
+  var tip = cw ? 320 : 40, tail = cw ? 40 : 320, sweep = cw ? 1 : 0;
+  var rad = function(A){ return A*Math.PI/180; };
+  var pt  = function(A){ return [cx + r*Math.sin(rad(A)), cy - r*Math.cos(rad(A))]; };
+  var t0 = pt(tail), t1 = pt(tip), A = rad(tip);
+  var fwd = (sweep===1) ? [Math.cos(A),Math.sin(A)] : [-Math.cos(A),-Math.sin(A)];
+  var ap = [t1[0]+fwd[0]*10, t1[1]+fwd[1]*10], pe = [-fwd[1], fwd[0]];
+  var s = '<path d="M '+n1(t0[0])+','+n1(t0[1])+' A '+n1(r)+','+n1(r)+' 0 1,'+sweep+' '+n1(t1[0])+','+n1(t1[1])+'" fill="none" stroke="'+col+'" stroke-width="2.4"/>'
+        + '<polygon points="'+n1(ap[0])+','+n1(ap[1])+' '+n1(t1[0]+pe[0]*6)+','+n1(t1[1]+pe[1]*6)+' '+n1(t1[0]-pe[0]*6)+','+n1(t1[1]-pe[1]*6)+'" fill="'+col+'"/>';
+  if(label) s += '<text x="'+n1(cx)+'" y="'+n1(labelBelow ? cy+r+17 : cy-r-11)+'" font-size="12.5" fill="'+col
+              +  '" text-anchor="middle" font-weight="bold">'+label+'</text>';
+  return s;
+}
+/* Right-angle tick at vertex (vx,vy) between screen-space directions u and v.
+   F'' is perpendicular to r by construction; this makes that visible instead of
+   asking the reader to trust the arithmetic. */
+function rightAngle(vx,vy,ux,uy,wx,wy,size,col){
+  var lu = Math.hypot(ux,uy), lw = Math.hypot(wx,wy);
+  if(lu < 1e-9 || lw < 1e-9) return '';
+  ux/=lu; uy/=lu; wx/=lw; wy/=lw;
+  var p1 = [vx+ux*size, vy+uy*size],
+      p2 = [vx+ux*size+wx*size, vy+uy*size+wy*size],
+      p3 = [vx+wx*size, vy+wy*size];
+  return '<polyline points="'+n1(p1[0])+','+n1(p1[1])+' '+n1(p2[0])+','+n1(p2[1])+' '+n1(p3[0])+','+n1(p3[1])
+       + '" fill="none" stroke="'+(col||'#6b7280')+'" stroke-width="1.2"/>';
+}
+function centroidSym(cx,cy){
+  return '<circle cx="'+n1(cx)+'" cy="'+n1(cy)+'" r="4" fill="'+ORANGE+'"/>'
+       + '<line x1="'+n1(cx-13)+'" y1="'+n1(cy)+'" x2="'+n1(cx+13)+'" y2="'+n1(cy)+'" stroke="'+ORANGE+'" stroke-width="1" stroke-dasharray="6,2,1.5,2"/>'
+       + '<line x1="'+n1(cx)+'" y1="'+n1(cy-13)+'" x2="'+n1(cx)+'" y2="'+n1(cy+13)+'" stroke="'+ORANGE+'" stroke-width="1" stroke-dasharray="6,2,1.5,2"/>';
+}
+
+/* ═══════════════ FIGURE 1 — problem layout (to scale) ═══════════════ */
+function figLayout(S){
+  var p = S.p, g = p.geom;
+  var sc = 0.80, PAD = 62;
+  var xmin = g.barX0, xmax = p.xF + 24, ymax = g.barTop, ymin = g.barBot;
+  var W = (xmax-xmin)*sc + 2*PAD, H = (ymax-ymin)*sc + 210;
+  var X = function(m){ return PAD + (m-xmin)*sc; };
+  var Y = function(m){ return 86 + (ymax-m)*sc; };
+
+  var s = '<svg viewBox="0 0 '+n1(W)+' '+n1(H)+'" width="'+n1(Math.min(760,W*1.15))+'" xmlns="http://www.w3.org/2000/svg" font-family="Arial,sans-serif" font-size="12">';
+
+  /* channel flange (support) — the shaded region the bar is bolted to */
+  s += hatchBand(X(g.chX0), Y(g.barTop), (g.chX1-g.chX0)*sc, (g.barTop-g.barBot)*sc, '#b8c6dd');
+  /* the bar itself */
+  s += '<rect x="'+n1(X(g.barX0))+'" y="'+n1(Y(g.barTop))+'" width="'+n1((g.barX1-g.barX0)*sc)+'" height="'+n1((g.barTop-g.barBot)*sc)+'" fill="#dfeaf6" fill-opacity="0.9" stroke="'+NAVY+'" stroke-width="1.6"/>';
+  /* neutral / horizontal centreline */
+  s += '<line x1="'+n1(X(g.barX0)-14)+'" y1="'+n1(Y(S.Gy))+'" x2="'+n1(X(xmax))+'" y2="'+n1(Y(S.Gy))+'" stroke="#999" stroke-width="1" stroke-dasharray="9,3,2,3"/>';
+
+  /* bolts */
+  var i;
+  for(i=0;i<S.bolts.length;i++){
+    var b = S.bolts[i];
+    s += boltSym(X(b.x), Y(b.y), 9);
+    s += '<text x="'+n1(X(b.x)-13)+'" y="'+n1(Y(b.y)-9)+'" font-size="13.5" fill="'+NAVY+'" text-anchor="middle" font-weight="bold">'+b.name+'</text>';
+  }
+  /* centroid */
+  s += centroidSym(X(S.Gx), Y(S.Gy));
+  s += '<text x="'+n1(X(S.Gx)+8)+'" y="'+n1(Y(S.Gy)-16)+'" font-size="12.5" fill="'+ORANGE+'" font-weight="bold">G</text>';
+
+  /* applied load — the arrow tip sits ON the edge of the bar where the load is
+     actually applied, not floating on the centreline */
+  var th = p.ang*Math.PI/180, LEN = 62;
+  var tipx = X(p.xF), tipy = Y(p.yF);
+  var tailx = tipx - Math.cos(th)*LEN, taily = tipy + Math.sin(th)*LEN;
+  s += arrow(tailx, taily, tipx, tipy, RED, 2.4, '', 13);
+  s += '<text x="'+n1(tailx+8)+'" y="'+n1(taily+4)+'" font-size="13" fill="'+RED+'" font-weight="bold" text-anchor="start">F = '+nf(p.F/1000,0)+' kN</text>';
+
+  /* dimensions */
+  var yd = Y(g.barBot) + 30;
+  var cols = [], seen = {};
+  for(i=0;i<S.bolts.length;i++){ var xx = Math.round(S.bolts[i].x*1e6)/1e6;
+    if(!seen[xx]){ seen[xx]=1; cols.push(xx); } }
+  cols.sort(function(a,b){ return a-b; });
+  var chain = cols.slice();
+  chain.push(g.chX1); chain.push(p.xF);
+  for(i=0;i<chain.length-1;i++)
+    s += dimH(X(chain[i]), X(chain[i+1]), yd, nf(chain[i+1]-chain[i],0));
+
+  /* vertical dims: bolt rows + bar depth */
+  var rows = [], seen2 = {};
+  for(i=0;i<S.bolts.length;i++){ var yy = Math.round(S.bolts[i].y*1e6)/1e6;
+    if(!seen2[yy]){ seen2[yy]=1; rows.push(yy); } }
+  rows.sort(function(a,b){ return b-a; });
+  var xv = X(cols[cols.length-1]) + 34;
+  for(i=0;i<rows.length-1;i++) s += dimV(xv, Y(rows[i]), Y(rows[i+1]), nf(rows[i]-rows[i+1],0));
+  s += dimV(X(xmax)-6, Y(g.barTop), Y(g.barBot), nf(g.barTop-g.barBot,0));
+
+  s += '<text x="'+n1(PAD)+'" y="'+n1(H-14)+'" font-size="11.5" fill="'+GREY+'" font-style="italic">All dimensions in millimetres · drawn to scale</text>';
+  return s + '</svg>';
+}
+
+/* ═══════════════ FIGURE 2 — force transfer to the centroid ═══════════════ */
+function figTransfer(S){
+  var p = S.p, sc = 0.80, PAD = 70;
+  var xmin = p.geom.barX0, xmax = p.xF + 24;
+  var W = (xmax-xmin)*sc + 2*PAD, H = 356;
+  var X = function(m){ return PAD + (m-xmin)*sc; };
+  var Y = function(m){ return 182 + (S.Gy-m)*sc; };
+  var s = '<svg viewBox="0 0 '+n1(W)+' '+n1(H)+'" width="'+n1(Math.min(740,W*1.12))+'" xmlns="http://www.w3.org/2000/svg" font-family="Arial,sans-serif" font-size="12">';
+
+  s += '<line x1="'+n1(X(xmin))+'" y1="'+n1(Y(S.Gy))+'" x2="'+n1(X(xmax))+'" y2="'+n1(Y(S.Gy))+'" stroke="#999" stroke-width="1" stroke-dasharray="9,3,2,3"/>';
+  s += centroidSym(X(S.Gx), Y(S.Gy));
+  s += '<text x="'+n1(X(S.Gx)-6)+'" y="'+n1(Y(S.Gy)+26)+'" font-size="12.5" fill="'+ORANGE+'" font-weight="bold" text-anchor="end">G</text>';
+
+  /* original load, greyed */
+  var th = p.ang*Math.PI/180, LEN = 58;
+  var otx = X(p.xF)-Math.cos(th)*LEN, oty = Y(p.yF)+Math.sin(th)*LEN;
+  s += arrow(otx, oty, X(p.xF), Y(p.yF), '#cbb2ae', 2.2, '', 12);
+  s += '<text x="'+n1(otx)+'" y="'+n1(oty-9)+'" font-size="11.5" fill="#9a8480" text-anchor="middle">original line of action</text>';
+
+  /* equivalent force at G */
+  s += arrow(X(S.Gx)-Math.cos(th)*LEN, Y(S.Gy)+Math.sin(th)*LEN, X(S.Gx), Y(S.Gy), RED, 2.4, '', 12);
+  s += '<text x="'+n1(X(S.Gx)-Math.cos(th)*LEN-4)+'" y="'+n1(Y(S.Gy)+Math.sin(th)*LEN-8)+'" font-size="12.5" fill="'+RED+'" text-anchor="end" font-weight="bold">F = '+nf(p.F/1000,0)+' kN</text>';
+
+  /* the couple — centred ON G, with its gap at the top so the force arrow
+     enters through it. The couple and the force act at the same point. */
+  var rr = 32;
+  s += momentArc(X(S.Gx), Y(S.Gy), rr, 'M = '+nf(Math.abs(S.M)/1000,1)+' kN&#183;mm', GREEN, S.M < 0, true);
+
+  /* eccentricity dimension */
+  s += dimH(X(S.Gx), X(p.xF), Y(S.Gy)+96, 'e = '+nf(S.ex,1)+' mm', BLUE);
+  s += '<line x1="'+n1(X(S.Gx))+'" y1="'+n1(Y(S.Gy)+rr+26)+'" x2="'+n1(X(S.Gx))+'" y2="'+n1(Y(S.Gy)+98)+'" stroke="'+BLUE+'" stroke-width="0.8" stroke-dasharray="3,3"/>';
+  s += '<line x1="'+n1(X(p.xF))+'" y1="'+n1(Y(p.yF))+'" x2="'+n1(X(p.xF))+'" y2="'+n1(Y(S.Gy)+98)+'" stroke="'+BLUE+'" stroke-width="0.8" stroke-dasharray="3,3"/>';
+  return s + '</svg>';
+}
+
+/* ═══════════════ FIGURE 3 — per-bolt force vectors ═══════════════ */
+/* mode: 'primary' | 'secondary' | 'resultant' | 'all' */
+function figBolts(S, mode){
+  var sc = 1.05, PAD = 178;
+  var xs = S.bolts.map(function(b){ return b.x; }), ys = S.bolts.map(function(b){ return b.y; });
+  var x0 = Math.min.apply(null,xs), x1 = Math.max.apply(null,xs);
+  var y0 = Math.min.apply(null,ys), y1 = Math.max.apply(null,ys);
+  var W = (x1-x0)*sc + 2*PAD, H = (y1-y0)*sc + 2*PAD;
+  var X = function(m){ return PAD + (m-x0)*sc; };
+  var Y = function(m){ return PAD + (y1-m)*sc; };
+
+  /* Force → pixel scale. When one component is shown on its own it gets the
+     full arrow length; when they are shown together they MUST share a scale,
+     otherwise the drawn arrows would not close on the drawn resultant. */
+  var big = 0, i;
+  for(i=0;i<S.bolts.length;i++){
+    var q = S.bolts[i];
+    big = Math.max(big, mode==='primary' ? q.p : (mode==='secondary' ? q.s : q.t));
+  }
+  var fs = 86/big;
+  /* "F'_A = 4.000 kN" with a proper subscript */
+  function vlab(sym,name,val){
+    return sym+'<tspan font-size="9.5" dy="3">'+name+'</tspan><tspan dy="-3"> = '+nf(val/1000,3)+' kN</tspan>';
+  }
+
+  var s = '<svg viewBox="0 0 '+n1(W)+' '+n1(H)+'" width="'+n1(Math.min(680,W*1.25))+'" xmlns="http://www.w3.org/2000/svg" font-family="Arial,sans-serif" font-size="12">';
+  /* the couple that the secondary forces are replacing, drawn at G */
+  if(mode==='secondary')
+    s += momentArc(X(S.Gx), Y(S.Gy), 40, '', GREEN, S.M < 0, false)
+       + '<text x="'+n1(X(S.Gx))+'" y="'+n1(Y(S.Gy)-66)+'" font-size="12.5" fill="'+GREEN
+       + '" text-anchor="middle" font-weight="bold">M = '+nf(Math.abs(S.M)/1000,1)+' kN&#183;mm</text>';
+  s += centroidSym(X(S.Gx), Y(S.Gy));
+  s += '<text x="'+n1(X(S.Gx)+9)+'" y="'+n1(Y(S.Gy)+20)+'" font-size="12" fill="'+ORANGE+'" font-weight="bold">G</text>';
+
+  for(i=0;i<S.bolts.length;i++){
+    var b = S.bolts[i], bx = X(b.x), by = Y(b.y);
+    if(mode==='secondary' || mode==='all')
+      s += '<line x1="'+n1(X(S.Gx))+'" y1="'+n1(Y(S.Gy))+'" x2="'+n1(bx)+'" y2="'+n1(by)+'" stroke="'+ORANGE+'" stroke-width="0.9" stroke-dasharray="4,3"/>';
+    s += boltSym(bx, by, 9);
+    s += '<text x="'+n1(bx)+'" y="'+n1(by-15)+'" font-size="13" fill="'+NAVY+'" text-anchor="middle" font-weight="bold">'+b.name+'</text>';
+
+    /* label sits just past the arrow tip, pushed clear along the arrow direction */
+    function tipLabel(vx,vy,col,txt){
+      var lx = bx+vx*fs, ly = by-vy*fs;
+      var right = (vx > 1e-9) || (Math.abs(vx) < 1e-9 && b.x >= S.Gx);
+      return '<text x="'+n1(lx + (right?11:-11))+'" y="'+n1(ly + (vy>=0 ? -8 : 15))+'" font-size="12" fill="'+col
+           + '" text-anchor="'+(right?'start':'end')+'" font-weight="bold">'+txt+'</text>';
+    }
+    if(mode==='primary' || mode==='all'){
+      s += arrow(bx, by, bx+b.px*fs, by-b.py*fs, BLUE, 2.2, '', 11);
+      if(mode==='primary') s += tipLabel(b.px, b.py, BLUE, vlab('F&#8242;', b.name, b.p));
+    }
+    if(mode==='secondary' || mode==='all'){
+      s += arrow(bx, by, bx+b.sx*fs, by-b.sy*fs, ORANGE, 2.2, '', 11);
+      if(mode==='secondary'){
+        /* right-angle tick between the radius (bolt→G) and F'' */
+        s += rightAngle(bx, by, X(S.Gx)-bx, Y(S.Gy)-by, b.sx, -b.sy, 14, '#8a8f98');
+        s += tipLabel(b.sx, b.sy, ORANGE, vlab('F&#8243;', b.name, b.s));
+      }
+    }
+    if(mode==='resultant' || mode==='all')
+      s += arrow(bx, by, bx+b.tx*fs, by-b.ty*fs, RED, 2.6, '', 11)
+         + tipLabel(b.tx, b.ty, RED, vlab('F', b.name, b.t));
+  }
+  /* ── radius components, annotated on ONE bolt only ──────────────────────
+     Showing r_x, r_y and r on all four bolts turns the figure into noise and
+     the reader still has to work out which label belongs to which leg. One
+     fully annotated bolt — the same one the worked example in the text uses —
+     lets the pattern be read off for the rest. */
+  if(mode==='secondary'){
+    var PUR = '#7c3aed', q = S.bolts[0];
+    var gx = X(S.Gx), gy = Y(S.Gy), qx = X(q.x), qy = Y(q.y);
+    /* right-angle corner of the r_x / r_y triangle */
+    var cnx = qx, cny = gy;
+    s += '<line x1="'+n1(gx)+'" y1="'+n1(gy)+'" x2="'+n1(cnx)+'" y2="'+n1(cny)+'" stroke="'+PUR+'" stroke-width="1.6"/>'
+       + '<line x1="'+n1(cnx)+'" y1="'+n1(cny)+'" x2="'+n1(qx)+'" y2="'+n1(qy)+'" stroke="'+PUR+'" stroke-width="1.6"/>'
+       + '<line x1="'+n1(gx)+'" y1="'+n1(gy)+'" x2="'+n1(qx)+'" y2="'+n1(qy)+'" stroke="'+PUR+'" stroke-width="1.6"/>'
+       + rightAngle(cnx, cny, (gx-cnx), 0, 0, (qy-cny), 11, PUR);
+    function rlab(sub,val){
+      return 'r<tspan font-size="9.5" dy="3">'+sub+'</tspan><tspan dy="-3"> = '+nf(val,val===Math.round(val)?0:2)+'</tspan>';
+    }
+    /* r_x — beside the horizontal leg, on the side away from the bolt */
+    s += '<text x="'+n1((gx+cnx)/2)+'" y="'+n1(cny + (q.y>S.Gy ? 17 : -9))+'" font-size="12.5" fill="'+PUR
+       + '" text-anchor="middle" font-weight="bold">'+rlab('x',q.rx)+'</text>';
+    /* r_y — beside the vertical leg, on the side away from G */
+    s += '<text x="'+n1(qx + (q.x<S.Gx ? -9 : 9))+'" y="'+n1((cny+qy)/2+4)+'" font-size="12.5" fill="'+PUR
+       + '" text-anchor="'+(q.x<S.Gx ? 'end' : 'start')+'" font-weight="bold">'+rlab('y',q.ry)+'</text>';
+    /* r — beside the hypotenuse, pushed clear of the corner */
+    var mx = (gx+qx)/2, my = (gy+qy)/2, ox = mx-cnx, oy = my-cny, oL = Math.hypot(ox,oy)||1;
+    s += '<text x="'+n1(mx + ox/oL*20)+'" y="'+n1(my + oy/oL*20 + 4)+'" font-size="12.5" fill="'+PUR
+       + '" text-anchor="middle" font-weight="bold">'+rlab('',q.r)+'</text>';
+  }
+
+  /* legend */
+  var ly0 = H-14;
+  if(mode==='all'){
+    s += '<line x1="14" y1="'+n1(ly0-26)+'" x2="40" y2="'+n1(ly0-26)+'" stroke="'+BLUE+'" stroke-width="2.1"/><text x="45" y="'+n1(ly0-22)+'" font-size="11" fill="'+GREY+'">primary F&#8242;</text>';
+    s += '<line x1="14" y1="'+n1(ly0-12)+'" x2="40" y2="'+n1(ly0-12)+'" stroke="'+ORANGE+'" stroke-width="2.1"/><text x="45" y="'+n1(ly0-8)+'" font-size="11" fill="'+GREY+'">secondary F&#8243;</text>';
+    s += '<line x1="14" y1="'+n1(ly0+2)+'" x2="40" y2="'+n1(ly0+2)+'" stroke="'+RED+'" stroke-width="2.6"/><text x="45" y="'+n1(ly0+6)+'" font-size="11" fill="'+GREY+'">resultant</text>';
+  }
+  return s + '</svg>';
+}
+
+/* ═══════════════ FIGURE 4 — net cross-section for bending ═══════════════ */
+function figSection(S){
+  var p = S.p, g = p.geom;
+  if(!g.bar) return '';
+  var b = g.bar.b, h = g.bar.h, d = p.d;
+  var rows = [], seen = {}, i;
+  for(i=0;i<S.bolts.length;i++){ var yy = Math.round(S.bolts[i].y*1e6)/1e6;
+    if(!seen[yy]){ seen[yy]=1; rows.push(yy); } }
+  rows.sort(function(a,b2){ return b2-a; });
+
+  var sc = 1.05, PAD = 70;
+  var W = b*sc + 2*PAD + 130, H = h*sc + 2*PAD;
+  var X = function(m){ return PAD + (m + b/2)*sc; };
+  var Y = function(m){ return PAD + (h/2 - m)*sc; };
+  var s = '<svg viewBox="0 0 '+n1(W)+' '+n1(H)+'" width="'+n1(Math.min(420,W*1.1))+'" xmlns="http://www.w3.org/2000/svg" font-family="Arial,sans-serif" font-size="12">';
+  s += '<rect x="'+n1(X(-b/2))+'" y="'+n1(Y(h/2))+'" width="'+n1(b*sc)+'" height="'+n1(h*sc)+'" fill="#7fe3ec" fill-opacity="0.8" stroke="'+NAVY+'" stroke-width="2"/>';
+  for(i=0;i<rows.length;i++){
+    s += '<rect x="'+n1(X(-b/2))+'" y="'+n1(Y(rows[i]+d/2))+'" width="'+n1(b*sc)+'" height="'+n1(d*sc)+'" fill="#fff" stroke="'+RED+'" stroke-width="1.4" stroke-dasharray="4,2"/>';
+    s += '<text x="'+n1(X(b/2)+8)+'" y="'+n1(Y(rows[i])+4)+'" font-size="11.5" fill="'+RED+'">hole &#216;'+nf(d,0)+' at y = '+nf(rows[i],0)+'</text>';
+  }
+  s += '<line x1="'+n1(X(-b/2)-16)+'" y1="'+n1(Y(0))+'" x2="'+n1(X(b/2)+16)+'" y2="'+n1(Y(0))+'" stroke="#333" stroke-width="1" stroke-dasharray="9,3,2,3"/>';
+  s += '<text x="'+n1(X(b/2)+20)+'" y="'+n1(Y(0)+4)+'" font-size="12" fill="#333" text-anchor="start" font-style="italic">N.A.</text>';
+  s += dimH(X(-b/2), X(b/2), Y(h/2)-16, nf(b,0));
+  s += dimV(X(-b/2)-34, Y(h/2), Y(-h/2), nf(h,0));
+  return s + '</svg>';
+}
+
+/* ═══════════════ page builder ═══════════════ */
+function stepBlock(n,title,hint,body){
+  return '<div class="step"><details'+(n===1?' open':'')+'>'
+       + '<summary><span class="step-num">'+n+'</span><span class="step-title">'+title+'</span>'
+       + '<span class="try-hint">'+hint+'</span></summary>'
+       + '<div class="step-body">'+body+'</div></details></div>';
+}
+
+function build(p){
+  var S = solve(p), i, b;
+  var h = '';
+  var kN = function(v){ return nf(v/1000,3); };
+
+  /* ── problem statement ── */
+  h += '<h3>Problem Statement</h3>'
+    +  '<p>A <strong>'+nf(p.geom.bar.b,0)+' by '+nf(p.geom.bar.h,0)+' mm</strong> rectangular steel bar is cantilevered from a '
+    +  nf(p.geom.chDepth,0)+' mm steel channel by <strong>'+S.n+' tightly fitted M'+nf(p.d,0)+' bolts</strong> at '
+    +  S.bolts.map(function(q){ return q.name; }).join(', ')+'. '
+    +  'The channel web is '+nf(p.tWeb,0)+' mm thick. For a load <strong>F = '+nf(p.F/1000,0)+' kN</strong> applied at the free end, find:</p>'
+    +  '<div class="callout info"><p>(a) the resultant load on each bolt &nbsp;·&nbsp; (b) the maximum shear stress in a bolt &nbsp;·&nbsp; '
+    +  '(c) the maximum bearing stress &nbsp;·&nbsp; (d) the critical bending stress in the bar</p></div>';
+
+  h += '<div class="diagram-wrap"><figure>'+figLayout(S)
+    +  '<figcaption>Bolt pattern and loading, drawn to scale. The bolts are in a '
+    +  'rectangular pattern; the bolt-group centroid <strong>G</strong> is the orange dash-dot intersection. '
+    +  'The bar is bolted through the channel web (shaded).</figcaption></figure></div>';
+
+  if(p.book)
+    h += '<div class="callout given"><p><strong>Given answer:</strong> '+p.book+'</p></div>';
+  else
+    h += '<div class="callout given"><p><strong>Note:</strong> this is a modified problem — the answers below are computed, '
+      +  'not taken from the textbook. Work it through and check yourself against the summary table.</p></div>';
+
+  h += '<div class="callout info"><p><strong>Strategy:</strong> the load does not act through the bolt-group centroid, so it is '
+    +  'statically equivalent to <em>the same force acting at the centroid</em> plus <em>a couple</em>. The force at the centroid is '
+    +  'shared equally by the bolts (<strong>primary shear</strong>); the couple is carried by forces proportional to each bolt\'s '
+    +  'distance from the centroid (<strong>secondary shear</strong>). Add the two as <strong>vectors</strong>, bolt by bolt.</p></div>';
+
+  h += '<h3>Solution</h3>';
+
+  /* ── step 1: centroid and eccentricity ── */
+  var b1 = '<p>All '+S.n+' bolts are the same size, so the centroid of the group is simply the average of the bolt positions:</p>'
+    + '<div class="math-block">$$\\bar{x} = \\frac{\\sum x_i}{n} = \\frac{'+S.bolts.map(function(q){return nf(q.x,0);}).join(' + ')+'}{'+S.n+'} = '+nf(S.Gx,1)+'\\ \\text{mm}$$'
+    + '$$\\bar{y} = \\frac{\\sum y_i}{n} = \\frac{'+S.bolts.map(function(q){return nf(q.y,0);}).join(' + ')+'}{'+S.n+'} = '+nf(S.Gy,1)+'\\ \\text{mm}$$</div>'
+    + '<div class="callout note"><p><strong>Shortcut:</strong> for a symmetric pattern you never need the summation — the centroid sits at the '
+    + 'intersection of the two axes of symmetry. Do the arithmetic once to convince yourself, then read it off the figure thereafter.</p></div>'
+    + '<p>The load acts at $x = '+nf(p.xF,0)+'$ mm, so its <strong>eccentricity</strong> about $G$ is</p>'
+    + '<div class="math-block">$$e = '+nf(p.xF,0)+' - '+nf(S.Gx,1)+' = '+nf(S.ex,1)+'\\ \\text{mm}$$</div>'
+    + '<div class="diagram-wrap"><figure>'+figTransfer(S)
+    + '<figcaption>Force–couple replacement: sliding the load onto the centroid is only legitimate if the couple $M = F e$ is added at the same time.</figcaption></figure></div>'
+    + '<div class="math-block">$$M = F\\,e = '+nf(p.F/1000,0)+' \\times '+nf(S.ex,1)+' = '+nf(Math.abs(S.M)/1000,1)+'\\ \\text{kN}\\cdot\\text{mm} = '+nf(Math.abs(S.M)/1e6,2)+'\\ \\text{kN}\\cdot\\text{m}$$</div>'
+    + '<div class="callout answer"><p>$e = '+nf(S.ex,1)+'$ mm &nbsp;&nbsp;&nbsp; $M = '+nf(Math.abs(S.M)/1000,1)+'$ kN·mm</p></div>'
+    + '<div class="callout warn"><p><strong>The eccentricity is measured from the centroid, not from the nearest bolt.</strong> '
+    + 'Measuring from the bolt column closest to the load gives $e = '+nf(p.xF - Math.max.apply(null,S.bolts.map(function(q){return q.x;})),0)
+    + '$ mm and an $M$ that is '+nf(100*(1-(p.xF-Math.max.apply(null,S.bolts.map(function(q){return q.x;})))/S.ex),0)+'% too small.</p></div>';
+  h += stepBlock(1,'Locate the bolt-group centroid and the eccentricity','try it first, then reveal &darr;',b1);
+
+  /* ── step 2: primary shear ── */
+  var b2 = '<p>The force transferred to the centroid is shared <strong>equally</strong> by every bolt, because all '+S.n
+    + ' bolts are the same size and the connected parts are assumed rigid:</p>'
+    + '<div class="math-block">$$F\'_i = \\frac{F}{n} = \\frac{'+nf(p.F/1000,0)+'}{'+S.n+'} = '+nf(S.bolts[0].p/1000,3)+'\\ \\text{kN}$$</div>'
+    + '<p>This component acts on every bolt in the <strong>same direction as the applied load</strong>'
+    + (Math.abs(p.ang+90)<1e-9 ? ' — straight down.' : ' — that is, at '+nf(p.ang,0)+'&deg; to the $x$-axis.')+'</p>'
+    + '<div class="diagram-wrap"><figure>'+figBolts(S,'primary')
+    + '<figcaption>Primary (direct) shear: identical on every bolt, parallel to $F$.</figcaption></figure></div>'
+    + '<div class="callout answer"><p>$F\' = '+nf(S.bolts[0].p/1000,3)+'$ kN on every bolt</p></div>';
+  h += stepBlock(2,'Primary (direct) shear on each bolt','sketch the arrows before opening',b2);
+
+  /* ── step 3: secondary shear ── */
+  var rowsTxt = '';
+  for(i=0;i<S.bolts.length;i++){ b = S.bolts[i];
+    rowsTxt += '<tr><td><strong>'+b.name+'</strong></td><td>'+nf(b.rx,1)+'</td><td>'+nf(b.ry,1)+'</td><td>'
+             + nf(b.r,2)+'</td><td>'+nf(b.rx*b.rx+b.ry*b.ry,0)+'</td></tr>'; }
+  var b3 = '<p>The couple is resisted by a force on each bolt that is <strong>perpendicular to $r_i$</strong> (the line from the centroid '
+    + 'to that bolt) and <strong>proportional to $r_i$</strong> — the rigid-plate assumption, exactly analogous to $\\tau = Tr/J$ in torsion:</p>'
+    + '<div class="math-block">$$F\'\'_i = \\frac{M\\,r_i}{\\sum r_j^2}$$</div>'
+    + '<p>First tabulate the bolt positions relative to $G$:</p>'
+    + '<table class="sum"><tr><th>Bolt</th><th>$r_x$ (mm)</th><th>$r_y$ (mm)</th><th>$r$ (mm)</th><th>$r^2$ (mm²)</th></tr>'
+    + rowsTxt
+    + '<tr class="total"><td colspan="4">$\\sum r^2$</td><td>'+nf(S.Sr2,0)+'</td></tr></table>'
+    + '<p>Rather than working with magnitudes and then chasing the direction by eye, resolve straight into components. '
+    + 'A force perpendicular to $r_i$, of magnitude $Mr_i/\\sum r^2$, has components</p>'
+    + '<div class="math-block">$$F\'\'_{i,x} = -\\frac{M\\,r_{i,y}}{\\sum r^2}, \\qquad F\'\'_{i,y} = +\\frac{M\\,r_{i,x}}{\\sum r^2}$$</div>'
+    + '<p>The signs are not a convention you can choose — they are fixed by requiring that the set of secondary forces produce '
+    + 'a moment of exactly $+M$ about $G$. Get them backwards and the force balance still closes, so the error is silent; '
+    + 'only the moment check catches it. Here $M = '+nf(S.M/1000,1)+'$ kN·mm ('+(S.M<0?'negative = clockwise':'positive = counter-clockwise')+'). '
+    + 'For example, bolt <strong>'+S.bolts[0].name+'</strong>:</p>'
+    + '<div class="math-block">$$F\'\'_{x} = -\\frac{('+nf(S.M/1000,1)+')('+nf(S.bolts[0].ry,0)+')}{'+nf(S.Sr2,0)+'} = '+nf(S.bolts[0].sx/1000,3)+'\\ \\text{kN}$$'
+    + '$$F\'\'_{y} = +\\frac{('+nf(S.M/1000,1)+')('+nf(S.bolts[0].rx,0)+')}{'+nf(S.Sr2,0)+'} = '+nf(S.bolts[0].sy/1000,3)+'\\ \\text{kN}$$</div>'
+    + '<p>Every bolt in this pattern is the same distance $r = '+nf(S.bolts[0].r,2)+'$ mm from $G$, so all '+S.n
+    + ' secondary forces have the <strong>same magnitude</strong> $F\'\' = '+nf(S.bolts[0].s/1000,3)+'$ kN — only their directions differ.</p>'
+    + '<div class="diagram-wrap"><figure>'+figBolts(S,'secondary')
+    + '<figcaption>Secondary (moment) shear. Each force is perpendicular to its own radius $r_i$ — the grey right-angle ticks mark it — '
+    + 'and the set of them circulates '+(S.M<0?'clockwise':'counter-clockwise')+', the same sense as the couple $M$ (green) at $G$ '
+    + 'that they replace. The purple triangle on bolt $'+S.bolts[0].name+'$ shows how $r_x$, $r_y$ and $r$ relate; '
+    + 'the other three bolts follow the same pattern with the signs changed.</figcaption></figure></div>'
+    + '<div class="callout answer"><p>$\\sum r^2 = '+nf(S.Sr2,0)+'$ mm² &nbsp;&nbsp;&nbsp; $F\'\' = '+nf(S.bolts[0].s/1000,3)+'$ kN on each bolt</p></div>'
+    + '<div class="callout note"><p><strong>Why proportional to $r$?</strong> The plate is assumed to rotate rigidly about $G$. A rigid rotation '
+    + 'moves a bolt a distance proportional to its radius, so a bolt twice as far from the centroid is deformed twice as much and — while '
+    + 'everything stays elastic — carries twice the load. The <em>outermost</em> bolts therefore always dominate.</p></div>';
+  h += stepBlock(3,'Secondary (moment) shear on each bolt','tabulate $r$ and $\\sum r^2$ first',b3);
+
+  /* ── step 4: resultants ── */
+  var rows4 = '';
+  for(i=0;i<S.bolts.length;i++){ b = S.bolts[i];
+    var crit = (Math.abs(b.t - S.Fmax) < 1e-6);
+    rows4 += '<tr'+(crit?' class="total"':'')+'><td><strong>'+b.name+'</strong></td>'
+          + '<td>'+nf(b.px/1000,3)+', '+nf(b.py/1000,3)+'</td>'
+          + '<td>'+nf(b.sx/1000,3)+', '+nf(b.sy/1000,3)+'</td>'
+          + '<td>'+nf(b.tx/1000,3)+', '+nf(b.ty/1000,3)+'</td>'
+          + '<td><strong>'+nf(b.t/1000,2)+'</strong></td></tr>'; }
+  var w = S.worst;
+  var b4 = '<p>Add the two components <strong>as vectors</strong> at each bolt:</p>'
+    + '<div class="math-block">$$\\vec{F}_i = \\vec{F\'} + \\vec{F\'\'_i}, \\qquad |F_i| = \\sqrt{F_{i,x}^2 + F_{i,y}^2}$$</div>'
+    + '<table class="sum"><tr><th>Bolt</th><th>Primary $(F\'_x, F\'_y)$ kN</th><th>Secondary $(F\'\'_x, F\'\'_y)$ kN</th>'
+    + '<th>Resultant $(F_x, F_y)$ kN</th><th>$|F|$ kN</th></tr>'+rows4+'</table>'
+    + '<p>Worked through for the critical bolt <strong>'+w.name+'</strong>:</p>'
+    + '<div class="math-block">$$F_x = '+nf(w.px/1000,3)+' + ('+nf(w.sx/1000,3)+') = '+nf(w.tx/1000,3)+'\\ \\text{kN}$$'
+    + '$$F_y = '+nf(w.py/1000,3)+' + ('+nf(w.sy/1000,3)+') = '+nf(w.ty/1000,3)+'\\ \\text{kN}$$'
+    + '$$|F_{'+w.name+'}| = \\sqrt{'+nf(w.tx/1000,3)+'^2 + '+nf(w.ty/1000,3)+'^2} = '+nf(w.t/1000,2)+'\\ \\text{kN}$$</div>'
+    + '<div class="diagram-wrap"><figure>'+figBolts(S,'all')
+    + '<figcaption>Primary (blue) and secondary (orange) components and their resultants (red). The critical bolts are the ones '
+    + 'where the two components point the same way and <em>add</em>; elsewhere in the group they partly cancel.</figcaption></figure></div>'
+    + '<div class="callout answer"><p>'
+    + S.bolts.map(function(q){ return '$F_{'+q.name+'} = '+nf(q.t/1000,2)+'$ kN'; }).join(' &nbsp;&nbsp; ')
+    + '</p></div>'
+    + '<div class="callout note"><p><strong>Sanity check (equilibrium):</strong> the '+S.n+' bolt forces sum to '
+    + '$('+nf(S.bolts.reduce(function(a,q){return a+q.tx;},0)/1000,3)+',\\ '+nf(S.bolts.reduce(function(a,q){return a+q.ty;},0)/1000,3)+')$ kN, '
+    + 'which is exactly the applied $('+nf(S.Fx/1000,3)+',\\ '+nf(S.Fy/1000,3)+')$ kN, and their moment about $G$ recovers $M$. '
+    + (S.equilOK?'&#10003;':'&#10007; <strong>equilibrium check FAILED</strong>')+'</p></div>';
+  if(p.bookNote)
+    b4 += '<div class="callout note"><p><strong>Against the printed answer:</strong> '+p.bookNote+'</p></div>';
+  h += stepBlock(4,'Resultant load on each bolt — part (a)','add the vectors, do not add the magnitudes',b4);
+
+  /* ── step 5: shear stress ── */
+  var b5 = '<p>The critical bolt carries $'+nf(S.Fmax/1000,2)+'$ kN in <strong>single shear</strong>. The bolts are '
+    + '<em>tightly fitted</em>, so the shank fills the hole and the load is carried in shear, not by friction.</p>'
+    + '<div class="math-block">$$\\tau_{\\max} = \\frac{F_{\\max}}{A_s} = \\frac{'+nf(S.Fmax,0)+'\\ \\text{N}}{'+nf(p.At,1)+'\\ \\text{mm}^2} = '+nf(S.Fmax/p.At,1)+'\\ \\text{MPa}$$</div>'
+    + '<div class="callout answer"><p>$\\tau_{\\max} = '+nf(S.Fmax/p.At,1)+'$ MPa &nbsp; (bolt '+S.worst.name+')</p></div>'
+    + '<div class="callout warn"><p><strong>Which area?</strong> Here the <strong>tensile stress area</strong> $A_t = '+nf(p.At,1)+'$ mm² for an M'+nf(p.d,0)
+    + ' bolt has been used — the conservative choice, valid if threads run into the shear plane. If the plain shank (diameter '
+    + nf(p.d,0)+' mm, $A = '+nf(Math.PI/4*p.d*p.d,1)+'$ mm²) sits in the shear plane instead, $\\tau = '+nf(S.Fmax/(Math.PI/4*p.d*p.d),1)
+    + '$ MPa — about '+nf(100*(1-(Math.PI/4*p.d*p.d>0?p.At/(Math.PI/4*p.d*p.d):1)),0)+'% lower. State which assumption you are making.</p></div>';
+  h += stepBlock(5,'Maximum shear stress in a bolt — part (b)','which area do you divide by?',b5);
+
+  /* ── step 6: bearing ── */
+  var tmin = Math.min(p.tWeb, p.geom.bar.b);
+  var b6 = '<p>Bearing (crushing) acts on the projected contact area between the bolt shank and the plate it presses against: '
+    + '$A_b = d\\,t$. Two thicknesses are in contact here — the bar ('+nf(p.geom.bar.b,0)+' mm) and the channel web ('+nf(p.tWeb,0)+' mm) — '
+    + 'and the <strong>thinner</strong> one governs, because the same force is spread over less area.</p>'
+    + '<div class="math-block">$$\\sigma_b = -\\frac{F_{\\max}}{d\\,t_{\\min}} = -\\frac{'+nf(S.Fmax,0)+'}{'+nf(p.d,0)+' \\times '+nf(tmin,0)+'} = '+nf(-S.Fmax/(p.d*tmin),1)+'\\ \\text{MPa}$$</div>'
+    + '<p>For comparison, bearing on the thicker '+nf(p.geom.bar.b,0)+' mm bar would be only $'+nf(-S.Fmax/(p.d*p.geom.bar.b),1)+'$ MPa.</p>'
+    + '<div class="callout answer"><p>$\\sigma_b = '+nf(-S.Fmax/(p.d*tmin),1)+'$ MPa &nbsp; (compressive, on the '+nf(tmin,0)+' mm '
+    + (tmin===p.tWeb?'channel web':'bar')+')</p></div>'
+    + '<div class="callout note"><p><strong>Why the minus sign?</strong> Bearing is always compressive — the bolt pushes into the hole wall. '
+    + 'The textbook writes it as $-'+nf(S.Fmax/(p.d*tmin),0)+'$ MPa for that reason; the magnitude is what you compare against an allowable.</p></div>';
+  h += stepBlock(6,'Maximum bearing stress — part (c)','which thickness governs?',b6);
+
+  /* ── step 7: bending ── */
+  var g = p.geom, dd = p.d;
+  var rows7 = [], seen7 = {};
+  for(i=0;i<S.bolts.length;i++){ var yy = Math.round(S.bolts[i].y*1e6)/1e6;
+    if(!seen7[yy]){ seen7[yy]=1; rows7.push(yy); } }
+  rows7.sort(function(a,b2){ return b2-a; });
+  var xCrit = Math.max.apply(null, S.bolts.map(function(q){ return q.x; }));
+  var Mb = p.F*(p.xF - xCrit);
+  var Igross = g.bar.b*Math.pow(g.bar.h,3)/12;
+  var Iholes = 0;
+  for(i=0;i<rows7.length;i++) Iholes += g.bar.b*Math.pow(dd,3)/12 + g.bar.b*dd*rows7[i]*rows7[i];
+  var Inet = Igross - Iholes, c = g.bar.h/2;
+
+  var b7 = '<p>The bar is a cantilever. The largest bending moment <em>in the bar</em> occurs at the bolt line nearest the load, '
+    + 'at $x = '+nf(xCrit,0)+'$ mm, which is also where the section is <strong>weakened by the bolt holes</strong>. That combination — '
+    + 'biggest moment and smallest section together — is what makes it the critical section.</p>'
+    + '<div class="math-block">$$M = F\\,(x_F - x_{\\text{bolt}}) = '+nf(p.F/1000,0)+' \\times '+nf(p.xF-xCrit,0)+' = '+nf(Mb/1e6,2)+'\\ \\text{kN}\\cdot\\text{m}$$</div>'
+    + '<div class="diagram-wrap"><figure>'+figSection(S)
+    + '<figcaption>Net section at the critical bolt line: the full '+nf(g.bar.b,0)+' &times; '+nf(g.bar.h,0)
+    + ' mm rectangle less the '+rows7.length+' bolt holes, each &#216;'+nf(dd,0)+' mm through the '+nf(g.bar.b,0)+' mm thickness.</figcaption></figure></div>'
+    + '<p>Second moment of area of the gross section, less each hole by the parallel-axis theorem:</p>'
+    + '<div class="math-block">$$I_{\\text{gross}} = \\frac{bh^3}{12} = \\frac{'+nf(g.bar.b,0)+' \\times '+nf(g.bar.h,0)+'^3}{12} = '+nf(Igross/1e6,3)+'\\times10^6\\ \\text{mm}^4$$'
+    + '$$I_{\\text{hole}} = \\frac{b\\,d^3}{12} + b\\,d\\,y^2 = \\frac{'+nf(g.bar.b,0)+'\\times'+nf(dd,0)+'^3}{12} + '+nf(g.bar.b,0)+'\\times'+nf(dd,0)+'\\times'+nf(Math.abs(rows7[0]),0)+'^2 = '+nf((g.bar.b*Math.pow(dd,3)/12 + g.bar.b*dd*rows7[0]*rows7[0])/1e6,4)+'\\times10^6\\ \\text{mm}^4$$'
+    + '$$I_{\\text{net}} = '+nf(Igross/1e6,3)+'\\times10^6 - '+rows7.length+'\\left('+nf((g.bar.b*Math.pow(dd,3)/12 + g.bar.b*dd*rows7[0]*rows7[0])/1e6,4)+'\\times10^6\\right) = '+nf(Inet/1e6,3)+'\\times10^6\\ \\text{mm}^4$$</div>'
+    + '<div class="math-block">$$\\sigma = \\frac{M c}{I_{\\text{net}}} = \\frac{'+nf(Mb,0)+' \\times '+nf(c,0)+'}{'+nf(Inet,0)+'} = '+nf(Mb*c/Inet,2)+'\\ \\text{MPa}$$</div>'
+    + '<div class="callout answer"><p>$\\sigma_{\\text{crit}} = '+nf(Mb*c/Inet,1)+'$ MPa</p></div>'
+    + '<div class="callout note"><p><strong>How much do the holes cost?</strong> Ignoring them gives $\\sigma = '+nf(Mb*c/Igross,2)
+    + '$ MPa — about '+nf(100*(Mb*c/Inet)/(Mb*c/Igross)-100,0)+'% unconservative. The holes remove only '
+    + nf(100*Iholes/Igross,1)+'% of $I$ despite removing '+nf(100*rows7.length*dd/g.bar.h,0)+'% of the depth, because they sit '
+    + 'reasonably close to the neutral axis where material contributes least.</p></div>';
+  h += stepBlock(7,'Critical bending stress in the bar — part (d)','where is the critical section?',b7);
+
+  /* ── step 8: summary ── */
+  var rows8 = '';
+  for(i=0;i<S.bolts.length;i++){ b = S.bolts[i];
+    rows8 += '<tr'+(Math.abs(b.t-S.Fmax)<1e-6?' class="total"':'')+'><td><strong>'+b.name+'</strong></td>'
+          + '<td>'+nf(b.rx,1)+', '+nf(b.ry,1)+'</td><td>'+nf(b.p/1000,3)+'</td><td>'+nf(b.s/1000,3)+'</td>'
+          + '<td><strong>'+nf(b.t/1000,2)+'</strong></td></tr>'; }
+  var b8 = '<table class="sum"><tr><th>Bolt</th><th>$(r_x, r_y)$ mm</th><th>$|F\'|$ kN</th><th>$|F\'\'|$ kN</th><th>$|F|$ kN</th></tr>'
+    + rows8 + '</table>'
+    + '<table class="sum"><tr><th>Quantity</th><th>Symbol</th><th>Value</th></tr>'
+    + '<tr><td>Eccentricity about $G$</td><td>$e$</td><td>'+nf(S.ex,1)+' mm</td></tr>'
+    + '<tr><td>Moment about $G$</td><td>$M$</td><td>'+nf(Math.abs(S.M)/1e6,2)+' kN·m</td></tr>'
+    + '<tr><td>Polar sum</td><td>$\\sum r^2$</td><td>'+nf(S.Sr2,0)+' mm²</td></tr>'
+    + '<tr class="total"><td>(a) Largest bolt load</td><td>$F_{\\max}$</td><td>'+nf(S.Fmax/1000,2)+' kN (bolt '+S.worst.name+')</td></tr>'
+    + '<tr class="total"><td>(b) Max bolt shear stress</td><td>$\\tau_{\\max}$</td><td>'+nf(S.Fmax/p.At,1)+' MPa</td></tr>'
+    + '<tr class="total"><td>(c) Max bearing stress</td><td>$\\sigma_b$</td><td>'+nf(-S.Fmax/(p.d*tmin),1)+' MPa</td></tr>'
+    + '<tr class="total"><td>(d) Critical bending stress</td><td>$\\sigma$</td><td>'+nf(Mb*c/Inet,1)+' MPa</td></tr>'
+    + '</table>';
+  h += stepBlock(8,'Summary','all four answers together',b8);
+
+  /* ── common mistakes ── */
+  var mis = [];
+  mis.push('<strong>Adding the primary and secondary magnitudes arithmetically.</strong> They are vectors at different angles. '
+    + 'Here that would give $'+nf(S.bolts[0].p/1000,2)+' + '+nf(S.bolts[0].s/1000,2)+' = '+nf((S.bolts[0].p+S.bolts[0].s)/1000,2)
+    + '$ kN on every bolt instead of the correct '+nf(S.Fmax/1000,2)+' kN maximum — wrong for every bolt in the group, and '
+    + 'wrong in both directions.');
+  mis.push('<strong>Getting the direction of the secondary shear backwards.</strong> This is the most common serious error, and it is '
+    + '<em>silent</em>: reversing the sense of $F\'\'$ still satisfies $\\sum F = 0$, so the usual force check passes. It simply swaps '
+    + 'which bolts are critical — you would report '+nf(Math.min.apply(null,S.bolts.map(function(q){return q.t;}))/1000,2)+' kN as the '
+    + 'maximum instead of '+nf(S.Fmax/1000,2)+' kN, under-designing by '
+    + nf(100*S.Fmax/Math.min.apply(null,S.bolts.map(function(q){return q.t;}))-100,0)+'%. Fix the sense physically: the plate rotates '
+    + (S.M<0?'clockwise':'counter-clockwise')+' about $G$, so it drags bolt '+S.worst.name+' in that direction of travel — which here is '
+    + 'the <em>same</em> direction as the primary shear, so the two add. Then check $\\sum(r_i \\times F_i) = M$.');
+  mis.push('<strong>Assuming every bolt carries $F/n$.</strong> That is only the primary component. Bolt '+S.worst.name+' actually carries '
+    + nf(S.Fmax/S.bolts[0].p,1)+' times $F/n$ here; sizing the group on $F/n$ alone would be out by a factor of '+nf(S.Fmax/S.bolts[0].p,1)+'.');
+  mis.push('<strong>Measuring the eccentricity from a bolt instead of from the centroid.</strong> The force–couple replacement is '
+    + 'only valid about $G$; anywhere else the "equal share" primary component is no longer equal.');
+  mis.push('<strong>Using the thicker plate for bearing.</strong> The '+nf(p.geom.bar.b,0)+' mm bar looks like the obvious contact '
+    + 'surface, but the '+nf(p.tWeb,0)+' mm channel web is thinner and therefore governs: '+nf(S.Fmax/(p.d*tmin),0)+' MPa versus '
+    + nf(S.Fmax/(p.d*p.geom.bar.b),0)+' MPa. Bearing failure will start in the thinner member.');
+  mis.push('<strong>Using the gross section for the bending stress.</strong> The critical section is <em>at</em> the bolt line, '
+    + 'where two holes are drilled through it. Forgetting them under-predicts $\\sigma$ by '
+    + nf(100*(Mb*c/Inet)/(Mb*c/Igross)-100,0)+'%.');
+  var CIRCLED = ['&#9312;','&#9313;','&#9314;','&#9315;','&#9316;','&#9317;'];
+  h += '<div class="callout warn"><p><strong>Common mistakes:</strong></p>'
+     + mis.map(function(m,k){ return '<p style="margin-top:6px">'+CIRCLED[k]+' '+m+'</p>'; }).join('') + '</div>';
+
+  if(!S.equilOK)
+    h += '<div class="callout warn"><p><strong>Internal check failed</strong> — the computed bolt forces do not close on the '
+       + 'applied load. Do not trust the numbers above; report this page.</p></div>';
+
+  return h;
+}
+
+/* ─────────────────── problem definitions ─────────────────── */
+/* Datum: x = 0 at the left bolt column, y = 0 on the bar's horizontal centreline.
+   Bolt columns 150 mm apart (the two 75 mm dimensions), rows 120 mm apart (2 x 60).
+   The channel's right edge is 50 mm beyond the right bolt column; the load is a
+   further 300 mm out, so x_F = 150 + 50 + 300 = 500 mm. */
+var GEOM = {barX0:-75, barX1:500, barTop:100, barBot:-100, chX0:-75, chX1:200,
+            chDepth:250, bar:{b:15, h:200}};
+
+var VARIANTS = [
+  { btn:"Original (T7.1)",
+    desc:"The tutorial sheet problem exactly as printed: 15 x 200 mm bar, four M16 bolts, F = 16 kN at 300 mm beyond the channel.",
+    F:16000, ang:-90, xF:500, yF:100, d:16, At:157, tWeb:10, geom:GEOM,
+    bolts:[{name:'C',x:0,y:60},{name:'B',x:150,y:60},{name:'A',x:0,y:-60},{name:'D',x:150,y:-60}],
+    book:"(a) $F_D = F_B = 21.0$ kN, $F_C = F_A = 14.8$ kN, (b) 134 MPa, (c) &minus;131 MPa, (d) 67.8 MPa",
+    bookNote:"$B$ and $D$ are the bolts <em>nearest</em> the load, and they are the critical pair at 20.97 &asymp; 21.0 kN, "
+           + "with $A$ and $C$ at 14.79 &asymp; 14.8 kN. That matches the printed answer. It is worth being clear about why the "
+           + "near bolts win: the plate rotates clockwise about $G$, which drags $B$ and $D$ <em>downward</em>, the same direction "
+           + "as the downward primary shear. At $A$ and $C$ the rotation drags upward, against the primary." },
+
+  { btn:"Variant 1 — larger load",
+    desc:"Identical geometry, F raised from 16 kN to 24 kN. Everything scales linearly, so use this to check your method before the geometry changes: every force and stress should be exactly 1.5x the original.",
+    F:24000, ang:-90, xF:500, yF:100, d:16, At:157, tWeb:10, geom:GEOM,
+    bolts:[{name:'C',x:0,y:60},{name:'B',x:150,y:60},{name:'A',x:0,y:-60},{name:'D',x:150,y:-60}],
+    book:null, bookNote:null },
+
+  { btn:"Variant 2 — wider bolt spread",
+    desc:"Same 16 kN load, but the bolt rows are moved out to +/-80 mm and the columns to 200 mm apart, and the load is brought in to 250 mm past the channel. Spreading the bolts raises the sum of r-squared and shortens the eccentricity, so the moment share drops sharply - this is the single most effective thing a designer can do to an eccentric bolt group.",
+    F:16000, ang:-90, xF:500, yF:110, d:16, At:157, tWeb:10,
+    geom:{barX0:-75, barX1:500, barTop:110, barBot:-110, chX0:-75, chX1:250, chDepth:250, bar:{b:15, h:220}},
+    bolts:[{name:'C',x:0,y:80},{name:'B',x:200,y:80},{name:'A',x:0,y:-80},{name:'D',x:200,y:-80}],
+    book:null, bookNote:null }
+];
+
+/* ─────────────────── wiring ─────────────────── */
+function render(i){
+  var v = VARIANTS[i];
+  document.getElementById('doc').innerHTML = build(v);
+  document.getElementById('swDesc').textContent = v.desc;
+  var btns = document.querySelectorAll('#swBtns button');
+  for(var j=0;j<btns.length;j++) btns[j].setAttribute('aria-pressed', j===i ? 'true' : 'false');
+  if(window.renderMathInElement){
+    renderMathInElement(document.getElementById('doc'), {
+      delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}],
+      throwOnError:false
+    });
+  }
+}
+function init(){
+  var box = document.getElementById('swBtns');
+  VARIANTS.forEach(function(v,i){
+    var b = document.createElement('button');
+    b.textContent = v.btn;
+    b.setAttribute('aria-pressed','false');
+    b.onclick = function(){ render(i); };
+    box.appendChild(b);
+  });
+  render(0);
+}
+window.addEventListener('load', init);
+</script>
+</body>
+</html>

@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>T7.5 – Safe Load on a Single-Riveted Lap Joint</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css"/>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+body{font-family:'Segoe UI',Arial,sans-serif;font-size:15px;line-height:1.75;color:#1a1a1a;background:#f5f6f8;margin:0;padding:24px 16px 56px}
+.page{max-width:880px;margin:0 auto;background:#fff;border-radius:10px;box-shadow:0 2px 14px rgba(0,0,0,.10);padding:40px 52px 52px}
+.uni-header{text-align:center;border-bottom:2px solid #1a3c6e;padding-bottom:16px;margin-bottom:24px}
+.uni-header p{margin:0;line-height:1.4;font-size:13.5px;color:#555}
+.uni-header h2{margin:8px 0 0;font-size:20px;color:#1a3c6e}
+h3{color:#1a3c6e;border-left:4px solid #1a3c6e;padding-left:10px;margin:28px 0 10px;font-size:15.5px}
+h4{color:#1a3c6e;font-size:14.5px;margin:20px 0 6px}
+.step{margin-bottom:10px}
+.step details{border:1px solid #d1d9e8;border-radius:8px;overflow:hidden;margin-top:6px}
+.step details summary{list-style:none;cursor:pointer;padding:11px 15px;background:#f0f4fb;color:#1a3c6e;font-weight:500;font-size:14.5px;display:flex;align-items:center;gap:10px;user-select:none}
+.step details summary::-webkit-details-marker{display:none}
+.step details summary::after{content:'\25BC';font-size:11px;color:#f97316;transition:transform .2s;flex-shrink:0;margin-left:auto;padding-left:8px}
+.step details[open] summary::after{transform:rotate(180deg)}
+.step details[open] summary{background:#e8eef9;border-bottom:1px solid #d1d9e8}
+.step-body{padding:16px 20px}
+.step-num{background:#1a3c6e;color:#fff;font-size:12px;font-weight:700;border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.step-title{font-size:15px;font-weight:600;color:#1a3c6e}
+.try-hint{font-size:12.5px;color:#6b7280;font-style:italic;margin-left:auto}
+.callout{border-radius:6px;padding:13px 18px;margin:14px 0;font-size:14.5px}
+.callout p{margin:4px 0}
+.info{background:#eef4ff;border-left:4px solid #3b82f6}
+.given{background:#f0fdf4;border-left:4px solid #22c55e}
+.answer{background:#fff7ed;border-left:4px solid #f97316;font-size:16px;font-weight:600}
+.note{background:#faf5ff;border-left:4px solid #a855f7;font-size:14px}
+.warn{background:#fffbeb;border-left:4px solid #f59e0b;font-size:14px}
+.math-block{background:#f8f9fb;border:1px solid #e2e6ef;border-radius:6px;padding:14px 20px;margin:12px 0;overflow-x:auto;text-align:center}
+.diagram-wrap{text-align:center;margin:22px 0 8px}
+.diagram-wrap figure{margin:0}
+.diagram-wrap svg{max-width:100%;height:auto}
+.diagram-wrap figcaption{font-size:13px;color:#555;margin-top:2px;font-style:italic;line-height:1.5}
+table.sum{border-collapse:collapse;width:100%;margin:14px 0;font-size:14px}
+table.sum th{background:#1a3c6e;color:#fff;font-weight:600;padding:8px 10px;text-align:center;border:1px solid #1a3c6e}
+table.sum td{padding:7px 10px;text-align:center;border:1px solid #d1d9e8}
+table.sum tr.total td{background:#fff7ed;font-weight:700;border-top:2px solid #f97316}
+table.sum tr:nth-child(even) td{background:#f8f9fb}
+table.sum tr.total:nth-child(even) td{background:#fff7ed}
+.footer{margin-top:40px;border-top:1px solid #e5e7eb;padding-top:12px;font-size:12px;color:#999;text-align:center}
+.switcher{background:#f0f4fb;border:1px solid #d1d9e8;border-radius:8px;padding:14px 18px;margin-bottom:26px}
+.switcher .sw-label{font-size:12.5px;font-weight:600;color:#1a3c6e;text-transform:uppercase;letter-spacing:.06em;margin-bottom:9px}
+.sw-btns{display:flex;flex-wrap:wrap;gap:8px}
+.sw-btns button{font-family:inherit;font-size:13.5px;font-weight:500;padding:8px 15px;border-radius:6px;border:1px solid #b9c6df;background:#fff;color:#1a3c6e;cursor:pointer;transition:.15s}
+.sw-btns button:hover{background:#e8eef9;border-color:#1a3c6e}
+.sw-btns button[aria-pressed="true"]{background:#1a3c6e;border-color:#1a3c6e;color:#fff;box-shadow:0 1px 4px rgba(26,60,110,.3)}
+.sw-desc{font-size:13px;color:#555;margin-top:10px;font-style:italic}
+</style>
+</head>
+<body>
+<div class="page">
+
+<div class="uni-header">
+  <p>Curtin University &nbsp;·&nbsp; School of Civil and Mechanical Engineering</p>
+  <p>MCEN2002 – Fundamentals of Mechanical Design</p>
+  <p style="margin-top:8px"><strong>Dr Azma Putra Azis</strong></p>
+  <h2>Tutorial 7.5 &nbsp;–&nbsp; Safe Load on a Single-Riveted Lap Joint</h2>
+</div>
+
+<div class="switcher">
+  <div class="sw-label">Choose a problem</div>
+  <div class="sw-btns" id="swBtns"></div>
+  <div class="sw-desc" id="swDesc"></div>
+</div>
+
+<div id="doc"></div>
+
+<div class="footer">MCEN2002 – Fundamentals of Mechanical Design | Tutorial 7.5 | Curtin University</div>
+</div>
+
+<script>
+/* ══════════════════════════════════════════════════════════════════════════
+   MCEN2002 — RIVETED LAP JOINT ENGINE  (shared by T7.5 and T7.6)
+
+   A riveted lap joint has THREE independent ways of failing, and the safe
+   load is whichever comes first. There is no interaction between them — you
+   simply evaluate all three and take the minimum.
+
+     1. RIVET SHEAR      the rivets shear off on the faying surface
+                         F = n · (π/4)d² · τ_allow          (single shear)
+
+     2. PLATE BEARING    the rivet shank crushes the hole edge
+                         F = n · d · t · σ_b,allow
+                         (projected area d·t, NOT the hole's circumference)
+
+     3. PLATE TENSION    the plate tears across the line of holes
+                         F = (L − n_row·d_hole) · t · σ_t,allow
+                         evaluated on the NET width, at the worst hole line
+
+   SAFE LOAD = min(the modes that apply).
+
+   In T7.5 tensile failure is explicitly excluded by the problem statement, so
+   only modes 1 and 2 are evaluated; T7.6 uses all three. The same `solve`
+   handles both — pass `checkTension:false` to drop mode 3.
+
+   Two details that catch people out:
+     · SINGLE shear, not double. A lap joint has two plates and therefore ONE
+       faying surface per rivet. A butt joint with two cover plates has two.
+     · Bearing uses the thinnest plate in the stack, because the same force is
+       spread over less projected area there.
+   ══════════════════════════════════════════════════════════════════════════ */
+
+function nf(v,dp){
+  if(dp===undefined) dp = 2;
+  var r = Number(v);
+  if(Math.abs(r) < 5e-12) r = 0;
+  var s = r.toFixed(dp);
+  if(s === '-' + (0).toFixed(dp)) s = (0).toFixed(dp);
+  return s;
+}
+
+function solve(p){
+  var As = Math.PI/4*p.d*p.d;
+  var planes = p.shearPlanes || 1;
+  var modes = [];
+  modes.push({key:'shear', name:'Rivet shear',
+              expr:'n\\,'+(planes>1?planes+'\\,':'')+'\\frac{\\pi}{4}d^2\\,\\tau_{\\text{allow}}',
+              F: p.n*planes*As*p.tau});
+  modes.push({key:'bearing', name:'Plate bearing',
+              expr:'n\\,d\\,t\\,\\sigma_{b,\\text{allow}}',
+              F: p.n*p.d*p.t*p.sb});
+  if(p.checkTension){
+    var wnet = p.L - p.nRow*p.dh;
+    modes.push({key:'tension', name:'Plate tension (net section)',
+                expr:'(L - n_{\\text{row}}d_h)\\,t\\,\\sigma_{t,\\text{allow}}',
+                F: wnet*p.t*p.st, wnet:wnet});
+  }
+  var gov = modes[0], i;
+  for(i=1;i<modes.length;i++) if(modes[i].F < gov.F - 1e-9) gov = modes[i];
+  for(i=0;i<modes.length;i++) modes[i].gov = (modes[i] === gov);
+  return {p:p, As:As, planes:planes, modes:modes, gov:gov, Fsafe:gov.F};
+}
+
+/* ─────────────────── SVG helpers ─────────────────── */
+var NAVY='#1a3c6e', RED='#c0392b', BLUE='#1a6fc4', ORANGE='#f97316',
+    GREY='#555', GREEN='#15803d', PUR='#7c3aed';
+function n1(v){ return Number(v).toFixed(1); }
+function arrow(x1,y1,x2,y2,col,w){
+  var dx=x2-x1, dy=y2-y1, L=Math.hypot(dx,dy);
+  if(L < 1e-9) return '';
+  var ux=dx/L, uy=dy/L, hl=Math.min(11,L*0.45), hw=Math.min(4.5,L*0.18);
+  var bx=x2-ux*hl, by=y2-uy*hl, px=-uy, py=ux;
+  return '<line x1="'+n1(x1)+'" y1="'+n1(y1)+'" x2="'+n1(bx)+'" y2="'+n1(by)+'" stroke="'+col+'" stroke-width="'+(w||2)+'"/>'
+       + '<polygon points="'+n1(x2)+','+n1(y2)+' '+n1(bx+px*hw)+','+n1(by+py*hw)+' '+n1(bx-px*hw)+','+n1(by-py*hw)+'" fill="'+col+'"/>';
+}
+function dimH(xa,xb,y,txt,col){
+  col = col || GREY;
+  return '<line x1="'+n1(xa)+'" y1="'+n1(y-5)+'" x2="'+n1(xa)+'" y2="'+n1(y+5)+'" stroke="'+col+'" stroke-width="1"/>'
+       + '<line x1="'+n1(xb)+'" y1="'+n1(y-5)+'" x2="'+n1(xb)+'" y2="'+n1(y+5)+'" stroke="'+col+'" stroke-width="1"/>'
+       + '<line x1="'+n1(xa)+'" y1="'+n1(y)+'" x2="'+n1(xb)+'" y2="'+n1(y)+'" stroke="'+col+'" stroke-width="1"/>'
+       + '<text x="'+n1((xa+xb)/2)+'" y="'+n1(y-7)+'" font-size="11.5" fill="#333" text-anchor="middle">'+txt+'</text>';
+}
+
+/* ═══════════════ FIGURE 1 — the joint, plan + elevation ═══════════════ */
+function figJoint(S){
+  var p = S.p, W = 680, H = 312;
+  var s = '<svg viewBox="0 0 '+n1(W)+' '+n1(H)+'" width="680" xmlns="http://www.w3.org/2000/svg" font-family="Arial,sans-serif" font-size="12">';
+  var i, xL = 96, xR = 596, xm = (xL+xR)/2, ov = 110;   /* ov = half the lap length */
+  /* Rivet pitch is set from the lap length so the rivets are always spaced
+     clear of one another, whatever n is — at the old spacing six 22 mm rivets
+     drew as a solid band and the count could not be read off the figure. */
+  var pitch = 2*ov/(p.n+1), rr = Math.min(7, pitch*0.32);
+
+  /* ── plan view ── */
+  var yT = 46, ht = 74;
+  s += '<rect x="'+n1(xL)+'" y="'+n1(yT+14)+'" width="'+n1(xm-xL+ov)+'" height="'+n1(ht-28)+'" fill="#dfeaf6" stroke="'+NAVY+'" stroke-width="1.5"/>';
+  s += '<rect x="'+n1(xm-ov)+'" y="'+n1(yT)+'" width="'+n1(xR-xm+ov)+'" height="'+n1(ht)+'" fill="#eef4fb" stroke="'+NAVY+'" stroke-width="1.5"/>';
+  s += '<rect x="'+n1(xm-ov)+'" y="'+n1(yT+14)+'" width="'+n1(2*ov)+'" height="'+n1(ht-28)+'" fill="none" stroke="'+GREY+'" stroke-width="1" stroke-dasharray="5,4"/>';
+  for(i=0;i<p.n;i++){
+    var cxr = xm - ov + pitch*(i+1);
+    s += '<circle cx="'+n1(cxr)+'" cy="'+n1(yT+ht/2)+'" r="'+n1(rr)+'" fill="#fff" stroke="'+NAVY+'" stroke-width="1.4"/>';
+  }
+  s += '<line x1="'+n1(xm-ov-14)+'" y1="'+n1(yT+ht/2)+'" x2="'+n1(xm+ov+14)+'" y2="'+n1(yT+ht/2)+'" stroke="#999" stroke-width="0.9" stroke-dasharray="9,3,2,3"/>';
+  s += arrow(xL-6, yT+ht/2, xL-52, yT+ht/2, RED, 2.4);
+  s += arrow(xR+6, yT+ht/2, xR+52, yT+ht/2, RED, 2.4);
+  s += '<text x="'+n1(xL-54)+'" y="'+n1(yT+ht/2-9)+'" font-size="13" fill="'+RED+'" text-anchor="start" font-weight="bold">F</text>';
+  s += '<text x="'+n1(xR+54)+'" y="'+n1(yT+ht/2-9)+'" font-size="13" fill="'+RED+'" text-anchor="end" font-weight="bold">F</text>';
+  s += '<text x="'+n1(xm)+'" y="'+n1(yT-12)+'" font-size="12" fill="'+NAVY+'" text-anchor="middle">'+p.n+' rivets, &#216;'+nf(p.d,0)+' mm</text>';
+  s += '<text x="14" y="'+n1(yT+ht/2+4)+'" font-size="11.5" fill="'+GREY+'" font-style="italic">plan</text>';
+
+  /* ── elevation, showing the single shear plane ── */
+  var yE = 206, tp = 15;
+  s += '<rect x="'+n1(xL)+'" y="'+n1(yE-tp)+'" width="'+n1(xm-xL+ov)+'" height="'+n1(tp)+'" fill="#dfeaf6" stroke="'+NAVY+'" stroke-width="1.5"/>';
+  s += '<rect x="'+n1(xm-ov)+'" y="'+n1(yE)+'" width="'+n1(xR-xm+ov)+'" height="'+n1(tp)+'" fill="#eef4fb" stroke="'+NAVY+'" stroke-width="1.5"/>';
+  for(i=0;i<p.n;i++){
+    var cxe = xm - ov + pitch*(i+1);
+    s += '<rect x="'+n1(cxe-rr*0.85)+'" y="'+n1(yE-tp-5)+'" width="'+n1(rr*1.7)+'" height="'+n1(2*tp+10)+'" fill="#c7d3e4" stroke="'+NAVY+'" stroke-width="1.2"/>';
+  }
+  s += '<line x1="'+n1(xm-ov-10)+'" y1="'+n1(yE)+'" x2="'+n1(xm+ov+10)+'" y2="'+n1(yE)+'" stroke="'+RED+'" stroke-width="2.2" stroke-dasharray="7,4"/>';
+  s += '<text x="'+n1(xm+ov+16)+'" y="'+n1(yE+30)+'" font-size="12" fill="'+RED+'" text-anchor="middle" font-weight="bold">single shear plane</text>';
+  s += '<line x1="'+n1(xm+ov+16)+'" y1="'+n1(yE+21)+'" x2="'+n1(xm+ov+16)+'" y2="'+n1(yE+3)+'" stroke="'+RED+'" stroke-width="0.9"/>';
+  s += arrow(xL-6, yE-tp/2, xL-52, yE-tp/2, RED, 2.2);
+  s += arrow(xR+6, yE+tp/2, xR+52, yE+tp/2, RED, 2.2);
+
+  /* t is a THICKNESS, so it is dimensioned vertically on the edge of the plate */
+  var xd = 62;
+  s += '<line x1="'+n1(xL)+'" y1="'+n1(yE-tp)+'" x2="'+n1(xd-8)+'" y2="'+n1(yE-tp)+'" stroke="'+GREY+'" stroke-width="0.8"/>';
+  s += '<line x1="'+n1(xL)+'" y1="'+n1(yE)+'" x2="'+n1(xd-8)+'" y2="'+n1(yE)+'" stroke="'+GREY+'" stroke-width="0.8"/>';
+  s += '<line x1="'+n1(xd)+'" y1="'+n1(yE-tp-9)+'" x2="'+n1(xd)+'" y2="'+n1(yE+9)+'" stroke="'+GREY+'" stroke-width="1"/>';
+  s += '<line x1="'+n1(xd-4)+'" y1="'+n1(yE-tp)+'" x2="'+n1(xd+4)+'" y2="'+n1(yE-tp)+'" stroke="'+GREY+'" stroke-width="1"/>';
+  s += '<line x1="'+n1(xd-4)+'" y1="'+n1(yE)+'" x2="'+n1(xd+4)+'" y2="'+n1(yE)+'" stroke="'+GREY+'" stroke-width="1"/>';
+  /* 1 dp normally, 2 when the thickness needs it (e.g. 6.35 mm from 1/4") so the
+     figure agrees with the number used in the working */
+  var tdp = (Math.abs(p.t*10 - Math.round(p.t*10)) < 1e-9) ? 1 : 2;
+  s += '<text x="'+n1(xd)+'" y="'+n1(yE-tp-15)+'" font-size="11.5" fill="#333" text-anchor="middle">t = '+nf(p.t,tdp)+' mm</text>';
+  s += '<text x="'+n1(xd)+'" y="'+n1(yE+24)+'" font-size="11" fill="'+GREY+'" text-anchor="middle">each plate'
+     + (p.tDesc ? ' ('+p.tDesc+')' : '')+'</text>';
+
+  s += '<text x="14" y="'+n1(yE+4)+'" font-size="11.5" fill="'+GREY+'" font-style="italic">elev.</text>';
+  s += '<text x="14" y="'+n1(H-10)+'" font-size="11.5" fill="'+GREY+'" font-style="italic">Lap joint: the two plates overlap, so each rivet has exactly ONE shear plane.</text>';
+  return s + '</svg>';
+}
+
+/* ═══════════════ FIGURE 2 — the failure modes ═══════════════ */
+function figModes(S){
+  var p = S.p, W = 640, H = S.modes.length*104 + 34;
+  var s = '<svg viewBox="0 0 '+n1(W)+' '+n1(H)+'" width="640" xmlns="http://www.w3.org/2000/svg" font-family="Arial,sans-serif" font-size="12">';
+  var i, x0 = 190, tp = 13;
+  for(i=0;i<S.modes.length;i++){
+    var m = S.modes[i], y = 52 + i*104, col = m.gov ? RED : '#9aa3b2';
+    s += '<text x="14" y="'+n1(y-16)+'" font-size="13" fill="'+(m.gov?RED:NAVY)+'" font-weight="bold">'+(i+1)+'. '+m.name+'</text>';
+    s += '<text x="14" y="'+n1(y+2)+'" font-size="12" fill="'+(m.gov?RED:GREY)+'">'+nf(m.F/1000,1)+' kN'+(m.gov?'  &#8592; governs':'')+'</text>';
+    if(m.key==='shear'){
+      s += '<rect x="'+n1(x0)+'" y="'+n1(y-24)+'" width="150" height="'+n1(tp)+'" fill="#dfeaf6" stroke="'+NAVY+'" stroke-width="1.3"/>';
+      s += '<rect x="'+n1(x0+90)+'" y="'+n1(y-11)+'" width="150" height="'+n1(tp)+'" fill="#eef4fb" stroke="'+NAVY+'" stroke-width="1.3"/>';
+      s += '<rect x="'+n1(x0+126)+'" y="'+n1(y-29)+'" width="12" height="'+n1(2*tp+10)+'" fill="#c7d3e4" stroke="'+NAVY+'" stroke-width="1.2"/>';
+      s += '<line x1="'+n1(x0+108)+'" y1="'+n1(y-11)+'" x2="'+n1(x0+156)+'" y2="'+n1(y-11)+'" stroke="'+col+'" stroke-width="2.6"/>';
+      s += arrow(x0+120, y-30, x0+64, y-30, col, 2);
+      s += arrow(x0+144, y+8, x0+200, y+8, col, 2);
+      /* plain glyphs, not $...$ — KaTeX auto-render does not typeset inside SVG */
+      s += '<text x="'+n1(x0+250)+'" y="'+n1(y-4)+'" font-size="11.5" fill="'+GREY+'">cut across &#960;d&#178;/4</text>';
+    } else if(m.key==='bearing'){
+      s += '<rect x="'+n1(x0)+'" y="'+n1(y-24)+'" width="240" height="'+n1(2*tp)+'" fill="#dfeaf6" stroke="'+NAVY+'" stroke-width="1.3"/>';
+      s += '<ellipse cx="'+n1(x0+120)+'" cy="'+n1(y-24+tp)+'" rx="15" ry="'+n1(tp*0.92)+'" fill="#fff" stroke="'+NAVY+'" stroke-width="1.3"/>';
+      s += '<path d="M '+n1(x0+120)+','+n1(y-24+tp-tp*0.92)+' A 15,'+n1(tp*0.92)+' 0 0,1 '+n1(x0+120)+','+n1(y-24+tp+tp*0.92)
+         + '" fill="none" stroke="'+col+'" stroke-width="3.4"/>';
+      s += arrow(x0+96, y-24+tp, x0+128, y-24+tp, col, 2.2);
+      s += '<text x="'+n1(x0+250)+'" y="'+n1(y-4)+'" font-size="11.5" fill="'+GREY+'">crushes hole edge over d &#215; t</text>';
+    } else {
+      s += '<rect x="'+n1(x0)+'" y="'+n1(y-30)+'" width="240" height="46" fill="#dfeaf6" stroke="'+NAVY+'" stroke-width="1.3"/>';
+      var k, np = Math.min(p.nRow, 6);
+      for(k=0;k<np;k++)
+        s += '<circle cx="'+n1(x0+30+k*(180/(np-1||1)))+'" cy="'+n1(y-7)+'" r="6" fill="#fff" stroke="'+NAVY+'" stroke-width="1.2"/>';
+      s += '<line x1="'+n1(x0+18)+'" y1="'+n1(y-7)+'" x2="'+n1(x0+222)+'" y2="'+n1(y-7)+'" stroke="'+col+'" stroke-width="2.6" stroke-dasharray="6,4"/>';
+      s += arrow(x0-4, y-7, x0-44, y-7, col, 2);
+      s += arrow(x0+244, y-7, x0+284, y-7, col, 2);
+      s += '<text x="'+n1(x0+250)+'" y="'+n1(y+30)+'" font-size="11.5" fill="'+GREY+'">tears across the net width</text>';
+    }
+  }
+  return s + '</svg>';
+}
+
+/* ═══════════════ FIGURE 3 — capacity comparison bars ═══════════════ */
+function figBars(S){
+  var W = 600, H = S.modes.length*46 + 62, x0 = 200, xw = 330;
+  var top = 0, i;
+  for(i=0;i<S.modes.length;i++) top = Math.max(top, S.modes[i].F);
+  top *= 1.10;
+  var s = '<svg viewBox="0 0 '+n1(W)+' '+n1(H)+'" width="600" xmlns="http://www.w3.org/2000/svg" font-family="Arial,sans-serif" font-size="12">';
+  for(i=0;i<S.modes.length;i++){
+    var m = S.modes[i], y = 30 + i*46;
+    s += '<text x="'+n1(x0-12)+'" y="'+n1(y+19)+'" font-size="12.5" fill="'+(m.gov?RED:NAVY)+'" text-anchor="end" font-weight="'+(m.gov?'bold':'normal')+'">'+m.name+'</text>';
+    s += '<rect x="'+n1(x0)+'" y="'+n1(y+4)+'" width="'+n1(xw*m.F/top)+'" height="22" fill="'+(m.gov?RED:BLUE)+'" fill-opacity="'+(m.gov?0.72:0.38)+'" stroke="'+(m.gov?RED:BLUE)+'" stroke-width="1.2"/>';
+    s += '<text x="'+n1(x0+xw*m.F/top+9)+'" y="'+n1(y+20)+'" font-size="12.5" fill="'+(m.gov?RED:NAVY)+'" text-anchor="start" font-weight="bold">'+nf(m.F/1000,1)+' kN</text>';
+  }
+  var yl = 30 + S.modes.length*46;
+  s += '<line x1="'+n1(x0 + xw*S.Fsafe/top)+'" y1="22" x2="'+n1(x0 + xw*S.Fsafe/top)+'" y2="'+n1(yl+2)+'" stroke="'+RED+'" stroke-width="1.4" stroke-dasharray="5,3"/>';
+  s += '<text x="'+n1(x0 + xw*S.Fsafe/top)+'" y="'+n1(yl+22)+'" font-size="12.5" fill="'+RED+'" text-anchor="middle" font-weight="bold">safe load = '+nf(S.Fsafe/1000,1)+' kN</text>';
+  return s + '</svg>';
+}
+
+/* ═══════════════ page builder ═══════════════ */
+function stepBlock(n,title,hint,body){
+  return '<div class="step"><details'+(n===1?' open':'')+'>'
+       + '<summary><span class="step-num">'+n+'</span><span class="step-title">'+title+'</span>'
+       + '<span class="try-hint">'+hint+'</span></summary>'
+       + '<div class="step-body">'+body+'</div></details></div>';
+}
+
+function build(p){
+  var S = solve(p), i, m, h = '';
+  var CIRCLED = ['&#9312;','&#9313;','&#9314;','&#9315;','&#9316;','&#9317;'];
+  var get = function(k){ for(var j=0;j<S.modes.length;j++) if(S.modes[j].key===k) return S.modes[j]; return null; };
+  var sh = get('shear'), br = get('bearing');
+
+  h += '<h3>Problem Statement</h3>'
+    +  '<p>The allowable stresses for a <strong>single-riveted lap joint</strong> are <strong>'+nf(p.tau,0)+' MPa in shear</strong> and '
+    +  '<strong>'+nf(p.sb,0)+' MPa in compression/bearing</strong>. It is assumed that <strong>tensile failure cannot occur</strong> in '
+    +  'this joint. Determine the safe value of load if there are <strong>'+p.n+' rivets of '+nf(p.d,0)+' mm diameter</strong> in the '
+    +  'joint and the plate thickness is <strong>'+nf(p.t,1)+' mm</strong>.</p>';
+
+  h += '<div class="diagram-wrap"><figure>'+figJoint(S)
+    +  '<figcaption>The joint in plan and elevation. Because the two plates simply overlap, each rivet is cut by exactly '
+    +  '<strong>one</strong> shear plane — this is the detail that halves or doubles your answer.</figcaption></figure></div>';
+
+  if(p.book)
+    h += '<div class="callout given"><p><strong>Given answer:</strong> '+p.book+'</p></div>';
+  else
+    h += '<div class="callout given"><p><strong>Note:</strong> this is a modified problem — the answers below are computed, '
+      +  'not taken from the textbook.</p></div>';
+
+  h += '<div class="callout info"><p><strong>Strategy:</strong> a riveted joint has several independent failure modes. Work out the load '
+    +  'that would cause each one, then take the <strong>smallest</strong> — the joint fails the first way it can, and strengthening any '
+    +  'other mode changes nothing. Here the problem removes plate tension from consideration, so there are '+S.modes.length
+    +  ' modes to check rather than three.</p></div>';
+
+  h += '<h3>Solution</h3>';
+
+  /* ── step 1 ── */
+  var b1 = '<p>Each rivet is cut on a single plane of area $\\frac{\\pi}{4}d^2$, and all '+p.n+' share the load equally (the joint is a '
+    + 'straight tension splice, so there is no eccentricity and no moment):</p>'
+    + '<div class="math-block">$$A_s = \\frac{\\pi}{4}d^2 = \\frac{\\pi}{4}('+nf(p.d,0)+')^2 = '+nf(S.As,2)+'\\ \\text{mm}^2$$'
+    + '$$F_{\\text{shear}} = n\\,A_s\\,\\tau_{\\text{allow}} = '+p.n+' \\times '+nf(S.As,2)+' \\times '+nf(p.tau,0)+' = '+nf(sh.F,0)+'\\ \\text{N} = '+nf(sh.F/1000,1)+'\\ \\text{kN}$$</div>'
+    + '<div class="callout answer"><p>$F_{\\text{shear}} = '+nf(sh.F/1000,1)+'$ kN</p></div>'
+    + '<div class="callout warn"><p><strong>Single shear, not double.</strong> A <em>lap</em> joint overlaps two plates, giving one shear '
+    + 'plane per rivet. A <em>butt</em> joint with two cover plates gives two planes and would double this to $'+nf(2*sh.F/1000,1)
+    + '$ kN. Look at the elevation and count the planes the rivet crosses — do not assume.</p></div>'
+    + '<div class="callout note"><p><strong>Rivet diameter or hole diameter?</strong> Use the <strong>rivet</strong> diameter for shear: '
+    + 'it is the rivet that is being cut. (Some texts use the hole diameter on the argument that a hot-driven rivet fills its hole; that '
+    + 'would give $'+nf(p.n*S.planes*Math.PI/4*Math.pow(p.dh||p.d,2)*p.tau/1000,1)+'$ kN here. The book\'s answer uses the rivet '
+    + 'diameter.)</p></div>';
+  h += stepBlock(1,'Failure by rivet shear','how many shear planes per rivet?',b1);
+
+  /* ── step 2 ── */
+  var b2 = '<p>Bearing is the rivet shank crushing the edge of its hole. The contact is over a curved surface, but the stress is '
+    + 'conventionally referred to the <strong>projected area</strong> $d \\times t$ — a rectangle, not a semicircle:</p>'
+    + '<div class="math-block">$$F_{\\text{bearing}} = n\\,d\\,t\\,\\sigma_{b,\\text{allow}} = '+p.n+' \\times '+nf(p.d,0)+' \\times '+nf(p.t,1)+' \\times '+nf(p.sb,0)+' = '+nf(br.F,0)+'\\ \\text{N} = '+nf(br.F/1000,1)+'\\ \\text{kN}$$</div>'
+    + '<div class="callout answer"><p>$F_{\\text{bearing}} = '+nf(br.F/1000,1)+'$ kN</p></div>'
+    + '<div class="callout note"><p><strong>Why the projected area?</strong> The true contact pressure varies around the hole — highest '
+    + 'where the shank presses hardest, zero at the sides. Rather than integrate that distribution, engineers define a nominal bearing '
+    + 'stress $F/(dt)$ and quote allowable values that were measured the same way. That is why $\\sigma_b$ allowables ('+nf(p.sb,0)
+    + ' MPa here) look implausibly high next to a tensile allowable: they are referred to a fictitious area, and the two numbers are not '
+    + 'directly comparable.</p></div>'
+    + '<div class="callout warn"><p><strong>Use the thinnest plate.</strong> Both plates are '+nf(p.t,1)+' mm here so it makes no '
+    + 'difference, but when they differ the thinner one governs — same force, less projected area, higher stress.</p></div>';
+  h += stepBlock(2,'Failure by plate bearing','which area does the rivet bear on?',b2);
+
+  /* ── step 3 ── */
+  var rows3 = '';
+  for(i=0;i<S.modes.length;i++){ m = S.modes[i];
+    rows3 += '<tr'+(m.gov?' class="total"':'')+'><td>'+m.name+'</td><td>$'+m.expr+'$</td><td>'+nf(m.F/1000,1)+'</td><td>'
+          +  (m.gov?'<strong>&#8592; governs</strong>':'')+'</td></tr>'; }
+  var b3 = '<p>The joint will fail by whichever mode needs the least load. Comparing:</p>'
+    + '<table class="sum"><tr><th>Failure mode</th><th>Expression</th><th>$F$ (kN)</th><th></th></tr>'+rows3+'</table>'
+    + '<div class="diagram-wrap"><figure>'+figBars(S)
+    + '<figcaption>Capacity in each mode. The safe load is set by the shortest bar — everything to the right of the dashed line is '
+    + 'strength the joint cannot use.</figcaption></figure></div>'
+    + '<div class="diagram-wrap"><figure>'+figModes(S)
+    + '<figcaption>What each mode physically looks like. The governing mode is drawn in red.</figcaption></figure></div>'
+    + '<div class="math-block">$$F_{\\text{safe}} = \\min\\left('+S.modes.map(function(q){ return nf(q.F/1000,1); }).join(',\\ ')+'\\right) = '+nf(S.Fsafe/1000,1)+'\\ \\text{kN}$$</div>'
+    + '<div class="callout answer"><p>$F_{\\text{safe}} = '+nf(S.Fsafe/1000,0)+'$ kN &nbsp; ('+S.gov.name.toLowerCase()+' governs)</p></div>'
+    + '<div class="callout note"><p><strong>What the margin tells a designer.</strong> Bearing capacity is '
+    + nf(100*(br.F/sh.F - 1),0)+'% above shear capacity, so the joint is <em>shear-critical</em>. Thickening the plates would buy nothing '
+    + 'at all; the way to a stronger joint here is more rivets, bigger rivets, or a butt joint in double shear. Identifying which mode '
+    + 'governs is the entire point of the calculation — the number alone is only half the answer.</p></div>';
+  h += stepBlock(3,'Safe load — the governing mode','take the minimum, and say which one it is',b3);
+
+  /* ── step 4 ── */
+  var rows4 = '';
+  for(i=0;i<S.modes.length;i++){ m = S.modes[i];
+    rows4 += '<tr'+(m.gov?' class="total"':'')+'><td>'+m.name+'</td><td>'+nf(m.F/1000,1)+'</td><td>'+nf(m.F/S.Fsafe,2)+'</td></tr>'; }
+  var b4 = '<table class="sum"><tr><th>Input</th><th>Symbol</th><th>Value</th></tr>'
+    + '<tr><td>Number of rivets</td><td>$n$</td><td>'+p.n+'</td></tr>'
+    + '<tr><td>Rivet diameter</td><td>$d$</td><td>'+nf(p.d,0)+' mm</td></tr>'
+    + '<tr><td>Plate thickness</td><td>$t$</td><td>'+nf(p.t,1)+' mm</td></tr>'
+    + '<tr><td>Allowable shear</td><td>$\\tau$</td><td>'+nf(p.tau,0)+' MPa</td></tr>'
+    + '<tr><td>Allowable bearing</td><td>$\\sigma_b$</td><td>'+nf(p.sb,0)+' MPa</td></tr>'
+    + '</table>'
+    + '<table class="sum"><tr><th>Failure mode</th><th>Capacity (kN)</th><th>Ratio to governing</th></tr>'+rows4+'</table>'
+    + '<div class="callout answer"><p>$F_{\\text{safe}} = '+nf(S.Fsafe/1000,0)+'$ kN, limited by '+S.gov.name.toLowerCase()+'</p></div>';
+  h += stepBlock(4,'Summary','',b4);
+
+  /* ── common mistakes ── */
+  var mis = [];
+  mis.push('<strong>Assuming double shear.</strong> A lap joint has one shear plane per rivet. Counting two would give '
+    + nf(2*sh.F/1000,1)+' kN — a joint designed to fail at half the assumed load.');
+  mis.push('<strong>Using $\\pi d t$ or $\\frac{\\pi}{4}d^2$ for the bearing area.</strong> Bearing uses the <em>projected</em> '
+    + 'rectangle $d\\,t = '+nf(p.d*p.t,1)+'$ mm² per rivet. The circumference and the shank cross-section belong to other modes.');
+  mis.push('<strong>Adding the mode capacities together.</strong> They are alternative ways for the same joint to fail, not '
+    + 'contributions that stack. The answer is the minimum, never the sum ('+nf(S.modes.reduce(function(a,q){return a+q.F;},0)/1000,0)+' kN).');
+  mis.push('<strong>Quoting a number without naming the governing mode.</strong> "'+nf(S.Fsafe/1000,0)+' kN" is half an answer; '
+    + '"'+nf(S.Fsafe/1000,0)+' kN, '+S.gov.name.toLowerCase()+'-critical" tells the next engineer what to change.');
+  mis.push('<strong>Checking tension anyway.</strong> The question states tensile failure cannot occur — no plate width is even given, '
+    + 'so the net-section check is not available. Read what the problem excludes as carefully as what it provides.');
+  h += '<div class="callout warn"><p><strong>Common mistakes:</strong></p>'
+     + mis.map(function(m2,k){ return '<p style="margin-top:6px">'+CIRCLED[k]+' '+m2+'</p>'; }).join('') + '</div>';
+
+  return h;
+}
+
+/* ─────────────────── problem definitions ─────────────────── */
+var VARIANTS = [
+  { btn:"Original (T7.5)",
+    desc:"The tutorial sheet problem as printed: six 22 mm rivets, 6.4 mm plates, 100 MPa allowable shear and 335 MPa allowable bearing, tensile failure excluded.",
+    n:6, d:22, t:6.4, tau:100, sb:335, shearPlanes:1, checkTension:false,
+    book:"$F = 228$ kN" },
+
+  { btn:"Variant 1 — butt joint, double shear",
+    desc:"The same rivets and plates, but arranged as a butt joint with two cover plates so each rivet is cut on TWO planes. Shear capacity doubles - watch the governing mode change hands, which is the whole point of the exercise.",
+    n:6, d:22, t:6.4, tau:100, sb:335, shearPlanes:2, checkTension:false,
+    book:null },
+
+  { btn:"Variant 2 — thinner plates",
+    desc:"Same six 22 mm rivets in single shear, but the plates drop from 6.4 mm to 4 mm. Shear capacity is untouched while bearing capacity falls by more than a third - check whether that is enough to make bearing govern.",
+    n:6, d:22, t:4.0, tau:100, sb:335, shearPlanes:1, checkTension:false,
+    book:null }
+];
+
+/* ─────────────────── wiring ─────────────────── */
+function render(i){
+  var v = VARIANTS[i];
+  document.getElementById('doc').innerHTML = build(v);
+  document.getElementById('swDesc').textContent = v.desc;
+  var btns = document.querySelectorAll('#swBtns button');
+  for(var j=0;j<btns.length;j++) btns[j].setAttribute('aria-pressed', j===i ? 'true' : 'false');
+  if(window.renderMathInElement){
+    renderMathInElement(document.getElementById('doc'), {
+      delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}],
+      throwOnError:false
+    });
+  }
+}
+function init(){
+  var box = document.getElementById('swBtns');
+  VARIANTS.forEach(function(v,i){
+    var b = document.createElement('button');
+    b.textContent = v.btn;
+    b.setAttribute('aria-pressed','false');
+    b.onclick = function(){ render(i); };
+    box.appendChild(b);
+  });
+  render(0);
+}
+window.addEventListener('load', init);
+</script>
+</body>
+</html>

@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>T7.3 – Gasketed Pressure Vessel: Bolt Selection</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css"/>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+body{font-family:'Segoe UI',Arial,sans-serif;font-size:15px;line-height:1.75;color:#1a1a1a;background:#f5f6f8;margin:0;padding:24px 16px 56px}
+.page{max-width:880px;margin:0 auto;background:#fff;border-radius:10px;box-shadow:0 2px 14px rgba(0,0,0,.10);padding:40px 52px 52px}
+.uni-header{text-align:center;border-bottom:2px solid #1a3c6e;padding-bottom:16px;margin-bottom:24px}
+.uni-header p{margin:0;line-height:1.4;font-size:13.5px;color:#555}
+.uni-header h2{margin:8px 0 0;font-size:20px;color:#1a3c6e}
+h3{color:#1a3c6e;border-left:4px solid #1a3c6e;padding-left:10px;margin:28px 0 10px;font-size:15.5px}
+h4{color:#1a3c6e;font-size:14.5px;margin:20px 0 6px}
+.step{margin-bottom:10px}
+.step details{border:1px solid #d1d9e8;border-radius:8px;overflow:hidden;margin-top:6px}
+.step details summary{list-style:none;cursor:pointer;padding:11px 15px;background:#f0f4fb;color:#1a3c6e;font-weight:500;font-size:14.5px;display:flex;align-items:center;gap:10px;user-select:none}
+.step details summary::-webkit-details-marker{display:none}
+.step details summary::after{content:'\25BC';font-size:11px;color:#f97316;transition:transform .2s;flex-shrink:0;margin-left:auto;padding-left:8px}
+.step details[open] summary::after{transform:rotate(180deg)}
+.step details[open] summary{background:#e8eef9;border-bottom:1px solid #d1d9e8}
+.step-body{padding:16px 20px}
+.step-num{background:#1a3c6e;color:#fff;font-size:12px;font-weight:700;border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.step-title{font-size:15px;font-weight:600;color:#1a3c6e}
+.try-hint{font-size:12.5px;color:#6b7280;font-style:italic;margin-left:auto}
+.callout{border-radius:6px;padding:13px 18px;margin:14px 0;font-size:14.5px}
+.callout p{margin:4px 0}
+.info{background:#eef4ff;border-left:4px solid #3b82f6}
+.given{background:#f0fdf4;border-left:4px solid #22c55e}
+.answer{background:#fff7ed;border-left:4px solid #f97316;font-size:16px;font-weight:600}
+.note{background:#faf5ff;border-left:4px solid #a855f7;font-size:14px}
+.warn{background:#fffbeb;border-left:4px solid #f59e0b;font-size:14px}
+.math-block{background:#f8f9fb;border:1px solid #e2e6ef;border-radius:6px;padding:14px 20px;margin:12px 0;overflow-x:auto;text-align:center}
+.diagram-wrap{text-align:center;margin:22px 0 8px}
+.diagram-wrap figure{margin:0}
+.diagram-wrap svg{max-width:100%;height:auto}
+.diagram-wrap figcaption{font-size:13px;color:#555;margin-top:2px;font-style:italic;line-height:1.5}
+.fig-row{display:flex;flex-wrap:wrap;gap:14px;justify-content:center;align-items:flex-start}
+.fig-row figure{margin:0;flex:0 1 250px}
+table.sum{border-collapse:collapse;width:100%;margin:14px 0;font-size:14px}
+table.sum th{background:#1a3c6e;color:#fff;font-weight:600;padding:8px 10px;text-align:center;border:1px solid #1a3c6e}
+table.sum td{padding:7px 10px;text-align:center;border:1px solid #d1d9e8}
+table.sum tr.total td{background:#fff7ed;font-weight:700;border-top:2px solid #f97316}
+table.sum tr.fail td{background:#fef2f2;color:#991b1b}
+table.sum tr:nth-child(even) td{background:#f8f9fb}
+table.sum tr.total:nth-child(even) td{background:#fff7ed}
+table.sum tr.fail:nth-child(even) td{background:#fef2f2}
+.footer{margin-top:40px;border-top:1px solid #e5e7eb;padding-top:12px;font-size:12px;color:#999;text-align:center}
+.switcher{background:#f0f4fb;border:1px solid #d1d9e8;border-radius:8px;padding:14px 18px;margin-bottom:26px}
+.switcher .sw-label{font-size:12.5px;font-weight:600;color:#1a3c6e;text-transform:uppercase;letter-spacing:.06em;margin-bottom:9px}
+.sw-btns{display:flex;flex-wrap:wrap;gap:8px}
+.sw-btns button{font-family:inherit;font-size:13.5px;font-weight:500;padding:8px 15px;border-radius:6px;border:1px solid #b9c6df;background:#fff;color:#1a3c6e;cursor:pointer;transition:.15s}
+.sw-btns button:hover{background:#e8eef9;border-color:#1a3c6e}
+.sw-btns button[aria-pressed="true"]{background:#1a3c6e;border-color:#1a3c6e;color:#fff;box-shadow:0 1px 4px rgba(26,60,110,.3)}
+.sw-desc{font-size:13px;color:#555;margin-top:10px;font-style:italic}
+</style>
+</head>
+<body>
+<div class="page">
+
+<div class="uni-header">
+  <p>Curtin University &nbsp;·&nbsp; School of Civil and Mechanical Engineering</p>
+  <p>MCEN2002 – Fundamentals of Mechanical Design</p>
+  <p style="margin-top:8px"><strong>Dr Azma Putra Azis</strong></p>
+  <h2>Tutorial 7.3 &nbsp;–&nbsp; Gasketed Pressure Vessel: Bolt Selection</h2>
+</div>
+
+<div class="switcher">
+  <div class="sw-label">Choose a problem</div>
+  <div class="sw-btns" id="swBtns"></div>
+  <div class="sw-desc" id="swDesc"></div>
+</div>
+
+<div id="doc"></div>
+
+<div class="footer">MCEN2002 – Fundamentals of Mechanical Design | Tutorial 7.3 | Curtin University</div>
+</div>
+
+<script>
+/* ══════════════════════════════════════════════════════════════════════════
+   MCEN2002 — GASKETED FLANGE / BOLT-COUNT ENGINE  (T7.3)
+
+   This problem is a different animal from T7.1 and T7.2. There the bolts were
+   in SHEAR and the question was how the load divides between them. Here the
+   bolts are PRELOADED IN TENSION and the question is how many you need.
+
+   Chain of reasoning:
+     1. The gasket supplier specifies a minimum CLAMPING PRESSURE p_g. Over the
+        gasket's annular contact area A_g that demands a total clamping force
+             F_c = p_g · A_g.
+     2. Each bolt, tightened to its recommended preload, supplies
+             F_i = K_p · A_t · S_p
+        where A_t is the tensile stress area, S_p the proof strength of the
+        property class, and K_p = 0.90 for a PERMANENT connection or 0.75 for
+        one that will be re-used. (Which one applies is an ASSUMPTION here —
+        see the warning in Step 2; it changes the answer.)
+     3. Number of bolts:  N = ceil( F_c / F_i ).   Always round UP: 12.2 bolts
+        means 13, because 12 would leave the joint short of the required clamp.
+     4. Spacing check: the bolts sit on a bolt circle of diameter D_b, so the
+        arc spacing is s = π D_b / N, and the design rule wants
+             5 ≤ s/d ≤ 10
+        — wide enough for a spanner, close enough that the flange does not bow
+        out and leak between bolts.
+
+   Note what does NOT appear: the internal pressure. The problem states the
+   gasket clamping requirement already includes an appropriate safety factor,
+   so the gasket seal — not the pressure load — governs the bolt count.
+   ══════════════════════════════════════════════════════════════════════════ */
+
+function nf(v,dp){
+  if(dp===undefined) dp = 2;
+  var r = Number(v);
+  if(Math.abs(r) < 5e-12) r = 0;
+  var s = r.toFixed(dp);
+  if(s === '-' + (0).toFixed(dp)) s = (0).toFixed(dp);
+  return s;
+}
+
+function solve(p){
+  var Ag = Math.PI/4*(p.OD*p.OD - p.ID*p.ID);
+  var Fc = p.pg*Ag;
+  var rows = [], i, anyOK = false;
+  for(i=0;i<p.sizes.length;i++){
+    var z = p.sizes[i];
+    var Fi = p.Kp*z.At*p.Sp;
+    var Nex = Fc/Fi, N = Math.ceil(Nex - 1e-9);
+    var s = Math.PI*p.Db/N, ratio = s/z.d;
+    var ok = (ratio >= p.smin && ratio <= p.smax);
+    if(ok) anyOK = true;
+    rows.push({d:z.d, At:z.At, pitch:z.pitch, Fi:Fi, Nex:Nex, N:N, s:s, ratio:ratio, ok:ok,
+               why: ok ? 'satisfactory' : (ratio < p.smin ? 'too tight for a spanner' : 'too wide — flange will leak between bolts')});
+  }
+  return {p:p, Ag:Ag, Fc:Fc, rows:rows, anyOK:anyOK};
+}
+
+/* ─────────────────── SVG helpers ─────────────────── */
+var NAVY='#1a3c6e', RED='#c0392b', BLUE='#1a6fc4', ORANGE='#f97316',
+    GREY='#555', GREEN='#15803d', PUR='#7c3aed';
+function n1(v){ return Number(v).toFixed(1); }
+function dimH(xa,xb,y,txt,col){
+  col = col || GREY;
+  return '<line x1="'+n1(xa)+'" y1="'+n1(y-5)+'" x2="'+n1(xa)+'" y2="'+n1(y+5)+'" stroke="'+col+'" stroke-width="1"/>'
+       + '<line x1="'+n1(xb)+'" y1="'+n1(y-5)+'" x2="'+n1(xb)+'" y2="'+n1(y+5)+'" stroke="'+col+'" stroke-width="1"/>'
+       + '<line x1="'+n1(xa)+'" y1="'+n1(y)+'" x2="'+n1(xb)+'" y2="'+n1(y)+'" stroke="'+col+'" stroke-width="1"/>'
+       + '<text x="'+n1((xa+xb)/2)+'" y="'+n1(y-7)+'" font-size="11.5" fill="#333" text-anchor="middle">'+txt+'</text>';
+}
+
+/* ═══════════════ FIGURE 1 — flange section (to scale) ═══════════════ */
+/* Radial section. Horizontal axis is true diameter (to scale); the vertical
+   axis is a schematic thickness stack, laid out so that every dimension and
+   annotation gets its own clear band and nothing has to overlap. */
+function figSection(S){
+  var p = S.p, sc = 1.05, PADL = 122, PADR = 122, TOP = 70;
+  var W = p.OD*sc + PADL + PADR, H = 204;
+  var X = function(m){ return PADL + (m + p.OD/2)*sc; };
+  var Y = function(m){ return TOP + (56 - m)*sc; };
+  var box = function(x0,x1,m0,m1,fill,sw){
+    return '<rect x="'+n1(X(x0))+'" y="'+n1(Y(m1))+'" width="'+n1((x1-x0)*sc)+'" height="'+n1((m1-m0)*sc)
+         + '" fill="'+fill+'" stroke="'+NAVY+'" stroke-width="'+(sw||1.4)+'"/>'; };
+
+  var s = '<svg viewBox="0 0 '+n1(W)+' '+n1(H)+'" width="'+n1(Math.min(700,W))+'" xmlns="http://www.w3.org/2000/svg" font-family="Arial,sans-serif" font-size="12">';
+  /* end plate → gasket → vessel flange → vessel wall */
+  s += box(-p.OD/2, p.OD/2, 20, 38, '#dfeaf6', 1.6);
+  s += '<rect x="'+n1(X(-p.OD/2))+'" y="'+n1(Y(20))+'" width="'+n1((p.OD/2-p.ID/2)*sc)+'" height="'+n1(4*sc)+'" fill="#f97316" fill-opacity="0.6" stroke="'+ORANGE+'" stroke-width="1.2"/>';
+  s += '<rect x="'+n1(X(p.ID/2))+'" y="'+n1(Y(20))+'" width="'+n1((p.OD/2-p.ID/2)*sc)+'" height="'+n1(4*sc)+'" fill="#f97316" fill-opacity="0.6" stroke="'+ORANGE+'" stroke-width="1.2"/>';
+  s += box(-p.OD/2, p.OD/2, -2, 16, '#dfeaf6', 1.6);
+  s += box(-p.ID/2-9, -p.ID/2, -34, -2, '#dfeaf6');
+  s += box(p.ID/2, p.ID/2+9, -34, -2, '#dfeaf6');
+
+  /* bolts */
+  var bx = [-p.Db/2, p.Db/2], i;
+  for(i=0;i<2;i++){
+    var x = bx[i];
+    s += '<rect x="'+n1(X(x)-4)+'" y="'+n1(Y(40))+'" width="8" height="'+n1(44*sc)+'" fill="#eef2f7" stroke="'+NAVY+'" stroke-width="1.2"/>';
+    s += box(x-8, x+8, 40, 46, '#c7d3e4');
+    s += box(x-8, x+8, -10, -4, '#c7d3e4');
+  }
+
+  /* labels, all in clear bands */
+  s += '<text x="'+n1(X(0))+'" y="'+n1(Y(29)+4)+'" font-size="11.5" fill="'+NAVY+'" text-anchor="middle">end plate</text>';
+  s += '<text x="'+n1(X(0))+'" y="'+n1(Y(-10)+4)+'" font-size="11.5" fill="'+NAVY+'" text-anchor="middle" font-style="italic">vessel interior</text>';
+  s += '<line x1="'+n1(X(-p.OD/2)-10)+'" y1="'+n1(Y(43))+'" x2="'+n1(X(-p.Db/2)-10)+'" y2="'+n1(Y(43))+'" stroke="'+RED+'" stroke-width="0.9"/>';
+  s += '<text x="'+n1(X(-p.OD/2)-14)+'" y="'+n1(Y(43)+4)+'" font-size="11.5" fill="'+RED+'" text-anchor="end">bolt preload F<tspan font-size="9" dy="3">i</tspan></text>';
+  s += '<line x1="'+n1(X(p.OD/2)+10)+'" y1="'+n1(Y(22))+'" x2="'+n1(X(p.OD/2-14))+'" y2="'+n1(Y(22))+'" stroke="'+ORANGE+'" stroke-width="0.9"/>';
+  s += '<text x="'+n1(X(p.OD/2)+14)+'" y="'+n1(Y(22)+4)+'" font-size="11.5" fill="#8a4b09" text-anchor="start" font-weight="bold">gasket</text>';
+
+  /* Dimensions, one per band. The two diameters that drive the calculation —
+     the gasket OD and the bolt circle — are stacked together above the
+     assembly so they can be read against each other at a glance; the bore
+     sits below, where the vessel it belongs to is. */
+  s += '<line x1="'+n1(X(-p.Db/2))+'" y1="'+n1(Y(47))+'" x2="'+n1(X(-p.Db/2))+'" y2="'+n1(Y(57))+'" stroke="'+BLUE+'" stroke-width="0.8"/>';
+  s += '<line x1="'+n1(X(p.Db/2))+'" y1="'+n1(Y(47))+'" x2="'+n1(X(p.Db/2))+'" y2="'+n1(Y(57))+'" stroke="'+BLUE+'" stroke-width="0.8"/>';
+  s += dimH(X(-p.OD/2), X(p.OD/2), Y(76), nf(p.OD,0)+' mm  (gasket OD)');
+  s += dimH(X(-p.Db/2), X(p.Db/2), Y(59), nf(p.Db,0)+' mm  (bolt circle)', BLUE);
+  s += dimH(X(-p.ID/2), X(p.ID/2), Y(-42), nf(p.ID,0)+' mm  (bore)');
+  s += '<text x="8" y="'+n1(H-8)+'" font-size="11.5" fill="'+GREY+'" font-style="italic">Radial section · diameters to scale · gasket in orange</text>';
+  return s + '</svg>';
+}
+
+/* ═══════════════ FIGURE 2 — gasket annulus in plan ═══════════════ */
+function figGasket(S){
+  var p = S.p, sc = 0.80, PAD = 56;
+  var R = p.OD/2*sc, Ri = p.ID/2*sc, Rb = p.Db/2*sc;
+  var W = 2*R + 2*PAD, H = 2*R + 2*PAD + 30;
+  var cx = PAD + R, cy = PAD + R;
+  var rad = function(A){ return A*Math.PI/180; };
+  var at  = function(A,r){ return [cx + r*Math.cos(rad(A)), cy - r*Math.sin(rad(A))]; };
+
+  var s = '<svg viewBox="0 0 '+n1(W)+' '+n1(H)+'" width="'+n1(Math.min(420,W))+'" xmlns="http://www.w3.org/2000/svg" font-family="Arial,sans-serif" font-size="12">';
+  s += '<circle cx="'+n1(cx)+'" cy="'+n1(cy)+'" r="'+n1(R)+'" fill="#f97316" fill-opacity="0.45" stroke="'+ORANGE+'" stroke-width="1.6"/>';
+  s += '<circle cx="'+n1(cx)+'" cy="'+n1(cy)+'" r="'+n1(Ri)+'" fill="#fff" stroke="'+ORANGE+'" stroke-width="1.6"/>';
+  s += '<line x1="'+n1(cx-R-12)+'" y1="'+n1(cy)+'" x2="'+n1(cx+R+12)+'" y2="'+n1(cy)+'" stroke="#999" stroke-width="0.9" stroke-dasharray="9,3,2,3"/>';
+  s += '<line x1="'+n1(cx)+'" y1="'+n1(cy-R-12)+'" x2="'+n1(cx)+'" y2="'+n1(cy+R+12)+'" stroke="#999" stroke-width="0.9" stroke-dasharray="9,3,2,3"/>';
+
+  /* Bolt circle and holes, all dashed — they are drawn precisely BECAUSE the
+     question tells us to neglect them, and a student should see what is being
+     neglected rather than just read the instruction. Holes start at 12 o'clock
+     and step evenly, deliberately missing the 45° and 135° radius callouts. */
+  var nH = p.nHolesIllus || 12, rH = 9*sc, i;
+  s += '<circle cx="'+n1(cx)+'" cy="'+n1(cy)+'" r="'+n1(Rb)+'" fill="none" stroke="'+BLUE+'" stroke-width="1.1" stroke-dasharray="8,4"/>';
+  for(i=0;i<nH;i++){
+    var q = at(90 + i*360/nH, Rb);
+    s += '<circle cx="'+n1(q[0])+'" cy="'+n1(q[1])+'" r="'+n1(rH)+'" fill="#fff" fill-opacity="0.85" stroke="'+BLUE+'" stroke-width="1.1" stroke-dasharray="4,2.5"/>';
+  }
+
+  /* The three radii, each on its OWN diagonal so none reads as a diameter line
+     through the centre. Every label is placed at the MIDPOINT of its radius,
+     nudged clear of the line along the perpendicular, so it is unambiguous
+     which length each number belongs to. */
+  function radius(A, r, txt, col, dash, perpSign){
+    var e = at(A, r), mid = at(A, r*0.5);
+    var pa = rad(A + perpSign*90), ox = 13*Math.cos(pa), oy = -13*Math.sin(pa);
+    return '<line x1="'+n1(cx)+'" y1="'+n1(cy)+'" x2="'+n1(e[0])+'" y2="'+n1(e[1])+'" stroke="'+col
+         + '" stroke-width="'+(dash?1.1:1.3)+'"'+(dash?' stroke-dasharray="5,3"':'')+'/>'
+         + '<circle cx="'+n1(e[0])+'" cy="'+n1(e[1])+'" r="2.4" fill="'+col+'"/>'
+         + '<text x="'+n1(mid[0]+ox)+'" y="'+n1(mid[1]+oy+4)+'" font-size="12" fill="'+col
+         + '" text-anchor="middle" font-weight="bold">'+txt+'</text>';
+  }
+  s += radius(45,  R,  nf(p.OD/2,0), NAVY, false,  1);
+  s += radius(135, Ri, nf(p.ID/2,0), NAVY, false,  1);
+  s += radius(-45, Rb, nf(p.Db/2,0), BLUE, true,  -1);
+
+  var g = at(195, R*0.90);
+  s += '<text x="'+n1(g[0])+'" y="'+n1(g[1])+'" font-size="12" fill="#8a4b09" text-anchor="middle" font-weight="bold">gasket</text>';
+  s += '<text x="'+n1(cx)+'" y="'+n1(cy+18)+'" font-size="11.5" fill="'+GREY+'" text-anchor="middle">bore</text>';
+  s += '<text x="'+n1(cx)+'" y="'+n1(H-12)+'" font-size="11.5" fill="'+BLUE+'" text-anchor="middle">'+nH
+     + ' bolt holes on the '+nf(p.Db,0)+' mm circle &#8212; neglected here</text>';
+  return s + '</svg>';
+}
+
+/* ═══════════════ FIGURE 3 — bolt circle in plan, N bolts ═══════════════ */
+function figBoltCircle(S, row){
+  var p = S.p, sc = 0.62, PAD = 40;
+  var R = p.OD/2*sc, Rb = p.Db/2*sc, W = 2*R + 2*PAD, H = 2*R + 2*PAD + 24;
+  var cx = PAD + R, cy = PAD + R;
+  var s = '<svg viewBox="0 0 '+n1(W)+' '+n1(H)+'" width="'+n1(W)+'" xmlns="http://www.w3.org/2000/svg" font-family="Arial,sans-serif" font-size="11">';
+  s += '<circle cx="'+n1(cx)+'" cy="'+n1(cy)+'" r="'+n1(R)+'" fill="#f0f3f8" stroke="'+NAVY+'" stroke-width="1.4"/>';
+  s += '<circle cx="'+n1(cx)+'" cy="'+n1(cy)+'" r="'+n1(p.ID/2*sc)+'" fill="#fff" stroke="'+NAVY+'" stroke-width="1.2"/>';
+  s += '<circle cx="'+n1(cx)+'" cy="'+n1(cy)+'" r="'+n1(Rb)+'" fill="none" stroke="'+BLUE+'" stroke-width="1" stroke-dasharray="7,3,1.5,3"/>';
+  var i, rr = Math.max(3.2, row.d/2*sc);
+  for(i=0;i<row.N;i++){
+    var a = -Math.PI/2 + i*2*Math.PI/row.N;
+    s += '<circle cx="'+n1(cx+Rb*Math.cos(a))+'" cy="'+n1(cy+Rb*Math.sin(a))+'" r="'+n1(rr)+'" fill="#fff" stroke="'+NAVY+'" stroke-width="1.3"/>';
+  }
+  /* the spacing arc between two adjacent bolts */
+  var a0 = -Math.PI/2, a1 = -Math.PI/2 + 2*Math.PI/row.N;
+  var large = ((a1-a0) > Math.PI) ? 1 : 0;
+  s += '<path d="M '+n1(cx+Rb*Math.cos(a0))+','+n1(cy+Rb*Math.sin(a0))+' A '+n1(Rb)+','+n1(Rb)+' 0 '+large+',1 '
+     + n1(cx+Rb*Math.cos(a1))+','+n1(cy+Rb*Math.sin(a1))+'" fill="none" stroke="'+(row.ok?GREEN:RED)+'" stroke-width="3"/>';
+  var am = (a0+a1)/2;
+  s += '<text x="'+n1(cx+(Rb+16)*Math.cos(am))+'" y="'+n1(cy+(Rb+16)*Math.sin(am)+4)+'" font-size="11.5" fill="'+(row.ok?GREEN:RED)
+     + '" text-anchor="middle" font-weight="bold">s = '+nf(row.s,1)+'</text>';
+  s += '<text x="'+n1(cx)+'" y="'+n1(cy+4)+'" font-size="13" fill="'+NAVY+'" text-anchor="middle" font-weight="bold">M'+nf(row.d,0)+' &#215; '+row.N+'</text>';
+  s += '<text x="'+n1(cx)+'" y="'+n1(H-8)+'" font-size="12" fill="'+(row.ok?GREEN:RED)+'" text-anchor="middle" font-weight="bold">s/d = '+nf(row.ratio,2)+' '+(row.ok?'&#10003;':'&#10007;')+'</text>';
+  return s + '</svg>';
+}
+
+/* ═══════════════ page builder ═══════════════ */
+function stepBlock(n,title,hint,body){
+  return '<div class="step"><details'+(n===1?' open':'')+'>'
+       + '<summary><span class="step-num">'+n+'</span><span class="step-title">'+title+'</span>'
+       + '<span class="try-hint">'+hint+'</span></summary>'
+       + '<div class="step-body">'+body+'</div></details></div>';
+}
+
+function build(p){
+  var S = solve(p), i, r, h = '';
+  var CIRCLED = ['&#9312;','&#9313;','&#9314;','&#9315;','&#9316;','&#9317;'];
+  var sizeList = p.sizes.map(function(z){ return nf(z.d,0); }).join(', ');
+
+  h += '<h3>Problem Statement</h3>'
+    +  '<p>A pressure vessel has a gasketed end plate. The internal pressure is uniform enough that the bolt loading may be treated as '
+    +  '<strong>static</strong>. The gasket supplier requires a clamping pressure of at least <strong>'+nf(p.pg,0)+' MPa</strong> '
+    +  '(this already includes an appropriate safety factor) for a leak-proof joint. Neglect the bolt holes when computing the gasket area.</p>'
+    +  '<div class="callout info"><p>(a) For <strong>'+sizeList+' mm</strong> coarse-thread bolts of <strong>SAE class '+p.cls
+    +  '</strong> steel, determine the number of bolts needed.<br>'
+    +  '(b) The ratio of bolt spacing to bolt diameter must not exceed <strong>'+nf(p.smax,0)+'</strong> (to keep adequate flange pressure '
+    +  'between bolts) nor fall below <strong>'+nf(p.smin,0)+'</strong> (to leave clearance for standard spanners). Which bolt sizes give a '
+    +  'satisfactory spacing?</p></div>';
+
+  h += '<div class="diagram-wrap"><figure>'+figSection(S)
+    +  '<figcaption>Section through the flanged joint, drawn to scale. The gasket (orange) is an annulus between the '+nf(p.ID,0)
+    +  ' mm bore and the '+nf(p.OD,0)+' mm outside diameter; the bolts sit on a '+nf(p.Db,0)+' mm bolt circle.</figcaption></figure></div>';
+
+  if(p.book)
+    h += '<div class="callout given"><p><strong>Given answer:</strong> '+p.book+'</p></div>';
+  else
+    h += '<div class="callout given"><p><strong>Note:</strong> this is a modified problem — the answers below are computed, '
+      +  'not taken from the textbook.</p></div>';
+
+  h += '<div class="callout info"><p><strong>Strategy:</strong> the gasket sets a total clamping force it must receive; each bolt supplies '
+    +  'a preload; divide and round <em>up</em>. Then check whether that number of bolts, spread around the bolt circle, lands at a sensible '
+    +  'spacing. Note that the internal pressure never enters the calculation — the clamping requirement already accounts for it.</p></div>';
+
+  h += '<h3>Solution</h3>';
+
+  /* ── step 1 ── */
+  var b1 = '<p>The gasket is an annulus. Neglecting the bolt holes, as instructed:</p>'
+    + '<div class="math-block">$$A_g = \\frac{\\pi}{4}\\left(D_o^2 - D_i^2\\right) = \\frac{\\pi}{4}\\left('+nf(p.OD,0)+'^2 - '+nf(p.ID,0)+'^2\\right) = '+nf(S.Ag,0)+'\\ \\text{mm}^2$$</div>'
+    + '<div class="diagram-wrap"><figure>'+figGasket(S)
+    + '<figcaption>The gasket in plan, with the two radii marked on separate diagonals. Only the annulus between them is in contact — '
+    + 'the bore carries no clamping load, so subtracting $D_i^2$ is essential. The dashed bolt holes on the '+nf(p.Db,0)
+    + ' mm circle are drawn to show what the instruction "neglect the bolt holes" is asking you to ignore: they would remove a few '
+    + 'per cent of the contact area, and including them would be more conservative.</figcaption></figure></div>'
+    + '<p>The clamping pressure the supplier specifies acts over that whole area:</p>'
+    + '<div class="math-block">$$F_c = p_g A_g = '+nf(p.pg,0)+' \\times '+nf(S.Ag,0)+' = '+nf(S.Fc,0)+'\\ \\text{N} = '+nf(S.Fc/1000,1)+'\\ \\text{kN}$$</div>'
+    + '<div class="callout answer"><p>$A_g = '+nf(S.Ag,0)+'$ mm² &nbsp;&nbsp;&nbsp; $F_c = '+nf(S.Fc/1000,1)+'$ kN</p></div>'
+    + '<div class="callout warn"><p><strong>Use the full annulus, not the bore.</strong> A common error is to take $A = \\frac{\\pi}{4}D_i^2$ '
+    + '(the area the pressure acts on) instead of the gasket contact annulus. That gives $'+nf(Math.PI/4*p.ID*p.ID,0)+'$ mm² and a clamping '
+    + 'force of only $'+nf(p.pg*Math.PI/4*p.ID*p.ID/1000,0)+'$ kN — about '+nf(100*(Math.PI/4*p.ID*p.ID)/S.Ag,0)+'% of the true requirement. '
+    + 'The question asks for gasket <em>clamping</em>, which happens where gasket touches metal.</p></div>';
+  h += stepBlock(1,'Clamping force the gasket demands','try it first, then reveal &darr;',b1);
+
+  /* ── step 2 ── */
+  var rows2 = '';
+  for(i=0;i<S.rows.length;i++){ r = S.rows[i];
+    rows2 += '<tr><td><strong>M'+nf(r.d,0)+' &#215; '+r.pitch+'</strong></td><td>'+nf(r.At,1)+'</td><td>'+nf(r.Fi/1000,1)+'</td></tr>'; }
+  var b2 = '<p>A bolt tightened to its recommended preload carries</p>'
+    + '<div class="math-block">$$F_i = '+nf(p.Kp,2)+'\\,A_t\\,S_p$$</div>'
+    + '<p>with $S_p = '+nf(p.Sp,0)+'$ MPa for class '+p.cls+' and $A_t$ the tensile stress area of the coarse thread:</p>'
+    + '<table class="sum"><tr><th>Bolt</th><th>$A_t$ (mm²)</th><th>$F_i = '+nf(p.Kp,2)+'A_tS_p$ (kN)</th></tr>'+rows2+'</table>'
+    + '<div class="callout warn"><p><strong>0.90 or 0.75? State your assumption.</strong> The '+nf(p.Kp,2)+' factor used here is the '
+    + (p.Kp>0.8 ? '<strong>permanent-connection</strong> value. If instead you treat the end plate as a joint that will be opened for '
+                + 'servicing, the re-usable value 0.75 applies and the bolt counts become '
+                + S.rows.map(function(q){ return 'M'+nf(q.d,0)+': '+Math.ceil(S.Fc/(0.75*q.At*p.Sp)-1e-9); }).join(', ')+'. '
+              : '<strong>re-usable-connection</strong> value. For a permanent connection 0.90 applies and the counts become '
+                + S.rows.map(function(q){ return 'M'+nf(q.d,0)+': '+Math.ceil(S.Fc/(0.90*q.At*p.Sp)-1e-9); }).join(', ')+'. ')
+    + 'The textbook answer to this problem is reproduced by '+nf(p.Kp,2)+'. Whichever you choose, say so explicitly — an unstated '
+    + 'preload assumption is the difference between a right answer and a lucky one.</p></div>'
+    + '<div class="callout note"><p><strong>Why proof strength and not yield?</strong> Proof strength $S_p$ is the stress a bolt can carry '
+    + 'with no measurable permanent set — slightly below the 0.2% offset yield. Preloading to 90% of proof deliberately puts the bolt near '
+    + 'the top of its elastic range, because a highly preloaded bolt sees very little of any fluctuating external load and so survives '
+    + 'fatigue far better than a slack one. Under-tightening, not over-tightening, is the usual cause of bolted-joint failure.</p></div>';
+  h += stepBlock(2,'Preload available from one bolt','which strength do you use?',b2);
+
+  /* ── step 3 ── */
+  var rows3 = '';
+  for(i=0;i<S.rows.length;i++){ r = S.rows[i];
+    rows3 += '<tr class="total"><td><strong>M'+nf(r.d,0)+'</strong></td><td>'+nf(r.Fi/1000,1)+'</td><td>'+nf(r.Nex,2)+'</td><td><strong>'+r.N+'</strong></td></tr>'; }
+  var b3 = '<div class="math-block">$$N = \\frac{F_c}{F_i} = \\frac{'+nf(S.Fc,0)+'}{F_i} \\quad\\text{(round UP)}$$</div>'
+    + '<table class="sum"><tr><th>Bolt</th><th>$F_i$ (kN)</th><th>$F_c/F_i$</th><th>$N$ required</th></tr>'+rows3+'</table>'
+    + '<div class="callout answer"><p>'+S.rows.map(function(q){ return '<strong>M'+nf(q.d,0)+':</strong> '+q.N+' bolts'; }).join(' &nbsp;&nbsp;&nbsp; ')+'</p></div>'
+    + '<div class="callout warn"><p><strong>Always round up, never to nearest.</strong> M'+nf(S.rows[0].d,0)+' needs $'+nf(S.rows[0].Nex,2)
+    + '$ bolts; rounding to '+Math.round(S.rows[0].Nex)+' would deliver only $'+nf(100*Math.round(S.rows[0].Nex)/S.rows[0].Nex,1)
+    + '\\%$ of the required clamping force and the joint would leak. In fastener problems the answer is an integer and the inequality '
+    + 'runs one way only.</p></div>'
+    + '<div class="callout note"><p><strong>Sense check on the trend.</strong> Bigger bolts, fewer of them — the total clamping force is '
+    + 'fixed, so $N \\times A_t$ must be roughly constant. M'+nf(S.rows[S.rows.length-1].d,0)+' has about '
+    + nf(S.rows[S.rows.length-1].At/S.rows[0].At,1)+'&#215; the stress area of M'+nf(S.rows[0].d,0)+', and needs about '
+    + nf(S.rows[0].N/S.rows[S.rows.length-1].N,1)+'&#215; fewer bolts. If your numbers do not scale that way, one of them is wrong.</p></div>';
+  h += stepBlock(3,'Number of bolts required — part (a)','round up, always',b3);
+
+  /* ── step 4 ── */
+  var figs = '', rows4 = '';
+  for(i=0;i<S.rows.length;i++){ r = S.rows[i];
+    figs += '<figure>'+figBoltCircle(S,r)+'</figure>';
+    rows4 += '<tr class="'+(r.ok?'total':'fail')+'"><td><strong>M'+nf(r.d,0)+'</strong></td><td>'+r.N+'</td><td>'+nf(r.s,1)+'</td><td>'
+          +  nf(r.ratio,2)+'</td><td>'+(r.ok?'&#10003; satisfactory':'&#10007; '+r.why)+'</td></tr>'; }
+  var b4 = '<p>The bolts are equally spaced around a bolt circle of diameter $D_b = '+nf(p.Db,0)+'$ mm, so the spacing measured along that '
+    + 'circle is its circumference divided by the number of bolts:</p>'
+    + '<div class="math-block">$$s = \\frac{\\pi D_b}{N}, \\qquad '+nf(p.smin,0)+' \\le \\frac{s}{d} \\le '+nf(p.smax,0)+'$$</div>'
+    + '<div class="diagram-wrap"><div class="fig-row">'+figs+'</div>'
+    + '<figcaption>The three candidate bolt patterns on the '+nf(p.Db,0)+' mm bolt circle, drawn to scale. The highlighted arc is one '
+    + 'bolt spacing.</figcaption></div>'
+    + '<table class="sum"><tr><th>Bolt</th><th>$N$</th><th>$s = \\pi D_b/N$ (mm)</th><th>$s/d$</th><th>Verdict</th></tr>'+rows4+'</table>'
+    + '<div class="callout answer"><p>Satisfactory spacing: <strong>'
+    + (S.anyOK ? S.rows.filter(function(q){ return q.ok; }).map(function(q){ return nf(q.d,0)+' mm'; }).join(' and ') : 'none of the sizes considered')
+    + '</strong></p></div>'
+    + '<div class="callout note"><p><strong>What the two limits are really protecting.</strong> The upper limit ($s/d \\le '+nf(p.smax,0)
+    + '$) is a <em>leakage</em> criterion: between widely spaced bolts the flange bows away from the gasket and the clamping pressure dips '
+    + 'below what the supplier specified, so the joint weeps even though the total bolt force is correct. The lower limit ($s/d \\ge '
+    + nf(p.smin,0)+'$) is pure <em>assembly practicality</em> — a socket needs room to turn. Neither is a strength criterion, which is why '
+    + 'part (b) can reject a bolt size that passed part (a).</p></div>';
+  h += stepBlock(4,'Bolt spacing check — part (b)','what are the two limits protecting against?',b4);
+
+  /* ── step 5 ── */
+  var rows5 = '';
+  for(i=0;i<S.rows.length;i++){ r = S.rows[i];
+    rows5 += '<tr class="'+(r.ok?'total':'fail')+'"><td><strong>M'+nf(r.d,0)+' &#215; '+r.pitch+'</strong></td><td>'+nf(r.At,1)+'</td><td>'
+          +  nf(r.Fi/1000,1)+'</td><td>'+r.N+'</td><td>'+nf(r.s,1)+'</td><td>'+nf(r.ratio,2)+'</td><td>'+(r.ok?'&#10003;':'&#10007;')+'</td></tr>'; }
+  var b5 = '<table class="sum"><tr><th>Bolt</th><th>$A_t$ (mm²)</th><th>$F_i$ (kN)</th><th>$N$</th><th>$s$ (mm)</th><th>$s/d$</th><th>OK?</th></tr>'+rows5+'</table>'
+    + '<table class="sum"><tr><th>Quantity</th><th>Symbol</th><th>Value</th></tr>'
+    + '<tr><td>Gasket contact area</td><td>$A_g$</td><td>'+nf(S.Ag,0)+' mm²</td></tr>'
+    + '<tr><td>Required clamping force</td><td>$F_c$</td><td>'+nf(S.Fc/1000,1)+' kN</td></tr>'
+    + '<tr class="total"><td>(a) Bolts required</td><td>$N$</td><td>'+S.rows.map(function(q){ return 'M'+nf(q.d,0)+': '+q.N; }).join(', ')+'</td></tr>'
+    + '<tr class="total"><td>(b) Satisfactory spacing</td><td>$s/d$</td><td>'
+    + (S.anyOK ? S.rows.filter(function(q){ return q.ok; }).map(function(q){ return nf(q.d,0)+' mm'; }).join(' and ') : 'none')+'</td></tr>'
+    + '</table>';
+  h += stepBlock(5,'Summary','both answers together',b5);
+
+  /* ── common mistakes ── */
+  var mis = [];
+  mis.push('<strong>Using the bore area instead of the gasket annulus.</strong> The clamping force is carried where gasket meets metal, '
+    + 'between $D_i = '+nf(p.ID,0)+'$ and $D_o = '+nf(p.OD,0)+'$ mm. Using $\\frac{\\pi}{4}D_i^2$ under-sizes $F_c$ by '
+    + nf(100*(1-(Math.PI/4*p.ID*p.ID)/S.Ag),0)+'%.');
+  mis.push('<strong>Bringing the internal pressure into the sum.</strong> It is not given, and it is not needed: the supplier\'s '
+    + nf(p.pg,0)+' MPa clamping figure is stated to already include the appropriate safety factor. Look for what the question actually '
+    + 'gives you before reaching for a formula.');
+  mis.push('<strong>Rounding the bolt count to nearest.</strong> $'+nf(S.rows[0].Nex,2)+'$ bolts means '+S.rows[0].N+', not '
+    + Math.round(S.rows[0].Nex)+'. You cannot fit a fractional bolt and you cannot be short of clamp.');
+  mis.push('<strong>Measuring the spacing along a chord, or across the flange OD.</strong> $s = \\pi D_b/N$ uses the <em>bolt circle</em> '
+    + 'diameter '+nf(p.Db,0)+' mm. Using the flange OD '+nf(p.OD,0)+' mm instead would inflate every spacing by '
+    + nf(100*(p.OD/p.Db-1),0)+'% and wrongly pass M'+nf(S.rows[0].d,0)+'.');
+  mis.push('<strong>Stopping after part (a).</strong> A bolt size can be perfectly strong and still be the wrong choice. '
+    + 'M'+nf(S.rows[0].d,0)+' carries the load with '+S.rows[0].N+' bolts but packs them too '
+    + (S.rows[0].ratio < p.smin ? 'tightly to get a spanner in' : 'far apart to seal')+'.');
+  h += '<div class="callout warn"><p><strong>Common mistakes:</strong></p>'
+     + mis.map(function(m,k){ return '<p style="margin-top:6px">'+CIRCLED[k]+' '+m+'</p>'; }).join('') + '</div>';
+
+  return h;
+}
+
+/* ─────────────────── problem definitions ─────────────────── */
+/* Tensile stress areas, ISO coarse thread (Shigley Table 8-1). */
+var SIZES = [ {d:12, At:84.3, pitch:'1.75'}, {d:16, At:157.0, pitch:'2'}, {d:20, At:245.0, pitch:'2.5'} ];
+
+var VARIANTS = [
+  { btn:"Original (T7.3)",
+    desc:"The tutorial sheet problem as printed: 280 mm gasket OD, 140 mm bore, 230 mm bolt circle, 13 MPa clamping pressure, class 9.8 bolts, permanent connection (0.90 preload factor).",
+    pg:13, OD:280, ID:140, Db:230, cls:'9.8', Sp:650, Kp:0.90, smin:5, smax:10, sizes:SIZES,
+    book:"(a) 13, 7 and 5 bolts, (b) 16 and 20 mm" },
+
+  { btn:"Variant 1 — class 5.8 bolts",
+    desc:"Same flange and gasket, but a much weaker bolt class (Sp = 380 MPa instead of 650). Each bolt supplies far less preload, so the counts rise - and watch what that does to the spacing verdict in part (b).",
+    pg:13, OD:280, ID:140, Db:230, cls:'5.8', Sp:380, Kp:0.90, smin:5, smax:10, sizes:SIZES,
+    book:null },
+
+  { btn:"Variant 2 — 20 MPa gasket",
+    desc:"A stiffer gasket specification (20 MPa instead of 13) with the same class 9.8 bolts. The required clamping force jumps by more than half, which is a direct test of whether you rounded up rather than to nearest.",
+    pg:20, OD:280, ID:140, Db:230, cls:'9.8', Sp:650, Kp:0.90, smin:5, smax:10, sizes:SIZES,
+    book:null }
+];
+
+/* ─────────────────── wiring ─────────────────── */
+function render(i){
+  var v = VARIANTS[i];
+  document.getElementById('doc').innerHTML = build(v);
+  document.getElementById('swDesc').textContent = v.desc;
+  var btns = document.querySelectorAll('#swBtns button');
+  for(var j=0;j<btns.length;j++) btns[j].setAttribute('aria-pressed', j===i ? 'true' : 'false');
+  if(window.renderMathInElement){
+    renderMathInElement(document.getElementById('doc'), {
+      delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}],
+      throwOnError:false
+    });
+  }
+}
+function init(){
+  var box = document.getElementById('swBtns');
+  VARIANTS.forEach(function(v,i){
+    var b = document.createElement('button');
+    b.textContent = v.btn;
+    b.setAttribute('aria-pressed','false');
+    b.onclick = function(){ render(i); };
+    box.appendChild(b);
+  });
+  render(0);
+}
+window.addEventListener('load', init);
+</script>
+</body>
+</html>
