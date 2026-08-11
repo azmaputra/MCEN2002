@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>T8.3 – Three-Sided Weld Group in Eccentric Shear</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css"/>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+body{font-family:'Segoe UI',Arial,sans-serif;font-size:15px;line-height:1.75;color:#1a1a1a;background:#f5f6f8;margin:0;padding:24px 16px 56px}
+.page{max-width:880px;margin:0 auto;background:#fff;border-radius:10px;box-shadow:0 2px 14px rgba(0,0,0,.10);padding:40px 52px 52px}
+.uni-header{text-align:center;border-bottom:2px solid #1a3c6e;padding-bottom:16px;margin-bottom:24px}
+.uni-header p{margin:0;line-height:1.4;font-size:13.5px;color:#555}
+.uni-header h2{margin:8px 0 0;font-size:20px;color:#1a3c6e}
+h3{color:#1a3c6e;border-left:4px solid #1a3c6e;padding-left:10px;margin:28px 0 10px;font-size:15.5px}
+h4{color:#1a3c6e;font-size:14.5px;margin:20px 0 6px}
+.step{margin-bottom:10px}
+.step details{border:1px solid #d1d9e8;border-radius:8px;overflow:hidden;margin-top:6px}
+.step details summary{list-style:none;cursor:pointer;padding:11px 15px;background:#f0f4fb;color:#1a3c6e;font-weight:500;font-size:14.5px;display:flex;align-items:center;gap:10px;user-select:none}
+.step details summary::-webkit-details-marker{display:none}
+.step details summary::after{content:'\25BC';font-size:11px;color:#f97316;transition:transform .2s;flex-shrink:0;margin-left:auto;padding-left:8px}
+.step details[open] summary::after{transform:rotate(180deg)}
+.step details[open] summary{background:#e8eef9;border-bottom:1px solid #d1d9e8}
+.step-body{padding:16px 20px}
+.step-num{background:#1a3c6e;color:#fff;font-size:12px;font-weight:700;border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.step-title{font-size:15px;font-weight:600;color:#1a3c6e}
+.try-hint{font-size:12.5px;color:#6b7280;font-style:italic;margin-left:auto}
+.callout{border-radius:6px;padding:13px 18px;margin:14px 0;font-size:14.5px}
+.callout p{margin:4px 0}
+.info{background:#eef4ff;border-left:4px solid #3b82f6}
+.given{background:#f0fdf4;border-left:4px solid #22c55e}
+.answer{background:#fff7ed;border-left:4px solid #f97316;font-size:16px;font-weight:600}
+.note{background:#faf5ff;border-left:4px solid #a855f7;font-size:14px}
+.warn{background:#fffbeb;border-left:4px solid #f59e0b;font-size:14px}
+.math-block{background:#f8f9fb;border:1px solid #e2e6ef;border-radius:6px;padding:14px 20px;margin:12px 0;overflow-x:auto;text-align:center}
+.diagram-wrap{text-align:center;margin:22px 0 8px}
+.diagram-wrap figure{margin:0}
+.diagram-wrap svg{max-width:100%;height:auto}
+.diagram-wrap figcaption{font-size:13px;color:#555;margin-top:2px;font-style:italic;line-height:1.5}
+table{border-collapse:collapse;width:100%;margin:14px 0;font-size:13.5px}
+th,td{border:1px solid #d1d9e8;padding:6px 9px;text-align:center}
+thead th{background:#1a3c6e;color:#fff;font-weight:600}
+tr.total td{background:#f0f4fb;font-weight:700;color:#1a3c6e}
+tr.hot td{background:#fff7ed;font-weight:700}
+td.lft{text-align:left}
+.orig-fig{margin:18px 0 4px;text-align:center}
+.orig-fig img{max-width:min(100%,265px);height:auto;border:1px solid #e2e6ef;border-radius:6px;background:#fff}
+.orig-fig figcaption{font-size:13px;color:#555;font-style:italic;margin-top:2px}
+.footer{margin-top:40px;border-top:1px solid #e5e7eb;padding-top:12px;font-size:12px;color:#999;text-align:center}
+.switcher{background:#f0f4fb;border:1px solid #d1d9e8;border-radius:8px;padding:14px 18px;margin-bottom:26px}
+.switcher .sw-label{font-size:12.5px;font-weight:600;color:#1a3c6e;text-transform:uppercase;letter-spacing:.06em;margin-bottom:9px}
+.sw-btns{display:flex;flex-wrap:wrap;gap:8px}
+.sw-btns button{font-family:inherit;font-size:13.5px;font-weight:500;padding:8px 15px;border-radius:6px;border:1px solid #b9c6df;background:#fff;color:#1a3c6e;cursor:pointer;transition:.15s}
+.sw-btns button:hover{background:#e8eef9;border-color:#1a3c6e}
+.sw-btns button[aria-pressed="true"]{background:#1a3c6e;border-color:#1a3c6e;color:#fff;box-shadow:0 1px 4px rgba(26,60,110,.3)}
+.sw-desc{font-size:13px;color:#555;margin-top:10px;font-style:italic}
+</style>
+</head>
+<body>
+<div class="page">
+
+<div class="uni-header">
+  <p>Curtin University &nbsp;&middot;&nbsp; School of Civil and Mechanical Engineering</p>
+  <p>MCEN2002 &ndash; Fundamentals of Mechanical Design</p>
+  <p style="margin-top:8px"><strong>Dr Azma Putra Azis</strong></p>
+  <h2>Tutorial 8.3 &nbsp;&ndash;&nbsp; Three-Sided Weld Group in Eccentric Shear</h2>
+</div>
+
+<div class="orig-fig"><figure>
+  <img src="T8_3-image.png" alt="Original textbook figure"/>
+  <figcaption>Original figure as given in the problem (the "Original" variant below).</figcaption>
+</figure></div>
+
+<div class="switcher">
+  <div class="sw-label">Choose a problem</div>
+  <div class="sw-btns" id="swBtns"></div>
+  <div class="sw-desc" id="swDesc"></div>
+</div>
+
+<div id="doc"></div>
+
+<div class="footer">MCEN2002 &ndash; Fundamentals of Mechanical Design | Tutorial 8.3 | Curtin University</div>
+</div>
+
+<script>
+/* GENERATED FILE - do not edit by hand.
+   Source: _engine/weld_engine.js + _engine/build_weld.py
+   Rebuild with:  python3 _engine/build_weld.py                         */
+/* ══════════════════════════════════════════════════════════════════════════
+   MCEN2002 — SHARED FILLET-WELD ENGINE
+   Single source of truth for every T8.x tutorial solution page.
+   Edit this file, then run  _engine/build_weld.py  to regenerate the HTML.
+   (The HTML files inline this engine, so each page is self-contained.)
+
+   ─── MODEL ───────────────────────────────────────────────────────────────
+   The weld group is idealised as a LINE of unit width. All section
+   properties come out in mm and mm^3; the throat 0.707t is factored out
+   until the final step.
+
+     segs   list of straight segments {p1:[x,y], p2:[x,y], n1:'A', n2:'B'}
+            x positive to the right, y positive UP, units mm
+     V      total downward force carried by the group (N)
+     Sy, n  weld metal yield strength (MPa) and safety factor
+
+   mode 'torsion'  — load acts IN the plane of the weld group, on the
+                     vertical line x = loadX.  Eccentricity twists the group
+                     about its centroid; the governing property is Ju.
+   mode 'bending'  — load acts PERPENDICULAR to the weld plane, offset e.
+                     Eccentricity bends the group about its horizontal
+                     centroidal axis; the governing property is Su.
+
+   ─── FORMULAE ────────────────────────────────────────────────────────────
+   For a straight line segment of length Li, projections dx, dy:
+       Ix_i = Li*dy^2/12 + Li*(yc - ybar)^2
+       Iy_i = Li*dx^2/12 + Li*(xc - xbar)^2      (general, inclined welds OK)
+   Torsion:  Mz = -V*(loadX - xbar)        (+z counter-clockwise)
+             f''x = -Mz*y/Ju ,  f''y = +Mz*x/Ju ,  f'y = -V/L
+   Bending:  fb = M/Su  (Su = Iu/c) ,  fs = V/L ,  f = hypot(fb, fs)
+   Size:     tau_allow = 0.577*Sy/n ;  0.707t >= fmax/tau_allow
+   ══════════════════════════════════════════════════════════════════════════ */
+
+/* ─────────────────── number formatting ─────────────────── */
+function nf(v, d){ if(d===undefined) d=1; var r=Number(v).toFixed(d);
+  if(/^-0(\.0*)?$/.test(r)) r=r.slice(1); return r; }
+function grp(v, d){ if(d===undefined) d=0;
+  var s=Number(v).toFixed(d), p=s.split('.'), i=p[0].replace('-','');
+  i=i.replace(/\B(?=(\d{3})+(?!\d))/g,'\\,');
+  return (Number(v)<0?'-':'')+i+(p[1]?'.'+p[1]:''); }
+/* same, but for plain HTML table cells: a real thin space, not the LaTeX \, */
+function grph(v, d){ return grp(v,d).replace(/\\,/g,'&thinsp;'); }
+/* LaTeX scientific notation, e.g. 1.805\times10^{6} */
+function sci(v, sig){ if(sig===undefined) sig=4;
+  if(v===0) return '0';
+  var ex=Math.floor(Math.log(Math.abs(v))/Math.LN10);
+  var m=v/Math.pow(10,ex);
+  return nf(m,sig-1)+'\\times10^{'+ex+'}'; }
+/* choose grouped integer for small magnitudes, sci for large */
+function num(v){ return Math.abs(v)>=1e5 ? sci(v) : grp(v,0); }
+
+/* ─────────────────── solver ─────────────────── */
+function solveWeld(cfg){
+  var segs = cfg.segs.map(function(s){
+    var dx=s.p2[0]-s.p1[0], dy=s.p2[1]-s.p1[1];
+    return {p1:s.p1, p2:s.p2, n1:s.n1, n2:s.n2, label:s.label,
+            dx:dx, dy:dy, L:Math.sqrt(dx*dx+dy*dy),
+            cx:(s.p1[0]+s.p2[0])/2, cy:(s.p1[1]+s.p2[1])/2};
+  });
+  var L=0, sx=0, sy=0;
+  segs.forEach(function(s){ L+=s.L; sx+=s.L*s.cx; sy+=s.L*s.cy; });
+  var xb=sx/L, yb=sy/L, Ix=0, Iy=0;
+  segs.forEach(function(s){
+    s.Ixown = s.L*s.dy*s.dy/12;  s.Ixpar = s.L*Math.pow(s.cy-yb,2);
+    s.Iyown = s.L*s.dx*s.dx/12;  s.Iypar = s.L*Math.pow(s.cx-xb,2);
+    s.Ix = s.Ixown+s.Ixpar; s.Iy = s.Iyown+s.Iypar;
+    Ix += s.Ix; Iy += s.Iy;
+  });
+
+  var R = {cfg:cfg, segs:segs, L:L, xb:xb, yb:yb, Ix:Ix, Iy:Iy, Ju:Ix+Iy, V:cfg.V};
+  R.Ssy = 0.577*cfg.Sy;
+  R.tauAll = R.Ssy/cfg.n;
+
+  if(cfg.mode==='torsion'){
+    R.e  = cfg.loadX - xb;
+    R.M  = Math.abs(cfg.V*R.e);
+    var Mz = -cfg.V*R.e, fp = cfg.V/L;
+    var pts=[], seen={};
+    segs.forEach(function(s){
+      [[s.p1,s.n1],[s.p2,s.n2]].forEach(function(q){
+        var k=q[0][0]+','+q[0][1];
+        if(!seen[k]){ seen[k]=1; pts.push({name:q[1]||'', X:q[0][0], Y:q[0][1]}); }
+      });
+    });
+    pts.forEach(function(p){
+      p.x=p.X-xb; p.y=p.Y-yb; p.r=Math.sqrt(p.x*p.x+p.y*p.y);
+      p.fx=-Mz*p.y/R.Ju; p.fy=Mz*p.x/R.Ju; p.fyt=p.fy-fp;
+      p.f=Math.sqrt(p.fx*p.fx+p.fyt*p.fyt);
+    });
+    pts.sort(function(a,b){ return (a.name<b.name)?-1:1; });
+    R.fp=fp; R.Mz=Mz; R.pts=pts;
+    R.crit = pts.reduce(function(a,b){ return b.f>a.f?b:a; });
+    R.far  = pts.reduce(function(a,b){ return b.r>a.r?b:a; });
+    R.fmax = R.crit.f;
+  } else {
+    R.e=cfg.e; R.M=cfg.V*cfg.e; R.Iu=Ix;
+    var ys=[]; segs.forEach(function(s){ ys.push(s.p1[1], s.p2[1]); });
+    R.ymax=Math.max.apply(null,ys); R.ymin=Math.min.apply(null,ys);
+    R.fs=cfg.V/L;
+    R.fib=[{name:'Top',    c:R.ymax-yb, y:R.ymax},
+           {name:'Bottom', c:yb-R.ymin, y:R.ymin}];
+    R.fib.forEach(function(f){
+      f.Su=Ix/f.c; f.fb=R.M/f.Su; f.f=Math.sqrt(f.fb*f.fb+R.fs*R.fs);
+    });
+    R.crit  = R.fib[0].f>=R.fib[1].f ? R.fib[0] : R.fib[1];
+    R.other = R.fib[0].f>=R.fib[1].f ? R.fib[1] : R.fib[0];
+    R.fmax  = R.crit.f;
+  }
+  R.throat = R.fmax/R.tauAll;
+  R.t      = R.throat/0.707;
+  R.tspec  = Math.ceil(R.t - 1e-9);
+  return R;
+}
+
+/* ─────────────────── shared HTML helpers ─────────────────── */
+function step(n, title, body, open){
+  return '<div class="step"><details'+(open?' open':'')+'>'
+       + '<summary><span class="step-num">'+n+'</span>'
+       + '<span class="step-title">'+title+'</span>'
+       + '<span class="try-hint">Try it first, then reveal &darr;</span></summary>'
+       + '<div class="step-body">'+body+'</div></details></div>';
+}
+function mb(tex){ return '<div class="math-block">$$'+tex+'$$</div>'; }
+function co(cls, html){ return '<div class="callout '+cls+'">'+html+'</div>'; }
+
+/* ─────────────────── diagram ─────────────────── */
+function svgWrap(W,H,g,cap){
+  return '<div class="diagram-wrap"><figure><svg viewBox="0 0 '+W+' '+H+'" xmlns="http://www.w3.org/2000/svg">'
+   + '<defs>'
+   + '<marker id="wa" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#000"/></marker>'
+   + '<marker id="wg" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#f97316"/></marker>'
+   + '<marker id="ws" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#555"/></marker>'
+   + '<marker id="wb" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/></marker>'
+   + '</defs>' + g + '</svg><figcaption>'+cap+'</figcaption></figure></div>';
+}
+function txt(x,y,s,o){ o=o||{};
+  return '<text x="'+nf(x,1)+'" y="'+nf(y,1)+'" font-size="'+(o.fs||12)+'"'
+   + (o.w?' font-weight="'+o.w+'"':'') + (o.fill?' fill="'+o.fill+'"':'')
+   + (o.a?' text-anchor="'+o.a+'"':'') + (o.i?' font-style="italic"':'') + '>'+s+'</text>'; }
+function ln(x1,y1,x2,y2,o){ o=o||{};
+  return '<line x1="'+nf(x1,1)+'" y1="'+nf(y1,1)+'" x2="'+nf(x2,1)+'" y2="'+nf(y2,1)
+   + '" stroke="'+(o.c||'#555')+'" stroke-width="'+(o.w||1)+'"'
+   + (o.d?' stroke-dasharray="'+o.d+'"':'') + (o.m?' marker-end="url(#'+o.m+')"':'')
+   + (o.ms?' marker-start="url(#'+o.ms+')"':'') + '/>'; }
+
+function drawWeld(R){
+  return (R.cfg.mode==='torsion') ? drawTorsion(R) : drawBending(R);
+}
+
+/* ── in-plane (torsion): single front view with load line and eccentricity ── */
+function drawTorsion(R){
+  var c=R.cfg, W=620, H=340, pad=70;
+  var xs=[], ys=[];
+  R.segs.forEach(function(s){ xs.push(s.p1[0],s.p2[0]); ys.push(s.p1[1],s.p2[1]); });
+  /* extent of the WELDS alone - the axes are sized to these, not to the load line */
+  var wx0=Math.min.apply(null,xs), wx1=Math.max.apply(null,xs);
+  var wy0=Math.min.apply(null,ys), wy1=Math.max.apply(null,ys);
+  xs.push(c.loadX);
+  var x0=Math.min.apply(null,xs), x1=Math.max.apply(null,xs);
+  var y0=Math.min.apply(null,ys), y1=Math.max.apply(null,ys);
+  var k=Math.min((W-2*pad)/Math.max(x1-x0,1),(H-2*pad)/Math.max(y1-y0,1));
+  var ox=pad+(W-2*pad-(x1-x0)*k)/2-x0*k, oy=pad+(H-2*pad-(y1-y0)*k)/2+y1*k;
+  function PX(x){ return ox+x*k; } function PY(y){ return oy-y*k; }
+  var g='', cX=PX(R.xb), cY=PY(R.yb);
+
+  R.segs.forEach(function(s){ g+=ln(PX(s.p1[0]),PY(s.p1[1]),PX(s.p2[0]),PY(s.p2[1]),{c:'#1a3c6e',w:7}); });
+  /* Two reference frames are in play and they must not share symbols:
+       x , y   solid black  — origin (0,0) of the segment coordinates, the frame
+                             Step 1 uses to find the centroid
+       x', y'  dashed orange — centroidal axes through O, the frame Steps 4-5 use */
+  var oX=PX(0), oY=PY(0);
+  /* When an axis is collinear with its primed counterpart (e.g. T8.1, where
+     ybar = 0 puts x and x' on the same line) draw only a short stub near the
+     origin, so the two frames stay visually distinct. */
+  var xCol=Math.abs(oY-cY)<4, yCol=Math.abs(oX-cX)<4;
+  /* Each axis runs from the origin to just past the far end of the weld group;
+     it is never drawn past the origin on the opposite side, and never chases
+     the load line. */
+  var xEnd   = xCol ? oX+76 : PX(wx1)+22;
+  var xStart = Math.min(oX, PX(wx0));
+  var yEnd   = yCol ? oY-76 : PY(wy1)-30;
+  var yStart = yCol ? oY+34 : Math.max(oY, PY(wy0));
+  g+=ln(xStart,oY,xEnd,oY,{c:'#000',w:1.2,m:'wa'});
+  g+=ln(oX,yStart,oX,yEnd,{c:'#000',w:1.2,m:'wa'});
+  g+=txt(xEnd+7,oY+5,'x',{fs:13,w:700});
+  g+=txt(oX+7,yEnd-5,'y',{fs:13,w:700});
+  g+='<circle cx="'+nf(oX,1)+'" cy="'+nf(oY,1)+'" r="3.6" fill="#000"/>';
+  g+=txt(oX-9,oY+18,'(0,0)',{fs:10.5,fill:'#333',a:'end'});
+  g+=txt(oX-9,oY+31,'origin used in Step 1',{fs:10,fill:'#666',a:'end',i:1});
+  /* centroidal axes */
+  g+=ln(PX(x0)-22,cY,PX(x1)+22,cY,{c:'#f97316',w:1.1,d:'9,4,2,4'});
+  g+=ln(cX,PY(y0)+20,cX,PY(y1)-20,{c:'#f97316',w:1.1,d:'9,4,2,4'});
+  /* the centroidal axes are left unlabelled - the O marker identifies them */
+
+  var lx=PX(c.loadX), yt=PY(y1), yb2=PY(y0);
+  /* arrow tip lands exactly on the horizontal centroidal axis */
+  g+=ln(lx,yt-14,lx,cY,{c:'#2563eb',w:3,m:'wb'});
+  g+=txt(lx,cY+24,c.loadLabel||(nf(c.V/1000,c.V%1000?1:0)+' kN'),{fs:13.5,w:700,fill:'#2563eb',a:'middle'});
+  var dy=yb2+46;
+  g+=ln(lx,dy,cX,dy,{c:'#f97316',w:1.2,m:'wg',ms:'wg'});
+  g+=ln(lx,cY+32,lx,dy+8,{c:'#f97316',w:.8,d:'3,3'});
+  g+=ln(cX,cY+8,cX,dy+8,{c:'#f97316',w:.8,d:'3,3'});
+  g+=txt((lx+cX)/2,dy-6,'e = '+nf(Math.abs(R.e),2)+' mm',{fs:12.5,w:600,fill:'#f97316',a:'middle'});
+  g+='<circle cx="'+nf(PX(R.crit.X),1)+'" cy="'+nf(PY(R.crit.Y),1)+'" r="7" fill="none" stroke="#dc2626" stroke-width="2.4"/>';
+
+  var seen={};
+  R.segs.forEach(function(s){ [[s.p1,s.n1],[s.p2,s.n2]].forEach(function(q){
+    var key=q[0][0]+','+q[0][1]; if(seen[key]||!q[1]) return; seen[key]=1;
+    g+=txt(PX(q[0][0])+(q[0][0]<=R.xb?-17:9), PY(q[0][1])+(q[0][1]>=R.yb?-11:19), q[1], {fs:14,w:700,fill:'#1a3c6e'});
+  });});
+  g+='<circle cx="'+nf(cX,1)+'" cy="'+nf(cY,1)+'" r="5.5" fill="#f97316"/>';
+  g+=txt(cX+9,cY-9,'O',{fs:13,w:700,fill:'#f97316'});
+  g+=txt(cX+9,cY+18,'at ('+nf(R.xb,1)+', '+nf(R.yb,1)+') in x,y',{fs:10.5,fill:'#f97316'});
+  g+=txt(W-8,H-8,'Dimensions in millimetres',{fs:11.5,fill:'#555',a:'end',i:1});
+  return svgWrap(W,H,g,R.cfg.caption);
+}
+
+/* ── out-of-plane (bending): paired side + front view, SHARED vertical scale ── */
+function drawBending(R){
+  var c=R.cfg, W=740, H=390;
+  var xs=[], ys=[];
+  R.segs.forEach(function(s){ xs.push(s.p1[0],s.p2[0]); ys.push(s.p1[1],s.p2[1]); });
+  var x0=Math.min.apply(null,xs), x1=Math.max.apply(null,xs);
+  var hgt=R.ymax-R.ymin, wid=Math.max(x1-x0,1);
+  /* one scale k drives BOTH views, so the weld height matches across them */
+  var k=Math.min(200/hgt, 150/wid, 150/c.e);
+  var topY=90;
+  function PY(y){ return topY+(R.ymax-y)*k; }
+  var SX=115, FX=470;
+  function FXp(x){ return FX+(x-x0)*k; }
+  var g='', yT=PY(R.ymax), yB=PY(R.ymin), cY=PY(R.yb);
+
+  /* ---- SIDE VIEW ---- */
+  g+=txt(26,32,'Side view (looking along the wall)',{fs:13.5,w:700,fill:'#1a3c6e'});
+  g+='<rect x="'+(SX-26)+'" y="'+nf(yT-40,1)+'" width="26" height="'+nf((yB-yT)+90,1)+'" fill="#d9dde5"/>';
+  g+=ln(SX,yT-40,SX,yB+50,{c:'#1a3c6e',w:2.2});
+  var arm=c.e*k, plateEnd=SX+arm+34, beamEnd=SX+arm;
+
+  if(c.sideShape==='beam'){
+    /* ── RHS beam cantilevering e mm off the wall ──
+       The beam ENDS at the load: its projection in this view is e mm.       */
+    g+='<rect x="'+SX+'" y="'+nf(yT,1)+'" width="'+nf(arm,1)+'" height="'+nf(yB-yT,1)
+      +'" fill="#7fe3ec" fill-opacity="0.30" stroke="#1a3c6e" stroke-width="1.4"/>';
+    /* top fillet weld: triangle sitting on the beam, left side against the wall */
+    g+='<path d="M'+SX+','+nf(yT,1)+' L'+nf(SX+19,1)+','+nf(yT,1)+' L'+SX+','+nf(yT-19,1)+' z" fill="#1a3c6e"/>';
+    g+=txt(SX+26,yT-34,'Top',{fs:11.5,fill:'#1a3c6e'});
+    g+=txt(SX+26,yT-21,'fillet weld',{fs:11.5,fill:'#1a3c6e'});
+    if(c.sideWelds===false){
+      /* welds on the top and bottom faces only - mirror the fillet underneath */
+      g+='<path d="M'+SX+','+nf(yB,1)+' L'+nf(SX+19,1)+','+nf(yB,1)+' L'+SX+','+nf(yB+19,1)+' z" fill="#1a3c6e"/>';
+      g+=txt(SX+26,yB+30,'Bottom',{fs:11.5,fill:'#1a3c6e'});
+      g+=txt(SX+26,yB+43,'fillet weld',{fs:11.5,fill:'#1a3c6e'});
+    } else {
+      /* side welds run down the INSIDE of the section, so they are hidden here.
+         9 px base, thickened 70% (to 15.3) growing rightwards into the beam;
+         the left edge stays on the wall face. */
+      g+='<rect x="'+(SX-4.5)+'" y="'+nf(yT,1)+'" width="15.3" height="'+nf(yB-yT,1)
+        +'" fill="none" stroke="#1a3c6e" stroke-width="2.8" stroke-dasharray="7,4"/>';
+      g+=txt(SX+14,yB+22,'side welds inside the section (hidden)',{fs:11.5,fill:'#1a3c6e'});
+    }
+    /* load applied on the TOP surface at the free end */
+    g+=ln(beamEnd,yT-54,beamEnd,yT,{c:'#2563eb',w:3,m:'wb'});
+    g+=txt(beamEnd+11,yT-28,c.loadLabel||(nf(c.V/1000,c.V%1000?1:0)+' kN'),{fs:13.5,w:700,fill:'#2563eb'});
+    /* one dimension serves both: the beam projects e mm and the load sits at its end */
+    g+=ln(SX,yB+62,beamEnd,yB+62,{c:'#f97316',w:1.2,m:'wg',ms:'wg'});
+    g+=ln(beamEnd,yB+6,beamEnd,yB+70,{c:'#f97316',w:.8,d:'3,3'});
+    g+=txt((SX+beamEnd)/2,yB+56,'e = '+nf(c.e,0)+' mm',{fs:12.5,w:600,fill:'#f97316',a:'middle'});
+  } else {
+    if(c.sideShape==='quarter'){
+      /* quarter-round bracket: straight welded edge at the wall, flat bottom edge,
+         arc sweeping from the top of the weld to the outer bottom corner.
+         Radius = the weld-group height, so the shape scales with the geometry. */
+      var Rq=yB-yT;
+      g+='<path d="M'+SX+','+nf(yT,1)+' L'+SX+','+nf(yB,1)+' L'+nf(SX+Rq,1)+','+nf(yB,1)
+        +' A'+nf(Rq,1)+','+nf(Rq,1)+' 0 0 0 '+SX+','+nf(yT,1)+' Z" '
+        +'fill="#7fe3ec" fill-opacity="0.30" stroke="#1a3c6e" stroke-width="1.4"/>';
+    } else {
+      g+='<rect x="'+SX+'" y="'+nf(yT,1)+'" width="'+nf(plateEnd-SX,1)+'" height="'+nf(yB-yT,1)+'" fill="#7fe3ec" fill-opacity="0.30" stroke="#1a3c6e" stroke-width="1.4"/>';
+    }
+    g+='<rect x="'+(SX-4.5)+'" y="'+nf(yT,1)+'" width="9" height="'+nf(yB-yT,1)+'" fill="#1a3c6e"/>';
+    g+=txt(SX+14,yT-12,'weld (shaded) seen edge-on',{fs:11.5,fill:'#1a3c6e'});
+    g+='<circle cx="'+nf(beamEnd,1)+'" cy="'+nf(yB-18,1)+'" r="8" fill="#fff" stroke="#1a3c6e" stroke-width="1.3"/>';
+    g+=ln(beamEnd,yB-10,beamEnd,yB+46,{c:'#2563eb',w:2.8,m:'wb'});
+    g+=txt(beamEnd+12,yB+30,c.loadLabel||(nf(c.V/1000,c.V%1000?1:0)+' kN'),{fs:13.5,w:700,fill:'#2563eb'});
+    g+=ln(SX,yB+72,beamEnd,yB+72,{c:'#f97316',w:1.2,m:'wg',ms:'wg'});
+    g+=ln(beamEnd,yB+52,beamEnd,yB+80,{c:'#f97316',w:.8,d:'3,3'});
+    g+=txt((SX+beamEnd)/2,yB+66,'e = '+nf(c.e,0)+' mm',{fs:12.5,w:600,fill:'#f97316',a:'middle'});
+  }
+
+  /* height dimension, same scale as front view */
+  g+=ln(SX-56,yT,SX-56,yB,{c:'#555',w:1,m:'ws',ms:'ws'});
+  g+=ln(SX-64,yT,SX-8,yT,{c:'#555',w:.8,d:'3,3'});
+  g+=ln(SX-64,yB,SX-8,yB,{c:'#555',w:.8,d:'3,3'});
+  g+=txt(SX-62,(yT+yB)/2+4,nf(hgt,0)+' mm',{fs:12.5,fill:'#555',a:'end'});
+
+  /* ---- FRONT VIEW ---- */
+  g+=txt(FX-40,32,'Front view — weld group',{fs:13.5,w:700,fill:'#1a3c6e'});
+  R.segs.forEach(function(s){ g+=ln(FXp(s.p1[0]),PY(s.p1[1]),FXp(s.p2[0]),PY(s.p2[1]),{c:'#1a3c6e',w:7}); });
+  g+=ln(FXp(x0)-46,cY,FXp(x1)+52,cY,{c:'#f97316',w:1.4,d:'10,4,2,4'});
+  g+=txt(FXp(x1)+58,cY-6,'N.A.',{fs:12,w:600,fill:'#f97316'});
+  g+=txt(FXp(x1)+58,cY+10,'ȳ = '+nf(R.ymax-R.yb,2),{fs:10.5,fill:'#f97316'});
+  var dxx=FXp(x0)-40;
+  g+=ln(dxx,yT,dxx,cY,{c:'#f97316',w:1,m:'wg',ms:'wg'});
+  g+=ln(dxx,cY,dxx,yB,{c:'#dc2626',w:1.3,m:'wg',ms:'wg'});
+  g+=txt(dxx-6,(yT+cY)/2+4,nf(R.ymax-R.yb,2),{fs:12,fill:'#f97316',a:'end'});
+  g+=txt(dxx-6,(cY+yB)/2+4,'c = '+nf(R.yb-R.ymin,2),{fs:12,fill:'#dc2626',a:'end',w:700});
+  R.segs.forEach(function(s){ [s.p1,s.p2].forEach(function(p){
+    if(Math.abs(p[1]-R.crit.y)<1e-6)
+      g+='<circle cx="'+nf(FXp(p[0]),1)+'" cy="'+nf(PY(p[1]),1)+'" r="6.5" fill="none" stroke="#dc2626" stroke-width="2.2"/>';
+  });});
+  var seen={};
+  R.segs.forEach(function(s){ [[s.p1,s.n1],[s.p2,s.n2]].forEach(function(q){
+    var key=q[0][0]+','+q[0][1]; if(seen[key]||!q[1]) return; seen[key]=1;
+    g+=txt(FXp(q[0][0])+(q[0][0]<=(x0+x1)/2?-17:9), PY(q[0][1])+(q[0][1]>=R.yb?-11:19), q[1], {fs:14,w:700,fill:'#1a3c6e'});
+  });});
+  g+=txt(W-8,H-10,'Dimensions in millimetres',{fs:11.5,fill:'#555',a:'end',i:1});
+  g+=txt(FX-40,H-10,'critical fibre ringed in red',{fs:11.5,fill:'#dc2626'});
+  return svgWrap(W,H,g,R.cfg.caption);
+}
+
+/* ─────────────────── renderer: TORSION ─────────────────── */
+function renderTorsion(R){
+  var c=R.cfg, h='', dia=drawWeld(R);
+  h+='<h3>Problem Statement</h3><p>'+c.statement+'</p>';
+  if(c.bookAns) h+=co('given','<p><strong>Given answer (textbook):</strong> weld size $t = '+c.bookAns+'$ mm.</p>');
+  /* If a side view of the assembly is supplied it heads the problem statement,
+     and the weld-group diagram moves down into Step 1 where it is first used. */
+  h+= c.sideView ? c.sideView : dia;
+  h+='<h3>Solution</h3>';
+  h+=co('info','<p><strong>Method — the unit-weld (line) approach.</strong> The load lies <em>in</em> the plane of the weld group, so the eccentricity <em>twists</em> it about its centroid. Work in shear flow (N/mm) using the unit polar moment $J_u$, and restore the throat $0.707t$ only at the end.</p>');
+
+  /* 1 centroid */
+  var b1=(c.sideView?dia:'')+'<p>Treat each weld as a line acting at its own mid-point. Positions $x_i,\\ y_i$ are measured in the <strong>x, y frame</strong> marked on the diagram, whose origin (0,0) is shown as a black dot.</p>'
+   +'<table><thead><tr><th>Weld</th><th>$L_i$ (mm)</th><th>$x_i$</th><th>$y_i$</th><th>$L_i x_i$</th><th>$L_i y_i$</th></tr></thead><tbody>';
+  R.segs.forEach(function(s){
+    b1+='<tr><td>'+(s.label||(s.n1+s.n2))+'</td><td>'+nf(s.L,0)+'</td><td>'+nf(s.cx,1)+'</td><td>'+nf(s.cy,1)
+      +'</td><td>'+grph(s.L*s.cx,0)+'</td><td>'+grph(s.L*s.cy,0)+'</td></tr>';
+  });
+  var sLx=0,sLy=0; R.segs.forEach(function(s){ sLx+=s.L*s.cx; sLy+=s.L*s.cy; });
+  b1+='<tr class="total"><td>&Sigma;</td><td>'+nf(R.L,0)+'</td><td>&mdash;</td><td>&mdash;</td><td>'+grph(sLx,0)+'</td><td>'+grph(sLy,0)+'</td></tr></tbody></table>';
+  b1+=mb('\\bar{x} = \\frac{'+grp(sLx,0)+'}{'+nf(R.L,0)+'} = '+nf(R.xb,2)+'\\ \\text{mm}, \\qquad \\bar{y} = \\frac{'+grp(sLy,0)+'}{'+nf(R.L,0)+'} = '+nf(R.yb,2)+'\\ \\text{mm}');
+  b1+=co('answer','<p>$L = '+nf(R.L,0)+'$ mm, &nbsp; centroid O at $('+nf(R.xb,2)+',\\ '+nf(R.yb,2)+')$ mm</p>');
+  h+=step(1,'Locate the weld-group centroid',b1,true);
+
+  /* 2 moment */
+  var b2=mb('e = '+nf(c.loadX,0)+' - ('+nf(R.xb,2)+') = '+nf(R.e,2)+'\\ \\text{mm} \\quad\\Rightarrow\\quad |e| = '+nf(Math.abs(R.e),2)+'\\ \\text{mm}')
+   +mb('M = V|e| = '+grp(c.V,0)+' \\times '+nf(Math.abs(R.e),2)+' = '+sci(R.M)+'\\ \\text{N}\\cdot\\text{mm}')
+   +co('answer','<p>$|e| = '+nf(Math.abs(R.e),2)+'$ mm, &nbsp; $M = '+sci(R.M)+'$ N&middot;mm</p>')
+   +co('note','<p>Only the <em>horizontal</em> offset of the load from O enters $M$, because the force is vertical. The height of the load point is irrelevant.</p>');
+  h+=step(2,'Eccentricity and twisting moment',b2);
+
+  /* 3 Ju */
+  var b3='<table><thead><tr><th>Weld</th><th>$L_i d_y^2/12$</th><th>$L_i(y_i-\\bar y)^2$</th><th>$L_i d_x^2/12$</th><th>$L_i(x_i-\\bar x)^2$</th></tr></thead><tbody>';
+  R.segs.forEach(function(s){
+    b3+='<tr><td>'+(s.label||(s.n1+s.n2))+'</td><td>'+grph(s.Ixown,0)+'</td><td>'+grph(s.Ixpar,0)+'</td><td>'+grph(s.Iyown,0)+'</td><td>'+grph(s.Iypar,0)+'</td></tr>';
+  });
+  b3+='</tbody></table>';
+  b3+=mb('I_{u,x} = '+num(R.Ix)+'\\ \\text{mm}^3, \\qquad I_{u,y} = '+num(R.Iy)+'\\ \\text{mm}^3');
+  b3+=mb('J_u = I_{u,x} + I_{u,y} = '+sci(R.Ju)+'\\ \\text{mm}^3');
+  b3+=co('answer','<p>$J_u = '+sci(R.Ju)+'$ mm³</p>');
+  b3+=co('note','<p>Units are <strong>mm³</strong>, not mm⁴ — the missing millimetre is the throat $0.707t$, restored in the last step.</p>');
+  h+=step(3,'Unit second moments and $J_u$',b3);
+
+  /* 4 flows */
+  var b4=mb('f\' = \\frac{V}{L} = \\frac{'+grp(c.V,0)+'}{'+nf(R.L,0)+'} = '+nf(R.fp,2)+'\\ \\text{N/mm}\\quad(\\text{downward})')
+   +mb('f\'\'_x = -\\frac{M_z y\'}{J_u}, \\qquad f\'\'_y = +\\frac{M_z x\'}{J_u}, \\qquad \\frac{M}{J_u} = '+nf(R.M/R.Ju,4)+'\\ \\text{N/mm}^2')
+   +co('answer','<p>$f\' = '+nf(R.fp,2)+'$ N/mm; &nbsp; torsional shear flow $= '+nf(R.M/R.Ju,4)+'\\,r$ N/mm at radius $r$ from O, where $(x\',y\')$ are measured <strong>from O</strong></p>');
+  h+=step(4,'Primary and secondary shear flows',b4);
+
+  /* 5 combine */
+  var b5='<p>Add the two contributions <em>as vectors</em> at every weld end. These are the <strong>primed</strong> coordinates $x\',y\'$ &mdash; measured from the centroid O, <em>not</em> from the (0,0) used in Step 1.</p>'
+   +'<table><thead><tr><th>Point</th><th>$x\'$</th><th>$y\'$</th><th>$r$</th><th>$f\'\'_x$</th><th>$f\'\'_y$</th><th>$f_y=f\'\'_y-f\'$</th><th>$|f|$ (N/mm)</th></tr></thead><tbody>';
+  R.pts.forEach(function(p){
+    b5+='<tr'+(p===R.crit?' class="hot"':'')+'><td>'+p.name+'</td><td>'+nf(p.x,1)+'</td><td>'+nf(p.y,1)+'</td><td>'+nf(p.r,1)
+      +'</td><td>'+nf(p.fx,1)+'</td><td>'+nf(p.fy,1)+'</td><td>'+nf(p.fyt,1)+'</td><td>'+nf(p.f,1)+'</td></tr>';
+  });
+  b5+='</tbody></table>';
+  b5+=mb('f_{\\max} = \\sqrt{'+nf(Math.abs(R.crit.fx),1)+'^2 + '+nf(Math.abs(R.crit.fyt),1)+'^2} = '+nf(R.fmax,1)+'\\ \\text{N/mm}\\quad\\text{at '+R.crit.name+'}');
+  b5+=co('answer','<p>$f_{\\max} = '+nf(R.fmax,1)+'$ N/mm at point <strong>'+R.crit.name+'</strong></p>');
+  if(R.far!==R.crit){
+    b5+=co('note','<p><strong>This is the step that decides the problem.</strong> Point '+R.far.name+' is farther from O ($r = '+nf(R.far.r,1)+'$ mm against '+nf(R.crit.r,1)+' mm) so its torsional term is larger — but there the torsional shear partly <em>cancels</em> the direct shear, giving only '+nf(R.far.f,1)+' N/mm. At '+R.crit.name+' the two <em>add</em>. The critical point is where the vectors combine worst, not where $r$ is greatest.</p>');
+  } else {
+    b5+=co('note','<p>Here the point of maximum radius happens also to be the critical one. Do not rely on that — in T8.1 and T8.3 it is not, and assuming it costs a whole weld size.</p>');
+  }
+  h+=step(5,'Combine, and find the truly critical point',b5);
+
+  h+=step(6,'Allowable stress and weld size', sizeSteps(R));
+  h+=summaryTorsion(R);
+  h+=mistakes(R);
+  return h;
+}
+
+/* ─────────────────── renderer: BENDING ─────────────────── */
+function renderBending(R){
+  var c=R.cfg, h='';
+  h+='<h3>Problem Statement</h3><p>'+c.statement+'</p>';
+  if(c.bookAns) h+=co('given','<p><strong>Given answer (textbook):</strong> weld size $t = '+c.bookAns+'$ mm.</p>');
+  h+=drawWeld(R);
+  h+='<h3>Solution</h3>';
+  h+=co('info','<p><strong>Bending, not torsion.</strong> The load stands '+nf(c.e,0)+' mm <em>out of</em> the weld plane, so the eccentricity <em>bends</em> the group about its horizontal centroidal axis. The governing property is the unit section modulus $S_u = I_u/c$, not $J_u$.</p>');
+
+  var b1='<table><thead><tr><th>Weld</th><th>$L_i$ (mm)</th><th>$y_i$ (mm)</th><th>$L_i y_i$ (mm²)</th></tr></thead><tbody>';
+  var sLy=0; R.segs.forEach(function(s){ sLy+=s.L*s.cy;
+    b1+='<tr><td>'+(s.label||(s.n1+s.n2))+'</td><td>'+nf(s.L,0)+'</td><td>'+nf(s.cy,1)+'</td><td>'+grph(s.L*s.cy,0)+'</td></tr>'; });
+  b1+='<tr class="total"><td>&Sigma;</td><td>'+nf(R.L,0)+'</td><td>&mdash;</td><td>'+grph(sLy,0)+'</td></tr></tbody></table>';
+  b1+=mb('\\bar{y} = \\frac{'+grp(sLy,0)+'}{'+nf(R.L,0)+'} = '+nf(R.yb,2)+'\\ \\text{mm}');
+  b1+=co('answer','<p>$L = '+nf(R.L,0)+'$ mm; &nbsp; neutral axis at $y = '+nf(R.yb,2)+'$ mm &nbsp;&rarr;&nbsp; $c_{\\text{top}} = '+nf(R.ymax-R.yb,2)+'$ mm, &nbsp; $c_{\\text{bot}} = '+nf(R.yb-R.ymin,2)+'$ mm</p>');
+  if(Math.abs((R.ymax-R.yb)-(R.yb-R.ymin))<1e-6)
+    b1+=co('note','<p>The group is symmetric about the horizontal axis, so the neutral axis sits at mid-height and both fibres are equally stressed. When a weld is added on only one edge that is no longer true — see T8.4.</p>');
+  else
+    b1+=co('note','<p>The group is <strong>unsymmetrical</strong>, so the neutral axis is not at mid-height. The far fibre is the '+R.crit.name.toLowerCase()+' one, at $c = '+nf(R.crit.c,2)+'$ mm.</p>');
+  h+=step(1,'Total length and neutral axis',b1,true);
+
+  var b2=mb('I_u = \\sum\\left[\\frac{L_i d_y^2}{12} + L_i (y_i-\\bar y)^2\\right] = '+sci(R.Iu)+'\\ \\text{mm}^3');
+  b2+='<table><thead><tr><th>Fibre</th><th>$c$ (mm)</th><th>$S_u = I_u/c$ (mm²)</th></tr></thead><tbody>';
+  R.fib.forEach(function(f){ b2+='<tr'+(f===R.crit?' class="hot"':'')+'><td>'+f.name+'</td><td>'+nf(f.c,2)+'</td><td>'+grph(f.Su,0)+'</td></tr>'; });
+  b2+='</tbody></table>';
+  b2+=co('answer','<p>$I_u = '+sci(R.Iu)+'$ mm³; &nbsp; governing $S_u = '+grph(R.crit.Su,0)+'$ mm² at the '+R.crit.name.toLowerCase()+' fibre</p>');
+  b2+=co('note','<p>Always take the <em>smaller</em> section modulus, i.e. the larger $c$.</p>');
+  h+=step(2,'Unit second moment and section modulus',b2);
+
+  var b3=mb('M = V e = '+grp(R.V,0)+' \\times '+nf(R.e,0)+' = '+sci(R.M)+'\\ \\text{N}\\cdot\\text{mm}')
+   +mb('f_b = \\frac{M}{S_u} = \\frac{'+sci(R.M)+'}{'+grp(R.crit.Su,0)+'} = '+nf(R.crit.fb,1)+'\\ \\text{N/mm}')
+   +mb('f_s = \\frac{V}{L} = \\frac{'+grp(R.V,0)+'}{'+nf(R.L,0)+'} = '+nf(R.fs,1)+'\\ \\text{N/mm}')
+   +co('answer','<p>$f_b = '+nf(R.crit.fb,1)+'$ N/mm, &nbsp; $f_s = '+nf(R.fs,1)+'$ N/mm</p>');
+  h+=step(3,'Bending and direct shear flows',b3);
+
+  var b4='<table><thead><tr><th>Fibre</th><th>$c$</th><th>$S_u$</th><th>$f_b$</th><th>$f_s$</th><th>$f$ (N/mm)</th></tr></thead><tbody>';
+  R.fib.forEach(function(f){ b4+='<tr'+(f===R.crit?' class="hot"':'')+'><td>'+f.name+'</td><td>'+nf(f.c,2)+'</td><td>'+grph(f.Su,0)+'</td><td>'+nf(f.fb,1)+'</td><td>'+nf(R.fs,1)+'</td><td>'+nf(f.f,1)+'</td></tr>'; });
+  b4+='</tbody></table>';
+  b4+=mb('f_{\\max} = \\sqrt{'+nf(R.crit.fb,1)+'^2 + '+nf(R.fs,1)+'^2} = '+nf(R.fmax,1)+'\\ \\text{N/mm}');
+  b4+=co('answer','<p>$f_{\\max} = '+nf(R.fmax,1)+'$ N/mm at the '+R.crit.name.toLowerCase()+' fibre</p>');
+  b4+=co('note','<p>Direct shear is '+nf(100*R.fs/R.crit.fb,0)+' % of the bending term here. The two are perpendicular, so they add by Pythagoras — never arithmetically.</p>');
+  h+=step(4,'Combine and check both fibres',b4);
+
+  h+=step(5,'Allowable stress and weld size', sizeSteps(R));
+  h+=summaryBending(R);
+  h+=mistakes(R);
+  return h;
+}
+
+/* ─────────────────── shared: sizing, summary, mistakes ─────────────────── */
+function sizeSteps(R){ var c=R.cfg;
+  return mb('S_{sy} = \\frac{S_y}{\\sqrt3} = 0.577\\,S_y = 0.577('+c.Sy+') = '+nf(R.Ssy,1)+'\\ \\text{MPa}')
+   + mb('\\tau_{\\text{allow}} = \\frac{S_{sy}}{n} = \\frac{'+nf(R.Ssy,1)+'}{'+c.n+'} = '+nf(R.tauAll,1)+'\\ \\text{MPa}')
+   + mb('0.707\\,t \\ge \\frac{f_{\\max}}{\\tau_{\\text{allow}}} = \\frac{'+nf(R.fmax,1)+'}{'+nf(R.tauAll,1)+'} = '+nf(R.throat,2)+'\\ \\text{mm}')
+   + mb('t \\ge \\frac{'+nf(R.throat,2)+'}{0.707} = '+nf(R.t,2)+'\\ \\text{mm}')
+   + co('answer','<p>Specify a <strong>'+R.tspec+' mm fillet weld</strong>'+(c.bookAns&&c.bookAns==R.tspec?' &#10003; (matches the textbook answer)':'')+'</p>')
+   + co('note','<p>The 0.707 is $\\sin 45°$ — the throat is the shortest path across an equal-leg fillet of leg $t$. Always round <strong>up</strong> to a standard size.</p>');
+}
+function row(a,b,c){ return '<tr><td class="lft">'+a+'</td><td>'+b+'</td><td>'+c+'</td></tr>'; }
+function summaryTorsion(R){ var c=R.cfg;
+  return '<h3>Summary</h3><table><thead><tr><th>Quantity</th><th>Symbol</th><th>Value</th></tr></thead><tbody>'
+   + row('Load on the weld group','$V$', nf(c.V/1000,c.V%1000?1:0)+' kN')
+   + row('Total weld length','$L$', nf(R.L,0)+' mm')
+   + row('Centroid','$(\\bar x,\\bar y)$','('+nf(R.xb,2)+', '+nf(R.yb,2)+') mm')
+   + row('Eccentricity','$|e|$', nf(Math.abs(R.e),2)+' mm')
+   + row('Twisting moment','$M$','$'+sci(R.M)+'$ N·mm')
+   + row('Unit second moment about $x$','$I_{u,x}$','$'+sci(R.Ix)+'$ mm³')
+   + row('Unit second moment about $y$','$I_{u,y}$','$'+sci(R.Iy)+'$ mm³')
+   + row('Unit polar moment','$J_u$','$'+sci(R.Ju)+'$ mm³')
+   + row('Direct shear flow','$f\'$', nf(R.fp,1)+' N/mm')
+   + row('Max resultant shear flow (at '+R.crit.name+')','$f_{\\max}$', nf(R.fmax,1)+' N/mm')
+   + row('Allowable shear stress','$\\tau_{\\text{allow}}$', nf(R.tauAll,1)+' MPa')
+   + row('Required throat','$0.707t$', nf(R.throat,2)+' mm')
+   + '<tr class="total"><td class="lft">Weld size specified</td><td>$t$</td><td>'+R.tspec+' mm</td></tr>'
+   + '</tbody></table>';
+}
+function summaryBending(R){ var c=R.cfg;
+  return '<h3>Summary</h3><table><thead><tr><th>Quantity</th><th>Symbol</th><th>Value</th></tr></thead><tbody>'
+   + row('Load on the weld group','$V$', nf(c.V/1000,c.V%1000?1:0)+' kN')
+   + row('Eccentricity (out of weld plane)','$e$', nf(R.e,0)+' mm')
+   + row('Bending moment','$M$','$'+sci(R.M)+'$ N·mm')
+   + row('Total weld length','$L$', nf(R.L,0)+' mm')
+   + row('Neutral axis','$\\bar y$', nf(R.yb,2)+' mm')
+   + row('Unit second moment','$I_u$','$'+sci(R.Iu)+'$ mm³')
+   + row('Governing section modulus','$S_u$', grph(R.crit.Su,0)+' mm²')
+   + row('Bending shear flow','$f_b$', nf(R.crit.fb,1)+' N/mm')
+   + row('Direct shear flow','$f_s$', nf(R.fs,1)+' N/mm')
+   + row('Resultant','$f_{\\max}$', nf(R.fmax,1)+' N/mm')
+   + row('Allowable shear stress','$\\tau_{\\text{allow}}$', nf(R.tauAll,1)+' MPa')
+   + row('Required throat','$0.707t$', nf(R.throat,2)+' mm')
+   + '<tr class="total"><td class="lft">Weld size specified</td><td>$t$</td><td>'+R.tspec+' mm</td></tr>'
+   + '</tbody></table>';
+}
+function mistakes(R){ var c=R.cfg, h='<h3>Common Mistakes</h3>', i=1;
+  if(c.mode==='torsion'){
+    if(R.far!==R.crit)
+      h+=co('warn','<p><strong>Common mistake '+(i++)+' — checking only the point of maximum radius.</strong> Point '+R.far.name+' has the largest $r$, but gives only '+nf(R.far.f,1)+' N/mm and $t = '+nf(R.far.f/R.tauAll/0.707,2)+'$ mm → a '+Math.ceil(R.far.f/R.tauAll/0.707-1e-9)+' mm weld, undersized. The resultant must be evaluated at every weld end.</p>');
+    var eBad=Math.abs(c.loadX), fBad=R.fmax*eBad/Math.abs(R.e);
+    h+=co('warn','<p><strong>Common mistake '+(i++)+' — measuring $e$ from the wrong place.</strong> The eccentricity runs from the weld <em>centroid</em>, not from the edge of the weld group. Using '+nf(eBad,0)+' mm instead of '+nf(Math.abs(R.e),2)+' mm scales the torsional term by '+nf(eBad/Math.abs(R.e),2)+'.</p>');
+    h+=co('warn','<p><strong>Common mistake '+(i++)+' — reaching for $S_u$.</strong> The load lies in the plane of the weld group, so this is torsion. Bending ($S_u$) applies only when the load stands out of that plane — compare T8.2 and T8.4.</p>');
+  } else {
+    h+=co('warn','<p><strong>Common mistake '+(i++)+' — checking the wrong fibre.</strong> The '+R.other.name.toLowerCase()+' fibre gives only '+nf(R.other.f,1)+' N/mm and $t = '+nf(R.other.f/R.tauAll/0.707,2)+'$ mm → a '+Math.ceil(R.other.f/R.tauAll/0.707-1e-9)+' mm weld. The governing fibre is the one with the larger $c$.</p>');
+    var fArith=R.crit.fb+R.fs;
+    h+=co('warn','<p><strong>Common mistake '+(i++)+' — adding $f_b$ and $f_s$ arithmetically.</strong> '+nf(R.crit.fb,1)+' + '+nf(R.fs,1)+' = '+nf(fArith,1)+' N/mm gives $t = '+nf(fArith/R.tauAll/0.707,2)+'$ mm. The two components are perpendicular.</p>');
+    h+=co('warn','<p><strong>Common mistake '+(i++)+' — reaching for $J_u$.</strong> The load acts perpendicular to the weld plane, so this is bending. Torsion ($J_u$) applies when the load lies in the weld plane — compare T8.1 and T8.3.</p>');
+  }
+  h+=co('warn','<p><strong>Common mistake '+(i++)+' — dividing by $t$ instead of $0.707t$.</strong> The weld is specified by its leg $t$ but fails across the throat $0.707t$. Skipping the 0.707 gives $t = '+nf(R.throat,2)+'$ mm — unconservative by roughly one standard size.</p>');
+  if(c.extraMistake) h+=co('warn',c.extraMistake);
+  return h;
+}
+
+/* ─────────────────── page wiring ─────────────────── */
+function renderProblem(cfg){
+  var R = solveWeld(cfg);
+  return (cfg.mode==='torsion') ? renderTorsion(R) : renderBending(R);
+}
+function initSwitcher(PROBLEMS){
+  var box=document.getElementById('swBtns'), doc=document.getElementById('doc'), desc=document.getElementById('swDesc');
+  PROBLEMS.forEach(function(p,i){
+    var b=document.createElement('button');
+    b.textContent=p.btn; b.setAttribute('aria-pressed', i===0?'true':'false');
+    b.onclick=function(){ show(i); };
+    box.appendChild(b);
+  });
+  function show(i){
+    var btns=box.querySelectorAll('button');
+    for(var j=0;j<btns.length;j++) btns[j].setAttribute('aria-pressed', j===i?'true':'false');
+    desc.textContent = PROBLEMS[i].desc;
+    doc.innerHTML = renderProblem(PROBLEMS[i]);
+    if(window.renderMathInElement){
+      renderMathInElement(doc,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}],throwOnError:false});
+    }
+  }
+  show(0);
+}
+
+
+var PROBLEMS = [
+ {
+  "btn": "Original",
+  "mode": "torsion",
+  "loadX": 300,
+  "V": 35000,
+  "Sy": 345,
+  "n": 2.5,
+  "bookAns": 5,
+  "segs": [
+   {
+    "p1": [
+     0,
+     0
+    ],
+    "p2": [
+     0,
+     -200
+    ],
+    "n1": "A",
+    "n2": "C",
+    "label": "AC (left)"
+   },
+   {
+    "p1": [
+     0,
+     0
+    ],
+    "p2": [
+     150,
+     0
+    ],
+    "n1": "A",
+    "n2": "B",
+    "label": "AB (top)"
+   },
+   {
+    "p1": [
+     150,
+     0
+    ],
+    "p2": [
+     150,
+     -200
+    ],
+    "n1": "B",
+    "n2": "D",
+    "label": "BD (right, hidden)"
+   }
+  ],
+  "desc": "The tutorial sheet problem — 35 kN at 300 mm, three welds around the contact area, n = 2.5.",
+  "statement": "Assuming the <strong>Distortion Energy Theory</strong> applies, determine the required weld size for the gusset shown, using <strong>E60</strong> rod ($S_y = 345$ MPa) and a safety factor of <strong>2.5</strong> based on yielding. The load is <strong>35 kN</strong> at 300 mm from the wall face.",
+  "caption": "Three welds around the contact area: AC (200 mm), AB (150 mm) and BD (200 mm, hidden behind the plate). The bottom edge CD is not welded."
+ },
+ {
+  "btn": "Variant 1 — new loads and material",
+  "mode": "torsion",
+  "loadX": 300,
+  "V": 50000,
+  "Sy": 345,
+  "n": 3.0,
+  "segs": [
+   {
+    "p1": [
+     0,
+     0
+    ],
+    "p2": [
+     0,
+     -200
+    ],
+    "n1": "A",
+    "n2": "C",
+    "label": "AC (left)"
+   },
+   {
+    "p1": [
+     0,
+     0
+    ],
+    "p2": [
+     150,
+     0
+    ],
+    "n1": "A",
+    "n2": "B",
+    "label": "AB (top)"
+   },
+   {
+    "p1": [
+     150,
+     0
+    ],
+    "p2": [
+     150,
+     -200
+    ],
+    "n1": "B",
+    "n2": "D",
+    "label": "BD (right, hidden)"
+   }
+  ],
+  "desc": "Same three welds and the same 300 mm arm — only the load and safety factor change, so Jᵤ carries straight over.",
+  "statement": "The same gusset is required to carry <strong>50 kN</strong> at 300 mm, with the safety factor raised to <strong>3.0</strong>. E60 rod ($S_y = 345$ MPa). What weld size is required?",
+  "caption": "Unchanged three-weld group, now carrying 50 kN at 300 mm."
+ },
+ {
+  "btn": "Variant 2 — new weld layout",
+  "mode": "torsion",
+  "loadX": 300,
+  "V": 35000,
+  "Sy": 345,
+  "n": 2.5,
+  "segs": [
+   {
+    "p1": [
+     0,
+     0
+    ],
+    "p2": [
+     0,
+     -200
+    ],
+    "n1": "A",
+    "n2": "C",
+    "label": "AC (left)"
+   },
+   {
+    "p1": [
+     0,
+     0
+    ],
+    "p2": [
+     150,
+     0
+    ],
+    "n1": "A",
+    "n2": "B",
+    "label": "AB (top)"
+   },
+   {
+    "p1": [
+     0,
+     -200
+    ],
+    "p2": [
+     150,
+     -200
+    ],
+    "n1": "C",
+    "n2": "D",
+    "label": "CD (bottom)"
+   }
+  ],
+  "desc": "The hidden weld BD is replaced by a weld along the bottom edge CD, turning the group into a C opening to the right. Same total length, very different Jᵤ and centroid.",
+  "statement": "The fabricator cannot reach the far edge, so weld BD is <strong>replaced by a 150 mm weld along the bottom edge CD</strong>. Everything else is unchanged: <strong>35 kN</strong> at 300 mm, <strong>E60</strong> rod ($S_y = 345$ MPa), safety factor <strong>2.5</strong>. What weld size is now required?",
+  "caption": "C-shaped group opening to the right: AC (200 mm), AB (150 mm) and CD (150 mm). Total length drops from 550 to 500 mm.",
+  "extraMistake": "<p><strong>Worth comparing.</strong> Swapping the 200 mm hidden weld for a 150 mm bottom weld shortens the group by only 50 mm, but it moves the centroid and changes $J_u$ — run both variants and compare the required sizes before assuming the change is harmless.</p>"
+ }
+];
+
+document.addEventListener('DOMContentLoaded', function(){ initSwitcher(PROBLEMS); });
+</script>
+</body>
+</html>
