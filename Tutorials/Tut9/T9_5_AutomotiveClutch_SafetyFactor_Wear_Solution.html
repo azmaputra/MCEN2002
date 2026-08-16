@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>T9.5 - Automotive Clutch (Safety Factor and Wear Allowance)</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css"/>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+body{font-family:'Segoe UI',Arial,sans-serif;font-size:15px;line-height:1.75;color:#1a1a1a;background:#f5f6f8;margin:0;padding:24px 16px 56px}
+.page{max-width:880px;margin:0 auto;background:#fff;border-radius:10px;box-shadow:0 2px 14px rgba(0,0,0,.10);padding:40px 52px 52px}
+.uni-header{text-align:center;border-bottom:2px solid #1a3c6e;padding-bottom:16px;margin-bottom:24px}
+.uni-header p{margin:0;line-height:1.4;font-size:13.5px;color:#555}
+.uni-header h2{margin:8px 0 0;font-size:20px;color:#1a3c6e}
+h3{color:#1a3c6e;border-left:4px solid #1a3c6e;padding-left:10px;margin:28px 0 10px;font-size:15.5px}
+h4{color:#1a3c6e;font-size:14.5px;margin:20px 0 6px}
+.step{margin-bottom:10px}
+.step details{border:1px solid #d1d9e8;border-radius:8px;overflow:hidden;margin-top:6px}
+.step details summary{list-style:none;cursor:pointer;padding:11px 15px;background:#f0f4fb;color:#1a3c6e;font-weight:500;font-size:14.5px;display:flex;align-items:center;gap:10px;user-select:none}
+.step details summary::-webkit-details-marker{display:none}
+.step details summary::after{content:'\25BC';font-size:11px;color:#f97316;transition:transform .2s;flex-shrink:0;margin-left:auto;padding-left:8px}
+.step details[open] summary::after{transform:rotate(180deg)}
+.step details[open] summary{background:#e8eef9;border-bottom:1px solid #d1d9e8}
+.step-body{padding:16px 20px}
+.step-num{background:#1a3c6e;color:#fff;font-size:12px;font-weight:700;border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.step-title{font-size:15px;font-weight:600;color:#1a3c6e}
+.try-hint{font-size:12.5px;color:#6b7280;font-style:italic;margin-left:auto}
+.callout{border-radius:6px;padding:13px 18px;margin:14px 0;font-size:14.5px}
+.callout p{margin:4px 0}
+.info{background:#eef4ff;border-left:4px solid #3b82f6}
+.given{background:#f0fdf4;border-left:4px solid #22c55e}
+.answer{background:#fff7ed;border-left:4px solid #f97316;font-size:16px;font-weight:600}
+.note{background:#faf5ff;border-left:4px solid #a855f7;font-size:14px}
+.warn{background:#fffbeb;border-left:4px solid #f59e0b;font-size:14px}
+.math-block{background:#f8f9fb;border:1px solid #e2e6ef;border-radius:6px;padding:14px 20px;margin:12px 0;overflow-x:auto;text-align:center}
+.diagram-wrap{text-align:center;margin:22px 0 8px}
+.diagram-wrap figure{margin:0}
+.diagram-wrap svg{max-width:100%;height:auto}
+.diagram-wrap figcaption{font-size:13px;color:#555;margin-top:2px;font-style:italic;line-height:1.5}
+table{border-collapse:collapse;width:100%;margin:14px 0;font-size:14px}
+th{background:#1a3c6e;color:#fff;font-weight:600;padding:8px 10px;text-align:left;font-size:13.5px}
+td{border-bottom:1px solid #e2e6ef;padding:7px 10px}
+tr.total td{border-top:2px solid #1a3c6e;font-weight:700;background:#f0f4fb}
+.footer{margin-top:40px;border-top:1px solid #e5e7eb;padding-top:12px;font-size:12px;color:#999;text-align:center}
+.switcher{background:#f0f4fb;border:1px solid #d1d9e8;border-radius:8px;padding:14px 18px;margin-bottom:26px}
+.switcher .sw-label{font-size:12.5px;font-weight:600;color:#1a3c6e;text-transform:uppercase;letter-spacing:.06em;margin-bottom:9px}
+.sw-btns{display:flex;flex-wrap:wrap;gap:8px}
+.sw-btns button{font-family:inherit;font-size:13.5px;font-weight:500;padding:8px 15px;border-radius:6px;border:1px solid #b9c6df;background:#fff;color:#1a3c6e;cursor:pointer;transition:.15s}
+.sw-btns button:hover{background:#e8eef9;border-color:#1a3c6e}
+.sw-btns button[aria-pressed="true"]{background:#1a3c6e;border-color:#1a3c6e;color:#fff;box-shadow:0 1px 4px rgba(26,60,110,.3)}
+.sw-desc{font-size:13px;color:#555;margin-top:10px;font-style:italic}
+</style>
+</head>
+<body>
+<div class="page">
+
+<div class="uni-header">
+  <p>Curtin University &nbsp;&#183;&nbsp; School of Civil and Mechanical Engineering</p>
+  <p>MCEN2002 &#8211; Fundamentals of Mechanical Design</p>
+  <p style="margin-top:8px"><strong>Dr Azma Putra Azis</strong></p>
+  <h2>Tutorial 9.5 &nbsp;&#8211;&nbsp; Automotive Clutch &#8211; Safety Factor and Wear Allowance</h2>
+</div>
+
+<div class="switcher">
+  <div class="sw-label">Choose a problem</div>
+  <div class="sw-btns" id="swBtns"></div>
+  <div class="sw-desc" id="swDesc"></div>
+</div>
+
+<div id="doc"></div>
+
+<div class="footer">MCEN2002 &#8211; Fundamentals of Mechanical Design | Tutorial 9.5 | Curtin University</div>
+</div>
+
+<script>
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   GENERATED FILE — do not edit by hand.
+   Source: _engine/engine.py + _engine/build.py
+   Rebuild with:  python3 _engine/build.py
+   ═══════════════════════════════════════════════════════════════════════════
+
+   MCEN2002 — TUTORIAL 9 (CLUTCHES) SHARED ENGINE
+   ───────────────────────────────────────────────────────────────────────────
+   THE TWO FRICTION-CLUTCH MODELS, once, so every page uses the same algebra.
+
+   Let r_i, r_o be the inner and outer radii of one annular friction face and
+   f the coefficient of friction. Take an elemental ring of radius r,
+   width dr, area dA = 2*pi*r*dr, carrying pressure p(r).
+
+     Axial force   F = ∫ p dA         Torque (one face)  T = ∫ f * p * r dA
+
+   UNIFORM PRESSURE  (a rigid, brand-new, perfectly flat pair of faces)
+     p = constant
+       F = p * pi * (r_o^2 - r_i^2)
+       T = f*F * (2/3) * (r_o^3 - r_i^3)/(r_o^2 - r_i^2)   =  f * F * R_p
+   UNIFORM WEAR  (after running in: wear rate ∝ p*v ∝ p*r, so p*r = const)
+     p*r = p_max * r_i     (max pressure is at the INNER radius)
+       F = 2*pi*p_max*r_i*(r_o - r_i)
+       T = f*F * (r_o + r_i)/2                             =  f * F * R_w
+
+   R_w < R_p always, so uniform wear is the conservative (safe) assumption and
+   is what you design to unless the question says otherwise.
+
+   N friction SURFACES in series all carry the same axial force F, so
+       T_total = N * f * F * R          and    number of disks = N + 1.
+
+   CONE CLUTCH: the axial force is resolved onto the cone face,
+       N_face = F_a / sin(alpha)   ⇒   T = f * F_a * R_m / sin(alpha)
+   (alpha = semi-angle measured from the axis).
+
+   CENTRIFUGAL CLUTCH: each shoe of mass m, centre of mass at radius r,
+   is held off by a spring set to just balance centrifugal force at the
+   engagement speed w_1, so the net radial (normal) force at running speed w is
+       N = m*r*(w^2 - w_1^2)
+   and with n shoes bearing on a drum of internal radius R_d,
+       T = n * f * N * R_d.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ─────────────────── number formatting ─────────────────── */
+function num(v, d){
+  if(d === undefined) d = 2;
+  var r = Math.round(v * Math.pow(10, d)) / Math.pow(10, d);
+  if(Object.is(r, -0)) r = 0;
+  return String(r);
+}
+/* thin-space thousands grouping, for forces in newtons */
+function ns(v, d){
+  var s = num(v, (d === undefined) ? 1 : d);
+  var neg = s.charAt(0) === '-'; if(neg) s = s.slice(1);
+  var parts = s.split('.'), ip = parts[0], out = '';
+  for(var i = 0; i < ip.length; i++){
+    if(i > 0 && (ip.length - i) % 3 === 0) out += '\\,';
+    out += ip.charAt(i);
+  }
+  return (neg ? '-' : '') + out + (parts[1] ? '.' + parts[1] : '');
+}
+function deg(v){ return num(v, 2) + '^\\circ'; }
+
+/* ─────────────────── page furniture ─────────────────── */
+var CIRCLED = ['①','②','③','④','⑤','⑥','⑦','⑧'];
+function stepBlock(n, title, hint, body){
+  return '<div class="step"><details' + (n === 1 ? ' open' : '') + '>'
+       + '<summary><span class="step-num">' + n + '</span><span class="step-title">' + title + '</span>'
+       + '<span class="try-hint">' + hint + '</span></summary>'
+       + '<div class="step-body">' + body + '</div></details></div>';
+}
+function mb(){ /* math block from any number of $$ lines */
+  var s = '<div class="math-block">';
+  for(var i = 0; i < arguments.length; i++) s += '$$' + arguments[i] + '$$';
+  return s + '</div>';
+}
+function callout(cls, html){ return '<div class="callout ' + cls + '"><p>' + html + '</p></div>'; }
+function fig(svg, cap){
+  return '<div class="diagram-wrap"><figure>' + svg + '<figcaption>' + cap + '</figcaption></figure></div>';
+}
+function mistakes(list){
+  return '<div class="callout warn"><p><strong>Common mistakes:</strong></p>'
+       + list.slice(0, 6).map(function(m, i){ return '<p style="margin-top:6px">' + CIRCLED[i] + ' ' + m + '</p>'; }).join('')
+       + '</div>';
+}
+
+/* ─────────────────── SVG primitives ─────────────────── */
+var NAVY = '#1a3c6e', RED = '#c0392b', BLUE = '#1a6fc4', ORANGE = '#f97316',
+    GREY = '#555', FILL = '#7fe3ec', GOLD = '#f59e0b';
+function n1(v){ return Number(v).toFixed(1); }
+function defsBlock(){
+  return '<defs>'
+    + '<marker id="ar" markerWidth="9" markerHeight="8" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 z" fill="' + RED + '"/></marker>'
+    + '<marker id="ab" markerWidth="9" markerHeight="8" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 z" fill="' + BLUE + '"/></marker>'
+    + '<marker id="ag" markerWidth="8" markerHeight="7" refX="7" refY="2.5" orient="auto"><path d="M0,0 L7,2.5 L0,5 z" fill="' + GREY + '"/></marker>'
+    + '<marker id="ao" markerWidth="9" markerHeight="8" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 z" fill="' + ORANGE + '"/></marker>'
+    + '</defs>';
+}
+function txt(x, y, s, col, size, anchor, weight, style){
+  return '<text x="' + n1(x) + '" y="' + n1(y) + '" fill="' + (col || '#333') + '" font-size="' + (size || 12.5)
+       + '" text-anchor="' + (anchor || 'middle') + '"' + (weight ? ' font-weight="' + weight + '"' : '')
+       + (style ? ' font-style="' + style + '"' : '') + '>' + s + '</text>';
+}
+/* Text on a small white pad. Radius call-outs cross shaded shoes and hatched
+   rings, and a bare label sitting on top of them is unreadable; the pad also
+   lets a label sit close to its own leader line without merging into it. */
+function txtHalo(x, y, s0, col, size, anchor, weight){
+  size = size || 12.5;
+  var w = s0.length * size * 0.56 + 8, h = size + 7;
+  var x0 = (anchor === 'end') ? x - w + 4 : (anchor === 'start' ? x - 4 : x - w / 2);
+  return '<rect x="' + n1(x0) + '" y="' + n1(y - size + 1) + '" width="' + n1(w) + '" height="' + n1(h)
+       + '" rx="3" fill="#fff" fill-opacity="0.86"/>' + txt(x, y, s0, col, size, anchor, weight);
+}
+function arrow(x1, y1, x2, y2, mk, col, w){
+  return '<line x1="' + n1(x1) + '" y1="' + n1(y1) + '" x2="' + n1(x2) + '" y2="' + n1(y2)
+       + '" stroke="' + col + '" stroke-width="' + (w || 2.1) + '" marker-end="url(#' + mk + ')"/>';
+}
+/* double-headed dimension line with a centred caption */
+function dim(x1, y1, x2, y2, label, off){
+  var s = '<line x1="' + n1(x1) + '" y1="' + n1(y1) + '" x2="' + n1(x2) + '" y2="' + n1(y2)
+        + '" stroke="' + GREY + '" stroke-width="1" marker-start="url(#ag)" marker-end="url(#ag)"/>';
+  return s + txt((x1 + x2) / 2, (y1 + y2) / 2 - (off === undefined ? 6 : off), label, GREY, 12.5);
+}
+function circlePath(cx, cy, r){
+  return 'M ' + n1(cx - r) + ',' + n1(cy) + ' a ' + n1(r) + ',' + n1(r) + ' 0 1,0 ' + n1(2 * r) + ',0'
+       + ' a ' + n1(r) + ',' + n1(r) + ' 0 1,0 ' + n1(-2 * r) + ',0';
+}
+function sector(cx, cy, r1, r2, a1, a2){
+  var rd = function(a){ return a * Math.PI / 180; };
+  var P = function(r, a){ return [cx + r * Math.cos(rd(a)), cy + r * Math.sin(rd(a))]; };
+  var p1 = P(r2, a1), p2 = P(r2, a2), p3 = P(r1, a2), p4 = P(r1, a1);
+  var big = (a2 - a1) > 180 ? 1 : 0;
+  return 'M ' + n1(p1[0]) + ',' + n1(p1[1])
+       + ' A ' + n1(r2) + ',' + n1(r2) + ' 0 ' + big + ',1 ' + n1(p2[0]) + ',' + n1(p2[1])
+       + ' L ' + n1(p3[0]) + ',' + n1(p3[1])
+       + ' A ' + n1(r1) + ',' + n1(r1) + ' 0 ' + big + ',0 ' + n1(p4[0]) + ',' + n1(p4[1]) + ' Z';
+}
+
+/* ─── FIGURE: plan view of one annular friction face, with the element dA ─── */
+/* Subscripts are written with the Unicode subscript letters (rᵢ, rₒ, Fₐ, Rₘ, Fₛ)
+   rather than <tspan dy="..">, because a raised/lowered tspan shifts the text
+   baseline for everything that follows it and mangles the rest of the label in
+   several SVG renderers. */
+function dimH(x1, x2, y, label, tickTop){
+  var s = '<line x1="' + n1(x1) + '" y1="' + n1(y) + '" x2="' + n1(x2) + '" y2="' + n1(y)
+        + '" stroke="' + GREY + '" stroke-width="1" marker-start="url(#ag)" marker-end="url(#ag)"/>';
+  if(tickTop !== undefined){
+    s += '<line x1="' + n1(x1) + '" y1="' + n1(tickTop) + '" x2="' + n1(x1) + '" y2="' + n1(y + 6) + '" stroke="#bbb" stroke-width="0.8"/>';
+    s += '<line x1="' + n1(x2) + '" y1="' + n1(tickTop) + '" x2="' + n1(x2) + '" y2="' + n1(y + 6) + '" stroke="#bbb" stroke-width="0.8"/>';
+  }
+  return s + txt((x1 + x2) / 2, y - 7, label, GREY, 12.5);
+}
+
+function figAnnulus(di, dout, opts){
+  opts = opts || {};
+  var cx = 158, cy = 158, Ro = 112, Ri = Ro * di / dout;
+  var s = '<svg viewBox="0 0 520 360" width="580" xmlns="http://www.w3.org/2000/svg" font-family="Arial,sans-serif" font-size="12.5">' + defsBlock();
+  /* the ring itself (even-odd fill punches the hole out) */
+  s += '<path d="' + circlePath(cx, cy, Ro) + ' ' + circlePath(cx, cy, Ri) + '" fill="' + FILL
+     + '" fill-opacity="0.5" fill-rule="evenodd" stroke="' + NAVY + '" stroke-width="2"/>';
+  /* elemental ring dA = 2*pi*r*dr */
+  var rr = (Ri + Ro) / 2, dr = 11;
+  s += '<path d="' + circlePath(cx, cy, rr - dr / 2) + ' ' + circlePath(cx, cy, rr + dr / 2)
+     + '" fill="' + ORANGE + '" fill-opacity="0.55" fill-rule="evenodd" stroke="' + ORANGE + '" stroke-width="1"/>';
+  /* centre lines */
+  s += '<line x1="' + n1(cx - Ro - 16) + '" y1="' + cy + '" x2="' + n1(cx + Ro + 16) + '" y2="' + cy
+     + '" stroke="#999" stroke-width="0.9" stroke-dasharray="10,4,2,4"/>';
+  s += '<line x1="' + cx + '" y1="' + n1(cy - Ro - 16) + '" x2="' + cx + '" y2="' + n1(cy + Ro + 16)
+     + '" stroke="#999" stroke-width="0.9" stroke-dasharray="10,4,2,4"/>';
+  /* Radii call-outs. They must NOT be 180 degrees apart, or the two arrows line
+     up into what reads as a single diameter. r_o is taken out at 20 degrees and
+     r_i up at 118 degrees, which also keeps both clear of the dash-dot centre
+     lines and of the element leader at 45 degrees. */
+  s += arrow(cx, cy, cx + Ro * 0.940, cy - Ro * 0.342, 'ag', NAVY, 1.2);
+  s += txtHalo(cx + Ro * 0.50, cy - Ro * 0.14, 'rₒ', NAVY, 14, 'middle', 'bold');
+  s += arrow(cx, cy, cx - Ri * 0.470, cy - Ri * 0.883, 'ag', NAVY, 1.2);
+  s += txtHalo(cx - Ri * 0.32, cy - Ri * 0.44, 'rᵢ', NAVY, 14, 'middle', 'bold');
+  /* element call-out, leadered out to the top right */
+  var ex = cx + rr * 0.707, ey = cy - rr * 0.707;
+  s += '<line x1="' + n1(ex) + '" y1="' + n1(ey) + '" x2="306" y2="46" stroke="' + ORANGE + '" stroke-width="1" stroke-dasharray="3,3"/>';
+  s += txt(312, 40, 'element at radius r, width dr', ORANGE, 12.5, 'start', 'bold');
+  s += txt(312, 57, 'dA = 2πr dr', ORANGE, 12.5, 'start', 'bold');
+  /* diameter dimensions, stacked clear of the ring */
+  s += dimH(cx - Ri, cx + Ri, cy + Ro + 30, 'dᵢ = ' + num(di, 1) + ' mm', cy);
+  s += dimH(cx - Ro, cx + Ro, cy + Ro + 62, 'dₒ = ' + num(dout, 1) + ' mm', cy);
+  /* pressure-distribution inset */
+  if(opts.model){
+    var bx = 310, by = 90, bw = 196, bh = 126, ax = bx + 34, ay0 = by + 22, ay1 = by + bh - 30;
+    s += '<rect x="' + bx + '" y="' + by + '" width="' + bw + '" height="' + bh + '" rx="5" fill="#f8f9fb" stroke="#e2e6ef"/>';
+    s += '<line x1="' + ax + '" y1="' + ay1 + '" x2="' + (bx + bw - 16) + '" y2="' + ay1 + '" stroke="#888" stroke-width="1"/>';
+    s += '<line x1="' + ax + '" y1="' + ay0 + '" x2="' + ax + '" y2="' + ay1 + '" stroke="#888" stroke-width="1"/>';
+    s += txt(ax - 12, ay0 + 4, 'p', GREY, 12.5, 'middle');
+    s += txt(bx + bw - 10, ay1 + 15, 'r', GREY, 12.5, 'middle');
+    s += txt(ax, ay1 + 15, 'rᵢ', GREY, 12, 'middle');
+    s += txt(bx + bw - 30, ay1 + 15, 'rₒ', GREY, 12, 'middle');
+    var xL = ax + 6, xR = bx + bw - 30;
+    if(opts.model === 'pressure'){
+      s += '<line x1="' + xL + '" y1="' + (ay0 + 16) + '" x2="' + xR + '" y2="' + (ay0 + 16) + '" stroke="' + RED + '" stroke-width="2.6"/>';
+      s += '<line x1="' + xL + '" y1="' + (ay0 + 16) + '" x2="' + xL + '" y2="' + ay1 + '" stroke="' + RED + '" stroke-width="1" stroke-dasharray="3,3"/>';
+      s += '<line x1="' + xR + '" y1="' + (ay0 + 16) + '" x2="' + xR + '" y2="' + ay1 + '" stroke="' + RED + '" stroke-width="1" stroke-dasharray="3,3"/>';
+      s += txt((xL + xR) / 2, ay0 + 8, 'p = constant', RED, 12, 'middle', 'bold');
+    } else {
+      /* p = p_max * r_i / r, so the curve falls to (r_i/r_o) of its peak */
+      var ratio = di / dout, top = ay0 + 12, span = ay1 - top, pth = '';
+      for(var k = 0; k <= 26; k++){
+        var t = k / 26, rq = ratio + t * (1 - ratio);
+        pth += (k ? ' L ' : 'M ') + n1(xL + t * (xR - xL)) + ',' + n1(top + span * (1 - ratio / rq));
+      }
+      s += '<path d="' + pth + '" fill="none" stroke="' + RED + '" stroke-width="2.6"/>';
+      s += '<line x1="' + xL + '" y1="' + top + '" x2="' + xL + '" y2="' + ay1 + '" stroke="' + RED + '" stroke-width="1" stroke-dasharray="3,3"/>';
+      s += '<line x1="' + xR + '" y1="' + n1(top + span * (1 - ratio)) + '" x2="' + xR + '" y2="' + ay1 + '" stroke="' + RED + '" stroke-width="1" stroke-dasharray="3,3"/>';
+      s += txt(xL + 4, top - 6, 'pmax', RED, 12, 'start', 'bold');
+      s += txt((xL + xR) / 2 + 26, ay0 + 6, 'p r = constant', RED, 12, 'middle', 'bold');
+    }
+  }
+  return s + '</svg>';
+}
+
+/* ─── FIGURE: section through a multi-disk stack ─── */
+function figStack(nDisk, capF){
+  var pitch = 24, pw = 9, x0 = 132;
+  var xEnd = x0 + (nDisk - 1) * pitch + pw;
+  var w = xEnd + 130;
+  var s = '<svg viewBox="0 0 ' + w + ' 280" width="' + Math.min(700, w + 40) + '" xmlns="http://www.w3.org/2000/svg" font-family="Arial,sans-serif" font-size="12.5">' + defsBlock();
+  var yTop = 74, yBot = 214, mid = (yTop + yBot) / 2;
+  /* shaft */
+  s += '<rect x="40" y="' + (mid - 13) + '" width="' + (xEnd + 60) + '" height="26" fill="#e7edf6" stroke="' + NAVY + '" stroke-width="1.2"/>';
+  /* housing rails */
+  s += '<rect x="' + (x0 - 32) + '" y="' + (yTop - 18) + '" width="' + (xEnd - x0 + 64) + '" height="14" fill="#dbe4f0" stroke="' + NAVY + '" stroke-width="1.3"/>';
+  s += '<rect x="' + (x0 - 32) + '" y="' + (yBot + 4) + '" width="' + (xEnd - x0 + 64) + '" height="14" fill="#dbe4f0" stroke="' + NAVY + '" stroke-width="1.3"/>';
+  /* plates: even index splined to the housing, odd index splined to the shaft */
+  for(var i = 0; i < nDisk; i++){
+    var x = x0 + i * pitch, drive = (i % 2 === 0);
+    var y1 = drive ? yTop - 4 : yTop + 32, y2 = drive ? yBot - 32 : yBot + 4;
+    s += '<rect x="' + x + '" y="' + y1 + '" width="' + pw + '" height="' + (y2 - y1) + '" fill="'
+       + (drive ? FILL : '#ffd9a8') + '" fill-opacity="0.9" stroke="' + NAVY + '" stroke-width="1.2"/>';
+  }
+  /* rubbing interfaces */
+  for(var j = 0; j < nDisk - 1; j++){
+    var xm = x0 + j * pitch + pw + (pitch - pw) / 2;
+    s += '<circle cx="' + n1(xm) + '" cy="' + mid + '" r="3.6" fill="' + ORANGE + '"/>';
+  }
+  /* clamping force */
+  s += arrow(x0 - 84, mid + 52, x0 - 18, mid + 52, 'ab', BLUE, 2.3);
+  s += arrow(xEnd + 84, mid + 52, xEnd + 18, mid + 52, 'ab', BLUE, 2.3);
+  s += txt(x0 - 84, mid + 70, capF || 'F', BLUE, 13.5, 'middle', 'bold');
+  s += txt(xEnd + 84, mid + 70, capF || 'F', BLUE, 13.5, 'middle', 'bold');
+  s += txt(w / 2, 26, 'blue = splined to the housing   ·   orange = splined to the shaft', GREY, 12, 'middle');
+  s += txt(w / 2, 44, (nDisk - 1) + ' friction surfaces (orange dots) between ' + nDisk + ' disks', ORANGE, 13, 'middle', 'bold');
+  s += txt(46, mid + 4, 'shaft', NAVY, 11.5, 'start');
+  return s + '</svg>';
+}
+
+/* ─── FIGURE: cone clutch section ─── */
+function figCone(alphaDeg, showForces){
+  var s = '<svg viewBox="0 0 560 340" width="620" xmlns="http://www.w3.org/2000/svg" font-family="Arial,sans-serif" font-size="12.5">' + defsBlock();
+  var yc = 178, x1 = 168, x2 = 372, r1 = 100, hub = 20;
+  var t = Math.tan(alphaDeg * Math.PI / 180), r2 = r1 - (x2 - x1) * t, aE = Math.atan2(r1 - r2, x2 - x1);
+  /* axis of rotation */
+  s += '<line x1="70" y1="' + yc + '" x2="510" y2="' + yc + '" stroke="#999" stroke-width="1" stroke-dasharray="12,4,2,4"/>';
+  /* female cup: a band lying just outside each face. Drawn FIRST so the cone
+     sits on top of it and the contact line stays crisp. */
+  var band = function(sgn){
+    var ax1 = x1, ax2 = x2 + 24, o1 = 7, o2 = 21;
+    var ya = function(x){ return yc + sgn * (r1 - (x - x1) * t); };
+    return '<path d="M ' + n1(ax1) + ',' + n1(ya(ax1) + sgn * o1) + ' L ' + n1(ax2) + ',' + n1(ya(ax2) + sgn * o1)
+         + ' L ' + n1(ax2) + ',' + n1(ya(ax2) + sgn * o2) + ' L ' + n1(ax1) + ',' + n1(ya(ax1) + sgn * o2)
+         + ' Z" fill="#dbe4f0" stroke="' + NAVY + '" stroke-width="1.4"/>';
+  };
+  s += band(-1) + band(1);
+  /* male cone, upper and lower halves of the section */
+  s += '<path d="M ' + x1 + ',' + n1(yc - r1) + ' L ' + x2 + ',' + n1(yc - r2) + ' L ' + x2 + ',' + (yc - hub) + ' L ' + x1 + ',' + (yc - hub)
+     + ' Z" fill="' + FILL + '" fill-opacity="0.6" stroke="' + NAVY + '" stroke-width="1.8"/>';
+  s += '<path d="M ' + x1 + ',' + n1(yc + r1) + ' L ' + x2 + ',' + n1(yc + r2) + ' L ' + x2 + ',' + (yc + hub) + ' L ' + x1 + ',' + (yc + hub)
+     + ' Z" fill="' + FILL + '" fill-opacity="0.6" stroke="' + NAVY + '" stroke-width="1.8"/>';
+  s += txt(224, yc - 44, 'cone (moving)', NAVY, 12, 'middle');
+  s += txt(452, yc + r2 + 46, 'cup (fixed)', NAVY, 12, 'middle');
+  /* semi-angle, at the large end of the upper face */
+  s += '<line x1="' + x1 + '" y1="' + n1(yc - r1) + '" x2="' + (x1 + 118) + '" y2="' + n1(yc - r1) + '" stroke="' + GREY + '" stroke-width="0.9" stroke-dasharray="4,3"/>';
+  var aR = 54;
+  s += '<path d="M ' + n1(x1 + aR) + ',' + n1(yc - r1) + ' A ' + aR + ',' + aR + ' 0 0,1 '
+     + n1(x1 + aR * Math.cos(aE)) + ',' + n1(yc - r1 + aR * Math.sin(aE)) + '" fill="none" stroke="' + ORANGE + '" stroke-width="1.6"/>';
+  s += txt(x1 + aR + 6, yc - r1 - 9, 'α = ' + num(alphaDeg, 2) + '°', ORANGE, 13.5, 'start', 'bold');
+  /* mean radius */
+  var xm = (x1 + x2) / 2, ym = yc - (r1 + r2) / 2;
+  s += '<line x1="' + n1(xm) + '" y1="' + n1(ym) + '" x2="' + n1(xm) + '" y2="' + yc
+     + '" stroke="' + GREY + '" stroke-width="1" marker-start="url(#ag)" marker-end="url(#ag)"/>';
+  s += txt(xm + 8, (ym + yc) / 2 + 4, 'Rm', GREY, 13.5, 'start', 'bold');
+  if(showForces){
+    s += arrow(74, yc + 74, 152, yc + 74, 'ab', BLUE, 2.4);
+    s += txt(112, yc + 92, 'Fa (axial)', BLUE, 13.5, 'middle', 'bold');
+    /* the force set is applied well to the right of the semi-angle call-out so
+       the two annotations cannot overlap at shallow cone angles */
+    var xq = x1 + 0.68 * (x2 - x1), yq = yc - (r1 - (xq - x1) * t);
+    var nx = Math.sin(aE), nyv = Math.cos(aE);
+    s += arrow(xq + 74 * nx, yq - 74 * nyv, xq + 4 * nx, yq - 4 * nyv, 'ar', RED, 2.3);
+    s += txt(xq + 84 * nx, yq - 84 * nyv, 'N = Fa / sinα', RED, 13, 'middle', 'bold');
+    s += arrow(xq, yq, xq + 66 * Math.cos(aE), yq + 66 * Math.sin(aE), 'ao', ORANGE, 2.3);
+    s += txt(xq + 78 * Math.cos(aE) + 14, yq + 66 * Math.sin(aE) + 20, 'f N', ORANGE, 13.5, 'start', 'bold');
+  }
+  return s + '</svg>';
+}
+
+/* ─── FIGURE: centrifugal clutch — drum plan plus a free body of one shoe ─── */
+function figCentrifugal(nShoe, showForces){
+  var s = '<svg viewBox="0 0 620 380" width="660" xmlns="http://www.w3.org/2000/svg" font-family="Arial,sans-serif" font-size="12.5">' + defsBlock();
+  var cx = 150, cy = 190, Rw = 142, Rd = 130, rs2 = 122, rs1 = 74, hub = 26;
+  /* drum wall */
+  s += '<path d="' + circlePath(cx, cy, Rw) + ' ' + circlePath(cx, cy, Rd) + '" fill="#dbe4f0" fill-rule="evenodd" stroke="' + NAVY + '" stroke-width="1.6"/>';
+  /* shoes on the spider */
+  var span = 360 / nShoe - 16;
+  for(var i = 0; i < nShoe; i++){
+    var a1 = i * 360 / nShoe - span / 2, a2 = a1 + span;
+    s += '<path d="' + sector(cx, cy, rs1, rs2, a1, a2) + '" fill="' + FILL + '" fill-opacity="0.6" stroke="' + NAVY + '" stroke-width="1.5"/>';
+    var am = (a1 + a2) / 2 * Math.PI / 180;
+    s += '<line x1="' + n1(cx + hub * Math.cos(am)) + '" y1="' + n1(cy + hub * Math.sin(am))
+       + '" x2="' + n1(cx + rs1 * Math.cos(am)) + '" y2="' + n1(cy + rs1 * Math.sin(am)) + '" stroke="' + NAVY + '" stroke-width="1.8"/>';
+  }
+  s += '<circle cx="' + cx + '" cy="' + cy + '" r="' + hub + '" fill="#e7edf6" stroke="' + NAVY + '" stroke-width="1.6"/>';
+  s += '<circle cx="' + cx + '" cy="' + cy + '" r="3" fill="' + NAVY + '"/>';
+  /* The two radii that matter. Deliberately NOT diametrically opposite: at 180
+     degrees apart the pair reads as one line through the hub instead of as two
+     separate radii. R is taken down-right at -42 degrees, r up-right at 72. */
+  var rG = (rs1 + rs2) / 2;
+  s += arrow(cx, cy, cx + Rd * 0.743, cy + Rd * 0.669, 'ag', NAVY, 1.2);
+  s += txtHalo(cx + Rd * 0.50 * 0.743 + 10, cy + Rd * 0.50 * 0.669 - 11, 'R (drum)', NAVY, 12.5, 'start', 'bold');
+  s += arrow(cx, cy, cx + rG * 0.309, cy - rG * 0.951, 'ag', NAVY, 1.2);
+  s += txtHalo(cx + rG * 0.55 * 0.309 + 13, cy - rG * 0.55 * 0.951 + 5, 'r', NAVY, 13.5, 'start', 'bold');
+  s += txt(cx, cy + Rw + 32, nShoe + ' shoes on a spider, inside a drum', GREY, 12.5, 'middle');
+  if(showForces){
+    /* Free body of ONE shoe, drawn as a flat schematic rather than a curved
+       sector: the forces are all radial or tangential, and straightening the
+       geometry buys the room the labels need. */
+    var bx = 326, by = 46, bw = 272, bh = 288;
+    s += '<rect x="' + bx + '" y="' + by + '" width="' + bw + '" height="' + bh + '" rx="6" fill="#f8f9fb" stroke="#e2e6ef"/>';
+    s += txt(bx + bw / 2, by + 24, 'free body of one shoe', GREY, 12.5, 'middle', 'bold');
+    var cxq = bx + bw / 2;
+    /* drum wall above, shoe below it */
+    s += '<rect x="' + (bx + 18) + '" y="152" width="' + (bw - 36) + '" height="18" fill="#dbe4f0" stroke="' + NAVY + '" stroke-width="1.4"/>';
+    s += txt(bx + bw - 24, 146, 'drum', NAVY, 11.5, 'end');
+    s += '<rect x="' + (cxq - 82) + '" y="176" rx="4" width="164" height="60" fill="' + FILL + '" fill-opacity="0.65" stroke="' + NAVY + '" stroke-width="1.6"/>';
+    s += txt(cxq - 74, 194, 'shoe', NAVY, 11.5, 'start');
+    s += '<circle cx="' + cxq + '" cy="206" r="4" fill="' + ORANGE + '"/>';
+    s += txt(cxq - 10, 224, 'G', ORANGE, 13, 'end', 'bold');
+    /* drum reaction pushing the shoe back inward */
+    s += arrow(cxq, 116, cxq, 174, 'ab', BLUE, 2.2);
+    s += txt(cxq + 8, 128, 'N', BLUE, 13.5, 'start', 'bold');
+    /* friction, tangential along the rubbing face */
+    s += arrow(cxq + 76, 186, cxq + 6, 186, 'ao', ORANGE, 2.2);
+    s += txt(cxq + 84, 190, 'f N', ORANGE, 13.5, 'start', 'bold');
+    /* centrifugal force outward (toward the drum) and the spring pulling back */
+    s += arrow(cxq - 46, 292, cxq - 46, 210, 'ar', RED, 2.4);
+    s += txt(cxq - 46, 310, 'mω²r', RED, 13, 'middle', 'bold');
+    s += arrow(cxq + 46, 210, cxq + 46, 292, 'ab', BLUE, 2.4);
+    s += txt(cxq + 46, 310, 'Fs (spring)', BLUE, 13, 'middle', 'bold');
+    s += txt(cxq, 330, 'net inward push  N = mω²r - Fs', NAVY, 12.5, 'middle', 'bold');
+  }
+  return s + '</svg>';
+}
+
+/* ─────────────────── wiring ─────────────────── */
+function render(i){
+  var v = VARIANTS[i];
+  document.getElementById('doc').innerHTML = build(CONFIG, v);
+  document.getElementById('swDesc').textContent = v.desc;
+  var btns = document.querySelectorAll('#swBtns button');
+  for(var j = 0; j < btns.length; j++) btns[j].setAttribute('aria-pressed', j === i ? 'true' : 'false');
+  if(window.renderMathInElement){
+    renderMathInElement(document.getElementById('doc'), {
+      delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}],
+      throwOnError: false
+    });
+  }
+}
+function init(){
+  var box = document.getElementById('swBtns');
+  VARIANTS.forEach(function(v, i){
+    var b = document.createElement('button');
+    b.textContent = v.btn;
+    b.setAttribute('aria-pressed', 'false');
+    b.onclick = function(){ render(i); };
+    box.appendChild(b);
+  });
+  render(0);
+}
+window.addEventListener('load', init);
+
+
+
+var CONFIG = {
+  question: "An automotive-type clutch has inside and outside diameters of <strong>160 mm</strong> and <strong>240 mm</strong> respectively. "
+          + "Clamping force is provided by <strong>9 springs</strong>, each compressed <strong>5 mm</strong> to give a force of <strong>900 N</strong> "
+          + "when the clutch is new. The molded friction material provides a conservatively estimated coefficient of friction of <strong>0.4</strong> "
+          + "when in contact with a flywheel and pressure plate. Maximum engine torque is <strong>280 N&#183;m</strong>."
+          + "<br><br>(a) What is the safety factor with respect to slippage of a <strong>brand new</strong> clutch?"
+          + "<br>(b) What is the safety factor after <strong>'initial' wear</strong> has occurred?"
+          + "<br>(c) How much <strong>wear</strong> of the friction material can take place before the clutch slips (assuming no change in $f$)?",
+  book: "a) 2.345, b) 2.314, c) 2.84 mm"
+};
+var VARIANTS = [
+  {btn:"Original", desc:"The tutorial-sheet problem. 160/240 mm facing, 9 springs \u00d7 900 N at 5 mm compression, f = 0.4, engine torque 280 N\u00b7m.",
+   di:160, dout:240, nsp:9, Fsp:900, comp:5, f:0.4, Te:280},
+  {btn:"Variant 1 \u2014 stiffer spring pack", desc:"12 springs of 800 N at only 4 mm compression, a slightly poorer lining (f = 0.35) and a 320 N\u00b7m engine. Total clamp force rises, but the spring rate rises faster \u2014 and it is the rate that sets the wear allowance. A nice illustration that more clamp force is not automatically better.",
+   di:160, dout:240, nsp:12, Fsp:800, comp:4, f:0.35, Te:320},
+  {btn:"Variant 2 \u2014 wider facing", desc:"A 150/250 mm facing with a poorer f = 0.35 and 9 springs of 1000 N. The wider ring pushes R_p and R_w further apart, so the gap between the two safety factors in (a) and (b) grows.",
+   di:150, dout:250, nsp:9, Fsp:1000, comp:5, f:0.35, Te:300}
+  /* NB: R_p - R_w widens from 1.33 mm (original) to 2.08 mm on the 150/250 ring */
+];
+
+function solve(p){
+  var Ri = p.di/2000, Ro = p.dout/2000, N = 2;
+  var F  = p.nsp*p.Fsp;
+  var k  = p.nsp*p.Fsp/p.comp;            /* N per mm, whole pack */
+  var Rp = (2/3)*(Ro*Ro*Ro - Ri*Ri*Ri)/(Ro*Ro - Ri*Ri);
+  var Rw = (Ro + Ri)/2;
+  var Tp = N*p.f*F*Rp, Tw = N*p.f*F*Rw;
+  var Freq = p.Te/(N*p.f*Rw);
+  return {Ri:Ri, Ro:Ro, N:N, F:F, k:k, Rp:Rp, Rw:Rw, Tp:Tp, Tw:Tw,
+          SFp:Tp/p.Te, SFw:Tw/p.Te, Freq:Freq, wear:(F - Freq)/k,
+          pNew:F/(Math.PI*(Ro*Ro - Ri*Ri)), piWear:F/(2*Math.PI*Ri*(Ro - Ri))};
+}
+
+function build(cfg, p){
+  var S = solve(p), h = '';
+
+  h += '<h3>Problem Statement</h3><p>' + cfg.question + '</p>';
+  h += callout('given', '<strong>Book answers:</strong> &nbsp; a) ' + num(S.SFp,3) + ' &nbsp;&#183;&nbsp; b) ' + num(S.SFw,3)
+     + ' &nbsp;&#183;&nbsp; c) ' + num(S.wear,2) + ' mm');
+  h += fig(figAnnulus(p.di, p.dout, {model:'wear'}),
+      'The friction facing, gripped between flywheel and pressure plate \u2014 two effective surfaces sharing one spring load.');
+  h += callout('info', '<strong>Strategy:</strong> parts (a) and (b) are the <em>same</em> calculation with two different effective radii \u2014 '
+    + 'uniform pressure for the brand-new flat facing, uniform wear once it has bedded in. Part (c) is different in kind: as the lining wears '
+    + 'the springs <strong>relax</strong>, so the clamping force falls; the clutch slips when it drops to the value that just carries the engine torque.');
+
+  h += '<h3>Solution</h3>';
+
+  var b1 = '<p>All nine springs act in parallel on the pressure plate:</p>'
+    + mb('F = n_{sp} F_{sp} = ' + num(p.nsp,0) + ' \\times ' + num(p.Fsp,0) + ' = ' + ns(S.F,0) + '\\ \\text{N}')
+    + '<p>The facing is gripped between the flywheel on one side and the pressure plate on the other, so</p>'
+    + mb('N = 2\\ \\text{friction surfaces}')
+    + '<p>and both effective radii will be needed:</p>'
+    + mb('R_p = \\frac{2}{3}\\,\\frac{r_o^3 - r_i^3}{r_o^2 - r_i^2} = ' + num(S.Rp,5) + '\\ \\text{m} = ' + num(S.Rp*1000,2) + '\\ \\text{mm}',
+         'R_w = \\frac{r_o + r_i}{2} = ' + num(S.Rw,4) + '\\ \\text{m} = ' + num(S.Rw*1000,2) + '\\ \\text{mm}')
+    + callout('answer', '$F = ' + ns(S.F,0) + '\\ \\text{N}$, &nbsp; $R_p = ' + num(S.Rp*1000,2) + '$ mm, &nbsp; $R_w = ' + num(S.Rw*1000,2) + '$ mm');
+  h += stepBlock(1, 'Clamping force and the two effective radii', 'try it yourself first', b1);
+
+  var b2 = '<p>A brand new facing is flat and rigid, so the pressure is essentially <strong>uniform</strong>:</p>'
+    + mb('T_{\\text{new}} = N f F R_p = 2 \\times ' + num(p.f,2) + ' \\times ' + ns(S.F,0) + ' \\times ' + num(S.Rp,5)
+       + ' = ' + num(S.Tp,2) + '\\ \\text{N}\\cdot\\text{m}')
+    + mb('\\text{SF} = \\frac{T_{\\text{new}}}{T_{\\text{engine}}} = \\frac{' + num(S.Tp,2) + '}{' + num(p.Te,0) + '} = \\boxed{' + num(S.SFp,3) + '}')
+    + callout('answer', '<strong>(a)</strong> &nbsp; $\\text{SF}_{\\text{new}} = ' + num(S.SFp,3) + '$')
+    + callout('note', 'A safety factor near 2 to 2.5 is typical for a road-car clutch: enough to cope with a cold engine, a heavy tow or a '
+      + 'slightly worn facing, without making the pedal impossibly heavy.');
+  h += stepBlock(2, '(a) Safety factor when new \u2014 uniform pressure', 'which radius applies to a new facing?', b2);
+
+  var b3 = '<p>Once the facing has bedded in, the pressure redistributes to $p r = $ constant and the effective radius drops to the plain mean:</p>'
+    + mb('T_{\\text{worn}} = N f F R_w = 2 \\times ' + num(p.f,2) + ' \\times ' + ns(S.F,0) + ' \\times ' + num(S.Rw,4)
+       + ' = ' + num(S.Tw,2) + '\\ \\text{N}\\cdot\\text{m}')
+    + mb('\\text{SF} = \\frac{' + num(S.Tw,2) + '}{' + num(p.Te,0) + '} = \\boxed{' + num(S.SFw,3) + '}')
+    + callout('answer', '<strong>(b)</strong> &nbsp; $\\text{SF}_{\\text{run-in}} = ' + num(S.SFw,3) + '$')
+    + callout('note', '<strong>The drop is tiny \u2014 and that is the point.</strong> $' + num(S.SFp,3) + ' \\to ' + num(S.SFw,3)
+      + '$ is a loss of only ' + num(100*(1 - S.SFw/S.SFp),1) + ' %, because $R_p$ and $R_w$ differ by just $'
+      + num(1000*(S.Rp - S.Rw),2) + '$ mm on this narrow ring. Initial wear costs almost nothing; it is the <em>spring relaxation</em> in part (c) '
+      + 'that eventually kills the clutch. The two effects are often conflated \u2014 they are not the same thing.');
+  h += stepBlock(3, '(b) Safety factor after initial wear \u2014 uniform wear', 'expect only a small change', b3);
+
+  var b4 = '<p>As the lining wears by an amount $\\delta$, the pressure plate follows it forward and the springs <strong>extend</strong> by $\\delta$, '
+    + 'losing force. The pack behaves as one linear spring:</p>'
+    + mb('k = \\frac{n_{sp}F_{sp}}{\\text{compression}} = \\frac{' + num(p.nsp,0) + ' \\times ' + num(p.Fsp,0) + '}{' + num(p.comp,1)
+       + '\\ \\text{mm}} = ' + ns(S.k,0) + '\\ \\text{N/mm}')
+    + '<p>The clutch is on the point of slipping when its (run-in) capacity equals the engine torque:</p>'
+    + mb('T_{\\text{engine}} = N f F_{\\text{slip}} R_w \\qquad\\Longrightarrow\\qquad F_{\\text{slip}} = \\frac{' + num(p.Te,0)
+       + '}{2 \\times ' + num(p.f,2) + ' \\times ' + num(S.Rw,4) + '} = ' + ns(S.Freq,0) + '\\ \\text{N}')
+    + mb('\\delta = \\frac{F - F_{\\text{slip}}}{k} = \\frac{' + ns(S.F,0) + ' - ' + ns(S.Freq,0) + '}{' + ns(S.k,0)
+       + '} = \\boxed{' + num(S.wear,2) + '\\ \\text{mm}}')
+    + callout('answer', '<strong>(c)</strong> &nbsp; $\\delta = ' + num(S.wear,2) + '\\ \\text{mm}$ of friction material may be lost before the clutch slips')
+    + callout('note', '<strong>Sense check on the mechanism:</strong> the springs started at $' + num(p.comp,1)
+      + '$ mm of compression, and $' + num(S.wear,2) + '$ mm of that is used up before slip \u2014 i.e. about '
+      + num(100*S.wear/p.comp,0) + ' % of the available travel. That is why a clutch pedal that has "gone light" is a slipping clutch waiting to happen: '
+      + 'the spring force, not the thickness of the lining, is what runs out first.')
+    + callout('warn', '<strong>Use the run-in radius here, not the new one.</strong> By the time the facing has worn $' + num(S.wear,2)
+      + '$ mm it is certainly bedded in, so $R_w$ is the right radius in $F_{\\text{slip}}$. Using $R_p$ would give $F_{\\text{slip}} = '
+      + ns(p.Te/(2*p.f*S.Rp),0) + '$ N and an over-optimistic wear allowance of $' + num((S.F - p.Te/(2*p.f*S.Rp))/S.k,2) + '$ mm.');
+  h += stepBlock(4, '(c) Wear allowance before slip', 'what happens to the springs as the lining thins?', b4);
+
+  h += mistakes([
+    '<strong>Forgetting that both faces are effective.</strong> $N = 2$: flywheel side and pressure-plate side. Using $N=1$ halves every torque and every safety factor.',
+    '<strong>Using the same radius for (a) and (b).</strong> New $\\Rightarrow R_p$; run-in $\\Rightarrow R_w$. If your two answers are identical you have missed the whole point of the question.',
+    '<strong>Treating the clamping force as constant in (c).</strong> Wear <em>relaxes</em> the springs \u2014 that is the entire mechanism. A constant $F$ predicts infinite wear life.',
+    '<strong>Dividing the wear between the two faces.</strong> The pressure plate moves forward by the total thickness lost, so $\\delta$ is the total, not per face.',
+    '<strong>Getting the spring rate from one spring but the force from nine</strong> (or vice versa). Keep the whole pack together: $k = ' + ns(S.k,0) + '$ N/mm for all ' + num(p.nsp,0) + ' springs.',
+    '<strong>Expecting a big drop between (a) and (b).</strong> On a narrow ring $R_p \\approx R_w$; a 20 % change means an arithmetic slip somewhere.'
+  ]);
+  return h;
+}
+
+</script>
+</body>
+</html>
