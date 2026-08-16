@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>T10.2 - Hoist Drum</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css"/>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+body{font-family:'Segoe UI',Arial,sans-serif;font-size:15px;line-height:1.75;color:#1a1a1a;background:#f5f6f8;margin:0;padding:24px 16px 56px}
+.page{max-width:880px;margin:0 auto;background:#fff;border-radius:10px;box-shadow:0 2px 14px rgba(0,0,0,.10);padding:40px 52px 52px}
+.uni-header{text-align:center;border-bottom:2px solid #1a3c6e;padding-bottom:16px;margin-bottom:24px}
+.uni-header p{margin:0;line-height:1.4;font-size:13.5px;color:#555}
+.uni-header h2{margin:8px 0 0;font-size:20px;color:#1a3c6e}
+h3{color:#1a3c6e;border-left:4px solid #1a3c6e;padding-left:10px;margin:28px 0 10px;font-size:15.5px}
+h4{color:#1a3c6e;font-size:14.5px;margin:20px 0 6px}
+.step{margin-bottom:10px}
+.step details{border:1px solid #d1d9e8;border-radius:8px;overflow:hidden;margin-top:6px}
+.step details summary{list-style:none;cursor:pointer;padding:11px 15px;background:#f0f4fb;color:#1a3c6e;font-weight:500;font-size:14.5px;display:flex;align-items:center;gap:10px;user-select:none}
+.step details summary::-webkit-details-marker{display:none}
+.step details summary::after{content:'\25BC';font-size:11px;color:#f97316;transition:transform .2s;flex-shrink:0;margin-left:auto;padding-left:8px}
+.step details[open] summary::after{transform:rotate(180deg)}
+.step details[open] summary{background:#e8eef9;border-bottom:1px solid #d1d9e8}
+.step-body{padding:16px 20px}
+.step-num{background:#1a3c6e;color:#fff;font-size:12px;font-weight:700;border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.step-title{font-size:15px;font-weight:600;color:#1a3c6e}
+.try-hint{font-size:12.5px;color:#6b7280;font-style:italic;margin-left:auto}
+.callout{border-radius:6px;padding:13px 18px;margin:14px 0;font-size:14.5px}
+.callout p{margin:4px 0}
+.info{background:#eef4ff;border-left:4px solid #3b82f6}
+.given{background:#f0fdf4;border-left:4px solid #22c55e}
+.answer{background:#fff7ed;border-left:4px solid #f97316;font-size:16px;font-weight:600}
+.note{background:#faf5ff;border-left:4px solid #a855f7;font-size:14px}
+.warn{background:#fffbeb;border-left:4px solid #f59e0b;font-size:14px}
+.math-block{background:#f8f9fb;border:1px solid #e2e6ef;border-radius:6px;padding:14px 20px;margin:12px 0;overflow-x:auto;text-align:center}
+.diagram-wrap{text-align:center;margin:22px 0 8px}
+.diagram-wrap figure{margin:0}
+.diagram-wrap svg{max-width:100%;height:auto}
+.diagram-wrap figcaption{font-size:13px;color:#555;margin-top:2px;font-style:italic;line-height:1.5}
+table.sum{border-collapse:collapse;width:100%;margin:14px 0;font-size:14px}
+table.sum th{background:#1a3c6e;color:#fff;text-align:left;padding:8px 12px;font-weight:600}
+table.sum td{border-bottom:1px solid #e2e6ef;padding:7px 12px}
+table.sum tr.total td{background:#fff7ed;font-weight:700;border-top:2px solid #f97316}
+table.sum td.num{text-align:right;font-variant-numeric:tabular-nums}
+.footer{margin-top:40px;border-top:1px solid #e5e7eb;padding-top:12px;font-size:12px;color:#999;text-align:center}
+.switcher{background:#f0f4fb;border:1px solid #d1d9e8;border-radius:8px;padding:14px 18px;margin-bottom:26px}
+.switcher .sw-label{font-size:12.5px;font-weight:600;color:#1a3c6e;text-transform:uppercase;letter-spacing:.06em;margin-bottom:9px}
+.sw-btns{display:flex;flex-wrap:wrap;gap:8px}
+.sw-btns button{font-family:inherit;font-size:13.5px;font-weight:500;padding:8px 15px;border-radius:6px;border:1px solid #b9c6df;background:#fff;color:#1a3c6e;cursor:pointer;transition:.15s}
+.sw-btns button:hover{background:#e8eef9;border-color:#1a3c6e}
+.sw-btns button[aria-pressed="true"]{background:#1a3c6e;border-color:#1a3c6e;color:#fff;box-shadow:0 1px 4px rgba(26,60,110,.3)}
+.sw-desc{font-size:13px;color:#555;margin-top:10px;font-style:italic}
+ol{margin:10px 0 0 4px}
+</style>
+</head>
+<body>
+<div class="page">
+
+<div class="uni-header">
+  <p>Curtin University &nbsp;&middot;&nbsp; School of Civil and Mechanical Engineering</p>
+  <p>MCEN2002 &ndash; Fundamentals of Mechanical Design</p>
+  <p style="margin-top:8px"><strong>Dr Azma Putra Azis</strong></p>
+  <h2>Tutorial 10.2 &nbsp;&ndash;&nbsp; Hoist Drum &#8212; Kinetic Energy and Braking Torque</h2>
+</div>
+
+<div class="switcher">
+  <div class="sw-label">Choose a problem</div>
+  <div class="sw-btns" id="swBtns"></div>
+  <div class="sw-desc" id="swDesc"></div>
+</div>
+
+<div id="doc"></div>
+
+<div class="footer">MCEN2002 &ndash; Fundamentals of Mechanical Design | Tutorial 10.2 | Curtin University</div>
+</div>
+
+<script>
+
+/* ═══════════ shared formatting + SVG primitives (all six T10 pages) ═══════════ */
+var NAVY='#1a3c6e', RED='#c0392b', BLUE='#1a6fc4', ORANGE='#f97316', GREY='#555';
+function n(v,d){ d=(d===undefined)?1:d; var m=Math.pow(10,d); var r=Math.round(v*m)/m;
+  if(Object.is(r,-0)) r=0; return String(r); }
+function n0(v){ return n(v,0); }
+/* thousands separator for large numbers in prose */
+function ns(v,d){ var s=n(v,d).split('.');
+  s[0]=s[0].replace(/\B(?=(\d{3})+(?!\d))/g,'\\,'); return s.join('.'); }
+function pt(p){ return p[0].toFixed(1)+','+p[1].toFixed(1); }
+function TX(x,y,s,o){ o=o||{};
+  return '<text x="'+n(x)+'" y="'+n(y)+'"'
+    +(o.a?' text-anchor="'+o.a+'"':'')+' fill="'+(o.f||GREY)+'"'
+    +(o.fs?' font-size="'+o.fs+'"':'')+(o.b?' font-weight="bold"':'')
+    +(o.i?' font-style="italic"':'')+'>'+s+'</text>'; }
+function LN(x1,y1,x2,y2,c,w,dash){
+  return '<line x1="'+n(x1)+'" y1="'+n(y1)+'" x2="'+n(x2)+'" y2="'+n(y2)+'" stroke="'+(c||GREY)
+    +'" stroke-width="'+(w||1)+'"'+(dash?' stroke-dasharray="'+dash+'"':'')+'/>'; }
+function CIRC(cx,cy,r,fill,c,w){
+  return '<circle cx="'+n(cx)+'" cy="'+n(cy)+'" r="'+n(r)+'" fill="'+(fill||'none')
+    +'" stroke="'+(c||NAVY)+'" stroke-width="'+(w||1.5)+'"/>'; }
+function RECT(x,y,w,h,fill,c,sw,op){
+  return '<rect x="'+n(x)+'" y="'+n(y)+'" width="'+n(w)+'" height="'+n(h)+'" fill="'+fill+'"'
+    +(op?' fill-opacity="'+op+'"':'')+' stroke="'+(c||NAVY)+'" stroke-width="'+(sw||1.5)+'"/>'; }
+/* arrowhead: tip point, u = unit direction of travel */
+function HEAD(tip,u,c,len,half){ len=len||12; half=half||5.5;
+  var b=[tip[0]-u[0]*len, tip[1]-u[1]*len], p=[-u[1],u[0]];
+  return '<polygon points="'+pt(tip)+' '+pt([b[0]+p[0]*half,b[1]+p[1]*half])+' '
+    +pt([b[0]-p[0]*half,b[1]-p[1]*half])+'" fill="'+c+'"/>'; }
+/* line from (x1,y1) to (x2,y2) with the head AT (x2,y2) */
+function ARR(x1,y1,x2,y2,c,w,len,half){ len=len||12;
+  var dx=x2-x1, dy=y2-y1, L=Math.sqrt(dx*dx+dy*dy), u=[dx/L,dy/L];
+  return LN(x1,y1,x2-u[0]*len,y2-u[1]*len,c,w||2.4)+HEAD([x2,y2],u,c,len,half); }
+/* double-headed dimension between two points */
+function DIM(x1,y1,x2,y2,c,len){ len=len||11; c=c||GREY;
+  var dx=x2-x1, dy=y2-y1, L=Math.sqrt(dx*dx+dy*dy), u=[dx/L,dy/L];
+  return LN(x1+u[0]*len,y1+u[1]*len,x2-u[0]*len,y2-u[1]*len,c,1)
+    +HEAD([x2,y2],u,c,len,4)+HEAD([x1,y1],[-u[0],-u[1]],c,len,4); }
+/* through-centre DIAMETER dimension (two heads on the rim) */
+function DIA(cx,cy,R,ang,c){ var u=[Math.cos(ang),Math.sin(ang)];
+  return DIM(cx-R*u[0],cy-R*u[1],cx+R*u[0],cy+R*u[1],c||GREY,12); }
+/* single-headed RADIUS leader, centre out to the rim */
+function RAD(cx,cy,R,ang,c){ c=c||GREY; var u=[Math.cos(ang),Math.sin(ang)];
+  return ARR(cx,cy,cx+R*u[0],cy+R*u[1],c,1,12,4); }
+/* point on a circle, maths convention: 0 = +x, angle increases anticlockwise on screen */
+function P(cx,cy,R,t){ return [cx+R*Math.cos(t), cy-R*Math.sin(t)]; }
+/* curved arrow along a circle from t0 to t1 (radians, maths convention) */
+function ARC(cx,cy,R,t0,t1,c,w){
+  var A=P(cx,cy,R,t0), B=P(cx,cy,R,t1), ccw=(t1>t0);
+  var sweep = ccw?0:1, large = (Math.abs(t1-t0)>Math.PI)?1:0;
+  var u = ccw ? [-Math.sin(t1),-Math.cos(t1)] : [Math.sin(t1),Math.cos(t1)];
+  var back = [B[0]-u[0]*2, B[1]-u[1]*2];
+  return '<path d="M '+pt(A)+' A '+n(R)+','+n(R)+' 0 '+large+','+sweep+' '+pt(back)+'" fill="none" stroke="'
+    +c+'" stroke-width="'+(w||2.2)+'"/>'+HEAD([B[0]+u[0]*9,B[1]+u[1]*9],u,c,11,5.5); }
+function HATCH(x,y,c){ var s=LN(x-20,y,x+20,y,c,1.5);
+  for(var i=0;i<4;i++){ var bx=x-16+i*10; s+=LN(bx,y+6,bx+6,y,c,1); } return s; }
+function PIN(x,y){ return '<polygon points="'+pt([x,y])+' '+pt([x-12,y+22])+' '+pt([x+12,y+22])
+  +'" fill="#dbe4f0" stroke="'+NAVY+'" stroke-width="1.5"/>'+HATCH(x,y+22,NAVY); }
+/* ═══════════ page furniture ═══════════ */
+var CIRCLED=['&#9312;','&#9313;','&#9314;','&#9315;','&#9316;','&#9317;','&#9318;'];
+function step(i,title,hint,body){
+  return '<div class="step"><details'+(i===1?' open':'')+'><summary><span class="step-num">'+i
+    +'</span><span class="step-title">'+title+'</span><span class="try-hint">'+hint
+    +'</span></summary><div class="step-body">'+body+'</div></details></div>'; }
+function fig(svg,cap){ return '<div class="diagram-wrap"><figure>'+svg
+    +'<figcaption>'+cap+'</figcaption></figure></div>'; }
+function co(kind,html){ return '<div class="callout '+kind+'">'+html+'</div>'; }
+function ans(html){ return co('answer','<p>'+html+'</p>'); }
+function note(html){ return co('note','<p>'+html+'</p>'); }
+function warn(html){ return co('warn','<p>'+html+'</p>'); }
+function info(html){ return co('info','<p>'+html+'</p>'); }
+function mistakes(list){ var h='<p><strong>Common mistakes:</strong></p>';
+  for(var i=0;i<list.length;i++) h+='<p style="margin-top:6px">'+CIRCLED[i]+' '+list[i]+'</p>';
+  return co('warn',h); }
+function rows(hdr,list){ var h='<table class="sum"><tr>';
+  for(var i=0;i<hdr.length;i++) h+='<th'+(i?' style="text-align:right"':'')+'>'+hdr[i]+'</th>';
+  h+='</tr>';
+  for(var r=0;r<list.length;r++){ var c=list[r], tot=(c[0]==='*'); if(tot) c=c.slice(1);
+    h+='<tr'+(tot?' class="total"':'')+'>';
+    for(var k=0;k<c.length;k++) h+='<td'+(k?' class="num"':'')+'>'+c[k]+'</td>';
+    h+='</tr>'; }
+  return h+'</table>'; }
+
+
+/* ═══════════ T10.2 — hoist drum ═══════════ */
+var G=9.81;
+var VARIANTS=[
+ {btn:'Original', m:1000, v:4, D:550, W:2500, k:250, t:0.6, stated:300,
+  book:'(a) 9674 J &nbsp;&nbsp; (b) 2218 N&middot;m',
+  desc:'The tutorial sheet problem \u2014 1000 kg lowered at 4 m/s, stopped in 0.6 s.'},
+ {btn:'Variant 1 \u2014 new magnitudes', m:1500, v:3, D:600, W:3000, k:280, t:0.8,
+  desc:'A heavier load on a bigger drum, lowered more slowly and stopped over a longer time. Same two-part method: split the kinetic energy, then find the extra torque the deceleration demands.'},
+ {btn:'Variant 2 \u2014 heavy drum, light load', m:250, v:5, D:500, W:9000, k:220, t:0.5,
+  desc:'Configuration change: a light load on a massive drum. The rotational term now dominates the kinetic energy and the drum inertia dominates the stopping torque \u2014 the opposite balance to the original, and a trap if you have learned the shortcut rather than the method.'}
+];
+function solve(v){
+  var r=v.D/2000, w=v.v/r, md=v.W/G, I=md*Math.pow(v.k/1000,2);
+  var KEt=0.5*v.m*v.v*v.v, KEr=0.5*I*w*w, a=v.v/v.t, al=a/r;
+  var Tss=v.m*G*r, dTload=v.m*a*r, dTdrum=I*al, dT=dTload+dTdrum;
+  return {r:r,w:w,md:md,I:I,KEt:KEt,KEr:KEr,KE:KEt+KEr,a:a,al:al,Tss:Tss,
+          dTload:dTload,dTdrum:dTdrum,dT:dT,Ttot:Tss+dT,
+          Tcab:v.m*(G+a), h:v.v/2*v.t, theta:w/2*v.t, frac:KEr/(KEt+KEr)};
+}
+function figHoist(v,S){
+  var g='<svg viewBox="0 0 620 400" width="660" xmlns="http://www.w3.org/2000/svg" font-family="Arial,sans-serif" font-size="12">';
+  var cx=360, cy=110, R=82;
+  g+=CIRC(cx,cy,R,'#dbe4f0',NAVY,2)+CIRC(cx,cy,14,'#fff',NAVY,1.5)
+   +LN(cx-14,cy,cx+14,cy,NAVY,1)+LN(cx,cy-14,cx,cy+14,NAVY,1);
+  g+=ARC(cx,cy,66,0.75,-0.62,NAVY,2)+TX(cx+78,cy+2,'&#969;',{f:NAVY,b:1});
+  g+=LN(cx,cy,cx+R,cy,GREY,1,'4,3')+TX(cx+8,cy-8,'r = '+n0(v.D/2)+' mm');
+  g+=TX(286,34,'drum &#8709;'+n0(v.D)+' mm',{f:NAVY,b:1});
+  g+=TX(286,52,'W = '+n(v.W/1000,2)+' kN,&#160; k = '+n0(v.k)+' mm',{f:NAVY});
+  g+=LN(cx-R,cy,cx-R,300,'#333',2.5);
+  g+='<path d="M '+pt([cx-R,cy])+' A '+R+','+R+' 0 0 1 '+pt([cx,cy-R])+'" fill="none" stroke="#333" stroke-width="2.5"/>';
+  g+=TX(196,196,'cable tension')+TX(196,212,'T');
+  g+=RECT(196,300,164,64,'#dbe4f0',NAVY,2)+TX(278,338,n0(v.m)+' kg',{a:'middle',f:NAVY,b:1,fs:15});
+  g+=ARR(128,196,128,278,RED,2.6)+TX(70,192,'v = '+n(v.v,1)+' m/s',{f:RED,b:1});
+  g+=TX(60,240,'(lowering,',{f:RED,fs:11})+TX(60,256,'uniform rate)',{f:RED,fs:11});
+  g+=RECT(452,176,66,26,'#f97316',RED,1.5,0.5)+TX(524,194,'brake',{f:RED,b:1})+LN(452,189,424,168,RED,1.5);
+  return g+'</svg>';
+}
+function build(v){
+  var S=solve(v), h='';
+  h+='<h3>Problem Statement</h3>'
+   +'<p>A <strong>'+n0(v.m)+'&nbsp;kg</strong> mass is being lowered by a cable at a uniform <strong>'+n(v.v,1)
+   +'&nbsp;m/s</strong> from a drum of <strong>'+n0(v.D)+'&nbsp;mm diameter</strong>. The drum weighs <strong>'
+   +n(v.W/1000,2)+'&nbsp;kN</strong> and has a radius of gyration of <strong>'+n0(v.k)+'&nbsp;mm</strong>.</p>'
+   +'<p><strong>(a)</strong> What is the kinetic energy in the system? &nbsp;'
+   +'<strong>(b)</strong> The uniform rate of descent is held by a brake on the drum'
+   +(v.stated?' applying '+v.stated+'&nbsp;kgf&middot;m of torque':'')+'. What <strong>additional</strong> brake torque brings '
+   +'the system to rest in <strong>'+n(v.t,2)+'&nbsp;s</strong>?</p>';
+  h+= v.book ? co('given','<p><strong>Given answers:</strong> '+v.book+'</p>')
+             : co('given','<p><strong>Answers (computed here \u2014 this variant is not in the book):</strong> (a) '
+                  +n(S.KE,0)+' J &nbsp;&nbsp; (b) '+n(S.dT,0)+' N&middot;m</p>');
+  h+=fig(figHoist(v,S),'The lowering system. The load translates at '+n(v.v,1)+'&nbsp;m/s while the drum rotates &#8212; both '
+    +'store kinetic energy and both must be decelerated by the brake. The cable is inextensible, so $v = \\omega r$ links them.');
+  h+=info('<strong>Strategy:</strong> the system has <em>two</em> kinetic-energy stores &#8212; the translating load and the '
+    +'rotating drum &#8212; tied together by $v = \\omega r$. For part (b) the extra torque is whatever the deceleration demands, '
+    +'over and above the torque already balancing the load.');
+  h+='<h3>Solution</h3>';
+  h+=step(1,'Kinematic link and drum inertia','try it yourself first',
+    '<p>The cable does not stretch, so the drum surface speed equals the load speed:</p>'
+    +'<div class="math-block">$$r = \\tfrac{1}{2}('+n(v.D/1000,3)+') = '+n(S.r,4)+'\\ \\text{m}, \\qquad '
+    +'\\omega = \\frac{v}{r} = \\frac{'+n(v.v,1)+'}{'+n(S.r,4)+'} = '+n(S.w,2)+'\\ \\text{rad/s}$$</div>'
+    +'<p>The drum is specified by <em>weight</em>, so convert to mass before using it in any inertia term:</p>'
+    +'<div class="math-block">$$m_d = \\frac{W}{g} = \\frac{'+n0(v.W)+'}{9.81} = '+n(S.md,1)+'\\ \\text{kg}$$'
+    +'$$I = m_d k^2 = '+n(S.md,1)+' \\times ('+n(v.k/1000,3)+')^2 = '+n(S.I,2)+'\\ \\text{kg}\\cdot\\text{m}^2$$</div>'
+    +note('<strong>What the radius of gyration means:</strong> $k$ is the radius at which the drum\'s whole mass would have to sit '
+      +'to give the same moment of inertia. Note $k = '+n0(v.k)+'$ mm is <em>less</em> than $r = '+n0(v.D/2)+'$ mm, as it must be '
+      +'for a drum with material distributed inward of its rim.'));
+  h+=step(2,'Kinetic energy of the system','two terms, not one',
+    '<div class="math-block">$$KE_{\\text{trans}} = \\tfrac{1}{2} m v^2 = \\tfrac{1}{2}('+n0(v.m)+')('+n(v.v,1)+')^2 = '
+    +n(S.KEt,0)+'\\ \\text{J}$$</div>'
+    +'<div class="math-block">$$KE_{\\text{rot}} = \\tfrac{1}{2} I \\omega^2 = \\tfrac{1}{2}('+n(S.I,2)+')('+n(S.w,2)+')^2 = '
+    +n(S.KEr,0)+'\\ \\text{J}$$</div>'
+    +'<div class="math-block">$$KE = '+n(S.KEt,0)+' + '+n(S.KEr,0)+' = '+n(S.KE,0)+'\\ \\text{J}$$</div>'
+    +ans('(a) &nbsp; $KE \\approx '+n(S.KE/1000,2)+'\\ \\text{kJ}$')
+    +(v.book?note('<strong>Small discrepancy with the book:</strong> the model answer is 9674&nbsp;J; carrying full precision with '
+      +'$g = 9.81\\ \\text{m/s}^2$ gives '+n(S.KE,0)+'&nbsp;J. The 11&nbsp;J gap (0.1%) is intermediate rounding in the drum mass. '
+      +'Quote 9.68&nbsp;kJ.'):'')
+    +note('<strong>Where the energy sits:</strong> the drum holds '+n(S.frac*100,0)+'% of the total. '
+      +(S.frac>0.5?'Here the <em>drum</em> is the dominant store &#8212; a light load on a massive drum. Any method that ignores '
+        +'the rotational term would be badly wrong.'
+       :'The load dominates because it is much heavier than the drum and moves at the drum rim speed, while the drum\'s mass acts '
+        +'at the smaller radius $k$.')));
+  var b3='<p>At a <strong>uniform</strong> rate of descent nothing accelerates, so the cable tension is just the weight of the load:</p>'
+    +'<div class="math-block">$$T_{\\text{cable}} = mg = '+n0(v.m)+' \\times 9.81 = '+n(v.m*G,0)+'\\ \\text{N}$$</div>'
+    +'<p>That tension applies a torque to the drum which the brake must exactly cancel:</p>'
+    +'<div class="math-block">$$T_{\\text{steady}} = T_{\\text{cable}}\\, r = '+n(v.m*G,0)+' \\times '+n(S.r,4)+' = '
+    +n(S.Tss,0)+'\\ \\text{N}\\cdot\\text{m}$$</div>';
+  if(v.stated){
+    b3+=warn('<strong>The stated '+v.stated+'&nbsp;kgf&middot;m does not quite match.</strong> $'+v.stated
+      +' \\times 9.81 = '+n(v.stated*G,0)+'\\ \\text{N}\\cdot\\text{m}$, which is '
+      +n((v.stated*G/S.Tss-1)*100,0)+'% more than the '+n(S.Tss,0)+'&nbsp;N&middot;m needed for equilibrium &#8212; with that '
+      +'torque the load would already be decelerating. The two statements in the question are inconsistent. The model answer '
+      +'resolves it by taking the existing torque as the equilibrium value, so the <em>additional</em> torque is purely what the '
+      +'deceleration requires. That is the reading used below.');
+  }
+  h+=step(3,'What the existing brake torque is doing','the key conceptual step',b3);
+  h+=step(4,'Additional torque to stop in '+n(v.t,2)+' s','decelerate both the load and the drum',
+    '<div class="math-block">$$a = \\frac{\\Delta v}{\\Delta t} = \\frac{'+n(v.v,1)+'}{'+n(v.t,2)+'} = '+n(S.a,3)
+    +'\\ \\text{m/s}^2, \\qquad \\alpha = \\frac{a}{r} = '+n(S.al,2)+'\\ \\text{rad/s}^2$$</div>'
+    +'<p>The additional torque has two jobs: decelerate the <strong>load</strong> (an extra cable tension $ma$, felt at the drum '
+    +'through the lever arm $r$) and decelerate the <strong>drum</strong> itself:</p>'
+    +'<div class="math-block">$$\\Delta T = m a r + I \\alpha = ('+n0(v.m)+')('+n(S.a,3)+')('+n(S.r,4)+') + ('+n(S.I,2)+')('
+    +n(S.al,2)+')$$$$\\Delta T = '+n(S.dTload,0)+' + '+n(S.dTdrum,0)+' = '+n(S.dT,0)+'\\ \\text{N}\\cdot\\text{m}$$</div>'
+    +ans('(b) &nbsp; $\\Delta T = '+n(S.dT,0)+'\\ \\text{N}\\cdot\\text{m}'+(v.book?'$ (book: 2218 N&middot;m)':'\\approx '
+      +n(S.dT/1000,2)+'\\ \\text{kN}\\cdot\\text{m}$'))
+    +'<h4>Cross-check by the full free-body route</h4>'
+    +'<div class="math-block">$$T_{\\text{cable}} = m(g + a) = '+n0(v.m)+'(9.81 + '+n(S.a,3)+') = '+n(S.Tcab,0)+'\\ \\text{N}$$</div>'
+    +'<div class="math-block">$$T_{\\text{brake}} = T_{\\text{cable}}\\,r + I\\alpha = '+n(S.Tcab*S.r,0)+' + '+n(S.dTdrum,0)
+    +' = '+n(S.Ttot,0)+'\\ \\text{N}\\cdot\\text{m}$$$$\\Delta T = '+n(S.Ttot,0)+' - '+n(S.Tss,0)+' = '+n(S.dT,0)
+    +'\\ \\text{N}\\cdot\\text{m}\\ \\checkmark$$</div>'
+    +'<h4>Cross-check by energy</h4>'
+    +'<p>The load falls $\\bar v t = '+n(S.h,3)+'$ m during the stop, releasing $mgh = '+n(v.m*G*S.h,0)+'$ J of potential energy '
+    +'on top of the '+n(S.KE,0)+'&nbsp;J of kinetic energy, through a drum rotation of $\\bar\\omega t = '+n(S.theta,3)+'$ rad:</p>'
+    +'<div class="math-block">$$T_{\\text{brake}} = \\frac{'+n(S.KE,0)+' + '+n(v.m*G*S.h,0)+'}{'+n(S.theta,3)+'} = '
+    +n((S.KE+v.m*G*S.h)/S.theta,0)+'\\ \\text{N}\\cdot\\text{m}\\ \\checkmark$$</div>'
+    +rows(['Quantity','Value'],[
+      ['Drum inertia $I = (W/g)k^2$', n(S.I,2)+' kg&middot;m&#178;'],
+      ['$KE$ of load', n(S.KEt,0)+' J'],
+      ['$KE$ of drum', n(S.KEr,0)+' J'],
+      ['Torque holding steady descent', n(S.Tss,0)+' N&middot;m'],
+      ['Torque to decelerate the load, $mar$', n(S.dTload,0)+' N&middot;m'],
+      ['Torque to decelerate the drum, $I\\alpha$', n(S.dTdrum,0)+' N&middot;m'],
+      ['*Additional brake torque', n(S.dT,0)+' N&middot;m'],
+      ['*Total brake torque during the stop', n(S.Ttot,0)+' N&middot;m']]));
+  h+=mistakes([
+    '<strong>Forgetting the rotational kinetic energy.</strong> Answering '+n(S.KEt,0)+'&nbsp;J for part (a) ignores the drum '
+      +'entirely &#8212; a '+n(S.frac*100,0)+'% underestimate here.',
+    '<strong>Using '+n(v.W/1000,2)+'&nbsp;kN as a mass.</strong> The drum is given by weight; $I = m_d k^2$ needs '
+      +'$m_d = W/g = '+n(S.md,1)+'$ kg. Using '+n0(v.W)+' kg inflates $I$ by a factor of 9.81.',
+    '<strong>Using the radius of gyration as the cable radius.</strong> $k = '+n0(v.k)+'$ mm sets the inertia; the cable pays off '
+      +'the rim at $r = '+n0(v.D/2)+'$ mm. Both appear in the answer, and they are different radii.',
+    '<strong>Ignoring gravity during the stop.</strong> The load keeps falling while it slows, so the brake absorbs potential '
+      +'energy as well as kinetic energy &#8212; that is the $mar$ term.',
+    '<strong>Reporting the total brake torque as the answer to (b).</strong> The question asks for the <em>additional</em> torque: '
+      +n(S.Ttot,0)+' &minus; '+n(S.Tss,0)+' = '+n(S.dT,0)+'&nbsp;N&middot;m.']);
+  return h;
+}
+
+
+function render(i){
+  var v = VARIANTS[i];
+  document.getElementById('doc').innerHTML = build(v);
+  document.getElementById('swDesc').textContent = v.desc;
+  var b = document.querySelectorAll('#swBtns button');
+  for(var j=0;j<b.length;j++) b[j].setAttribute('aria-pressed', j===i ? 'true':'false');
+  if(window.renderMathInElement){
+    renderMathInElement(document.getElementById('doc'), {
+      delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}],
+      throwOnError:false});
+  }
+}
+function init(){
+  var box = document.getElementById('swBtns');
+  VARIANTS.forEach(function(v,i){
+    var b = document.createElement('button');
+    b.textContent = v.btn;
+    b.setAttribute('aria-pressed','false');
+    b.onclick = function(){ render(i); };
+    box.appendChild(b);
+  });
+  render(0);
+}
+window.addEventListener('load', init);
+</script>
+</body>
+</html>

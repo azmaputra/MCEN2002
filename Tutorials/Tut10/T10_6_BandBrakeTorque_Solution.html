@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>T10.6 - Band Brake Torque</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css"/>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+body{font-family:'Segoe UI',Arial,sans-serif;font-size:15px;line-height:1.75;color:#1a1a1a;background:#f5f6f8;margin:0;padding:24px 16px 56px}
+.page{max-width:880px;margin:0 auto;background:#fff;border-radius:10px;box-shadow:0 2px 14px rgba(0,0,0,.10);padding:40px 52px 52px}
+.uni-header{text-align:center;border-bottom:2px solid #1a3c6e;padding-bottom:16px;margin-bottom:24px}
+.uni-header p{margin:0;line-height:1.4;font-size:13.5px;color:#555}
+.uni-header h2{margin:8px 0 0;font-size:20px;color:#1a3c6e}
+h3{color:#1a3c6e;border-left:4px solid #1a3c6e;padding-left:10px;margin:28px 0 10px;font-size:15.5px}
+h4{color:#1a3c6e;font-size:14.5px;margin:20px 0 6px}
+.step{margin-bottom:10px}
+.step details{border:1px solid #d1d9e8;border-radius:8px;overflow:hidden;margin-top:6px}
+.step details summary{list-style:none;cursor:pointer;padding:11px 15px;background:#f0f4fb;color:#1a3c6e;font-weight:500;font-size:14.5px;display:flex;align-items:center;gap:10px;user-select:none}
+.step details summary::-webkit-details-marker{display:none}
+.step details summary::after{content:'\25BC';font-size:11px;color:#f97316;transition:transform .2s;flex-shrink:0;margin-left:auto;padding-left:8px}
+.step details[open] summary::after{transform:rotate(180deg)}
+.step details[open] summary{background:#e8eef9;border-bottom:1px solid #d1d9e8}
+.step-body{padding:16px 20px}
+.step-num{background:#1a3c6e;color:#fff;font-size:12px;font-weight:700;border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.step-title{font-size:15px;font-weight:600;color:#1a3c6e}
+.try-hint{font-size:12.5px;color:#6b7280;font-style:italic;margin-left:auto}
+.callout{border-radius:6px;padding:13px 18px;margin:14px 0;font-size:14.5px}
+.callout p{margin:4px 0}
+.info{background:#eef4ff;border-left:4px solid #3b82f6}
+.given{background:#f0fdf4;border-left:4px solid #22c55e}
+.answer{background:#fff7ed;border-left:4px solid #f97316;font-size:16px;font-weight:600}
+.note{background:#faf5ff;border-left:4px solid #a855f7;font-size:14px}
+.warn{background:#fffbeb;border-left:4px solid #f59e0b;font-size:14px}
+.math-block{background:#f8f9fb;border:1px solid #e2e6ef;border-radius:6px;padding:14px 20px;margin:12px 0;overflow-x:auto;text-align:center}
+.diagram-wrap{text-align:center;margin:22px 0 8px}
+.diagram-wrap figure{margin:0}
+.diagram-wrap svg{max-width:100%;height:auto}
+.diagram-wrap figcaption{font-size:13px;color:#555;margin-top:2px;font-style:italic;line-height:1.5}
+table.sum{border-collapse:collapse;width:100%;margin:14px 0;font-size:14px}
+table.sum th{background:#1a3c6e;color:#fff;text-align:left;padding:8px 12px;font-weight:600}
+table.sum td{border-bottom:1px solid #e2e6ef;padding:7px 12px}
+table.sum tr.total td{background:#fff7ed;font-weight:700;border-top:2px solid #f97316}
+table.sum td.num{text-align:right;font-variant-numeric:tabular-nums}
+.footer{margin-top:40px;border-top:1px solid #e5e7eb;padding-top:12px;font-size:12px;color:#999;text-align:center}
+.switcher{background:#f0f4fb;border:1px solid #d1d9e8;border-radius:8px;padding:14px 18px;margin-bottom:26px}
+.switcher .sw-label{font-size:12.5px;font-weight:600;color:#1a3c6e;text-transform:uppercase;letter-spacing:.06em;margin-bottom:9px}
+.sw-btns{display:flex;flex-wrap:wrap;gap:8px}
+.sw-btns button{font-family:inherit;font-size:13.5px;font-weight:500;padding:8px 15px;border-radius:6px;border:1px solid #b9c6df;background:#fff;color:#1a3c6e;cursor:pointer;transition:.15s}
+.sw-btns button:hover{background:#e8eef9;border-color:#1a3c6e}
+.sw-btns button[aria-pressed="true"]{background:#1a3c6e;border-color:#1a3c6e;color:#fff;box-shadow:0 1px 4px rgba(26,60,110,.3)}
+.sw-desc{font-size:13px;color:#555;margin-top:10px;font-style:italic}
+ol{margin:10px 0 0 4px}
+</style>
+</head>
+<body>
+<div class="page">
+
+<div class="uni-header">
+  <p>Curtin University &nbsp;&middot;&nbsp; School of Civil and Mechanical Engineering</p>
+  <p>MCEN2002 &ndash; Fundamentals of Mechanical Design</p>
+  <p style="margin-top:8px"><strong>Dr Azma Putra Azis</strong></p>
+  <h2>Tutorial 10.6 &nbsp;&ndash;&nbsp; Band Brake &#8212; Tensions and Torque Capacity</h2>
+</div>
+
+<div class="switcher">
+  <div class="sw-label">Choose a problem</div>
+  <div class="sw-btns" id="swBtns"></div>
+  <div class="sw-desc" id="swDesc"></div>
+</div>
+
+<div id="doc"></div>
+
+<div class="footer">MCEN2002 &ndash; Fundamentals of Mechanical Design | Tutorial 10.6 | Curtin University</div>
+</div>
+
+<script>
+
+/* ═══════════ shared formatting + SVG primitives (all six T10 pages) ═══════════ */
+var NAVY='#1a3c6e', RED='#c0392b', BLUE='#1a6fc4', ORANGE='#f97316', GREY='#555';
+function n(v,d){ d=(d===undefined)?1:d; var m=Math.pow(10,d); var r=Math.round(v*m)/m;
+  if(Object.is(r,-0)) r=0; return String(r); }
+function n0(v){ return n(v,0); }
+/* thousands separator for large numbers in prose */
+function ns(v,d){ var s=n(v,d).split('.');
+  s[0]=s[0].replace(/\B(?=(\d{3})+(?!\d))/g,'\\,'); return s.join('.'); }
+function pt(p){ return p[0].toFixed(1)+','+p[1].toFixed(1); }
+function TX(x,y,s,o){ o=o||{};
+  return '<text x="'+n(x)+'" y="'+n(y)+'"'
+    +(o.a?' text-anchor="'+o.a+'"':'')+' fill="'+(o.f||GREY)+'"'
+    +(o.fs?' font-size="'+o.fs+'"':'')+(o.b?' font-weight="bold"':'')
+    +(o.i?' font-style="italic"':'')+'>'+s+'</text>'; }
+function LN(x1,y1,x2,y2,c,w,dash){
+  return '<line x1="'+n(x1)+'" y1="'+n(y1)+'" x2="'+n(x2)+'" y2="'+n(y2)+'" stroke="'+(c||GREY)
+    +'" stroke-width="'+(w||1)+'"'+(dash?' stroke-dasharray="'+dash+'"':'')+'/>'; }
+function CIRC(cx,cy,r,fill,c,w){
+  return '<circle cx="'+n(cx)+'" cy="'+n(cy)+'" r="'+n(r)+'" fill="'+(fill||'none')
+    +'" stroke="'+(c||NAVY)+'" stroke-width="'+(w||1.5)+'"/>'; }
+function RECT(x,y,w,h,fill,c,sw,op){
+  return '<rect x="'+n(x)+'" y="'+n(y)+'" width="'+n(w)+'" height="'+n(h)+'" fill="'+fill+'"'
+    +(op?' fill-opacity="'+op+'"':'')+' stroke="'+(c||NAVY)+'" stroke-width="'+(sw||1.5)+'"/>'; }
+/* arrowhead: tip point, u = unit direction of travel */
+function HEAD(tip,u,c,len,half){ len=len||12; half=half||5.5;
+  var b=[tip[0]-u[0]*len, tip[1]-u[1]*len], p=[-u[1],u[0]];
+  return '<polygon points="'+pt(tip)+' '+pt([b[0]+p[0]*half,b[1]+p[1]*half])+' '
+    +pt([b[0]-p[0]*half,b[1]-p[1]*half])+'" fill="'+c+'"/>'; }
+/* line from (x1,y1) to (x2,y2) with the head AT (x2,y2) */
+function ARR(x1,y1,x2,y2,c,w,len,half){ len=len||12;
+  var dx=x2-x1, dy=y2-y1, L=Math.sqrt(dx*dx+dy*dy), u=[dx/L,dy/L];
+  return LN(x1,y1,x2-u[0]*len,y2-u[1]*len,c,w||2.4)+HEAD([x2,y2],u,c,len,half); }
+/* double-headed dimension between two points */
+function DIM(x1,y1,x2,y2,c,len){ len=len||11; c=c||GREY;
+  var dx=x2-x1, dy=y2-y1, L=Math.sqrt(dx*dx+dy*dy), u=[dx/L,dy/L];
+  return LN(x1+u[0]*len,y1+u[1]*len,x2-u[0]*len,y2-u[1]*len,c,1)
+    +HEAD([x2,y2],u,c,len,4)+HEAD([x1,y1],[-u[0],-u[1]],c,len,4); }
+/* through-centre DIAMETER dimension (two heads on the rim) */
+function DIA(cx,cy,R,ang,c){ var u=[Math.cos(ang),Math.sin(ang)];
+  return DIM(cx-R*u[0],cy-R*u[1],cx+R*u[0],cy+R*u[1],c||GREY,12); }
+/* single-headed RADIUS leader, centre out to the rim */
+function RAD(cx,cy,R,ang,c){ c=c||GREY; var u=[Math.cos(ang),Math.sin(ang)];
+  return ARR(cx,cy,cx+R*u[0],cy+R*u[1],c,1,12,4); }
+/* point on a circle, maths convention: 0 = +x, angle increases anticlockwise on screen */
+function P(cx,cy,R,t){ return [cx+R*Math.cos(t), cy-R*Math.sin(t)]; }
+/* curved arrow along a circle from t0 to t1 (radians, maths convention) */
+function ARC(cx,cy,R,t0,t1,c,w){
+  var A=P(cx,cy,R,t0), B=P(cx,cy,R,t1), ccw=(t1>t0);
+  var sweep = ccw?0:1, large = (Math.abs(t1-t0)>Math.PI)?1:0;
+  var u = ccw ? [-Math.sin(t1),-Math.cos(t1)] : [Math.sin(t1),Math.cos(t1)];
+  var back = [B[0]-u[0]*2, B[1]-u[1]*2];
+  return '<path d="M '+pt(A)+' A '+n(R)+','+n(R)+' 0 '+large+','+sweep+' '+pt(back)+'" fill="none" stroke="'
+    +c+'" stroke-width="'+(w||2.2)+'"/>'+HEAD([B[0]+u[0]*9,B[1]+u[1]*9],u,c,11,5.5); }
+function HATCH(x,y,c){ var s=LN(x-20,y,x+20,y,c,1.5);
+  for(var i=0;i<4;i++){ var bx=x-16+i*10; s+=LN(bx,y+6,bx+6,y,c,1); } return s; }
+function PIN(x,y){ return '<polygon points="'+pt([x,y])+' '+pt([x-12,y+22])+' '+pt([x+12,y+22])
+  +'" fill="#dbe4f0" stroke="'+NAVY+'" stroke-width="1.5"/>'+HATCH(x,y+22,NAVY); }
+/* ═══════════ page furniture ═══════════ */
+var CIRCLED=['&#9312;','&#9313;','&#9314;','&#9315;','&#9316;','&#9317;','&#9318;'];
+function step(i,title,hint,body){
+  return '<div class="step"><details'+(i===1?' open':'')+'><summary><span class="step-num">'+i
+    +'</span><span class="step-title">'+title+'</span><span class="try-hint">'+hint
+    +'</span></summary><div class="step-body">'+body+'</div></details></div>'; }
+function fig(svg,cap){ return '<div class="diagram-wrap"><figure>'+svg
+    +'<figcaption>'+cap+'</figcaption></figure></div>'; }
+function co(kind,html){ return '<div class="callout '+kind+'">'+html+'</div>'; }
+function ans(html){ return co('answer','<p>'+html+'</p>'); }
+function note(html){ return co('note','<p>'+html+'</p>'); }
+function warn(html){ return co('warn','<p>'+html+'</p>'); }
+function info(html){ return co('info','<p>'+html+'</p>'); }
+function mistakes(list){ var h='<p><strong>Common mistakes:</strong></p>';
+  for(var i=0;i<list.length;i++) h+='<p style="margin-top:6px">'+CIRCLED[i]+' '+list[i]+'</p>';
+  return co('warn',h); }
+function rows(hdr,list){ var h='<table class="sum"><tr>';
+  for(var i=0;i<hdr.length;i++) h+='<th'+(i?' style="text-align:right"':'')+'>'+hdr[i]+'</th>';
+  h+='</tr>';
+  for(var r=0;r<list.length;r++){ var c=list[r], tot=(c[0]==='*'); if(tot) c=c.slice(1);
+    h+='<tr'+(tot?' class="total"':'')+'>';
+    for(var k=0;k<c.length;k++) h+='<td'+(k?' class="num"':'')+'>'+c[k]+'</td>';
+    h+='</tr>'; }
+  return h+'</table>'; }
+
+
+/* ═══════════ T10.6 — band brake, tensions and torque capacity ═══════════ */
+var VARIANTS=[
+ {btn:'Original', pmax:0.6, w:100, mu:0.30, deg:270, D:0.36, mode:'pressure',
+  book:'$P_1 = 10.8$ kN, $P_2 = 2.63$ kN, $T = 1.47$ kN&middot;m',
+  desc:'The tutorial sheet problem \u2014 the lining pressure limit governs, so it fixes the tight tension.'},
+ {btn:'Variant 1 \u2014 new magnitudes', pmax:0.8, w:80, mu:0.35, deg:240, D:0.40, mode:'pressure',
+  desc:'A higher-rated lining on a narrower band, grippier material, a larger drum and less wrap. Same order of work: pressure \u2192 P\u2081 \u2192 P\u2082 \u2192 T.'},
+ {btn:'Variant 2 \u2014 actuation limited', pmax:0.6, w:100, mu:0.30, deg:270, D:0.36, mode:'force', P2:2000,
+  desc:'Configuration change: the linkage can only pull 2 kN on the slack end, so the ACTUATION governs, not the lining. The chain runs the other way \u2014 P\u2082 \u2192 P\u2081 \u2192 check the pressure against the limit \u2192 T. The lining turns out to be nowhere near its rating.'}
+];
+function solve(v){
+  var r=v.D/2, phi=v.deg*Math.PI/180, e=Math.exp(v.mu*phi), P1,P2;
+  if(v.mode==='pressure'){ P1=v.pmax*1e6*(v.w/1000)*r; P2=P1/e; }
+  else { P2=v.P2; P1=P2*e; }
+  var p=P1/((v.w/1000)*r);
+  return {r:r,phi:phi,e:e,P1:P1,P2:P2,T:(P1-P2)*r,p:p,pslack:P2/((v.w/1000)*r),
+          util:p/(v.pmax*1e6), Trev:(P2-P2/e)*r};
+}
+function figBand(v,S){
+  var g='<svg viewBox="0 0 600 400" width="640" xmlns="http://www.w3.org/2000/svg" font-family="Arial,sans-serif" font-size="12">';
+  var cx=300, cy=200, R=108, Rb=116, phi=S.phi;
+  var A=P(cx,cy,Rb,0), B=P(cx,cy,Rb,phi), large=(phi>Math.PI)?1:0;
+  g+=CIRC(cx,cy,R,'#dbe4f0',NAVY,2)+CIRC(cx,cy,9,'#fff',NAVY,1.5);
+  g+=LN(cx-R-18,cy,cx+R+18,cy,'#888',0.8,'7,3,2,3')+LN(cx,cy-R-18,cx,cy+R+18,'#888',0.8,'7,3,2,3');
+  g+='<path d="M '+pt(A)+' A '+Rb+','+Rb+' 0 '+large+',0 '+pt(B)+'" fill="none" stroke="'+RED
+    +'" stroke-width="5" stroke-linecap="round"/>';
+  /* P1 leaves the theta=0 end straight down */
+  g+=ARR(A[0],A[1],A[0],A[1]+96,RED,3,14,6)+TX(A[0]+10,A[1]+62,'P&#8321; (tight)',{f:RED,b:1});
+  /* P2 leaves the far end along the tangent, away from the drum */
+  var u=[-Math.sin(phi),-Math.cos(phi)], tip=[B[0]+u[0]*72,B[1]+u[1]*72];
+  g+=ARR(B[0],B[1],tip[0],tip[1],RED,3,14,6);
+  g+=TX(tip[0]+u[0]*10,tip[1]+u[1]*10+16,'P&#8322; (slack)',{a:'middle',f:RED,b:1});
+  /* wrap annotation */
+  var Aw=P(cx,cy,66,0), Bw=P(cx,cy,66,phi);
+  g+='<path d="M '+pt(Aw)+' A 66,66 0 '+large+',0 '+pt(Bw)+'" fill="none" stroke="'+ORANGE
+    +'" stroke-width="1.6" stroke-dasharray="5,4"/>';
+  var mid=P(cx,cy,44,phi/2);
+  g+=TX(mid[0],mid[1]+5,n0(v.deg)+'&#176;',{a:'middle',f:ORANGE,b:1,fs:13});
+  /* rotation: surface travels from the slack end towards the tight end (clockwise here) */
+  g+=ARC(cx,cy,88,2.79,-0.17,NAVY,2.2)+TX(352,258,'Rotation',{a:'middle',f:NAVY,b:1,fs:11});
+  g+=RAD(cx,cy,R,3*Math.PI/4)+TX(cx+4,cy+26,'r = '+n0(v.D*500)+' mm');
+  g+=TX(430,120,'band '+n0(v.w)+' mm wide',{i:1})+TX(430,136,'&#956; = '+v.mu,{i:1})
+   +TX(430,152,'p'+'&#8321;&#8320;&#8321; = '+n(v.pmax,2)+' MPa',{i:1});
+  return g+'</svg>';
+}
+function build(v){
+  var S=solve(v), h='', press=(v.mode==='pressure');
+  h+='<h3>Problem Statement</h3>'
+   +'<p>A simple band brake has a maximum permissible lining pressure of <strong>'+n(v.pmax,2)+'&nbsp;MPa</strong>. The band is '
+   +'<strong>'+n0(v.w)+'&nbsp;mm</strong> wide with <strong>$\\mu = '+v.mu+'$</strong>, the angle of contact is <strong>'
+   +n0(v.deg)+'&#176;</strong> and the drum diameter is <strong>'+n(v.D,2)+'&nbsp;m</strong>. '
+   +(press?'Determine the tensions in the brake band and the torque capacity.'
+          :'The operating linkage can apply only <strong>'+n(v.P2/1000,2)+'&nbsp;kN</strong> to the slack end of the band. '
+           +'Determine the band tensions, verify the lining pressure, and find the torque obtained.')+'</p>';
+  h+= v.book ? co('given','<p><strong>Given answers:</strong> '+v.book+'</p>')
+             : co('given','<p><strong>Answers (computed here \u2014 this variant is not in the book):</strong> $P_1 = '
+                  +n(S.P1/1000,2)+'$ kN, $P_2 = '+n(S.P2/1000,2)+'$ kN, $T = '+n(S.T/1000,2)+'$ kN&middot;m</p>');
+  h+=fig(figBand(v,S),'Band brake with a '+n0(v.deg)+'&#176; angle of contact, drawn to that angle. The lining pressure is '
+    +'proportional to the local band tension, so it peaks at the tight end.');
+  h+=info('<strong>Strategy:</strong> '+(press
+    ? 'the wrap angle is given and the <em>pressure limit</em> sets the tight tension. Order of work: $p_{\\max} \\rightarrow P_1 '
+      +'\\rightarrow P_2$ via $e^{\\mu\\varphi} \\rightarrow T$.'
+    : 'the actuating force sets the <em>slack</em> tension, so the chain runs the opposite way: $P_2 \\rightarrow P_1$ via '
+      +'$e^{\\mu\\varphi} \\rightarrow$ check $p \\le p_{\\max} \\rightarrow T$. Whichever end you start from, the Euler ratio and '
+      +'$p = P/(wr)$ are the same two tools.'));
+  h+='<h3>Solution</h3>';
+  h+= press
+    ? step(1,'Tight tension from the pressure limit','try it yourself first',
+        '<p>Radial equilibrium of a band element gives $p = P/(wr)$, so the maximum pressure occurs where the tension is greatest '
+        +'&#8212; at the tight end. Rearranging:</p>'
+        +'<div class="math-block">$$r = \\tfrac{1}{2}('+n(v.D,2)+') = '+n(S.r,3)+'\\ \\text{m}$$</div>'
+        +'<div class="math-block">$$P_1 = p_{\\max}\\, w\\, r = ('+n(v.pmax,2)+'\\times10^{6})('+n(v.w/1000,3)+')('+n(S.r,3)
+        +') = '+n(S.P1,0)+'\\ \\text{N}$$</div>'
+        +ans('$P_1 = '+n(S.P1/1000,2)+'\\ \\text{kN}$')
+        +note('<strong>Where $p = P/(wr)$ comes from:</strong> take a band element subtending $\\mathrm{d}\\theta$. The two end '
+          +'tensions are inclined by $\\mathrm{d}\\theta/2$ each, giving a net inward component $P\\,\\mathrm{d}\\theta$. The drum '
+          +'pushes back over the patch $w\\,r\\,\\mathrm{d}\\theta$ with pressure $p$. Equate and $\\mathrm{d}\\theta$ cancels. '
+          +'The wrap angle never enters &#8212; which is why '+n0(v.deg)+'&#176; plays no part in this step.'))
+    : step(1,'Slack tension is set by the actuation','try it yourself first',
+        '<div class="math-block">$$r = \\tfrac{1}{2}('+n(v.D,2)+') = '+n(S.r,3)+'\\ \\text{m}, \\qquad P_2 = '+n(S.P2,0)
+        +'\\ \\text{N}$$</div>'
+        +ans('$P_2 = '+n(S.P2/1000,2)+'\\ \\text{kN}$ &#8212; given by the linkage, not by the lining')
+        +note('<strong>Which constraint governs?</strong> A band brake is limited by whichever comes first: the lining pressure or '
+          +'the available actuating force. Here the actuation is the binding constraint, so the lining will finish the problem '
+          +'under-used &#8212; Step&nbsp;3 quantifies by how much.'));
+  h+=step(2,(press?'Slack tension':'Tight tension')+' from the belt-friction equation','convert '+n0(v.deg)+'&#176; to radians first',
+    '<div class="math-block">$$\\varphi = '+n0(v.deg)+'^\\circ = '+n(S.phi,3)+'\\ \\text{rad}$$</div>'
+    +'<div class="math-block">$$\\mu\\varphi = '+v.mu+' \\times '+n(S.phi,3)+' = '+n(v.mu*S.phi,3)
+    +', \\qquad e^{\\mu\\varphi} = '+n(S.e,3)+'$$</div>'
+    +'<div class="math-block">$$'+(press
+      ? 'P_2 = \\frac{P_1}{e^{\\mu\\varphi}} = \\frac{'+n(S.P1,0)+'}{'+n(S.e,3)+'} = '+n(S.P2,0)+'\\ \\text{N}'
+      : 'P_1 = P_2\\,e^{\\mu\\varphi} = '+n(S.P2,0)+' \\times '+n(S.e,3)+' = '+n(S.P1,0)+'\\ \\text{N}')+'$$</div>'
+    +ans('$'+(press?'P_2 = '+n(S.P2/1000,2):'P_1 = '+n(S.P1/1000,2))+'\\ \\text{kN}$')
+    +note(press
+      ? '<strong>This is the actuating force</strong> the linkage must supply at the slack end &#8212; '+n(S.P2/1000,2)
+        +'&nbsp;kN to develop '+n(S.P1/1000,2)+'&nbsp;kN in the band. The brake amplifies the input by $e^{\\mu\\varphi} = '
+        +n(S.e,2)+'$.'
+      : '<strong>The amplification works the other way too.</strong> '+n(S.P2/1000,2)+'&nbsp;kN of pull becomes '
+        +n(S.P1/1000,2)+'&nbsp;kN of band tension, a factor of '+n(S.e,2)+'. The anchor bracket must be designed for the larger '
+        +'number.'));
+  var b3;
+  if(press){
+    b3='<div class="math-block">$$T = (P_1 - P_2)\\,r = ('+n(S.P1,0)+' - '+n(S.P2,0)+')('+n(S.r,3)+') = '+n(S.P1-S.P2,0)
+      +' \\times '+n(S.r,3)+'$$$$T = '+n(S.T,0)+'\\ \\text{N}\\cdot\\text{m} = '+n(S.T/1000,2)+'\\ \\text{kN}\\cdot\\text{m}$$</div>'
+      +ans('$T = '+n(S.T/1000,2)+'\\ \\text{kN}\\cdot\\text{m}$')
+      +'<p>Combining the three steps shows what actually drives a band brake\'s capacity:</p>'
+      +'<div class="math-block">$$T = p_{\\max} w r^2 \\left(1 - e^{-\\mu\\varphi}\\right) = ('+n(v.pmax,2)+'\\times10^{6})('
+      +n(v.w/1000,3)+')('+n(S.r,3)+')^2\\left(1 - e^{-'+n(v.mu*S.phi,3)+'}\\right) = '+n(S.T,0)+'\\ \\text{N}\\cdot\\text{m}$$</div>'
+      +'<p style="font-size:13.5px;color:#555">Torque scales with $r^2$, linearly with band width and pressure limit, and '
+      +'saturates with wrap angle &#8212; the bracket is already '+n(1-1/S.e,3)+' at '+n0(v.deg)+'&#176; and can never exceed 1.</p>';
+  } else {
+    b3='<p>First check the lining is within its rating:</p>'
+      +'<div class="math-block">$$p = \\frac{P_1}{w r} = \\frac{'+n(S.P1,0)+'}{('+n(v.w/1000,3)+')('+n(S.r,3)+')} = '
+      +n(S.p/1000,0)+'\\ \\text{kPa} \\;<\\; '+n(v.pmax*1000,0)+'\\ \\text{kPa} \\quad\\checkmark$$</div>'
+      +ans('Lining pressure '+n(S.p/1000,0)+'&nbsp;kPa &#8212; only '+n(S.util*100,0)+'% of the '+n(v.pmax*1000,0)
+        +'&nbsp;kPa rating')
+      +'<div class="math-block">$$T = (P_1 - P_2)\\,r = ('+n(S.P1,0)+' - '+n(S.P2,0)+')('+n(S.r,3)+') = '+n(S.T,0)
+      +'\\ \\text{N}\\cdot\\text{m}$$</div>'
+      +ans('$T = '+n(S.T/1000,2)+'\\ \\text{kN}\\cdot\\text{m}$')
+      +note('<strong>The lining is over-specified for this linkage.</strong> At only '+n(S.util*100,0)+'% of its allowable '
+        +'pressure the brake is actuation-limited: a stronger cylinder, not a better lining, is what would raise the torque. '
+        +'Sizing the lining to the pressure limit here would waste material and money.');
+  }
+  b3+=rows(['Quantity','Value','From'],[
+      ['Drum radius $r$', n(S.r,3)+' m', '$D/2$'],
+      ['Tight tension $P_1$', n(S.P1/1000,2)+' kN', press?'pressure limit':'$P_2 e^{\\mu\\varphi}$'],
+      ['Tension ratio $e^{\\mu\\varphi}$', n(S.e,3), '$\\mu = '+v.mu+'$, $\\varphi = '+n(S.phi,3)+'$ rad'],
+      ['Slack tension $P_2$', n(S.P2/1000,2)+' kN', press?'$P_1/e^{\\mu\\varphi}$':'given'],
+      ['Net tangential force $P_1 - P_2$', n((S.P1-S.P2)/1000,2)+' kN', '&#8212;'],
+      ['*Torque capacity', n(S.T/1000,2)+' kN&middot;m', '$(P_1-P_2)r$']]);
+  h+=step(3,(press?'Torque capacity':'Pressure check and torque capacity'),'difference in tensions, at the drum radius',b3);
+  h+=step(4,'Sanity checks and design commentary','is the answer reasonable?',
+    '<p><strong>Check 1 &#8212; back out the pressure.</strong> $p = P_1/(wr) = '+n(S.p/1000,0)+'$&nbsp;kPa'
+    +(press?', exactly the stated limit &#10003;':', comfortably under the '+n(v.pmax*1000,0)+'&nbsp;kPa limit &#10003;')+'</p>'
+    +'<p><strong>Check 2 &#8212; the friction force is the whole story.</strong> $P_1 - P_2 = '+n((S.P1-S.P2)/1000,2)
+    +'$&nbsp;kN acting at '+n(S.r*1000,0)+'&nbsp;mm; no separate normal-force calculation is needed.</p>'
+    +'<p><strong>Check 3 &#8212; compare with a short shoe.</strong> A single short shoe on the same drum at the same lining '
+    +'pressure with a '+n0(v.w)+'&nbsp;&times;&nbsp;'+n0(v.w)+'&nbsp;mm pad would give $N = '
+    +n(S.p*Math.pow(v.w/1000,2)/1000,1)+'$&nbsp;kN, $\\mu N = '+n(v.mu*S.p*Math.pow(v.w/1000,2)/1000,2)+'$&nbsp;kN and only $T = '
+    +n(v.mu*S.p*Math.pow(v.w/1000,2)*S.r,0)+'$&nbsp;N&middot;m. The band wins by a factor of '
+    +n(S.T/(v.mu*S.p*Math.pow(v.w/1000,2)*S.r),1)+' because it wraps '+n(v.deg/360*100,0)+'% of the circumference.</p>'
+    +note('<strong>The catch:</strong> a simple band brake is strongly direction-dependent. Reverse the drum and the tight and '
+      +'slack ends swap, so the same '+n(S.P2/1000,2)+'&nbsp;kN actuating force becomes the <em>tight</em> tension and the torque '
+      +'collapses to $('+n(S.P2/1000,2)+' - '+n(S.P2/S.e/1000,2)+')('+n(S.r,3)+') = '+n(S.Trev/1000,2)
+      +'$&nbsp;kN&middot;m &#8212; '+n(S.Trev/S.T*100,0)+'% of the capacity. Differential and two-way band brakes exist precisely '
+      +'to fix this.'));
+  h+=mistakes([
+    '<strong>Using the diameter instead of the radius.</strong> The problem gives $D = '+n(v.D,2)+'$&nbsp;m. Both $P_1 = pwr$ and '
+      +'$T = (P_1-P_2)r$ need $r = '+n(S.r,3)+'$&nbsp;m; using $D$ would quadruple the torque.',
+    '<strong>Multiplying the pressure by the full wrapped area.</strong> $p\\,(wr\\varphi) = '
+      +n(v.pmax*1e6*(v.w/1000)*S.r*S.phi/1000,1)+'$&nbsp;kN is not a band tension &#8212; it is the total radial load, and it is '
+      +'not what $p = P/(wr)$ says.',
+    '<strong>Leaving $\\varphi$ in degrees.</strong> $e^{'+v.mu+' \\times '+n0(v.deg)+'}$ is an astronomically large number. '
+      +'Convert to '+n(S.phi,3)+'&nbsp;rad.',
+    '<strong>Multiplying when you should divide.</strong> The tight tension is the <em>larger</em> one; if $P_2 > P_1$ you have '
+      +'inverted the Euler relation.',
+    '<strong>Assuming the maximum pressure sits at the middle of the wrap.</strong> It is at the tight end. Pressure falls '
+      +'exponentially round the contact, down to '+n(S.pslack/1000,0)+'&nbsp;kPa at the slack end.']);
+  return h;
+}
+
+
+function render(i){
+  var v = VARIANTS[i];
+  document.getElementById('doc').innerHTML = build(v);
+  document.getElementById('swDesc').textContent = v.desc;
+  var b = document.querySelectorAll('#swBtns button');
+  for(var j=0;j<b.length;j++) b[j].setAttribute('aria-pressed', j===i ? 'true':'false');
+  if(window.renderMathInElement){
+    renderMathInElement(document.getElementById('doc'), {
+      delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}],
+      throwOnError:false});
+  }
+}
+function init(){
+  var box = document.getElementById('swBtns');
+  VARIANTS.forEach(function(v,i){
+    var b = document.createElement('button');
+    b.textContent = v.btn;
+    b.setAttribute('aria-pressed','false');
+    b.onclick = function(){ render(i); };
+    box.appendChild(b);
+  });
+  render(0);
+}
+window.addEventListener('load', init);
+</script>
+</body>
+</html>

@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>T10.5 - Band Brake Wrap</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css"/>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+body{font-family:'Segoe UI',Arial,sans-serif;font-size:15px;line-height:1.75;color:#1a1a1a;background:#f5f6f8;margin:0;padding:24px 16px 56px}
+.page{max-width:880px;margin:0 auto;background:#fff;border-radius:10px;box-shadow:0 2px 14px rgba(0,0,0,.10);padding:40px 52px 52px}
+.uni-header{text-align:center;border-bottom:2px solid #1a3c6e;padding-bottom:16px;margin-bottom:24px}
+.uni-header p{margin:0;line-height:1.4;font-size:13.5px;color:#555}
+.uni-header h2{margin:8px 0 0;font-size:20px;color:#1a3c6e}
+h3{color:#1a3c6e;border-left:4px solid #1a3c6e;padding-left:10px;margin:28px 0 10px;font-size:15.5px}
+h4{color:#1a3c6e;font-size:14.5px;margin:20px 0 6px}
+.step{margin-bottom:10px}
+.step details{border:1px solid #d1d9e8;border-radius:8px;overflow:hidden;margin-top:6px}
+.step details summary{list-style:none;cursor:pointer;padding:11px 15px;background:#f0f4fb;color:#1a3c6e;font-weight:500;font-size:14.5px;display:flex;align-items:center;gap:10px;user-select:none}
+.step details summary::-webkit-details-marker{display:none}
+.step details summary::after{content:'\25BC';font-size:11px;color:#f97316;transition:transform .2s;flex-shrink:0;margin-left:auto;padding-left:8px}
+.step details[open] summary::after{transform:rotate(180deg)}
+.step details[open] summary{background:#e8eef9;border-bottom:1px solid #d1d9e8}
+.step-body{padding:16px 20px}
+.step-num{background:#1a3c6e;color:#fff;font-size:12px;font-weight:700;border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.step-title{font-size:15px;font-weight:600;color:#1a3c6e}
+.try-hint{font-size:12.5px;color:#6b7280;font-style:italic;margin-left:auto}
+.callout{border-radius:6px;padding:13px 18px;margin:14px 0;font-size:14.5px}
+.callout p{margin:4px 0}
+.info{background:#eef4ff;border-left:4px solid #3b82f6}
+.given{background:#f0fdf4;border-left:4px solid #22c55e}
+.answer{background:#fff7ed;border-left:4px solid #f97316;font-size:16px;font-weight:600}
+.note{background:#faf5ff;border-left:4px solid #a855f7;font-size:14px}
+.warn{background:#fffbeb;border-left:4px solid #f59e0b;font-size:14px}
+.math-block{background:#f8f9fb;border:1px solid #e2e6ef;border-radius:6px;padding:14px 20px;margin:12px 0;overflow-x:auto;text-align:center}
+.diagram-wrap{text-align:center;margin:22px 0 8px}
+.diagram-wrap figure{margin:0}
+.diagram-wrap svg{max-width:100%;height:auto}
+.diagram-wrap figcaption{font-size:13px;color:#555;margin-top:2px;font-style:italic;line-height:1.5}
+table.sum{border-collapse:collapse;width:100%;margin:14px 0;font-size:14px}
+table.sum th{background:#1a3c6e;color:#fff;text-align:left;padding:8px 12px;font-weight:600}
+table.sum td{border-bottom:1px solid #e2e6ef;padding:7px 12px}
+table.sum tr.total td{background:#fff7ed;font-weight:700;border-top:2px solid #f97316}
+table.sum td.num{text-align:right;font-variant-numeric:tabular-nums}
+.footer{margin-top:40px;border-top:1px solid #e5e7eb;padding-top:12px;font-size:12px;color:#999;text-align:center}
+.switcher{background:#f0f4fb;border:1px solid #d1d9e8;border-radius:8px;padding:14px 18px;margin-bottom:26px}
+.switcher .sw-label{font-size:12.5px;font-weight:600;color:#1a3c6e;text-transform:uppercase;letter-spacing:.06em;margin-bottom:9px}
+.sw-btns{display:flex;flex-wrap:wrap;gap:8px}
+.sw-btns button{font-family:inherit;font-size:13.5px;font-weight:500;padding:8px 15px;border-radius:6px;border:1px solid #b9c6df;background:#fff;color:#1a3c6e;cursor:pointer;transition:.15s}
+.sw-btns button:hover{background:#e8eef9;border-color:#1a3c6e}
+.sw-btns button[aria-pressed="true"]{background:#1a3c6e;border-color:#1a3c6e;color:#fff;box-shadow:0 1px 4px rgba(26,60,110,.3)}
+.sw-desc{font-size:13px;color:#555;margin-top:10px;font-style:italic}
+ol{margin:10px 0 0 4px}
+</style>
+</head>
+<body>
+<div class="page">
+
+<div class="uni-header">
+  <p>Curtin University &nbsp;&middot;&nbsp; School of Civil and Mechanical Engineering</p>
+  <p>MCEN2002 &ndash; Fundamentals of Mechanical Design</p>
+  <p style="margin-top:8px"><strong>Dr Azma Putra Azis</strong></p>
+  <h2>Tutorial 10.5 &nbsp;&ndash;&nbsp; Band Brake &#8212; Required Angle of Wrap</h2>
+</div>
+
+<div class="switcher">
+  <div class="sw-label">Choose a problem</div>
+  <div class="sw-btns" id="swBtns"></div>
+  <div class="sw-desc" id="swDesc"></div>
+</div>
+
+<div id="doc"></div>
+
+<div class="footer">MCEN2002 &ndash; Fundamentals of Mechanical Design | Tutorial 10.5 | Curtin University</div>
+</div>
+
+<script>
+
+/* ═══════════ shared formatting + SVG primitives (all six T10 pages) ═══════════ */
+var NAVY='#1a3c6e', RED='#c0392b', BLUE='#1a6fc4', ORANGE='#f97316', GREY='#555';
+function n(v,d){ d=(d===undefined)?1:d; var m=Math.pow(10,d); var r=Math.round(v*m)/m;
+  if(Object.is(r,-0)) r=0; return String(r); }
+function n0(v){ return n(v,0); }
+/* thousands separator for large numbers in prose */
+function ns(v,d){ var s=n(v,d).split('.');
+  s[0]=s[0].replace(/\B(?=(\d{3})+(?!\d))/g,'\\,'); return s.join('.'); }
+function pt(p){ return p[0].toFixed(1)+','+p[1].toFixed(1); }
+function TX(x,y,s,o){ o=o||{};
+  return '<text x="'+n(x)+'" y="'+n(y)+'"'
+    +(o.a?' text-anchor="'+o.a+'"':'')+' fill="'+(o.f||GREY)+'"'
+    +(o.fs?' font-size="'+o.fs+'"':'')+(o.b?' font-weight="bold"':'')
+    +(o.i?' font-style="italic"':'')+'>'+s+'</text>'; }
+function LN(x1,y1,x2,y2,c,w,dash){
+  return '<line x1="'+n(x1)+'" y1="'+n(y1)+'" x2="'+n(x2)+'" y2="'+n(y2)+'" stroke="'+(c||GREY)
+    +'" stroke-width="'+(w||1)+'"'+(dash?' stroke-dasharray="'+dash+'"':'')+'/>'; }
+function CIRC(cx,cy,r,fill,c,w){
+  return '<circle cx="'+n(cx)+'" cy="'+n(cy)+'" r="'+n(r)+'" fill="'+(fill||'none')
+    +'" stroke="'+(c||NAVY)+'" stroke-width="'+(w||1.5)+'"/>'; }
+function RECT(x,y,w,h,fill,c,sw,op){
+  return '<rect x="'+n(x)+'" y="'+n(y)+'" width="'+n(w)+'" height="'+n(h)+'" fill="'+fill+'"'
+    +(op?' fill-opacity="'+op+'"':'')+' stroke="'+(c||NAVY)+'" stroke-width="'+(sw||1.5)+'"/>'; }
+/* arrowhead: tip point, u = unit direction of travel */
+function HEAD(tip,u,c,len,half){ len=len||12; half=half||5.5;
+  var b=[tip[0]-u[0]*len, tip[1]-u[1]*len], p=[-u[1],u[0]];
+  return '<polygon points="'+pt(tip)+' '+pt([b[0]+p[0]*half,b[1]+p[1]*half])+' '
+    +pt([b[0]-p[0]*half,b[1]-p[1]*half])+'" fill="'+c+'"/>'; }
+/* line from (x1,y1) to (x2,y2) with the head AT (x2,y2) */
+function ARR(x1,y1,x2,y2,c,w,len,half){ len=len||12;
+  var dx=x2-x1, dy=y2-y1, L=Math.sqrt(dx*dx+dy*dy), u=[dx/L,dy/L];
+  return LN(x1,y1,x2-u[0]*len,y2-u[1]*len,c,w||2.4)+HEAD([x2,y2],u,c,len,half); }
+/* double-headed dimension between two points */
+function DIM(x1,y1,x2,y2,c,len){ len=len||11; c=c||GREY;
+  var dx=x2-x1, dy=y2-y1, L=Math.sqrt(dx*dx+dy*dy), u=[dx/L,dy/L];
+  return LN(x1+u[0]*len,y1+u[1]*len,x2-u[0]*len,y2-u[1]*len,c,1)
+    +HEAD([x2,y2],u,c,len,4)+HEAD([x1,y1],[-u[0],-u[1]],c,len,4); }
+/* through-centre DIAMETER dimension (two heads on the rim) */
+function DIA(cx,cy,R,ang,c){ var u=[Math.cos(ang),Math.sin(ang)];
+  return DIM(cx-R*u[0],cy-R*u[1],cx+R*u[0],cy+R*u[1],c||GREY,12); }
+/* single-headed RADIUS leader, centre out to the rim */
+function RAD(cx,cy,R,ang,c){ c=c||GREY; var u=[Math.cos(ang),Math.sin(ang)];
+  return ARR(cx,cy,cx+R*u[0],cy+R*u[1],c,1,12,4); }
+/* point on a circle, maths convention: 0 = +x, angle increases anticlockwise on screen */
+function P(cx,cy,R,t){ return [cx+R*Math.cos(t), cy-R*Math.sin(t)]; }
+/* curved arrow along a circle from t0 to t1 (radians, maths convention) */
+function ARC(cx,cy,R,t0,t1,c,w){
+  var A=P(cx,cy,R,t0), B=P(cx,cy,R,t1), ccw=(t1>t0);
+  var sweep = ccw?0:1, large = (Math.abs(t1-t0)>Math.PI)?1:0;
+  var u = ccw ? [-Math.sin(t1),-Math.cos(t1)] : [Math.sin(t1),Math.cos(t1)];
+  var back = [B[0]-u[0]*2, B[1]-u[1]*2];
+  return '<path d="M '+pt(A)+' A '+n(R)+','+n(R)+' 0 '+large+','+sweep+' '+pt(back)+'" fill="none" stroke="'
+    +c+'" stroke-width="'+(w||2.2)+'"/>'+HEAD([B[0]+u[0]*9,B[1]+u[1]*9],u,c,11,5.5); }
+function HATCH(x,y,c){ var s=LN(x-20,y,x+20,y,c,1.5);
+  for(var i=0;i<4;i++){ var bx=x-16+i*10; s+=LN(bx,y+6,bx+6,y,c,1); } return s; }
+function PIN(x,y){ return '<polygon points="'+pt([x,y])+' '+pt([x-12,y+22])+' '+pt([x+12,y+22])
+  +'" fill="#dbe4f0" stroke="'+NAVY+'" stroke-width="1.5"/>'+HATCH(x,y+22,NAVY); }
+/* ═══════════ page furniture ═══════════ */
+var CIRCLED=['&#9312;','&#9313;','&#9314;','&#9315;','&#9316;','&#9317;','&#9318;'];
+function step(i,title,hint,body){
+  return '<div class="step"><details'+(i===1?' open':'')+'><summary><span class="step-num">'+i
+    +'</span><span class="step-title">'+title+'</span><span class="try-hint">'+hint
+    +'</span></summary><div class="step-body">'+body+'</div></details></div>'; }
+function fig(svg,cap){ return '<div class="diagram-wrap"><figure>'+svg
+    +'<figcaption>'+cap+'</figcaption></figure></div>'; }
+function co(kind,html){ return '<div class="callout '+kind+'">'+html+'</div>'; }
+function ans(html){ return co('answer','<p>'+html+'</p>'); }
+function note(html){ return co('note','<p>'+html+'</p>'); }
+function warn(html){ return co('warn','<p>'+html+'</p>'); }
+function info(html){ return co('info','<p>'+html+'</p>'); }
+function mistakes(list){ var h='<p><strong>Common mistakes:</strong></p>';
+  for(var i=0;i<list.length;i++) h+='<p style="margin-top:6px">'+CIRCLED[i]+' '+list[i]+'</p>';
+  return co('warn',h); }
+function rows(hdr,list){ var h='<table class="sum"><tr>';
+  for(var i=0;i<hdr.length;i++) h+='<th'+(i?' style="text-align:right"':'')+'>'+hdr[i]+'</th>';
+  h+='</tr>';
+  for(var r=0;r<list.length;r++){ var c=list[r], tot=(c[0]==='*'); if(tot) c=c.slice(1);
+    h+='<tr'+(tot?' class="total"':'')+'>';
+    for(var k=0;k<c.length;k++) h+='<td'+(k?' class="num"':'')+'>'+c[k]+'</td>';
+    h+='</tr>'; }
+  return h+'</table>'; }
+
+
+/* ═══════════ T10.5 — band brake, required angle of wrap ═══════════ */
+var VARIANTS=[
+ {btn:'Original', F:300, r:500, w:30, mu:0.45, Treq:800, mode:'slack', book:'(a) 235&#176; &nbsp;&nbsp; (b) 127 kPa',
+  desc:'The tutorial sheet problem \u2014 the air cylinder pulls the SLACK end of the band.'},
+ {btn:'Variant 1 \u2014 new magnitudes', F:400, r:400, w:40, mu:0.40, Treq:900, mode:'slack',
+  desc:'A stronger cylinder on a smaller drum with a wider band and a slightly slipperier lining, for more torque. Same two relations: the torque fixes the tension difference, the Euler equation fixes their ratio.'},
+ {btn:'Variant 2 \u2014 cylinder on the tight end', F:2000, r:500, w:30, mu:0.45, Treq:800, mode:'tight',
+  desc:'Configuration change: the drum runs the other way, so the cylinder now tensions the TIGHT side and the anchor takes the slack side. The actuating force has to be far larger for the same torque \u2014 which is exactly why the connection order of a band brake matters.'}
+];
+function solve(v){
+  var R=v.r/1000, dP=v.Treq/R, P1,P2;
+  if(v.mode==='slack'){ P2=v.F; P1=P2+dP; } else { P1=v.F; P2=P1-dP; }
+  var ratio=P1/P2, phi=Math.log(ratio)/v.mu;
+  return {R:R,dP:dP,P1:P1,P2:P2,ratio:ratio,phi:phi,deg:phi*180/Math.PI,
+          pmax:P1/(v.w/1000*R), pmin:P2/(v.w/1000*R), feas:(P2>0)};
+}
+function figBand(v,S){
+  var g='<svg viewBox="0 0 600 400" width="640" xmlns="http://www.w3.org/2000/svg" font-family="Arial,sans-serif" font-size="12">';
+  var cx=300, cy=200, R=120, Rb=128;
+  /* band spans from theta = 180 deg (anchored end, leaves straight down) clockwise by phi */
+  var ta=Math.PI, tb=ta-S.phi, A=P(cx,cy,Rb,ta), B=P(cx,cy,Rb,tb);
+  var large=(S.phi>Math.PI)?1:0;
+  g+=CIRC(cx,cy,R,'#dbe4f0',NAVY,2)+CIRC(cx,cy,9,'#fff',NAVY,1.5);
+  g+=LN(cx-R-20,cy,cx+R+20,cy,'#888',0.8,'7,3,2,3');
+  g+='<path d="M '+pt(A)+' A '+Rb+','+Rb+' 0 '+large+',1 '+pt(B)+'" fill="none" stroke="'+RED
+    +'" stroke-width="5" stroke-linecap="round"/>';
+  /* anchored end: straight down to the frame */
+  g+=LN(A[0],A[1],A[0],336,RED,3)+RECT(A[0]-14,336,28,18,'#dbe4f0',NAVY,1.5)+HATCH(A[0],354,NAVY);
+  var tightAnchor=(v.mode==='slack');
+  g+=TX(A[0]-18,276,(tightAnchor?'P&#8321; (tight)':'P&#8322; (slack)'),{a:'end',f:RED,b:1});
+  g+=TX(A[0]-18,292,'anchored to frame',{a:'end',f:RED,fs:11});
+  /* actuated end: tangent, pointing away from the drum */
+  var u=[Math.sin(tb),Math.cos(tb)], tip=[B[0]+u[0]*70,B[1]+u[1]*70];
+  g+=ARR(B[0],B[1],tip[0],tip[1],RED,3,14,6);
+  g+=TX(tip[0]+(u[0]<0?-6:6),tip[1]+22,'F = '+(tightAnchor?'P&#8322;':'P&#8321;')+' = '+n0(v.F)+' N',
+        {a:(u[0]<0?'end':'start'),f:RED,b:1});
+  /* wrap angle */
+  var Aw=P(cx,cy,62,ta), Bw=P(cx,cy,62,tb);
+  g+='<path d="M '+pt(Aw)+' A 62,62 0 '+large+',1 '+pt(Bw)+'" fill="none" stroke="'+ORANGE
+    +'" stroke-width="1.6" stroke-dasharray="5,4"/>';
+  var mid=P(cx,cy,42,(ta+tb)/2);
+  g+=TX(mid[0],mid[1]+5,'&#966;',{a:'middle',f:ORANGE,b:1,fs:14});
+  /* rotation: surface travels from the slack end towards the tight end */
+  var rccw=(v.mode==='slack');
+  g+= rccw ? ARC(cx,cy,95,0.70,2.44,NAVY,2.2) : ARC(cx,cy,95,2.44,0.70,NAVY,2.2);
+  g+=TX(cx,cy-104,'Rotation',{a:'middle',f:NAVY,b:1,fs:11});
+  g+=RAD(cx,cy,R,3*Math.PI/4)+TX(cx+4,cy+28,'r = '+n0(v.r)+' mm');
+  g+=TX(436,252,'band '+n0(v.w)+' mm wide',{i:1})+TX(436,268,'&#956; = '+v.mu,{i:1});
+  return g+'</svg>';
+}
+function build(v){
+  var S=solve(v), h='', tightEnd=(v.mode==='slack')?'anchored':'cylinder', slackEnd=(v.mode==='slack')?'cylinder':'anchored';
+  h+='<h3>Problem Statement</h3>'
+   +'<p>A simple band brake is operated by an air cylinder applying <strong>$F = '+n0(v.F)+'$&nbsp;N</strong>. The drum radius is '
+   +'<strong>'+n0(v.r)+'&nbsp;mm</strong>, the band is <strong>'+n0(v.w)+'&nbsp;mm</strong> wide and the woven lining gives '
+   +'<strong>$\\mu = '+v.mu+'$</strong>. '+(v.mode==='tight'?'The drum rotation is such that the cylinder tensions the '
+   +'<strong>tight</strong> side of the band.':'')+'</p>'
+   +'<p><strong>(a)</strong> What angle of wrap $\\varphi$ gives a brake torque of <strong>'+n0(v.Treq)
+   +'&nbsp;N&middot;m</strong>? &nbsp;<strong>(b)</strong> What is the corresponding maximum lining pressure?</p>';
+  h+= v.book ? co('given','<p><strong>Given answers:</strong> '+v.book+'</p>')
+             : co('given','<p><strong>Answers (computed here \u2014 this variant is not in the book):</strong> (a) $\\varphi = '
+                  +n(S.deg,1)+'^\\circ$ &nbsp;&nbsp; (b) '+n(S.pmax/1000,1)+' kPa</p>');
+  h+=fig(figBand(v,S),'Simple band brake, drawn with the wrap angle that this variant actually requires ('+n(S.deg,0)
+    +'&#176;). The cylinder tensions one end of the band; the other end is anchored to the frame. Drum rotation drags the band '
+    +'towards the <strong>'+tightEnd+'</strong> end, so tension builds up to $P_1$ there.');
+  h+=info('<strong>Strategy:</strong> two independent relations tie the band tensions together. The torque comes from the '
+    +'<em>difference</em> in tensions, $T = (P_1 - P_2)r$, while the belt-friction (Euler) equation fixes their <em>ratio</em>, '
+    +'$P_1/P_2 = e^{\\mu\\varphi}$. Knowing the cylinder force, the torque gives the other tension and the ratio gives $\\varphi$.');
+  h+='<h3>Solution</h3>';
+  h+=step(1,'Identify which end is tight, then get the other tension','try it yourself first',
+    '<p>Friction from the drum drags the band along with it, so tension <strong>increases in the direction of drum surface '
+    +'motion</strong>. Here the '+slackEnd+' end is upstream, so it carries the slack tension $P_2$ and the '+tightEnd
+    +' end carries the tight tension $P_1$.</p>'
+    +'<p>The net tangential force the band applies to the drum is the difference of the end tensions, acting at the drum radius:</p>'
+    +'<div class="math-block">$$T = (P_1 - P_2)\\,r \\quad\\Rightarrow\\quad P_1 - P_2 = \\frac{T}{r} = \\frac{'+n0(v.Treq)+'}{'
+    +n(S.R,3)+'} = '+n(S.dP,0)+'\\ \\text{N}$$</div>'
+    +'<div class="math-block">$$'+(v.mode==='slack'
+        ? 'P_2 = F = '+n0(v.F)+'\\ \\text{N}, \\qquad P_1 = '+n(S.dP,0)+' + '+n0(v.F)+' = '+n(S.P1,0)+'\\ \\text{N}'
+        : 'P_1 = F = '+n0(v.F)+'\\ \\text{N}, \\qquad P_2 = '+n0(v.F)+' - '+n(S.dP,0)+' = '+n(S.P2,0)+'\\ \\text{N}')+'$$</div>'
+    +ans('$P_1 = '+n(S.P1,0)+'\\ \\text{N}$, &nbsp; $P_2 = '+n(S.P2,0)+'\\ \\text{N}$')
+    +note('<strong>Why the difference and not the sum:</strong> integrate the friction traction all the way round the contact and '
+      +'you get exactly $P_1 - P_2$ &#8212; the band is flexible, so every element passes its tension on to the next and only the '
+      +'end-to-end change is force transferred to the drum. The band tension itself can be far larger than the useful braking force.')
+    +(v.mode==='tight'?warn('<strong>Feasibility check.</strong> With the cylinder on the tight side, $P_2 = F - T/r$ must stay '
+      +'positive: the cylinder force has to exceed $T/r = '+n(S.dP,0)+'$&nbsp;N before the brake can produce this torque at all. '
+      +'A band cannot push.'):''));
+  h+=step(2,'Angle of wrap from the belt-friction equation','take logs',
+    '<div class="math-block">$$\\frac{P_1}{P_2} = e^{\\mu\\varphi} \\quad\\Rightarrow\\quad \\frac{'+n(S.P1,0)+'}{'+n(S.P2,0)
+    +'} = '+n(S.ratio,3)+' = e^{'+v.mu+'\\varphi}$$</div>'
+    +'<div class="math-block">$$\\varphi = \\frac{\\ln '+n(S.ratio,3)+'}{'+v.mu+'} = \\frac{'+n(Math.log(S.ratio),4)+'}{'+v.mu
+    +'} = '+n(S.phi,3)+'\\ \\text{rad}$$</div>'
+    +'<div class="math-block">$$\\varphi = '+n(S.phi,3)+' \\times \\frac{180}{\\pi} = '+n(S.deg,1)+'^\\circ$$</div>'
+    +ans('(a) &nbsp; $\\varphi = '+n(S.deg,0)+'^\\circ$ &nbsp; ('+n(S.phi,2)+' rad)')
+    +note('<strong>$\\varphi$ must be in radians</strong> inside the exponential. A common slip is to solve for '+n(S.phi,2)
+      +' and report it as degrees. Note how steeply the ratio grows: at $\\mu = '+v.mu+'$, every extra 90&#176; of wrap '
+      +'multiplies the tension ratio by $e^{'+v.mu+'\\pi/2} = '+n(Math.exp(v.mu*Math.PI/2),2)+'$. That exponential sensitivity is '
+      +'why band brakes give large torque from a small actuating force &#8212; and why a drop in $\\mu$ when the lining is hot or '
+      +'wet costs so much torque.'));
+  h+=step(3,'Maximum lining pressure','where on the band is it highest?',
+    '<p>Radial equilibrium of a band element of angular width $\\mathrm{d}\\theta$ gives $P\\,\\mathrm{d}\\theta = p\\,(w r\\,'
+    +'\\mathrm{d}\\theta)$, so</p>'
+    +'<div class="math-block">$$p = \\frac{P}{w r}$$</div>'
+    +'<p>Pressure is proportional to the <em>local</em> tension, and is greatest at the tight end:</p>'
+    +'<div class="math-block">$$p_{\\max} = \\frac{P_1}{w r} = \\frac{'+n(S.P1,0)+'}{('+n(v.w/1000,3)+')('+n(S.R,3)+')} = '
+    +n(S.pmax,0)+'\\ \\text{Pa}$$</div>'
+    +ans('(b) &nbsp; $p_{\\max} = '+n(S.pmax/1000,0)+'\\ \\text{kPa}$ at the '+tightEnd+' end')
+    +note('<strong>At the slack end</strong> the pressure is only '+n(S.pmin/1000,0)+'&nbsp;kPa &#8212; a '+n(S.ratio,1)
+      +'&times; variation round the wrap, the same factor as the tension ratio. Wear will not be uniform: the tight end of the '
+      +'lining goes first.')
+    +rows(['Quantity','Value'],[
+      ['Required tension difference $T/r$', n(S.dP,0)+' N'],
+      ['Slack tension $P_2$', n(S.P2,0)+' N'],
+      ['Tight tension $P_1$', n(S.P1,0)+' N'],
+      ['Tension ratio $P_1/P_2$', n(S.ratio,3)],
+      ['*Angle of wrap $\\varphi$', n(S.phi,2)+' rad = '+n(S.deg,0)+'&#176;'],
+      ['*Maximum lining pressure', n(S.pmax/1000,0)+' kPa']]));
+  h+=mistakes([
+    '<strong>Getting the two ends the wrong way round.</strong> '+(v.mode==='slack'
+      ?'Treating $F$ as the tight tension gives $P_1 = '+n0(v.F)+'$ and $P_2 = '+n(v.F-S.dP,0)+'$&nbsp;N &#8212; a negative '
+       +'tension, which is impossible. If your algebra produces one, the ends are swapped.'
+      :'Here the cylinder IS on the tight end, so $P_2 = F - T/r$, not $F + T/r$. Read the rotation direction before writing '
+       +'anything down.'),
+    '<strong>Using $T = (P_1 + P_2)r$.</strong> The sum is the load the band puts into its anchorages, not the braking force.',
+    '<strong>Leaving $\\varphi$ in degrees inside $e^{\\mu\\varphi}$.</strong> Radians only.',
+    '<strong>Computing the pressure from the whole wrapped area.</strong> $p = P/(wr)$ is a <em>local</em> relation and the wrap '
+      +'angle cancels out of it. Dividing $P_1$ by the total band area $(wr\\varphi = '+n(v.w/1000*S.R*S.phi,4)
+      +'\\ \\text{m}^2)$ gives '+n(S.P1/(v.w/1000*S.R*S.phi)/1000,0)+'&nbsp;kPa, an average-ish figure, not the maximum the '
+      +'lining sees.',
+    '<strong>Using the drum diameter for $r$.</strong> The '+n0(v.r)+'&nbsp;mm here is already the radius &#8212; read the '
+      +'figure, not the habit.']);
+  return h;
+}
+
+
+function render(i){
+  var v = VARIANTS[i];
+  document.getElementById('doc').innerHTML = build(v);
+  document.getElementById('swDesc').textContent = v.desc;
+  var b = document.querySelectorAll('#swBtns button');
+  for(var j=0;j<b.length;j++) b[j].setAttribute('aria-pressed', j===i ? 'true':'false');
+  if(window.renderMathInElement){
+    renderMathInElement(document.getElementById('doc'), {
+      delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}],
+      throwOnError:false});
+  }
+}
+function init(){
+  var box = document.getElementById('swBtns');
+  VARIANTS.forEach(function(v,i){
+    var b = document.createElement('button');
+    b.textContent = v.btn;
+    b.setAttribute('aria-pressed','false');
+    b.onclick = function(){ render(i); };
+    box.appendChild(b);
+  });
+  render(0);
+}
+window.addEventListener('load', init);
+</script>
+</body>
+</html>

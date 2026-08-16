@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>T10.3 - Short Shoe Brake</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css"/>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+body{font-family:'Segoe UI',Arial,sans-serif;font-size:15px;line-height:1.75;color:#1a1a1a;background:#f5f6f8;margin:0;padding:24px 16px 56px}
+.page{max-width:880px;margin:0 auto;background:#fff;border-radius:10px;box-shadow:0 2px 14px rgba(0,0,0,.10);padding:40px 52px 52px}
+.uni-header{text-align:center;border-bottom:2px solid #1a3c6e;padding-bottom:16px;margin-bottom:24px}
+.uni-header p{margin:0;line-height:1.4;font-size:13.5px;color:#555}
+.uni-header h2{margin:8px 0 0;font-size:20px;color:#1a3c6e}
+h3{color:#1a3c6e;border-left:4px solid #1a3c6e;padding-left:10px;margin:28px 0 10px;font-size:15.5px}
+h4{color:#1a3c6e;font-size:14.5px;margin:20px 0 6px}
+.step{margin-bottom:10px}
+.step details{border:1px solid #d1d9e8;border-radius:8px;overflow:hidden;margin-top:6px}
+.step details summary{list-style:none;cursor:pointer;padding:11px 15px;background:#f0f4fb;color:#1a3c6e;font-weight:500;font-size:14.5px;display:flex;align-items:center;gap:10px;user-select:none}
+.step details summary::-webkit-details-marker{display:none}
+.step details summary::after{content:'\25BC';font-size:11px;color:#f97316;transition:transform .2s;flex-shrink:0;margin-left:auto;padding-left:8px}
+.step details[open] summary::after{transform:rotate(180deg)}
+.step details[open] summary{background:#e8eef9;border-bottom:1px solid #d1d9e8}
+.step-body{padding:16px 20px}
+.step-num{background:#1a3c6e;color:#fff;font-size:12px;font-weight:700;border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.step-title{font-size:15px;font-weight:600;color:#1a3c6e}
+.try-hint{font-size:12.5px;color:#6b7280;font-style:italic;margin-left:auto}
+.callout{border-radius:6px;padding:13px 18px;margin:14px 0;font-size:14.5px}
+.callout p{margin:4px 0}
+.info{background:#eef4ff;border-left:4px solid #3b82f6}
+.given{background:#f0fdf4;border-left:4px solid #22c55e}
+.answer{background:#fff7ed;border-left:4px solid #f97316;font-size:16px;font-weight:600}
+.note{background:#faf5ff;border-left:4px solid #a855f7;font-size:14px}
+.warn{background:#fffbeb;border-left:4px solid #f59e0b;font-size:14px}
+.math-block{background:#f8f9fb;border:1px solid #e2e6ef;border-radius:6px;padding:14px 20px;margin:12px 0;overflow-x:auto;text-align:center}
+.diagram-wrap{text-align:center;margin:22px 0 8px}
+.diagram-wrap figure{margin:0}
+.diagram-wrap svg{max-width:100%;height:auto}
+.diagram-wrap figcaption{font-size:13px;color:#555;margin-top:2px;font-style:italic;line-height:1.5}
+table.sum{border-collapse:collapse;width:100%;margin:14px 0;font-size:14px}
+table.sum th{background:#1a3c6e;color:#fff;text-align:left;padding:8px 12px;font-weight:600}
+table.sum td{border-bottom:1px solid #e2e6ef;padding:7px 12px}
+table.sum tr.total td{background:#fff7ed;font-weight:700;border-top:2px solid #f97316}
+table.sum td.num{text-align:right;font-variant-numeric:tabular-nums}
+.footer{margin-top:40px;border-top:1px solid #e5e7eb;padding-top:12px;font-size:12px;color:#999;text-align:center}
+.switcher{background:#f0f4fb;border:1px solid #d1d9e8;border-radius:8px;padding:14px 18px;margin-bottom:26px}
+.switcher .sw-label{font-size:12.5px;font-weight:600;color:#1a3c6e;text-transform:uppercase;letter-spacing:.06em;margin-bottom:9px}
+.sw-btns{display:flex;flex-wrap:wrap;gap:8px}
+.sw-btns button{font-family:inherit;font-size:13.5px;font-weight:500;padding:8px 15px;border-radius:6px;border:1px solid #b9c6df;background:#fff;color:#1a3c6e;cursor:pointer;transition:.15s}
+.sw-btns button:hover{background:#e8eef9;border-color:#1a3c6e}
+.sw-btns button[aria-pressed="true"]{background:#1a3c6e;border-color:#1a3c6e;color:#fff;box-shadow:0 1px 4px rgba(26,60,110,.3)}
+.sw-desc{font-size:13px;color:#555;margin-top:10px;font-style:italic}
+ol{margin:10px 0 0 4px}
+</style>
+</head>
+<body>
+<div class="page">
+
+<div class="uni-header">
+  <p>Curtin University &nbsp;&middot;&nbsp; School of Civil and Mechanical Engineering</p>
+  <p>MCEN2002 &ndash; Fundamentals of Mechanical Design</p>
+  <p style="margin-top:8px"><strong>Dr Azma Putra Azis</strong></p>
+  <h2>Tutorial 10.3 &nbsp;&ndash;&nbsp; Short Shoe Brake &#8212; Force, Torque, Pin Load and Heat</h2>
+</div>
+
+<div class="switcher">
+  <div class="sw-label">Choose a problem</div>
+  <div class="sw-btns" id="swBtns"></div>
+  <div class="sw-desc" id="swDesc"></div>
+</div>
+
+<div id="doc"></div>
+
+<div class="footer">MCEN2002 &ndash; Fundamentals of Mechanical Design | Tutorial 10.3 | Curtin University</div>
+</div>
+
+<script>
+
+/* ═══════════ shared formatting + SVG primitives (all six T10 pages) ═══════════ */
+var NAVY='#1a3c6e', RED='#c0392b', BLUE='#1a6fc4', ORANGE='#f97316', GREY='#555';
+function n(v,d){ d=(d===undefined)?1:d; var m=Math.pow(10,d); var r=Math.round(v*m)/m;
+  if(Object.is(r,-0)) r=0; return String(r); }
+function n0(v){ return n(v,0); }
+/* thousands separator for large numbers in prose */
+function ns(v,d){ var s=n(v,d).split('.');
+  s[0]=s[0].replace(/\B(?=(\d{3})+(?!\d))/g,'\\,'); return s.join('.'); }
+function pt(p){ return p[0].toFixed(1)+','+p[1].toFixed(1); }
+function TX(x,y,s,o){ o=o||{};
+  return '<text x="'+n(x)+'" y="'+n(y)+'"'
+    +(o.a?' text-anchor="'+o.a+'"':'')+' fill="'+(o.f||GREY)+'"'
+    +(o.fs?' font-size="'+o.fs+'"':'')+(o.b?' font-weight="bold"':'')
+    +(o.i?' font-style="italic"':'')+'>'+s+'</text>'; }
+function LN(x1,y1,x2,y2,c,w,dash){
+  return '<line x1="'+n(x1)+'" y1="'+n(y1)+'" x2="'+n(x2)+'" y2="'+n(y2)+'" stroke="'+(c||GREY)
+    +'" stroke-width="'+(w||1)+'"'+(dash?' stroke-dasharray="'+dash+'"':'')+'/>'; }
+function CIRC(cx,cy,r,fill,c,w){
+  return '<circle cx="'+n(cx)+'" cy="'+n(cy)+'" r="'+n(r)+'" fill="'+(fill||'none')
+    +'" stroke="'+(c||NAVY)+'" stroke-width="'+(w||1.5)+'"/>'; }
+function RECT(x,y,w,h,fill,c,sw,op){
+  return '<rect x="'+n(x)+'" y="'+n(y)+'" width="'+n(w)+'" height="'+n(h)+'" fill="'+fill+'"'
+    +(op?' fill-opacity="'+op+'"':'')+' stroke="'+(c||NAVY)+'" stroke-width="'+(sw||1.5)+'"/>'; }
+/* arrowhead: tip point, u = unit direction of travel */
+function HEAD(tip,u,c,len,half){ len=len||12; half=half||5.5;
+  var b=[tip[0]-u[0]*len, tip[1]-u[1]*len], p=[-u[1],u[0]];
+  return '<polygon points="'+pt(tip)+' '+pt([b[0]+p[0]*half,b[1]+p[1]*half])+' '
+    +pt([b[0]-p[0]*half,b[1]-p[1]*half])+'" fill="'+c+'"/>'; }
+/* line from (x1,y1) to (x2,y2) with the head AT (x2,y2) */
+function ARR(x1,y1,x2,y2,c,w,len,half){ len=len||12;
+  var dx=x2-x1, dy=y2-y1, L=Math.sqrt(dx*dx+dy*dy), u=[dx/L,dy/L];
+  return LN(x1,y1,x2-u[0]*len,y2-u[1]*len,c,w||2.4)+HEAD([x2,y2],u,c,len,half); }
+/* double-headed dimension between two points */
+function DIM(x1,y1,x2,y2,c,len){ len=len||11; c=c||GREY;
+  var dx=x2-x1, dy=y2-y1, L=Math.sqrt(dx*dx+dy*dy), u=[dx/L,dy/L];
+  return LN(x1+u[0]*len,y1+u[1]*len,x2-u[0]*len,y2-u[1]*len,c,1)
+    +HEAD([x2,y2],u,c,len,4)+HEAD([x1,y1],[-u[0],-u[1]],c,len,4); }
+/* through-centre DIAMETER dimension (two heads on the rim) */
+function DIA(cx,cy,R,ang,c){ var u=[Math.cos(ang),Math.sin(ang)];
+  return DIM(cx-R*u[0],cy-R*u[1],cx+R*u[0],cy+R*u[1],c||GREY,12); }
+/* single-headed RADIUS leader, centre out to the rim */
+function RAD(cx,cy,R,ang,c){ c=c||GREY; var u=[Math.cos(ang),Math.sin(ang)];
+  return ARR(cx,cy,cx+R*u[0],cy+R*u[1],c,1,12,4); }
+/* point on a circle, maths convention: 0 = +x, angle increases anticlockwise on screen */
+function P(cx,cy,R,t){ return [cx+R*Math.cos(t), cy-R*Math.sin(t)]; }
+/* curved arrow along a circle from t0 to t1 (radians, maths convention) */
+function ARC(cx,cy,R,t0,t1,c,w){
+  var A=P(cx,cy,R,t0), B=P(cx,cy,R,t1), ccw=(t1>t0);
+  var sweep = ccw?0:1, large = (Math.abs(t1-t0)>Math.PI)?1:0;
+  var u = ccw ? [-Math.sin(t1),-Math.cos(t1)] : [Math.sin(t1),Math.cos(t1)];
+  var back = [B[0]-u[0]*2, B[1]-u[1]*2];
+  return '<path d="M '+pt(A)+' A '+n(R)+','+n(R)+' 0 '+large+','+sweep+' '+pt(back)+'" fill="none" stroke="'
+    +c+'" stroke-width="'+(w||2.2)+'"/>'+HEAD([B[0]+u[0]*9,B[1]+u[1]*9],u,c,11,5.5); }
+function HATCH(x,y,c){ var s=LN(x-20,y,x+20,y,c,1.5);
+  for(var i=0;i<4;i++){ var bx=x-16+i*10; s+=LN(bx,y+6,bx+6,y,c,1); } return s; }
+function PIN(x,y){ return '<polygon points="'+pt([x,y])+' '+pt([x-12,y+22])+' '+pt([x+12,y+22])
+  +'" fill="#dbe4f0" stroke="'+NAVY+'" stroke-width="1.5"/>'+HATCH(x,y+22,NAVY); }
+/* ═══════════ page furniture ═══════════ */
+var CIRCLED=['&#9312;','&#9313;','&#9314;','&#9315;','&#9316;','&#9317;','&#9318;'];
+function step(i,title,hint,body){
+  return '<div class="step"><details'+(i===1?' open':'')+'><summary><span class="step-num">'+i
+    +'</span><span class="step-title">'+title+'</span><span class="try-hint">'+hint
+    +'</span></summary><div class="step-body">'+body+'</div></details></div>'; }
+function fig(svg,cap){ return '<div class="diagram-wrap"><figure>'+svg
+    +'<figcaption>'+cap+'</figcaption></figure></div>'; }
+function co(kind,html){ return '<div class="callout '+kind+'">'+html+'</div>'; }
+function ans(html){ return co('answer','<p>'+html+'</p>'); }
+function note(html){ return co('note','<p>'+html+'</p>'); }
+function warn(html){ return co('warn','<p>'+html+'</p>'); }
+function info(html){ return co('info','<p>'+html+'</p>'); }
+function mistakes(list){ var h='<p><strong>Common mistakes:</strong></p>';
+  for(var i=0;i<list.length;i++) h+='<p style="margin-top:6px">'+CIRCLED[i]+' '+list[i]+'</p>';
+  return co('warn',h); }
+function rows(hdr,list){ var h='<table class="sum"><tr>';
+  for(var i=0;i<hdr.length;i++) h+='<th'+(i?' style="text-align:right"':'')+'>'+hdr[i]+'</th>';
+  h+='</tr>';
+  for(var r=0;r<list.length;r++){ var c=list[r], tot=(c[0]==='*'); if(tot) c=c.slice(1);
+    h+='<tr'+(tot?' class="total"':'')+'>';
+    for(var k=0;k<c.length;k++) h+='<td'+(k?' class="num"':'')+'>'+c[k]+'</td>';
+    h+='</tr>'; }
+  return h+'</table>'; }
+
+
+/* ═══════════ T10.3 — short shoe brake, pressure limited ═══════════ */
+var VARIANTS=[
+ {btn:'Original', L1:250, L2:320, hA:240, D:400, sl:150, sw:40, mu:0.30, p:600, rpm:240, t:6, selfE:true,
+  desc:'The tutorial sheet problem \u2014 pivot 240 mm above the drum axis, self-energising for the rotation shown.'},
+ {btn:'Variant 1 \u2014 new magnitudes', L1:300, L2:350, hA:260, D:420, sl:180, sw:50, mu:0.35, p:700, rpm:300, t:5, selfE:true,
+  desc:'Same arrangement with a longer lever, a bigger drum, a larger shoe and a grippier lining. Every step of the method is unchanged \u2014 only the numbers move.'},
+ {btn:'Variant 2 \u2014 reversed rotation', L1:250, L2:320, hA:240, D:400, sl:150, sw:40, mu:0.30, p:600, rpm:240, t:6, selfE:false,
+  desc:'Configuration change: the drum turns the other way, so the friction moment now OPPOSES the applied force. The brake becomes de-energising and needs a larger F for the same torque. Watch the sign in the moment equation \u2014 that single change is the whole difference.'}
+];
+function solve(v){
+  var R=v.D/2/1000, c=v.hA-v.D/2, A=v.sl*v.sw/1e6, N=v.p*1000*A, Ff=v.mu*N, T=Ff*R;
+  var L=v.L1+v.L2, num=v.selfE ? (v.L1-c*v.mu) : (v.L1+c*v.mu), F=N*num/L;
+  var Ax=Ff, Ay=F-N, RA=Math.sqrt(Ax*Ax+Ay*Ay), th=Math.atan2(Math.abs(Ay),Ax)*180/Math.PI;
+  var w0=v.rpm*2*Math.PI/60, al=w0/v.t, ang=w0/2*v.t, Q=T*ang, Pav=Q/v.t;
+  return {R:R,c:c,A:A,N:N,Ff:Ff,T:T,L:L,num:num,F:F,Fnf:N*v.L1/L,Falt:N*(v.selfE?(v.L1+c*v.mu):(v.L1-c*v.mu))/L,
+          Ax:Ax,Ay:Ay,RA:RA,th:th,w0:w0,al:al,ang:ang,rev:ang/(2*Math.PI),Q:Q,Pav:Pav,Ppk:T*w0,
+          I:2*Q/(w0*w0), vsurf:w0*R};
+}
+function geo(v){
+  var s=342/(v.L1+v.L2), x0=80, yA=150;
+  return {s:s, x0:x0, yA:yA, xs:x0+v.L1*s, xF:x0+(v.L1+v.L2)*s,
+          cy:yA+v.hA*s, R:v.D/2*s, yc:yA+(v.hA-v.D/2)*s};
+}
+function figShoe(v,S){
+  var G0=geo(v), g='<svg viewBox="-56 0 676 470" width="720" xmlns="http://www.w3.org/2000/svg" font-family="Arial,sans-serif" font-size="12">';
+  var xs=G0.xs, cy=G0.cy, R=G0.R, yc=G0.yc, s=G0.s;
+  g+=CIRC(xs,cy,R,'#dbe4f0',NAVY,2)+CIRC(xs,cy,9,'#fff',NAVY,1.5);
+  g+=LN(xs-R-20,cy,xs+R+20,cy,'#888',0.8,'7,3,2,3')+LN(xs,cy-R-14,xs,cy+R+14,'#888',0.8,'7,3,2,3');
+  /* rotation: CCW when self-energising (surface at the shoe moves left) */
+  var ra=R*0.72;
+  g+= v.selfE ? ARC(xs,cy,ra,-0.30,0.62,NAVY,2.2) : ARC(xs,cy,ra,0.62,-0.30,NAVY,2.2);
+  g+=TX(xs+R+16,cy-ra*0.55,'Rotation ('+(v.selfE?'CCW':'CW')+')',{f:NAVY,b:1});
+  /* lever + shoe */
+  g+=RECT(G0.x0+6,G0.yA-8,G0.xF-G0.x0+60,9,'#7eaecf',NAVY,1.5);
+  var hw=v.sl*s/2;
+  g+='<polygon points="'+pt([xs-hw,G0.yA+1])+' '+pt([xs+hw,G0.yA+1])+' '+pt([xs+hw*0.9,yc])+' '+pt([xs-hw*0.9,yc])
+   +'" fill="#f97316" fill-opacity="0.5" stroke="'+RED+'" stroke-width="1.5"/>';
+  g+=TX(xs+hw+16,yc-4,'shoe ('+n0(v.sw)+' mm wide)',{f:RED,b:1});
+  /* pivot */
+  g+=CIRC(G0.x0,G0.yA-4,9,'#dbe4f0',NAVY,1.8)+PIN(G0.x0,G0.yA+5)
+   +TX(G0.x0-18,G0.yA-18,'A',{f:NAVY,b:1,i:1});
+  /* F */
+  g+=ARR(G0.xF,72,G0.xF,G0.yA-8,RED,2.6)+TX(G0.xF+8,72,'F',{f:RED,b:1,fs:14});
+  /* horizontal dims */
+  g+=LN(G0.x0,46,G0.x0,G0.yA-16,GREY,0.8)+LN(xs,46,xs,G0.yA-16,GREY,0.8)+LN(G0.xF,46,G0.xF,66,GREY,0.8);
+  g+=DIM(G0.x0,52,xs,52)+TX((G0.x0+xs)/2,44,n0(v.L1)+' mm',{a:'middle'});
+  g+=DIM(xs,52,G0.xF,52)+TX((xs+G0.xF)/2,44,n0(v.L2)+' mm',{a:'middle'});
+  /* pivot height */
+  g+=DIM(34,G0.yA-4,34,cy)+LN(34,G0.yA-4,G0.x0-10,G0.yA-4,GREY,0.8,'3,3')
+   +LN(34,cy,xs-R-6,cy,GREY,0.8,'3,3')+TX(28,(G0.yA+cy)/2+4,n0(v.hA)+' mm',{a:'end'});
+  /* shoe width + drum dia */
+  g+=DIM(xs-hw,yc+24,xs+hw,yc+24)+TX(xs,yc+42,n0(v.sl)+' mm',{a:'middle'});
+  g+=DIA(xs,cy,R,Math.PI/4)+TX(xs+R*0.78+12,cy+R*0.78+22,'&#8709;'+n0(v.D)+' mm');
+  g+=TX(60,452,'Initial speed '+n0(v.rpm)+' rpm &#183; &#956; = '+v.mu+' &#183; p&#8321;&#8320;&#8321; = '+n0(v.p)
+    +' kPa on the projected area',{i:1});
+  return g+'</svg>';
+}
+function figFBD(v,S){
+  var G0=geo(v), g='<svg viewBox="0 0 620 300" width="660" xmlns="http://www.w3.org/2000/svg" font-family="Arial,sans-serif" font-size="12">';
+  var x0=80, xs=G0.x0+v.L1*G0.s, xF=G0.xF, yL=100, yc=yL+G0.s*(v.hA-v.D/2);
+  g+=RECT(x0+6,yL-4,xF-x0+24,9,'#7eaecf',NAVY,1.5)+CIRC(x0,yL,9,'#dbe4f0',NAVY,1.8)
+   +TX(x0-20,yL-12,'A',{f:NAVY,b:1,i:1});
+  g+=LN(xs-90,yc,xs+90,yc,'#888',0.8,'4,3')+LN(x0-20,yL,xs-70,yL,'#888',0.8,'4,3');
+  g+=DIM(xs-70,yL,xs-70,yc)+TX(xs-62,yc-6,n0(S.c)+' mm');
+  g+=ARR(xs,yc+72,xs,yc,BLUE,2.6)+TX(xs+10,yc+64,'N = '+n(S.N,0)+' N',{f:BLUE,b:1});
+  var dir=v.selfE?-1:1;
+  g+=ARR(xs,yc,xs+dir*78,yc,RED,2.6)
+   +TX(xs+dir*90,yc+22,'&#956;N = '+n(S.Ff,0)+' N',{f:RED,b:1,a:(dir<0?'end':'start')});
+  g+=ARR(xF,30,xF,yL-6,RED,2.6)+TX(xF+8,34,'F',{f:RED,b:1,fs:14});
+  g+=DIM(x0,250,xs,250)+TX((x0+xs)/2,270,n0(v.L1)+' mm',{a:'middle'});
+  g+=DIM(xs,250,xF,250)+TX((xs+xF)/2,270,n0(v.L2)+' mm',{a:'middle'});
+  g+=LN(x0,yL+10,x0,256,'#888',0.8,'3,3')+LN(xs,yc+76,xs,256,'#888',0.8,'3,3')+LN(xF,yL+6,xF,256,'#888',0.8,'3,3');
+  return g+'</svg>';
+}
+function figPin(v,S){
+  var g='<svg viewBox="0 0 520 268" width="540" xmlns="http://www.w3.org/2000/svg" font-family="Arial,sans-serif" font-size="12">';
+  g+=TX(20,24,'Forces on the lever',{f:NAVY,b:1,fs:13})+TX(300,24,'Pin reaction at A',{f:NAVY,b:1,fs:13});
+  g+=RECT(40,86,220,8,'#7eaecf',NAVY,1.4)+CIRC(44,90,8,'#dbe4f0',NAVY,1.6)+TX(26,80,'A',{f:NAVY,b:1,i:1});
+  g+=ARR(150,150,150,100,BLUE,2.4)+TX(156,146,n(S.N,0),{f:BLUE,b:1});
+  var dir=v.selfE?-1:1;
+  g+=ARR(150,112,150+dir*48,112,RED,2.4)+TX(150+dir*62,134,n(S.Ff,0),{f:RED,b:1,a:(dir<0?'end':'start')});
+  g+=ARR(248,34,248,84,RED,2.4)+TX(256,44,'F = '+n(S.F,0),{f:RED,b:1});
+  /* resultant at A: Ax along +x for self-energising, Ay downward */
+  var sc=76/S.RA, ax=S.Ax*sc*dir*-1, ay=-S.Ay*sc;
+  g+=ARR(44,90,44+ax,90+ay,ORANGE,2.6)+TX(52,196,'R'+'&#8320; = '+n(S.RA,0)+' N',{f:ORANGE,b:1});
+  /* vector triangle */
+  var X=330,Y=70, L1=100, L2=114;
+  g+=ARR(X,Y,X+L1,Y,RED,2.4)+TX(X+30,Y-10,'A&#8339; = '+n(S.Ax,0)+' N',{f:RED,b:1});
+  g+=ARR(X+L1,Y,X+L1,Y+L2,BLUE,2.4)+TX(X+L1+8,Y+L2/2,'A&#8342; = '+n(Math.abs(S.Ay),0)+' N',{f:BLUE,b:1});
+  g+=LN(X,Y,X+L1-6,Y+L2-8,ORANGE,2.8,'7,4')+TX(X-14,Y+80,n(S.RA,0)+' N',{a:'end',f:ORANGE,b:1});
+  g+='<path d="M '+pt([X+26,Y])+' A 26,26 0 0,1 '+pt([X+18,Y+20])+'" fill="none" stroke="'+GREY+'" stroke-width="1"/>';
+  g+=TX(X+30,Y+26,n(S.th,1)+'&#176;');
+  return g+'</svg>';
+}
+function build(v){
+  var S=solve(v), h='', sgn=v.selfE?'-':'+', word=v.selfE?'self-energising':'de-energising';
+  h+='<h3>Problem Statement</h3>'
+   +'<p>A single external <strong>short shoe</strong> presses on a drum (a second shoe would normally balance the bearing load; '
+   +'only one is shown to keep the problem short). The shoe contact is <strong>'+n0(v.sw)+'&nbsp;mm wide</strong> and <strong>'
+   +n0(v.sl)+'&nbsp;mm long</strong> measured across the drum, the friction material gives $\\mu = '+v.mu+'$ and permits an '
+   +'average pressure of <strong>'+n0(v.p)+'&nbsp;kPa</strong> based on the <strong>projected</strong> area of contact. The drum '
+   +'is '+n0(v.D)+'&nbsp;mm diameter. Use the short-shoe approximate relationships.</p>'
+   +'<ol>'
+   +'<li>What value of force $F$ can be applied without exceeding the allowable contact pressure?</li>'
+   +'<li>What is the resulting brake torque?</li>'
+   +'<li>Is the brake self-energising or de-energising for the direction of rotation shown?</li>'
+   +'<li>What radial force is applied to the pivot bearing at point $A$?</li>'
+   +'<li>If full application of the brake brings the drum from <strong>'+n0(v.rpm)+'&nbsp;rpm</strong> to rest in <strong>'
+   +n(v.t,1)+'&nbsp;s</strong>, how much heat is generated?</li>'
+   +'<li>What is the average power developed by the brake during the stop?</li></ol>';
+  h+=co('given','<p><strong>Answers (computed here \u2014 the sheet gives none):</strong> '
+    +'1. $F = '+n(S.F,0)+'$ N &nbsp;&middot;&nbsp; 2. $T = '+n(S.T,1)+'$ N&middot;m &nbsp;&middot;&nbsp; 3. '+word
+    +' &nbsp;&middot;&nbsp; 4. $R_A = '+n(S.RA,0)+'$ N &nbsp;&middot;&nbsp; 5. $Q = '+n(S.Q/1000,1)
+    +'$ kJ &nbsp;&middot;&nbsp; 6. $P_{avg} = '+n(S.Pav/1000,2)+'$ kW</p>');
+  h+=fig(figShoe(v,S),'Short shoe brake. The pivot $A$ sits '+n0(v.hA)+'&nbsp;mm above the drum axis while the drum radius is '
+    +n0(v.D/2)+'&nbsp;mm, so the shoe contact plane lies <strong>'+n0(S.c)+'&nbsp;mm below the pivot</strong> &#8212; that offset '
+    +'is what gives the friction force a moment about $A$. Dimensions in millimetres.');
+  h+=info('<strong>Strategy:</strong> the short-shoe model assumes the contact arc is small enough that the pressure is uniform '
+    +'and the resultant normal force acts radially through the drum centre at the shoe centreline. Work in this order: pressure '
+    +'limit &#8594; $N$ &#8594; moment balance for $F$ &#8594; friction for the torque &#8594; force balance for the pin reaction '
+    +'&#8594; kinematics for the heat and power.');
+  h+='<h3>Solution</h3>';
+  h+=step(1,'Normal force from the pressure limit','watch the word &ldquo;projected&rdquo;',
+    '<p>&ldquo;Projected area&rdquo; means the shoe footprint <em>flattened onto a plane</em> &#8212; length across the drum '
+    +'&times; width &#8212; not the curved arc area. It is the projected area that carries the resultant normal force.</p>'
+    +'<div class="math-block">$$A_{\\text{proj}} = '+n0(v.sl)+' \\times '+n0(v.sw)+' = '+n(v.sl*v.sw,0)+'\\ \\text{mm}^2 = '
+    +n(S.A*1000,1)+'\\times10^{-3}\\ \\text{m}^2$$</div>'
+    +'<div class="math-block">$$N = p A_{\\text{proj}} = ('+n0(v.p)+'\\times10^{3})('+n(S.A*1000,1)+'\\times10^{-3}) = '
+    +n(S.N,0)+'\\ \\text{N}$$</div>'
+    +ans('$N = '+n(S.N,0)+'\\ \\text{N}$ &nbsp; (the largest normal force the lining will tolerate)')
+    +note('<strong>This is a limit, not a working value.</strong> Everything that follows is the <em>maximum</em> the brake may be '
+      +'pushed to &#8212; the largest permissible $F$, the largest torque, the largest pin load.'));
+  h+=step(2,'Question 1 &#8212; the allowable actuating force $F$','where does the friction force act?',
+    fig(figFBD(v,S),'Free body of the lever. The drum pushes back on the shoe with $N$ (upward, through the shoe centreline) and '
+      +'drags it with $\\mu N$ along the contact plane, '+n0(S.c)+'&nbsp;mm below the pivot. With the rotation shown, the drum '
+      +'surface at the shoe moves to the <em>'+(v.selfE?'left':'right')+'</em>, so friction on the shoe points '
+      +(v.selfE?'left':'right')+'.')
+    +'<div class="math-block">$$F_f = \\mu N = '+v.mu+' \\times '+n(S.N,0)+' = '+n(S.Ff,0)+'\\ \\text{N}$$</div>'
+    +'<p>Take moments about $A$, counter-clockwise positive, with $A$ as origin, $x$ to the right and $y$ up:</p>'
+    +rows(['Force','Point of application','Moment about $A$'],[
+      ['$F$ (down)','$('+n0(S.L)+',\\,0)$ mm','$-'+n0(S.L)+'F$'],
+      ['$N = '+n(S.N,0)+'$ N (up)','$('+n0(v.L1)+',\\,-'+n0(S.c)+')$ mm','$+'+n0(v.L1)+'N$'],
+      ['$\\mu N = '+n(S.Ff,0)+'$ N ('+(v.selfE?'left':'right')+')','$('+n0(v.L1)+',\\,-'+n0(S.c)+')$ mm',
+       '$'+sgn+n0(S.c)+'\\mu N$']])
+    +'<div class="math-block">$$\\sum M_A = 0:\\quad '+n0(S.L)+'F = N\\,('+n0(v.L1)+' '+sgn+' '+n0(S.c)+'\\mu) = '
+    +n(S.N,0)+'\\,('+n0(v.L1)+' '+sgn+' '+n(S.c*v.mu,1)+') = '+n(S.N*S.num,0)+'$$'
+    +'$$F = \\frac{'+n(S.N*S.num,0)+'}{'+n0(S.L)+'} = '+n(S.F,0)+'\\ \\text{N}$$</div>'
+    +ans('<strong>1.</strong> &nbsp; $F_{\\max} = '+n(S.F,0)+'\\ \\text{N}$')
+    +note('<strong>Check the lever ratio.</strong> Ignoring friction entirely, $F$ would be $'+n0(v.L1)+'/'+n0(S.L)+' = '
+      +n(v.L1/S.L,3)+'$ of $N$, i.e. '+n(S.Fnf,0)+'&nbsp;N. The actual answer is '+(v.selfE?'less':'more')+' &#8212; friction is '
+      +(v.selfE?'doing part of the work':'working against you')+', which is the subject of question&nbsp;3.'));
+  h+=step(3,'Question 2 &#8212; brake torque','friction acts at the drum surface',
+    '<p>The friction force acts tangentially at the drum radius $r = '+n0(v.D/2)+'$ mm:</p>'
+    +'<div class="math-block">$$T = \\mu N r = '+n(S.Ff,0)+' \\times '+n(S.R,3)+' = '+n(S.T,1)+'\\ \\text{N}\\cdot\\text{m}$$</div>'
+    +ans('<strong>2.</strong> &nbsp; $T = '+n(S.T,1)+'\\ \\text{N}\\cdot\\text{m}$ per shoe')
+    +note('<strong>With the second shoe fitted</strong> the torque would double to '+n(2*S.T,1)+'&nbsp;N&middot;m and the net '
+      +'radial load on the <em>drum</em> bearings would cancel &#8212; the real reason brakes come in pairs. It does nothing for '
+      +'the <em>lever</em> pin load of question&nbsp;4; each lever still carries its own reaction.'));
+  h+=step(4,'Question 3 &#8212; self-energising or de-energising?','look at the sign in the moment equation',
+    '<p>Read the moment equation again:</p>'
+    +'<div class="math-block">$$'+n0(S.L)+'F = N\\,('+n0(v.L1)+' '+sgn+' '+n0(S.c)+'\\mu)$$</div>'
+    +'<p>The friction term carries a <strong>'+(v.selfE?'minus':'plus')+'</strong> sign, so it '
+    +(v.selfE?'<em>reduces</em>':'<em>increases</em>')+' the force needed to reach a given normal force.</p>'
+    +ans('<strong>3.</strong> &nbsp; The brake is <strong>'+word+'</strong> for the rotation shown.')
+    +'<p>Physically: the drum drags the shoe to the '+(v.selfE?'left':'right')+'; because the contact plane lies <em>below</em> '
+    +'the pivot, that drag rotates the lever '+(v.selfE?'in the same sense as':'against')+' the applied force $F$, so it '
+    +(v.selfE?'pushes the shoe harder onto':'tends to lift the shoe off')+' the drum.</p>'
+    +'<h4>How much does it matter?</h4>'
+    +rows(['Case','Moment equation','$F$ for $N = '+n(S.N,0)+'$ N'],[
+      ['Self-energising','$'+n0(S.L)+'F = N('+n0(v.L1)+' - '+n(S.c*v.mu,1)+')$',
+        n(N_self(v,S),0)+' N'],
+      ['Friction ignored','$'+n0(S.L)+'F = N('+n0(v.L1)+')$', n(S.Fnf,0)+' N'],
+      ['De-energising','$'+n0(S.L)+'F = N('+n0(v.L1)+' + '+n(S.c*v.mu,1)+')$', n(N_de(v,S),0)+' N']])
+    +note('<strong>Only a '+n(Math.abs(S.F-S.Fnf)/S.Fnf*100,1)+'% shift here</strong> &#8212; and '
+      +n((N_de(v,S)-N_self(v,S))/N_self(v,S)*100,0)+'% between the two rotation directions. The effect is modest because the '
+      +'pivot offset ('+n0(S.c)+'&nbsp;mm) is small against the shoe arm ('+n0(v.L1)+'&nbsp;mm). Push the pivot further from the '
+      +'contact plane and it grows fast: the brake would self-lock when $'+n0(S.c)+'\\mu \\ge '+n0(v.L1)+'$, i.e. at '
+      +'$\\mu \\ge '+n(v.L1/S.c,2)+'$ for this geometry. Comfortably safe.')
+    +warn('<strong>Self-energising is not automatically good.</strong> The gain comes from friction, and $\\mu$ drifts with '
+      +'temperature, wear and moisture, so the torque is less predictable. The effect is exploited deliberately (drum brakes) or '
+      +'avoided deliberately (disk brakes), never left to chance.'));
+  h+=step(5,'Question 4 &#8212; radial force on the pivot bearing at $A$','force balance, not moment balance',
+    '<p>The moment equation gave $F$; the two <em>force</em> equations give the pin reaction. Take the whole lever as the free '
+    +'body, with $A_x$, $A_y$ the components the pin applies to it:</p>'
+    +'<div class="math-block">$$\\sum F_x = 0:\\quad A_x = \\mu N = '+n(S.Ff,0)+'\\ \\text{N}\\ ('
+    +(v.selfE?'\\rightarrow':'\\leftarrow')+')$$</div>'
+    +'<div class="math-block">$$\\sum F_y = 0:\\quad A_y + N - F = 0 \\;\\Rightarrow\\; A_y = '+n(S.F,0)+' - '+n(S.N,0)+' = '
+    +n(S.Ay,0)+'\\ \\text{N}$$</div>'
+    +'<p>The negative sign says the pin pulls the lever <strong>downward</strong> with '+n(Math.abs(S.Ay),0)+'&nbsp;N &#8212; keep '
+    +'the sign rather than flipping it. The resultant:</p>'
+    +'<div class="math-block">$$R_A = \\sqrt{A_x^2 + A_y^2} = \\sqrt{'+n(S.Ax,0)+'^2 + '+n(Math.abs(S.Ay),0)+'^2} = '
+    +n(S.RA,0)+'\\ \\text{N}$$</div>'
+    +'<div class="math-block">$$\\theta = \\arctan\\!\\left(\\frac{'+n(Math.abs(S.Ay),0)+'}{'+n(S.Ax,0)+'}\\right) = '
+    +n(S.th,1)+'^\\circ \\text{ below the horizontal}$$</div>'
+    +ans('<strong>4.</strong> &nbsp; $R_A = '+n(S.RA,0)+'\\ \\text{N}$, at '+n(S.th,1)+'&#176; below the horizontal')
+    +fig(figPin(v,S),'Left: the three applied forces on the lever and the resultant pin reaction. Right: the components add as a '
+      +'right triangle &#8212; $A_x$ balances the friction drag, $A_y$ balances the difference between the normal force and the '
+      +'actuating force.')
+    +note('<strong>Why the vertical component dominates:</strong> the drum pushes up on the shoe with '+n(S.N,0)+'&nbsp;N while '
+      +'the operator only pushes down with '+n(S.F,0)+'&nbsp;N. The pin absorbs the '+n(Math.abs(S.Ay),0)+'&nbsp;N difference, so '
+      +'the bearing at $A$ is more heavily loaded than the actuator.')
+    +note('<strong>Independent check &#8212; moments about the shoe contact point.</strong> $N$ and $\\mu N$ both act there, so '
+      +'only $F$ and the pin reaction have moments: $'+n0(v.L2)+'('+n(S.F,0)+') = '+n(v.L2*S.F,0)+'$ against $'
+      +n0(v.L1)+'('+n(Math.abs(S.Ay),0)+') '+sgn+' '+n0(S.c)+'('+n(S.Ax,0)+') = '
+      +n(v.L1*Math.abs(S.Ay)+(v.selfE?-1:1)*S.c*S.Ax,0)+'$. They agree to rounding. &#10003;'));
+  h+=step(6,'Questions 5 and 6 &#8212; heat generated and average power','work = torque &times; angle turned',
+    '<p>All of the brake\'s work becomes heat at the friction interface. With a constant brake torque the drum decelerates '
+    +'uniformly, so the angle turned is the mean angular velocity times the time:</p>'
+    +'<div class="math-block">$$\\omega_0 = \\frac{2\\pi('+n0(v.rpm)+')}{60} = '+n(S.w0,2)+'\\ \\text{rad/s}, \\qquad '
+    +'\\alpha = \\frac{\\omega_0}{t} = '+n(S.al,2)+'\\ \\text{rad/s}^2$$</div>'
+    +'<div class="math-block">$$\\theta = \\bar\\omega t = \\frac{\\omega_0}{2}t = '+n(S.ang,1)+'\\ \\text{rad}\\quad ('
+    +n(S.rev,1)+'\\ \\text{revolutions})$$</div>'
+    +'<div class="math-block">$$Q = T\\theta = '+n(S.T,1)+' \\times '+n(S.ang,1)+' = '+n(S.Q,0)+'\\ \\text{J}$$</div>'
+    +ans('<strong>5.</strong> &nbsp; $Q = '+n(S.Q/1000,1)+'\\ \\text{kJ}$ of heat generated')
+    +'<div class="math-block">$$P_{\\text{avg}} = \\frac{Q}{t} = \\frac{'+n(S.Q,0)+'}{'+n(v.t,1)+'} = '+n(S.Pav,0)
+    +'\\ \\text{W}$$</div>'
+    +ans('<strong>6.</strong> &nbsp; $P_{\\text{avg}} = '+n(S.Pav/1000,2)+'\\ \\text{kW}$')
+    +'<p>As a check, $P_{\\text{avg}} = T\\bar\\omega = '+n(S.T,1)+' \\times '+n(S.w0/2,2)+' = '+n(S.Pav,0)+'$&nbsp;W&nbsp;&#10003;</p>'
+    +note('<strong>Average is not peak.</strong> Power falls linearly from $P_{\\max} = T\\omega_0 = '+n(S.Ppk/1000,2)
+      +'$&nbsp;kW at the instant of application to zero at rest &#8212; the lining sees twice the average heat flux at the start '
+      +'of the stop, which is when a marginal design fails.')
+    +note('<strong>What this implies about the drum:</strong> $Q = \\tfrac{1}{2}I\\omega_0^2$ gives $I = '+n(S.I,1)
+      +'\\ \\text{kg}\\cdot\\text{m}^2$ &#8212; a substantial flywheel, consistent with a '+n0(v.D)+'&nbsp;mm drum on a machine '
+      +'with rotating masses attached. The rubbing speed is $\\omega_0 r = '+n(S.vsurf,1)+'$&nbsp;m/s, so the $pV$ product is $'
+      +n(v.p*S.vsurf/1000,1)+'\\ \\text{MPa}\\cdot\\text{m/s}$ &#8212; the number a designer checks against the lining limit.')
+    +rows(['Quantity','Value'],[
+      ['Projected contact area', n(S.A*1000,1)+'&times;10&#8315;&#179; m&#178;'],
+      ['Normal force $N = pA$', n(S.N,0)+' N'],
+      ['Friction force $\\mu N$', n(S.Ff,0)+' N'],
+      ['*1. Allowable actuating force $F$', n(S.F,0)+' N'],
+      ['*2. Brake torque $\\mu N r$', n(S.T,1)+' N&middot;m'],
+      ['*3. Character of the brake', word],
+      ['*4. Pin reaction at $A$', n(S.RA,0)+' N @ '+n(S.th,1)+'&#176;'],
+      ['*5. Heat generated in the stop', n(S.Q/1000,1)+' kJ'],
+      ['*6. Average power', n(S.Pav/1000,2)+' kW']]));
+  h+=mistakes([
+    '<strong>Using the curved arc area instead of the projected area.</strong> The question says &ldquo;projected&rdquo; '
+      +'explicitly; the arc is longer than '+n0(v.sl)+'&nbsp;mm, so using it overstates everything downstream.',
+    '<strong>Taking the friction moment arm as '+n0(v.hA)+'&nbsp;mm.</strong> Friction acts at the <em>drum surface</em>, '
+      +n0(v.D/2)+'&nbsp;mm from the axis, which is '+n0(v.hA)+' &minus; '+n0(v.D/2)+' = <strong>'+n0(S.c)
+      +'&nbsp;mm</strong> below the pivot.',
+    '<strong>Getting the sign of the friction moment wrong.</strong> Work out which way the drum surface moves at the contact, '
+      +'then draw friction on the shoe in that same direction. Guessing costs '
+      +n((N_de(v,S)-N_self(v,S))/N_self(v,S)*100,0)+'% on $F$.',
+    '<strong>Answering question 4 with a moment equation.</strong> The pin reaction comes from $\\sum F_x$ and $\\sum F_y$; the '
+      +'moment equation was used up finding $F$. And the answer is a <em>vector</em> &#8212; '+n(S.Ax,0)+' and '
+      +n(Math.abs(S.Ay),0)+'&nbsp;N do not add to '+n(S.Ax+Math.abs(S.Ay),0)+'&nbsp;N.',
+    '<strong>Computing the heat as $T\\omega_0 t$.</strong> That uses the <em>initial</em> speed for the whole stop and doubles '
+      +'the answer to '+n(2*S.Q/1000,1)+'&nbsp;kJ. Use the mean angular velocity.',
+    '<strong>Quoting the peak power as the average.</strong> '+n(S.Ppk/1000,2)+'&nbsp;kW is the instantaneous value at the start; '
+      +'the average over the stop is exactly half of it.']);
+  return h;
+}
+function N_self(v,S){ return S.N*(v.L1-S.c*v.mu)/S.L; }
+function N_de(v,S){ return S.N*(v.L1+S.c*v.mu)/S.L; }
+
+
+function render(i){
+  var v = VARIANTS[i];
+  document.getElementById('doc').innerHTML = build(v);
+  document.getElementById('swDesc').textContent = v.desc;
+  var b = document.querySelectorAll('#swBtns button');
+  for(var j=0;j<b.length;j++) b[j].setAttribute('aria-pressed', j===i ? 'true':'false');
+  if(window.renderMathInElement){
+    renderMathInElement(document.getElementById('doc'), {
+      delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}],
+      throwOnError:false});
+  }
+}
+function init(){
+  var box = document.getElementById('swBtns');
+  VARIANTS.forEach(function(v,i){
+    var b = document.createElement('button');
+    b.textContent = v.btn;
+    b.setAttribute('aria-pressed','false');
+    b.onclick = function(){ render(i); };
+    box.appendChild(b);
+  });
+  render(0);
+}
+window.addEventListener('load', init);
+</script>
+</body>
+</html>

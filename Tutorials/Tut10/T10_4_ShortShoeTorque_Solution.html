@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>T10.4 - Short Shoe Brake Torque</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css"/>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+body{font-family:'Segoe UI',Arial,sans-serif;font-size:15px;line-height:1.75;color:#1a1a1a;background:#f5f6f8;margin:0;padding:24px 16px 56px}
+.page{max-width:880px;margin:0 auto;background:#fff;border-radius:10px;box-shadow:0 2px 14px rgba(0,0,0,.10);padding:40px 52px 52px}
+.uni-header{text-align:center;border-bottom:2px solid #1a3c6e;padding-bottom:16px;margin-bottom:24px}
+.uni-header p{margin:0;line-height:1.4;font-size:13.5px;color:#555}
+.uni-header h2{margin:8px 0 0;font-size:20px;color:#1a3c6e}
+h3{color:#1a3c6e;border-left:4px solid #1a3c6e;padding-left:10px;margin:28px 0 10px;font-size:15.5px}
+h4{color:#1a3c6e;font-size:14.5px;margin:20px 0 6px}
+.step{margin-bottom:10px}
+.step details{border:1px solid #d1d9e8;border-radius:8px;overflow:hidden;margin-top:6px}
+.step details summary{list-style:none;cursor:pointer;padding:11px 15px;background:#f0f4fb;color:#1a3c6e;font-weight:500;font-size:14.5px;display:flex;align-items:center;gap:10px;user-select:none}
+.step details summary::-webkit-details-marker{display:none}
+.step details summary::after{content:'\25BC';font-size:11px;color:#f97316;transition:transform .2s;flex-shrink:0;margin-left:auto;padding-left:8px}
+.step details[open] summary::after{transform:rotate(180deg)}
+.step details[open] summary{background:#e8eef9;border-bottom:1px solid #d1d9e8}
+.step-body{padding:16px 20px}
+.step-num{background:#1a3c6e;color:#fff;font-size:12px;font-weight:700;border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.step-title{font-size:15px;font-weight:600;color:#1a3c6e}
+.try-hint{font-size:12.5px;color:#6b7280;font-style:italic;margin-left:auto}
+.callout{border-radius:6px;padding:13px 18px;margin:14px 0;font-size:14.5px}
+.callout p{margin:4px 0}
+.info{background:#eef4ff;border-left:4px solid #3b82f6}
+.given{background:#f0fdf4;border-left:4px solid #22c55e}
+.answer{background:#fff7ed;border-left:4px solid #f97316;font-size:16px;font-weight:600}
+.note{background:#faf5ff;border-left:4px solid #a855f7;font-size:14px}
+.warn{background:#fffbeb;border-left:4px solid #f59e0b;font-size:14px}
+.math-block{background:#f8f9fb;border:1px solid #e2e6ef;border-radius:6px;padding:14px 20px;margin:12px 0;overflow-x:auto;text-align:center}
+.diagram-wrap{text-align:center;margin:22px 0 8px}
+.diagram-wrap figure{margin:0}
+.diagram-wrap svg{max-width:100%;height:auto}
+.diagram-wrap figcaption{font-size:13px;color:#555;margin-top:2px;font-style:italic;line-height:1.5}
+table.sum{border-collapse:collapse;width:100%;margin:14px 0;font-size:14px}
+table.sum th{background:#1a3c6e;color:#fff;text-align:left;padding:8px 12px;font-weight:600}
+table.sum td{border-bottom:1px solid #e2e6ef;padding:7px 12px}
+table.sum tr.total td{background:#fff7ed;font-weight:700;border-top:2px solid #f97316}
+table.sum td.num{text-align:right;font-variant-numeric:tabular-nums}
+.footer{margin-top:40px;border-top:1px solid #e5e7eb;padding-top:12px;font-size:12px;color:#999;text-align:center}
+.switcher{background:#f0f4fb;border:1px solid #d1d9e8;border-radius:8px;padding:14px 18px;margin-bottom:26px}
+.switcher .sw-label{font-size:12.5px;font-weight:600;color:#1a3c6e;text-transform:uppercase;letter-spacing:.06em;margin-bottom:9px}
+.sw-btns{display:flex;flex-wrap:wrap;gap:8px}
+.sw-btns button{font-family:inherit;font-size:13.5px;font-weight:500;padding:8px 15px;border-radius:6px;border:1px solid #b9c6df;background:#fff;color:#1a3c6e;cursor:pointer;transition:.15s}
+.sw-btns button:hover{background:#e8eef9;border-color:#1a3c6e}
+.sw-btns button[aria-pressed="true"]{background:#1a3c6e;border-color:#1a3c6e;color:#fff;box-shadow:0 1px 4px rgba(26,60,110,.3)}
+.sw-desc{font-size:13px;color:#555;margin-top:10px;font-style:italic}
+ol{margin:10px 0 0 4px}
+</style>
+</head>
+<body>
+<div class="page">
+
+<div class="uni-header">
+  <p>Curtin University &nbsp;&middot;&nbsp; School of Civil and Mechanical Engineering</p>
+  <p>MCEN2002 &ndash; Fundamentals of Mechanical Design</p>
+  <p style="margin-top:8px"><strong>Dr Azma Putra Azis</strong></p>
+  <h2>Tutorial 10.4 &nbsp;&ndash;&nbsp; Short Shoe Brake &#8212; Torque Capacity</h2>
+</div>
+
+<div class="switcher">
+  <div class="sw-label">Choose a problem</div>
+  <div class="sw-btns" id="swBtns"></div>
+  <div class="sw-desc" id="swDesc"></div>
+</div>
+
+<div id="doc"></div>
+
+<div class="footer">MCEN2002 &ndash; Fundamentals of Mechanical Design | Tutorial 10.4 | Curtin University</div>
+</div>
+
+<script>
+
+/* ═══════════ shared formatting + SVG primitives (all six T10 pages) ═══════════ */
+var NAVY='#1a3c6e', RED='#c0392b', BLUE='#1a6fc4', ORANGE='#f97316', GREY='#555';
+function n(v,d){ d=(d===undefined)?1:d; var m=Math.pow(10,d); var r=Math.round(v*m)/m;
+  if(Object.is(r,-0)) r=0; return String(r); }
+function n0(v){ return n(v,0); }
+/* thousands separator for large numbers in prose */
+function ns(v,d){ var s=n(v,d).split('.');
+  s[0]=s[0].replace(/\B(?=(\d{3})+(?!\d))/g,'\\,'); return s.join('.'); }
+function pt(p){ return p[0].toFixed(1)+','+p[1].toFixed(1); }
+function TX(x,y,s,o){ o=o||{};
+  return '<text x="'+n(x)+'" y="'+n(y)+'"'
+    +(o.a?' text-anchor="'+o.a+'"':'')+' fill="'+(o.f||GREY)+'"'
+    +(o.fs?' font-size="'+o.fs+'"':'')+(o.b?' font-weight="bold"':'')
+    +(o.i?' font-style="italic"':'')+'>'+s+'</text>'; }
+function LN(x1,y1,x2,y2,c,w,dash){
+  return '<line x1="'+n(x1)+'" y1="'+n(y1)+'" x2="'+n(x2)+'" y2="'+n(y2)+'" stroke="'+(c||GREY)
+    +'" stroke-width="'+(w||1)+'"'+(dash?' stroke-dasharray="'+dash+'"':'')+'/>'; }
+function CIRC(cx,cy,r,fill,c,w){
+  return '<circle cx="'+n(cx)+'" cy="'+n(cy)+'" r="'+n(r)+'" fill="'+(fill||'none')
+    +'" stroke="'+(c||NAVY)+'" stroke-width="'+(w||1.5)+'"/>'; }
+function RECT(x,y,w,h,fill,c,sw,op){
+  return '<rect x="'+n(x)+'" y="'+n(y)+'" width="'+n(w)+'" height="'+n(h)+'" fill="'+fill+'"'
+    +(op?' fill-opacity="'+op+'"':'')+' stroke="'+(c||NAVY)+'" stroke-width="'+(sw||1.5)+'"/>'; }
+/* arrowhead: tip point, u = unit direction of travel */
+function HEAD(tip,u,c,len,half){ len=len||12; half=half||5.5;
+  var b=[tip[0]-u[0]*len, tip[1]-u[1]*len], p=[-u[1],u[0]];
+  return '<polygon points="'+pt(tip)+' '+pt([b[0]+p[0]*half,b[1]+p[1]*half])+' '
+    +pt([b[0]-p[0]*half,b[1]-p[1]*half])+'" fill="'+c+'"/>'; }
+/* line from (x1,y1) to (x2,y2) with the head AT (x2,y2) */
+function ARR(x1,y1,x2,y2,c,w,len,half){ len=len||12;
+  var dx=x2-x1, dy=y2-y1, L=Math.sqrt(dx*dx+dy*dy), u=[dx/L,dy/L];
+  return LN(x1,y1,x2-u[0]*len,y2-u[1]*len,c,w||2.4)+HEAD([x2,y2],u,c,len,half); }
+/* double-headed dimension between two points */
+function DIM(x1,y1,x2,y2,c,len){ len=len||11; c=c||GREY;
+  var dx=x2-x1, dy=y2-y1, L=Math.sqrt(dx*dx+dy*dy), u=[dx/L,dy/L];
+  return LN(x1+u[0]*len,y1+u[1]*len,x2-u[0]*len,y2-u[1]*len,c,1)
+    +HEAD([x2,y2],u,c,len,4)+HEAD([x1,y1],[-u[0],-u[1]],c,len,4); }
+/* through-centre DIAMETER dimension (two heads on the rim) */
+function DIA(cx,cy,R,ang,c){ var u=[Math.cos(ang),Math.sin(ang)];
+  return DIM(cx-R*u[0],cy-R*u[1],cx+R*u[0],cy+R*u[1],c||GREY,12); }
+/* single-headed RADIUS leader, centre out to the rim */
+function RAD(cx,cy,R,ang,c){ c=c||GREY; var u=[Math.cos(ang),Math.sin(ang)];
+  return ARR(cx,cy,cx+R*u[0],cy+R*u[1],c,1,12,4); }
+/* point on a circle, maths convention: 0 = +x, angle increases anticlockwise on screen */
+function P(cx,cy,R,t){ return [cx+R*Math.cos(t), cy-R*Math.sin(t)]; }
+/* curved arrow along a circle from t0 to t1 (radians, maths convention) */
+function ARC(cx,cy,R,t0,t1,c,w){
+  var A=P(cx,cy,R,t0), B=P(cx,cy,R,t1), ccw=(t1>t0);
+  var sweep = ccw?0:1, large = (Math.abs(t1-t0)>Math.PI)?1:0;
+  var u = ccw ? [-Math.sin(t1),-Math.cos(t1)] : [Math.sin(t1),Math.cos(t1)];
+  var back = [B[0]-u[0]*2, B[1]-u[1]*2];
+  return '<path d="M '+pt(A)+' A '+n(R)+','+n(R)+' 0 '+large+','+sweep+' '+pt(back)+'" fill="none" stroke="'
+    +c+'" stroke-width="'+(w||2.2)+'"/>'+HEAD([B[0]+u[0]*9,B[1]+u[1]*9],u,c,11,5.5); }
+function HATCH(x,y,c){ var s=LN(x-20,y,x+20,y,c,1.5);
+  for(var i=0;i<4;i++){ var bx=x-16+i*10; s+=LN(bx,y+6,bx+6,y,c,1); } return s; }
+function PIN(x,y){ return '<polygon points="'+pt([x,y])+' '+pt([x-12,y+22])+' '+pt([x+12,y+22])
+  +'" fill="#dbe4f0" stroke="'+NAVY+'" stroke-width="1.5"/>'+HATCH(x,y+22,NAVY); }
+/* ═══════════ page furniture ═══════════ */
+var CIRCLED=['&#9312;','&#9313;','&#9314;','&#9315;','&#9316;','&#9317;','&#9318;'];
+function step(i,title,hint,body){
+  return '<div class="step"><details'+(i===1?' open':'')+'><summary><span class="step-num">'+i
+    +'</span><span class="step-title">'+title+'</span><span class="try-hint">'+hint
+    +'</span></summary><div class="step-body">'+body+'</div></details></div>'; }
+function fig(svg,cap){ return '<div class="diagram-wrap"><figure>'+svg
+    +'<figcaption>'+cap+'</figcaption></figure></div>'; }
+function co(kind,html){ return '<div class="callout '+kind+'">'+html+'</div>'; }
+function ans(html){ return co('answer','<p>'+html+'</p>'); }
+function note(html){ return co('note','<p>'+html+'</p>'); }
+function warn(html){ return co('warn','<p>'+html+'</p>'); }
+function info(html){ return co('info','<p>'+html+'</p>'); }
+function mistakes(list){ var h='<p><strong>Common mistakes:</strong></p>';
+  for(var i=0;i<list.length;i++) h+='<p style="margin-top:6px">'+CIRCLED[i]+' '+list[i]+'</p>';
+  return co('warn',h); }
+function rows(hdr,list){ var h='<table class="sum"><tr>';
+  for(var i=0;i<hdr.length;i++) h+='<th'+(i?' style="text-align:right"':'')+'>'+hdr[i]+'</th>';
+  h+='</tr>';
+  for(var r=0;r<list.length;r++){ var c=list[r], tot=(c[0]==='*'); if(tot) c=c.slice(1);
+    h+='<tr'+(tot?' class="total"':'')+'>';
+    for(var k=0;k<c.length;k++) h+='<td'+(k?' class="num"':'')+'>'+c[k]+'</td>';
+    h+='</tr>'; }
+  return h+'</table>'; }
+
+
+/* ═══════════ T10.4 — short shoe brake, torque capacity ═══════════ */
+var VARIANTS=[
+ {btn:'Original', a:400, b:200, c:50, F:600, D:300, mu:0.35, selfE:true, book:'69.04 N&middot;m',
+  desc:'The tutorial sheet problem \u2014 600 N at 400 mm, self-energising for the rotation shown.'},
+ {btn:'Variant 1 \u2014 new magnitudes', a:500, b:250, c:60, F:800, D:350, mu:0.30, selfE:true,
+  desc:'A longer lever, a bigger drum, a larger applied force and a slightly slipperier lining. One moment equation still does the whole job.'},
+ {btn:'Variant 2 \u2014 reversed rotation', a:400, b:200, c:50, F:600, D:300, mu:0.35, selfE:false,
+  desc:'Configuration change: the drum runs the other way. The friction moment flips sign, the brake becomes de-energising, and the same 600 N now buys noticeably less torque. Identical hardware, different answer.'}
+];
+function solve(v){
+  var R=v.D/2000, den=v.selfE ? (v.b-v.mu*v.c) : (v.b+v.mu*v.c);
+  var N=v.F*v.a/den, T=v.mu*N*R;
+  var denAlt=v.selfE ? (v.b+v.mu*v.c) : (v.b-v.mu*v.c);
+  var Nalt=v.F*v.a/denAlt, Talt=v.mu*Nalt*R;
+  return {R:R,den:den,N:N,Ff:v.mu*N,T:T,denAlt:denAlt,Nalt:Nalt,Talt:Talt,
+          Nnf:v.F*v.a/v.b, Tnf:v.mu*(v.F*v.a/v.b)*R, mulock:v.b/v.c};
+}
+function geo(v){ var s=280/v.a, x0=80, yL=130;
+  return {s:s,x0:x0,yL:yL,xs:x0+v.b*s,xF:x0+v.a*s,yc:yL+v.c*s,cy:yL+v.c*s+v.D/2*s,R:v.D/2*s}; }
+function figBrake(v,S){
+  var g0=geo(v), g='<svg viewBox="0 0 560 440" width="640" xmlns="http://www.w3.org/2000/svg" font-family="Arial,sans-serif" font-size="12">';
+  var xs=g0.xs, cy=g0.cy, R=g0.R, yc=g0.yc;
+  g+=CIRC(xs,cy,R,'#dbe4f0',NAVY,2)+CIRC(xs,cy,8,'#fff',NAVY,1.5);
+  g+=LN(xs-R-18,cy,xs+R+18,cy,'#888',0.8,'7,3,2,3')+LN(xs,cy-R-14,xs,cy+R+14,'#888',0.8,'7,3,2,3');
+  var ra=R*0.72;
+  g+= v.selfE ? ARC(xs,cy,ra,0.96,2.44,NAVY,2.2) : ARC(xs,cy,ra,2.44,0.96,NAVY,2.2);
+  /* label sits well inside the rim, in the quadrant the arrow turns towards */
+  var lx = xs + (v.selfE?-1:1)*R*0.44, ly = cy + R*0.26;
+  g+=TX(lx,ly,'Rotation ('+(v.selfE?'CCW':'CW')+')',{a:'middle',f:NAVY,b:1,fs:11});
+  g+=RECT(g0.x0-2,g0.yL-4,g0.xF-g0.x0+24,9,'#7eaecf',NAVY,1.5);
+  var hw=R*0.42;
+  g+='<polygon points="'+pt([xs-hw,g0.yL+5])+' '+pt([xs+hw,g0.yL+5])+' '+pt([xs+hw*0.9,yc])+' '+pt([xs-hw*0.9,yc])
+   +'" fill="#f97316" fill-opacity="0.5" stroke="'+RED+'" stroke-width="1.5"/>';
+  g+=CIRC(g0.x0,g0.yL,9,'#dbe4f0',NAVY,1.8)+PIN(g0.x0,g0.yL+9)+TX(g0.x0-20,g0.yL-14,'A',{f:NAVY,b:1,i:1});
+  g+=ARR(g0.xF,52,g0.xF,g0.yL-16,RED,2.6)+TX(g0.xF+8,60,'F = '+n0(v.F)+' N',{f:RED,b:1,fs:13});
+  g+=LN(g0.x0,30,g0.x0,g0.yL-24,GREY,0.8)+LN(g0.xF,30,g0.xF,46,GREY,0.8);
+  g+=DIM(g0.x0,36,g0.xF,36)+TX((g0.x0+g0.xF)/2,28,n0(v.a),{a:'middle'});
+  g+=DIM(g0.x0,cy+R+28,xs,cy+R+28)+TX((g0.x0+xs)/2,cy+R+48,n0(v.b),{a:'middle'});
+  g+=LN(g0.x0,g0.yL+18,g0.x0,cy+R+34,'#888',0.8,'3,3');
+  g+=DIM(xs-hw-24,g0.yL,xs-hw-24,yc)+LN(xs-hw-32,yc,xs-hw*0.9,yc,GREY,0.8,'3,3')+TX(xs-hw-18,yc-4,n0(v.c));
+  var aD = v.selfE ? Math.PI/4 : 3*Math.PI/4;
+  g+=DIA(xs,cy,R,aD)+TX(xs+(v.selfE?1:-1)*(R*0.75+10),cy+R*0.75+20,'&#8709; = '+n0(v.D),
+        {a:(v.selfE?'start':'end')});
+  g+=TX(262,420,'Dimensions in millimetres &#183; &#956; = '+v.mu,{i:1});
+  return g+'</svg>';
+}
+function figFBD(v,S){
+  var g0=geo(v), g='<svg viewBox="0 0 560 300" width="620" xmlns="http://www.w3.org/2000/svg" font-family="Arial,sans-serif" font-size="12">';
+  var yL=90, yc=yL+v.c*g0.s, xs=g0.xs, xF=g0.xF, x0=g0.x0;
+  g+=RECT(x0-2,yL-4,xF-x0+24,9,'#7eaecf',NAVY,1.5)+CIRC(x0,yL,9,'#dbe4f0',NAVY,1.8)+TX(x0-22,yL-12,'A',{f:NAVY,b:1,i:1});
+  g+=LN(xs-80,yc,xs+80,yc,'#888',0.8,'4,3')+LN(x0-20,yL,xs-64,yL,'#888',0.8,'4,3');
+  g+=DIM(xs-58,yL,xs-58,yc)+TX(xs-50,yc-4,n0(v.c)+' mm');
+  g+=ARR(xs,yc+72,xs,yc,BLUE,2.6)+TX(xs+10,yc+64,'N',{f:BLUE,b:1});
+  var dir=v.selfE?-1:1;
+  g+=ARR(xs,yc,xs+dir*72,yc,RED,2.6)+TX(xs+dir*84,yc+22,'&#956;N',{f:RED,b:1,a:dir<0?'end':'start'});
+  g+=ARR(xF,24,xF,yL-6,RED,2.6)+TX(xF+8,32,n0(v.F)+' N',{f:RED,b:1});
+  g+=DIM(x0,244,xs,244)+TX((x0+xs)/2,264,n0(v.b)+' mm',{a:'middle'});
+  g+=DIM(xs,244,xF,244)+TX((xs+xF)/2,264,n0(v.a-v.b)+' mm',{a:'middle'});
+  g+=LN(x0,yL+12,x0,250,'#888',0.8,'3,3')+LN(xs,yc+78,xs,250,'#888',0.8,'3,3')+LN(xF,yL+6,xF,250,'#888',0.8,'3,3');
+  return g+'</svg>';
+}
+function build(v){
+  var S=solve(v), h='', sgn=v.selfE?'-':'+', asgn=v.selfE?'+':'-', word=v.selfE?'self-energising':'de-energising';
+  h+='<h3>Problem Statement</h3>'
+   +'<p>Determine the <strong>torque capacity</strong> of the single short shoe brake shown. The applied force is <strong>'
+   +n0(v.F)+'&nbsp;N</strong> at '+n0(v.a)+'&nbsp;mm from the pivot, the shoe centreline is at '+n0(v.b)+'&nbsp;mm from the pivot, '
+   +'the pivot is offset <strong>'+n0(v.c)+'&nbsp;mm</strong> from the shoe contact plane, the drum diameter is <strong>'
+   +n0(v.D)+'&nbsp;mm</strong> and the coefficient of friction is <strong>'+v.mu+'</strong>.</p>';
+  h+= v.book ? co('given','<p><strong>Given answer:</strong> '+v.book+'</p>')
+             : co('given','<p><strong>Answer (computed here \u2014 this variant is not in the book):</strong> $T = '
+                  +n(S.T,2)+'$ N&middot;m</p>');
+  h+=fig(figBrake(v,S),'Short shoe brake. Unlike T10.3 the pressure limit does not govern here &#8212; the actuating force is '
+    +'fixed at '+n0(v.F)+'&nbsp;N and the question is how much torque that buys. Dimensions in millimetres.');
+  h+=info('<strong>Strategy:</strong> only one unknown matters, the normal force $N$. A single moment equation about the pivot '
+    +'delivers it and the torque follows immediately. The whole problem hinges on the <strong>sign of the friction moment</strong>.');
+  h+='<h3>Solution</h3>';
+  h+=step(1,'Free body of the lever and the moment equation','try it yourself first',
+    fig(figFBD(v,S),'The drum pushes up on the shoe with $N$ and drags it along the contact plane with $\\mu N$. The contact plane '
+      +'is '+n0(v.c)+'&nbsp;mm below the pivot, so the friction force has a '+n0(v.c)+'&nbsp;mm moment arm about $A$. With the '
+      +'rotation shown, friction points '+(v.selfE?'away from the actuating force and its moment <em>helps</em> apply the brake'
+      :'towards the actuating force and its moment <em>opposes</em> it')+'.')
+    +'<p>Moments about $A$, counter-clockwise positive:</p>'
+    +rows(['Force','Line of action','Moment about $A$'],[
+      [n0(v.F)+' N down', n0(v.a)+' mm from $A$', '$-'+n0(v.a)+'('+n0(v.F)+')$'],
+      ['$N$ up', n0(v.b)+' mm from $A$', '$+'+n0(v.b)+'N$'],
+      ['$\\mu N$ along the contact plane', n0(v.c)+' mm below $A$', '$'+sgn+n0(v.c)+'\\mu N$']])
+    +'<div class="math-block">$$\\sum M_A = 0:\\quad '+n0(v.a)+'('+n0(v.F)+') = '+n0(v.b)+'N '+sgn+' '+n0(v.c)
+    +'\\mu N = N\\,('+n0(v.b)+' '+sgn+' '+n0(v.c)+'\\mu)$$</div>'
+    +'<div class="math-block">$$N = \\frac{'+n(v.a*v.F,0)+'}{'+n0(v.b)+' '+sgn+' '+n0(v.c)+'('+v.mu+')} = \\frac{'
+    +n(v.a*v.F,0)+'}{'+n(S.den,2)+'} = '+n(S.N,0)+'\\ \\text{N}$$</div>'
+    +ans('$N = '+n(S.N,0)+'\\ \\text{N}$'));
+  h+=step(2,'Torque capacity','friction force at the drum radius',
+    '<div class="math-block">$$r = \\tfrac{1}{2}('+n(v.D/1000,3)+') = '+n(S.R,3)+'\\ \\text{m}, \\qquad \\mu N = '+v.mu
+    +' \\times '+n(S.N,0)+' = '+n(S.Ff,1)+'\\ \\text{N}$$</div>'
+    +'<div class="math-block">$$T = \\mu N r = '+n(S.Ff,1)+' \\times '+n(S.R,3)+' = '+n(S.T,2)+'\\ \\text{N}\\cdot\\text{m}$$</div>'
+    +ans('$T = '+n(S.T,2)+'\\ \\text{N}\\cdot\\text{m}$')
+    +'<p>As one expression, worth remembering for this family of problems:</p>'
+    +'<div class="math-block">$$T = \\frac{\\mu F a r}{b '+sgn+' \\mu c} = \\frac{'+v.mu+'('+n0(v.F)+')('+n0(v.a)+')('+n(S.R,3)
+    +')}{'+n0(v.b)+' '+sgn+' '+v.mu+'('+n0(v.c)+')} = '+n(S.T,2)+'\\ \\text{N}\\cdot\\text{m}$$</div>'
+    +'<p style="font-size:13.5px;color:#555">where $a$ = force arm, $b$ = shoe arm, $c$ = pivot offset from the contact plane, all '
+    +'about the pivot. The sign in the denominator is the '+word+' term.</p>');
+  h+=step(3,'Self-energising behaviour and the reverse rotation','the design insight',
+    '<p>The denominator $b '+sgn+' \\mu c$ is '+(v.selfE?'smaller':'larger')+' than $b$, so friction is '
+    +(v.selfE?'doing part of the actuating work':'fighting the actuating force')+'. Reverse the drum and the friction moment '
+    +'changes sign:</p>'
+    +'<div class="math-block">$$N = \\frac{'+n(v.a*v.F,0)+'}{'+n0(v.b)+' '+asgn+' '+n0(v.c)+'('+v.mu+')} = '+n(S.Nalt,0)
+    +'\\ \\text{N} \\quad\\Rightarrow\\quad T = '+n(S.Talt,2)+'\\ \\text{N}\\cdot\\text{m}$$</div>'
+    +'<p>Same hardware, same '+n0(v.F)+'&nbsp;N, <strong>'
+    +n(Math.abs(S.T-S.Talt)/Math.max(S.T,S.Talt)*100,0)+'% '+(v.selfE?'less':'more')+' torque</strong> in the other direction.</p>'
+    +warn('<strong>Read the rotation arrow carefully.</strong> The two answers differ only by the sign of the friction moment. '
+      +(v.book?'The model answer of 69.04&nbsp;N&middot;m corresponds to the <em>self-energising</em> sense, which is the sense '
+        +'drawn here. If your reading of the original figure gives the opposite rotation, the working is identical but with '
+        +'$b + \\mu c$ in the denominator, giving 57.93&nbsp;N&middot;m.'
+       :'This variant is drawn '+word+'; swap the sign in the denominator for the other sense.'))
+    +note('<strong>Self-locking:</strong> if $\\mu c \\ge b$ &#8212; i.e. $\\mu \\ge '+n0(v.b)+'/'+n0(v.c)+' = '+n(S.mulock,2)
+      +'$ here &#8212; the denominator would vanish and a self-energising brake would grab with no applied force at all. At '
+      +'$\\mu = '+v.mu+'$ there is a huge margin, but the same equation is why long-shoe and band brakes must be checked for '
+      +'self-locking.')
+    +rows(['Quantity','Self-energising','Reversed rotation'],[
+      ['Denominator $b \\mp \\mu c$ (mm)', n(v.b-v.mu*v.c,2), n(v.b+v.mu*v.c,2)],
+      ['Normal force $N$ (N)', n(v.F*v.a/(v.b-v.mu*v.c),0), n(v.F*v.a/(v.b+v.mu*v.c),0)],
+      ['Friction force $\\mu N$ (N)', n(v.mu*v.F*v.a/(v.b-v.mu*v.c),1), n(v.mu*v.F*v.a/(v.b+v.mu*v.c),1)],
+      ['*Torque capacity (N&middot;m)', n(v.mu*v.F*v.a/(v.b-v.mu*v.c)*S.R,2), n(v.mu*v.F*v.a/(v.b+v.mu*v.c)*S.R,2)]]));
+  h+=mistakes([
+    '<strong>Omitting the friction moment entirely</strong> &#8212; $N = '+n(v.a*v.F,0)+'/'+n0(v.b)+' = '+n(S.Nnf,0)
+      +'$&nbsp;N and $T = '+n(S.Tnf,2)+'$&nbsp;N&middot;m, out by '
+      +n(Math.abs(S.Tnf-S.T)/S.T*100,0)+'%. The '+n0(v.c)+'&nbsp;mm offset is in the figure precisely so this term exists.',
+    '<strong>Using the drum radius as the friction moment arm about the pivot.</strong> About the <em>drum axis</em> the arm is '
+      +'$r = '+n0(v.D/2)+'$&nbsp;mm; about the <em>pivot</em> it is the '+n0(v.c)+'&nbsp;mm offset. Two moment centres, two arms.',
+    '<strong>Taking the '+n0(v.a)+'&nbsp;mm as the shoe-to-force distance.</strong> It is measured from the pivot; the '
+      +'shoe-to-force distance is '+n0(v.a-v.b)+'&nbsp;mm.',
+    '<strong>Using the diameter as the radius.</strong> $T = \\mu N('+n(v.D/1000,3)+')$ gives '+n(2*S.T,1)
+      +'&nbsp;N&middot;m, exactly double.',
+    '<strong>Assuming the answer is independent of rotation direction.</strong> For a short shoe with an offset pivot it never '
+      +'is &#8212; here the difference is '+n(Math.abs(S.T-S.Talt)/Math.min(S.T,S.Talt)*100,0)+'%.']);
+  return h;
+}
+
+
+function render(i){
+  var v = VARIANTS[i];
+  document.getElementById('doc').innerHTML = build(v);
+  document.getElementById('swDesc').textContent = v.desc;
+  var b = document.querySelectorAll('#swBtns button');
+  for(var j=0;j<b.length;j++) b[j].setAttribute('aria-pressed', j===i ? 'true':'false');
+  if(window.renderMathInElement){
+    renderMathInElement(document.getElementById('doc'), {
+      delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}],
+      throwOnError:false});
+  }
+}
+function init(){
+  var box = document.getElementById('swBtns');
+  VARIANTS.forEach(function(v,i){
+    var b = document.createElement('button');
+    b.textContent = v.btn;
+    b.setAttribute('aria-pressed','false');
+    b.onclick = function(){ render(i); };
+    box.appendChild(b);
+  });
+  render(0);
+}
+window.addEventListener('load', init);
+</script>
+</body>
+</html>
