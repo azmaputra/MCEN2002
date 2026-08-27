@@ -84,11 +84,12 @@ tr.total td{font-weight:700;background:#eef4ff;border-top:2px solid #1a3c6e}
 <h3>Problem Statement</h3>
 <p>A <strong>2.5 cm diameter</strong> round steel bar, <strong>0.5 m long</strong>, is struck by an <strong>18 kg</strong> weight moving at a speed of <strong>0.8 m/s</strong>. The static deflection of the bar is given as $\delta_{bar} = \dfrac{mgL}{AE}$. Assume $E = 200$ GPa and density $\rho = 7850$ kg/m³.</p>
 <p><strong>a)</strong> Find the stress due to the impact assuming <em>no dissipation of energy</em>.<br/>
-<strong>b)</strong> Find the stress due to the impact <em>taking into account the dissipation of energy</em> due to the differences in weight.</p>
-<p style="font-size:13.5px;color:#666">(ex. 8, <em>Design of Machine Elements</em>, Spotts M.F., Third Edition, Prentice-Hall)</p>
+<strong>b)</strong> Find the stress due to the impact <em>taking into account the dissipation of energy</em> due to the differences in weight.<br/>
+<strong>c)</strong> A colleague proposes <strong>halving the bar's length</strong> to 0.25 m, arguing that a shorter bar is stiffer and therefore stronger. Show what actually happens to the impact stress, and explain why. Then answer: per kilogram of steel added, is it better to make the bar <strong>fatter</strong> or <strong>longer</strong>?</p>
+<p style="font-size:13.5px;color:#666">(a) and (b) from ex. 8, <em>Design of Machine Elements</em>, Spotts M.F., Third Edition, Prentice-Hall. Part (c) added for MCEN2002.</p>
 
 <div class="callout given">
-  <p><strong>Given answer:</strong> &nbsp; a) $\sigma = 96.9$ MPa &nbsp;&nbsp; b) $\sigma = 95.2$ MPa</p>
+  <p><strong>Given answer:</strong> &nbsp; a) $\sigma = 96.9$ MPa &nbsp;&nbsp; b) $\sigma = 95.2$ MPa &nbsp;&nbsp; c) the stress <em>rises</em> to 137.0 MPa; fatter and longer are <strong>equally effective</strong></p>
 </div>
 
 <!-- Diagram -->
@@ -192,6 +193,9 @@ tr.total td{font-weight:700;background:#eef4ff;border-top:2px solid #1a3c6e}
         <p>$$\sigma_a = 96.9\ \text{MPa}$$</p>
       </div>
       <div class="callout note">
+        <p><strong>Notation used throughout this solution:</strong> the subscripts label the <em>parts of the question</em>, not a sequence. So $\sigma_a$ is the answer to part (a) — the idealised case with <strong>no</strong> energy dissipation — and $\sigma_b$ will be the answer to part (b), the same impact <strong>with</strong> the mass correction applied. Both describe the same event; they are two models of it, not two stages of it.</p>
+      </div>
+      <div class="callout note">
         <p><strong>Equivalent route via deflection</strong> (use whichever you find clearer — same answer):</p>
         <p style="text-align:center">$$\delta = v\sqrt{\frac{m}{k}} = 0.8\sqrt{\frac{18}{1.963\times10^{8}}} = 0.2422\ \text{mm}$$</p>
         <p style="text-align:center">$$F = k\delta = 47\,560\ \text{N}, \qquad \sigma = \frac{F}{A} = \frac{47\,560}{4.909\times10^{-4}} = 96.9\ \text{MPa} \ \checkmark$$</p>
@@ -239,8 +243,9 @@ tr.total td{font-weight:700;background:#eef4ff;border-top:2px solid #1a3c6e}
   <details>
     <summary><span class="step-label">Step 4</span> Stress scales with the square root of energy</summary>
     <div class="step-body">
-      <p>The critical detail: from $U = \sigma^2 AL/2E$, the stress is proportional to $\sqrt{U}$. So the energy factor $\eta$ enters the stress as $\sqrt{\eta}$, <strong>not</strong> as $\eta$:</p>
-      <div class="math-block">$$\sigma_b = \sigma_a\sqrt{\eta} = 96.89 \times \sqrt{0.9655} = 96.89 \times 0.9826$$</div>
+      <p>The critical detail: from $U = \sigma^2 AL/2E$, the stress is proportional to $\sqrt{U}$. So the energy factor $\eta$ enters the stress as $\sqrt{\eta}$, <strong>not</strong> as $\eta$. Scaling the part (a) result by that factor gives the part (b) result:</p>
+      <div class="math-block">$$\underbrace{\sigma_b}_{\text{part (b): with dissipation}} = \underbrace{\sigma_a}_{\text{part (a): no dissipation}}\sqrt{\eta}$$</div>
+      <div class="math-block">$$\sigma_b = 96.89 \times \sqrt{0.9655} = 96.89 \times 0.9826$$</div>
       <div class="callout answer">
         <p>$$\sigma_b = 95.2\ \text{MPa}$$</p>
       </div>
@@ -256,10 +261,62 @@ tr.total td{font-weight:700;background:#eef4ff;border-top:2px solid #1a3c6e}
 <div class="step">
   <div class="step-heading">
     <div class="step-num">5</div>
+    <div class="step-title">Part (c): what actually governs impact strength</div>
+    <div class="try-hint">Try it first, then reveal ↓</div>
+  </div>
+  <details>
+    <summary><span class="step-label">Step 5</span> Rewrite the answer in terms of the bar's volume</summary>
+    <div class="step-body">
+      <p>Before touching any numbers, check the factor of safety we are working with. Mild steel yields at roughly $\sigma_y = 250$ MPa, so from part (a):</p>
+      <div class="math-block">$$\text{FoS} = \frac{\sigma_y}{\sigma} = \frac{250}{96.9} = 2.58$$</div>
+      <p>Comfortable — but that is exactly the kind of margin a design change can quietly destroy. Now look again at the result from Step 2. The area and the length only ever appeared as the product $AL$, which is the <strong>volume of the bar</strong>:</p>
+      <div class="math-block">$$\sigma = v\sqrt{\frac{mE}{AL}} = v\sqrt{\frac{mE}{V}} \qquad\text{where}\qquad V = AL$$</div>
+      <p>The reason becomes obvious if you start from strain energy <em>density</em>. A uniformly stressed bar stores $\sigma^2/2E$ joules in every cubic metre of material, so the total it can absorb is that density times the volume:</p>
+      <div class="math-block">$$U = \frac{\sigma^{2}}{2E}\,V = \tfrac{1}{2}mv^{2} \qquad \Longrightarrow \qquad \sigma = v\sqrt{\frac{mE}{V}}$$</div>
+      <div class="callout info">
+        <p><strong>The design statement:</strong> for a uniform axial member, the impact stress depends on <strong>how much material there is</strong>, not on how that material is arranged. Area and length are interchangeable. A long thin bar and a short fat bar of the same volume see <em>identical</em> impact stress.</p>
+      </div>
+
+      <h4>The colleague's proposal</h4>
+      <p>Halving the length halves the volume, and $\sigma \propto V^{-1/2}$:</p>
+      <div class="math-block">$$\sigma_{new} = \sigma\sqrt{\frac{V}{V/2}} = 96.89\sqrt{2} = 137.0\ \text{MPa}$$</div>
+      <div class="callout answer">
+        <p>$$\sigma_{new} = 137.0\ \text{MPa}$$</p>
+        <p style="font-weight:400;font-size:14.5px">A 41&nbsp;% <em>increase</em> — and the factor of safety falls from 2.58 to <strong>1.82</strong>.</p>
+      </div>
+      <p>The colleague is not wrong that the bar becomes stiffer — $k = AE/L$ doubles. That is precisely the problem. A stiffer member stops the striker in a shorter distance, so the force needed to absorb the same 5.76 J is larger. Shortening the bar removes half the material that was sharing the energy.</p>
+
+      <h4>Fatter or longer?</h4>
+      <p>Suppose we can afford to add one bar's worth of steel, taking $V \to 2V$. Two ways to spend it:</p>
+      <table>
+        <thead><tr><th>Option</th><th>Change</th><th>Volume</th><th>$\sigma$</th></tr></thead>
+        <tbody>
+          <tr><td class="left">Original</td><td>$d = 25$ mm, $L = 500$ mm</td><td>245.4 cm³</td><td>96.9 MPa</td></tr>
+          <tr><td class="left">Make it longer</td><td>$L \to 1000$ mm, same $d$</td><td>490.9 cm³</td><td>68.5 MPa</td></tr>
+          <tr><td class="left">Make it fatter</td><td>$d \to 35.4$ mm, same $L$</td><td>490.9 cm³</td><td>68.5 MPa</td></tr>
+          <tr class="total"><td class="left">Verdict</td><td colspan="2">identical — only $V$ appears in the formula</td><td>equal</td></tr>
+        </tbody>
+      </table>
+      <div class="callout note">
+        <p><strong>Contrast this with static design.</strong> Under a static load, $\sigma = P/A$: the length is irrelevant and only area buys you strength. Under impact, length and area are worth exactly the same per kilogram. Students who carry static intuition into impact problems reliably over-value fat, stubby members — which are the <em>worst</em> shape for absorbing energy per unit mass.</p>
+      </div>
+      <div class="callout warn">
+        <p><strong>Important limit on this result.</strong> "Only the volume matters" holds for a <strong>uniform</strong> bar in <strong>pure axial</strong> loading, where every element is equally stressed. Put a step, a groove or a thread anywhere along it and the argument collapses: the small section carries the same force at higher stress, and only the material near it participates meaningfully in absorbing energy. A notch is doubly punishing under impact — it raises the local stress <em>and</em> shrinks the effective volume. This is why impact-loaded components are made with generous fillets and no sharp changes of section.</p>
+      </div>
+      <div class="callout info">
+        <p><strong>Where this connects:</strong> T5.2 showed that adding a soft rubber washer cut the rod stress by a factor of 68. Here, <em>doubling the mass of the bar</em> cuts the stress by only 1.41. Adding compliance beats adding material by a very wide margin — reach for a spring, a mount or a longer load path before reaching for a thicker section.</p>
+      </div>
+    </div>
+  </details>
+</div>
+
+<div class="step">
+  <div class="step-heading">
+    <div class="step-num">6</div>
     <div class="step-title">Summary Table</div>
   </div>
   <details>
-    <summary><span class="step-label">Step 5</span> All quantities in one place</summary>
+    <summary><span class="step-label">Step 6</span> All quantities in one place</summary>
     <div class="step-body">
 <table>
   <thead>
@@ -282,6 +339,9 @@ tr.total td{font-weight:700;background:#eef4ff;border-top:2px solid #1a3c6e}
     <tr><td class="left">Energy retention factor</td><td>$\eta$</td><td>$1/(1+m_{bar}/3m)$</td><td>0.9655</td></tr>
     <tr class="total"><td class="left">Impact stress — with dissipation</td><td>$\sigma_b$</td><td>$\sigma_a\sqrt{\eta}$</td><td>95.2 MPa</td></tr>
     <tr><td class="left">Static stress (comparison)</td><td>$\sigma_{st}$</td><td>$mg/A$</td><td>0.36 MPa</td></tr>
+    <tr><td class="left">Bar volume</td><td>$V$</td><td>$AL$</td><td>245.4 cm³</td></tr>
+    <tr><td class="left">Factor of safety (vs 250 MPa)</td><td>—</td><td>$\sigma_y/\sigma_a$</td><td>2.58</td></tr>
+    <tr class="total"><td class="left">Impact stress if $L$ halved (c)</td><td>$\sigma_{new}$</td><td>$v\sqrt{mE/V}$, $V \to V/2$</td><td>137.0 MPa (FoS 1.82)</td></tr>
   </tbody>
 </table>
     </div>
@@ -294,7 +354,9 @@ tr.total td{font-weight:700;background:#eef4ff;border-top:2px solid #1a3c6e}
   <p style="margin-top:8px"><strong>Common mistake 2:</strong> Using the full bar mass 1.927 kg instead of $m_{bar}/3 = 0.642$ kg. That would give $\eta = 0.903$ and 92.1 MPa. The one-third factor comes from integrating the kinetic energy of a bar whose velocity varies linearly from zero at the fixed end.</p>
   <p style="margin-top:8px"><strong>Common mistake 3:</strong> Adding a $mgh$ term. No drop height is given — the weight is <em>already moving</em> at 0.8 m/s when it makes contact, so its kinetic energy is the entire energy input. (Contrast T5.5, where a mass is released from a height and both $mgh$ and the work done through the extra deflection matter.)</p>
   <p style="margin-top:8px"><strong>Common mistake 4:</strong> Mixing mm and m mid-calculation. With $\sigma = v\sqrt{mE/AL}$ the units only work out if everything is SI: $A$ in m², $L$ in m, $E$ in Pa. Substituting $A = 490.9$ mm² alongside $E = 200 \times 10^9$ Pa gives an answer wrong by a factor of 1000.</p>
-  <p style="margin-top:8px"><strong>Common mistake 5:</strong> Forgetting to check that the result is elastic. If the computed impact stress exceeded the yield strength, the linear strain-energy formula would be invalid and the whole calculation meaningless. Always compare against yield before reporting.</p>
+  <p style="margin-top:8px"><strong>Common mistake 5:</strong> In part (c), assuming that "stiffer" means "safer". Stiffness and impact strength pull in <em>opposite</em> directions: $k = AE/L$ rises when the bar is shortened, but the energy-absorbing volume falls, and it is the volume that sets the stress. Reasoning by stiffness alone gets the sign of the answer wrong.</p>
+  <p style="margin-top:8px"><strong>Common mistake 6:</strong> Extending "only the volume matters" to non-uniform members. It holds only where every element of material is equally stressed. A stepped shaft, a threaded end or a notch breaks the assumption and makes the component far weaker than its volume suggests.</p>
+  <p style="margin-top:8px"><strong>Common mistake 7:</strong> Forgetting to check that the result is elastic. If the computed impact stress exceeded the yield strength, the linear strain-energy formula would be invalid and the whole calculation meaningless. Always compare against yield before reporting.</p>
 </div>
 
 <div class="footer">MCEN2002 – Fundamentals of Mechanical Design &nbsp;|&nbsp; Tutorial 5.4 &nbsp;|&nbsp; Curtin University</div>

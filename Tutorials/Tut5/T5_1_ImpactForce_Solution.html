@@ -82,10 +82,12 @@ tr.total td{font-weight:700;background:#eef4ff;border-top:2px solid #1a3c6e}
 
 <!-- ═══════════════════════════ PROBLEM ═══════════════════════════ -->
 <h3>Problem Statement</h3>
-<p>Calculate the <strong>impact force</strong> when a steel ball of mass <strong>25 kg</strong> is dropped from a height of <strong>6.5 m</strong>. It takes <strong>10 ms</strong> for the steel ball to come to a complete stop.</p>
+<p>A steel ball of mass <strong>25 kg</strong> is dropped from a height of <strong>6.5 m</strong>. It takes <strong>10 ms</strong> for the ball to come to a complete stop.</p>
+<p><strong>a)</strong> Calculate the <strong>impact force</strong>.<br/>
+<strong>b)</strong> The mounting beneath the impact point is rated to <strong>5 kN</strong>. Show that the impact force can be written as $F = mgh/s$, where $s$ is the distance over which the ball is brought to rest, and find the stopping distance needed to meet that rating. Would it be easier to achieve by reducing the drop height instead?</p>
 
 <div class="callout given">
-  <p><strong>Given answer:</strong> &nbsp; $F_e = -28.25\ \text{kN}$</p>
+  <p><strong>Given answer:</strong> &nbsp; a) $F_e = -28.25\ \text{kN}$ &nbsp;&nbsp; b) $s = 319$ mm of travel, or the drop height cut from 6.5 m to 1.15 m</p>
 </div>
 
 <!-- Diagram -->
@@ -246,10 +248,62 @@ tr.total td{font-weight:700;background:#eef4ff;border-top:2px solid #1a3c6e}
 <div class="step">
   <div class="step-heading">
     <div class="step-num">5</div>
+    <div class="step-title">Part (b): what actually governs the impact force</div>
+    <div class="try-hint">Try it first, then reveal ↓</div>
+  </div>
+  <details>
+    <summary><span class="step-label">Step 5</span> Rewrite the answer in terms of the stopping distance</summary>
+    <div class="step-body">
+      <p>The 10 ms contact time is a <em>measured</em> quantity, not something a designer sets directly. What you can actually specify is how far the ball is allowed to travel while stopping. Convert one into the other.</p>
+      <p>With a constant decelerating force the velocity falls linearly from $v$ to zero, so the average velocity during contact is $v/2$ and the stopping distance is:</p>
+      <div class="math-block">$$s = \frac{v}{2}\,\Delta t = \frac{11.29}{2} \times 0.010 = 0.0565\ \text{m} = 56.5\ \text{mm}$$</div>
+      <p>Now substitute $\Delta t = 2s/v$ into the impulse–momentum result, and use $v^{2} = 2gh$:</p>
+      <div class="math-block">$$F = \frac{mv}{\Delta t} = \frac{mv}{2s/v} = \frac{mv^{2}}{2s} = \frac{m(2gh)}{2s}$$</div>
+      <div class="math-block">$$F = \frac{mgh}{s}$$</div>
+      <div class="callout info">
+        <p><strong>The design statement:</strong> the impact force is simply the <strong>energy released divided by the distance available to absorb it</strong>. Neither the contact time nor the mass appears independently — the whole problem is a race between how much energy arrives and how far the structure can move while soaking it up.</p>
+      </div>
+      <p>Check it against part (a): $mgh = 25 \times 9.81 \times 6.5 = 1594$ J, so $F = 1594/0.0565 = 28\,232$ N ✓ — the same answer by a completely different route.</p>
+
+      <h4>Meeting the 5 kN rating</h4>
+      <p>The force must come down by a factor of $28\,232/5000 = 5.65$. Since $F \propto 1/s$, the stopping distance must grow by the same factor:</p>
+      <div class="math-block">$$s = \frac{mgh}{F} = \frac{1594}{5000} = 0.319\ \text{m} = 319\ \text{mm}$$</div>
+      <div class="callout answer">
+        <p>$$s = 319\ \text{mm} \qquad (\Delta t = 2s/v = 56.5\ \text{ms})$$</p>
+      </div>
+      <p>So the impact point needs roughly 320 mm of crushable travel — deep packaging foam, a crush tube, or a sprung platen — to protect a 5 kN mounting.</p>
+
+      <h4>Or reduce the drop height?</h4>
+      <p>$F \propto h$ as well, so the same factor of 5.65 applies:</p>
+      <div class="math-block">$$h = \frac{Fs}{mg} = \frac{5000 \times 0.0565}{245.3} = 1.15\ \text{m}$$</div>
+      <table>
+        <thead><tr><th>Route</th><th>Change required</th><th>Factor</th></tr></thead>
+        <tbody>
+          <tr><td class="left">Increase stopping distance</td><td>56.5 mm → 319 mm</td><td>×5.65</td></tr>
+          <tr><td class="left">Reduce drop height</td><td>6.5 m → 1.15 m</td><td>÷5.65</td></tr>
+          <tr class="total"><td class="left">Verdict</td><td colspan="2">arithmetically equivalent — but only one is usually yours to control</td></tr>
+        </tbody>
+      </table>
+      <div class="callout note">
+        <p><strong>Which would you actually do?</strong> Both are linear, so neither is mathematically "better". In practice the drop height is usually fixed by the process — a crane hook height, a conveyor, a building floor — while 320 mm of crushable travel is something you can specify and buy. Engineers control the denominator far more often than the numerator, which is why energy-absorbing devices exist at all.</p>
+      </div>
+      <div class="callout warn">
+        <p><strong>Important limit on this result.</strong> $F = mgh/s$ is exact only for a <strong>constant</strong> decelerating force, which is what the average force in part (a) represents. A linear spring does <em>not</em> deliver constant force — it ramps from zero to a peak, so its average is half its peak and $F_{peak} = 2mgh/\delta$. Worse, a spring's own travel grows only as $\delta \propto \sqrt{h}$, which is exactly why the spring problems later in this tutorial (T5.5, T5.6) give $\sigma \propto \sqrt{h}$ rather than the linear behaviour seen here.</p>
+      </div>
+      <div class="callout info">
+        <p><strong>Why crushable beats springy:</strong> an ideal crush tube holds a constant force over its whole stroke, so it absorbs $F \times s$ — the full rectangle. A spring reaching the same peak force absorbs only $\tfrac{1}{2}F\delta$ — the triangle, half as much for the same peak load and travel. That factor of two is the entire reason crumple zones and foam are built to deform plastically rather than elastically.</p>
+      </div>
+    </div>
+  </details>
+</div>
+
+<div class="step">
+  <div class="step-heading">
+    <div class="step-num">6</div>
     <div class="step-title">Summary Table</div>
   </div>
   <details>
-    <summary><span class="step-label">Step 5</span> All quantities in one place</summary>
+    <summary><span class="step-label">Step 6</span> All quantities in one place</summary>
     <div class="step-body">
 <table>
   <thead>
@@ -282,6 +336,10 @@ tr.total td{font-weight:700;background:#eef4ff;border-top:2px solid #1a3c6e}
     <tr class="total">
       <td class="left">Impact force</td><td>$F_e$</td><td>$m\Delta v/\Delta t$</td><td>−28.23 kN <span style="font-weight:400">(book −28.25)</span></td>
     </tr>
+    <tr><td class="left">Stopping distance</td><td>$s$</td><td>$v\Delta t/2$</td><td>56.5 mm</td></tr>
+    <tr><td class="left">Force from energy route</td><td>$F$</td><td>$mgh/s$</td><td>28.23 kN ✓</td></tr>
+    <tr class="total"><td class="left">Travel needed for 5 kN (b)</td><td>$s$</td><td>$mgh/F$</td><td>319 mm (Δt = 56.5 ms)</td></tr>
+    <tr class="total"><td class="left">Drop height alternative (b)</td><td>$h$</td><td>$Fs/mg$</td><td>1.15 m</td></tr>
   </tbody>
 </table>
       <div class="callout info">
@@ -296,7 +354,9 @@ tr.total td{font-weight:700;background:#eef4ff;border-top:2px solid #1a3c6e}
   <p><strong>Common mistake 1:</strong> Leaving $\Delta t$ in milliseconds. Substituting $\Delta t = 10$ instead of $0.010$ gives 28.2 N — off by a factor of 1000, and suspiciously close to the weight, which makes the error easy to miss. Always convert to seconds first.</p>
   <p style="margin-top:8px"><strong>Common mistake 2:</strong> Using $F = mg$ or $F = ma$ with $a = g$. That is the <em>free-fall</em> force, valid only while the ball is falling. During contact the deceleration is $a = v/\Delta t = 1129$ m/s² ≈ 115 g — that is the number that produces the large force.</p>
   <p style="margin-top:8px"><strong>Common mistake 3:</strong> Using the drop height directly in an energy balance, e.g. $F = mgh/\Delta t$. Energy methods need a <em>stopping distance</em>, not a stopping time. Since only a time is given here, the impulse–momentum route is the correct one.</p>
-  <p style="margin-top:8px"><strong>Common mistake 4:</strong> Reporting the sign carelessly. Quote the magnitude 28.2 kN and state the direction in words; a bare "−28.2 kN" is only meaningful once the positive direction is declared.</p>
+  <p style="margin-top:8px"><strong>Common mistake 4:</strong> In part (b), using $s = v\Delta t$ instead of $v\Delta t/2$. The ball does not travel at its full impact speed throughout contact — it decelerates to zero, so the <em>average</em> speed is $v/2$. Forgetting the half doubles the stopping distance and halves the force.</p>
+  <p style="margin-top:8px"><strong>Common mistake 5:</strong> Applying $F = mgh/s$ to a spring. It assumes a constant decelerating force. A spring's force ramps from zero, so its peak is twice the average — use it for crushable absorbers, not elastic ones.</p>
+  <p style="margin-top:8px"><strong>Common mistake 6:</strong> Reporting the sign carelessly. Quote the magnitude 28.2 kN and state the direction in words; a bare "−28.2 kN" is only meaningful once the positive direction is declared.</p>
 </div>
 
 <div class="footer">MCEN2002 – Fundamentals of Mechanical Design &nbsp;|&nbsp; Tutorial 5.1 &nbsp;|&nbsp; Curtin University</div>

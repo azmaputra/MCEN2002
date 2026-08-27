@@ -388,6 +388,154 @@ board: function (S) {
 
 };
 
+/* ═══════════════════════ DESIGN-THINKING STEPS ═════════════════════════ */
+/* Each returns {title, summary, body} or null. Selected by CONFIG.design.
+   The point of these is to move students from "what is the stress" to
+   "what would I have to change" - a different question every time.        */
+
+var DESIGN = {
+
+/* T5.2 - size the compliance so the rod does not yield ------------------- */
+washerSizing: function (S, p, fmt) {
+  if (!(p.sigY && S.sst && p.mode !== 'inverse')) return null;
+  var b = '';
+
+    var fos = p.fos || 2,
+        sAll = p.sigY / fos,
+        bare = S.cases[S.cases.length - 1],
+        nMax = sAll / S.sst,
+        dMin = 2 * (p.h * 1000) * S.eta / ((nMax - 1) * (nMax - 1) - 1),
+        kMax = S.W / dMin,
+        travel = nMax * dMin;
+
+    b = P('The two answers above are descriptive &mdash; they say what the stress <em>is</em>. A designer has to answer the '
+        + 'other question: what stiffness does the system need in order to be <strong>safe</strong>? Take the rod as mild steel, '
+        + '$\\sigma_y = ' + fmt.sig(p.sigY, 4) + '$ MPa, and require a factor of safety of ' + fmt.sig(fos, 2) + ':');
+    b += mb('\\sigma_{allow} = \\frac{\\sigma_y}{\\text{FoS}} = \\frac{' + fmt.sig(p.sigY, 4) + '}{' + fmt.sig(fos, 2) + '} = ' + fmt.sig(sAll, 4) + '\\ \\text{MPa}');
+    b += P('First check the bare rod. With no washer the stress is ' + fmt.sig(bare.sigma, 4) + ' MPa, so its factor of safety is '
+         + '$' + fmt.sig(p.sigY, 4) + '/' + fmt.sig(bare.sigma, 4) + ' = ' + fmt.sig(p.sigY / bare.sigma, 3) + '$ &mdash; '
+         + (p.sigY / bare.sigma < 1
+            ? '<strong>below 1, so the bare rod yields outright.</strong>'
+            : (p.sigY / bare.sigma < fos
+               ? '<strong>above 1 but short of the target</strong>, so some compliance must be added.'
+               : 'already adequate on its own.')));
+
+    b += '<h4>Maximum permissible system stiffness</h4>';
+    b += P('Run the impact factor backwards, exactly as in T5.6. The largest impact factor allowed is');
+    b += mb('n_{max} = \\frac{\\sigma_{allow}}{\\sigma_{st}} = \\frac{' + fmt.sig(sAll, 4) + '}{' + fmt.sig(S.sst, 4) + '} = ' + fmt.sig(nMax, 4));
+    b += P('and the static deflection that produces it follows from $(n-1)^2 = 1 + 2h/\\delta_{st}$:');
+    b += mb('\\delta_{st} = \\frac{2h}{(n_{max}-1)^{2} - 1} = ' + fmt.sig(dMin, 4) + '\\ \\text{mm} \\qquad \\Longrightarrow \\qquad '
+          + 'k_{eq} \\le \\frac{W}{\\delta_{st}} = ' + fmt.grp(kMax) + '\\ \\text{N/mm}');
+    if (p.kExtra && kMax < S.kMem) {
+      var kwMax = 1 / (1 / kMax - 1 / S.kMem);
+      b += P('The rod itself contributes ' + fmt.grp(S.kMem) + ' N/mm, so the washer must supply the rest of the compliance:');
+      b += mb('\\frac{1}{k_{washer}} = \\frac{1}{k_{eq}} - \\frac{1}{k_{rod}} \\qquad \\Longrightarrow \\qquad k_{washer} \\le ' + fmt.grp(kwMax) + '\\ \\text{N/mm}');
+      b += call('answer', P('$$k_{washer} \\le ' + fmt.grp(kwMax) + '\\ \\text{N/mm}, \\qquad \\text{travel} = ' + fmt.sig(travel, 3) + '\\ \\text{mm}$$'));
+      b += call('info', P('<strong>Now compare with the washer actually specified.</strong> The question gives $k = ' + fmt.sig(p.kExtra, 3)
+          + '$ N/mm &mdash; about <strong>' + fmt.grp(kwMax / p.kExtra) + ' times softer</strong> than it needs to be. That is why part (a) '
+          + 'predicted ' + fmt.sig(S.cases[0].delta, 4) + ' mm of washer travel, which no real washer can deliver. A washer of '
+          + fmt.grp(kwMax) + ' N/mm would need only <strong>' + fmt.sig(travel, 3) + ' mm</strong> of compression &mdash; an entirely '
+          + 'buildable component. The specified washer is not just conservative; it is unbuildable.'));
+    } else {
+      b += call('answer', P('$$k_{eq} \\le ' + fmt.grp(kMax) + '\\ \\text{N/mm}$$'));
+      b += call('note', P('Here $k_{eq}$ may exceed the rod\u2019s own ' + fmt.grp(S.kMem) + ' N/mm, so the bare rod already meets the '
+          + 'target and no added compliance is required.'));
+    }
+    b += call('note', P('<strong>The design lesson.</strong> For large drops $n \\approx \\sqrt{2h/\\delta_{st}}$, so $\\sigma \\propto \\sqrt{k}$: '
+        + 'halving the system stiffness buys only a ' + fmt.sig((1 - 1 / Math.sqrt(2)) * 100, 2) + '\u202f% reduction in stress. Stiffness is a '
+        + 'weak lever taken alone &mdash; but because the rod and washer are in <em>series</em>, the softest element sets $k_{eq}$ almost '
+        + 'single-handedly. One cheap compliant part buys what no amount of extra steel can.'));
+    b += call('warn', P('<strong>What this calculation does not cover.</strong> Sizing the washer on stiffness alone ignores whether the '
+        + 'washer itself survives, whether it bottoms out, and whether rubber behaves linearly over that stroke (it does not &mdash; '
+        + 'elastomers stiffen markedly at high compression). Treat $k_{washer}$ here as an upper bound to start from, not a specification.'));
+
+  return { title: 'Size the washer so the rod does not yield',
+           summary: 'Work backwards from an allowable stress to a maximum stiffness',
+           body: b };
+},
+
+/* T5.5 - when does the struck member's mass stop being negligible? ------- */
+strikerMass: function (S, p, fmt) {
+  if (!S.hasCorr) return null;
+  var tol   = p.tol || 0.05,                       /* 5 % stress change     */
+      etaT  = (1 - tol) * (1 - tol),               /* since sigma ~ sqrt(eta) */
+      mStar = S.mMem / (3 * (1 / etaT - 1)),
+      pcNow = 100 * (1 - Math.sqrt(S.eta));
+
+  var b = P('Part (b) answered <em>whether</em> the correction matters for this particular bar. The more useful question is '
+        + '<em>when</em> it starts to matter &mdash; that is the version you can carry into a design office.');
+  b += P('For a large drop $n \\gg 1$, so $\\sigma \\propto \\sqrt{\\eta}$. Requiring the correction to shift the stress by no '
+        + 'more than ' + fmt.sig(100 * tol, 2) + '\u202f% means');
+  b += mb('\\sqrt{\\eta} \\ge ' + fmt.sig(1 - tol, 3) + ' \\qquad \\Longrightarrow \\qquad \\eta \\ge ' + fmt.sig(etaT, 4));
+  b += P('Substituting $\\eta = 1/(1 + m_{mem}/3m)$ and solving for the striker mass:');
+  b += mb('m \\;\\ge\\; \\frac{m_{mem}}{3\\left(\\dfrac{1}{' + fmt.sig(etaT, 4) + '} - 1\\right)} = \\frac{' + fmt.sig(S.mMem, 4) + '}{'
+        + fmt.sig(3 * (1 / etaT - 1), 4) + '} = ' + fmt.sig(mStar, 3) + '\\ \\text{kg}');
+  b += call('answer', P('$$m \\ge ' + fmt.sig(mStar, 3) + '\\ \\text{kg} \\quad\\text{i.e.}\\quad m \\gtrsim 3\\,m_{mem}$$'));
+  b += P('The bar here weighs ' + fmt.sig(S.mMem, 3) + ' kg and the striker ' + fmt.sig(p.m, 3) + ' kg, which is '
+        + fmt.sig(p.m / S.mMem, 3) + ' times heavier &mdash; comfortably past the threshold, which is why the correction came out at only '
+        + fmt.sig(pcNow, 2) + '\u202f%.');
+  b += call('info', P('<strong>The rule worth remembering:</strong> the $3(1/\\eta_{tol} - 1)$ denominator works out to almost exactly '
+        + '$1/3$ for a 5\u202f% tolerance, so the threshold is simply <strong>$m \\approx 3\\,m_{mem}$</strong>. Strike a member with '
+        + 'something less than about three times its own mass and you are losing a noticeable fraction of your energy to the collision '
+        + 'itself, before any of it reaches the workpiece.'));
+  b += call('note', P('<strong>Where you meet this in practice.</strong> It is why forging hammers use a heavy tup against a much heavier '
+        + 'anvil, why a light hammer is useless on a large casting, and why drop-test rigs specify a striker mass rather than just an '
+        + 'impact energy. At the extreme $m = m_{mem}/3$ the factor falls to $\\eta = 0.5$: half the energy is destroyed in the collision '
+        + 'and never reaches the part you are testing.'));
+  b += call('warn', P('<strong>Note the direction of the inequality.</strong> A <em>heavier</em> striker makes the correction '
+        + '<em>less</em> important, not more. Students often assume the opposite because a heavier striker sounds more severe &mdash; it is '
+        + 'more severe, but the energy it delivers is transmitted more efficiently, so the massless-member idealisation becomes better, not worse.'));
+  return { title: 'When does the bar\u2019s own mass actually matter?',
+           summary: 'Find the striker mass below which the correction exceeds ' + fmt.sig(100 * tol, 2) + '\u202f%',
+           body: b };
+},
+
+/* T5.6 - energy capacity is a property of material and volume ------------ */
+volumeCapacity: function (S, p, fmt) {
+  if (!(p.mode === 'inverse' && S.A)) return null;
+  var c = S.main,
+      V = S.A * p.L,                                  /* mm^3              */
+      U = p.sigTgt * p.sigTgt * V / (2 * p.E),        /* N.mm              */
+      hApprox = U / S.W;                              /* mm, before -delta */
+
+  var b = P('The algebra above gives the right number but hides the physics. Rewrite it in terms of energy and a much more '
+        + 'general result appears.');
+  b += P('A uniformly stressed member stores $\\sigma^{2}/2E$ joules in every cubic metre of material. Multiply by the volume '
+        + '$V = AL$ and you have the total energy the post can absorb before reaching the target stress:');
+  b += mb('U = \\frac{\\sigma^{2}}{2E}\\,V = \\frac{(' + fmt.sig(p.sigTgt, 4) + ')^{2}}{2 \\times ' + fmt.grp(p.E) + '} \\times '
+        + fmt.grp(V) + ' = ' + fmt.grp(U) + '\\ \\text{N}\\cdot\\text{mm} = ' + fmt.sig(U / 1000, 4) + '\\ \\text{J}');
+  b += P('The falling weight supplies $W(h + \\delta)$ &mdash; it descends the drop height <em>plus</em> the deflection. Equating:');
+  b += mb('W(h + \\delta) = \\frac{\\sigma^{2}V}{2E} \\qquad \\Longrightarrow \\qquad h = \\frac{\\sigma^{2}V}{2EW} - \\delta');
+  b += mb('h = ' + fmt.sig(hApprox, 5) + ' - ' + fmt.sig(c.delta, 4) + ' = ' + fmt.sig(c.h * 1000, 4) + '\\ \\text{mm}');
+  b += call('answer', P('$$h = \\frac{\\sigma^{2}V}{2EW} - \\delta = ' + fmt.sig(c.h * 1000, 4) + '\\ \\text{mm} \\quad \\checkmark$$'));
+  b += P('Exactly the answer obtained from the impact factor &mdash; but now every symbol means something.');
+  b += call('info', P('<strong>The design statement:</strong> the safe drop height is <strong>proportional to the volume of the post</strong>. '
+        + 'Not to its area, not to its length &mdash; to $AL$. Double the cross-section or double the length and you double the drop the post '
+        + 'can survive. Area and length are worth exactly the same per cubic metre of timber.'));
+  b += '<h4>Two ways to double the safe drop height</h4>';
+  b += '<table><thead><tr><th>Option</th><th>Change</th><th>Volume</th><th>Safe drop</th></tr></thead><tbody>'
+     + '<tr><td class="left">As specified</td><td>' + fmt.sig(p.b, 3) + ' mm square, ' + fmt.sig(p.L, 4) + ' mm long</td><td>'
+     + fmt.sig(V / 1e6, 4) + ' \u00d7 10\u2076 mm\u00b3</td><td>' + fmt.sig(c.h * 1000, 4) + ' mm</td></tr>'
+     + '<tr><td class="left">Longer post</td><td>length \u00d7 2</td><td>\u00d7 2</td><td>\u2248 ' + fmt.sig(2 * c.h * 1000, 4) + ' mm</td></tr>'
+     + '<tr><td class="left">Bigger section</td><td>side \u00d7 ' + fmt.sig(Math.sqrt(2), 3) + '</td><td>\u00d7 2</td><td>\u2248 '
+     + fmt.sig(2 * c.h * 1000, 4) + ' mm</td></tr>'
+     + '<tr class="total"><td class="left">Verdict</td><td colspan="2">identical &mdash; only $V$ appears</td><td>equal</td></tr>'
+     + '</tbody></table>';
+  b += call('note', P('<strong>Contrast with static design.</strong> Under a static load $\\sigma = P/A$: length is irrelevant and only area '
+        + 'buys strength. Under impact the two are interchangeable, because what you are really buying is <em>material in which to store '
+        + 'energy</em>. This is the same result as T5.4, arrived at from the opposite direction.'));
+  b += call('warn', P('<strong>Where the volume argument fails.</strong> It assumes every element of the post is equally stressed. A step, '
+        + 'a notch, a bolt hole or a knot in the timber concentrates the stress and shrinks the volume that genuinely participates &mdash; '
+        + 'so the member fails well below what its volume suggests. It also assumes the post stays elastic and does not buckle: at '
+        + fmt.sig(p.L / p.b, 3) + ' slenderness ratio that is reasonable here, but a longer post would need a buckling check before you '
+        + 'could claim the extra length as extra capacity.'));
+  return { title: 'What actually sets the safe drop height',
+           summary: 'Rewrite the answer as an energy balance and read off the design rule',
+           body: b };
+}
+
+};
+
 /* ═══════════════════════════ DOCUMENT BUILDER ══════════════════════════ */
 
 function build(CONFIG, p) {
@@ -399,7 +547,8 @@ function build(CONFIG, p) {
   /* ── problem statement ───────────────────────────────────────────────── */
   h += '<h3>Problem Statement</h3>';
   h += P(CONFIG.question(S, fmt));
-  if (CONFIG.source) h += '<p style="font-size:13.5px;color:#666">' + CONFIG.source + '</p>';
+  /* attribution belongs to the textbook problem only - the variants are ours */
+  if (CONFIG.source && p.book) h += '<p style="font-size:13.5px;color:#666">' + CONFIG.source + '</p>';
   h += call('given', P('<strong>' + (p.book ? 'Given answer:' : 'Computed answer:') + '</strong> &nbsp; ' + CONFIG.answer(S, fmt)));
 
   /* ── diagram ─────────────────────────────────────────────────────────── */
@@ -540,6 +689,12 @@ function build(CONFIG, p) {
   h += step(p.mode === 'inverse' ? 'Solve for the drop height' : 'Impact factor, force and stress',
             p.mode === 'inverse' ? 'Run the impact factor backwards' : 'Substitute and interpret the result', b);
 
+  /* ── STEP: design thinking (selected by CONFIG.design) ───────────────── */
+  if (CONFIG.design && DESIGN[CONFIG.design]) {
+    var dz = DESIGN[CONFIG.design](S, p, fmt);
+    if (dz) h += step(dz.title, dz.summary, dz.body);
+  }
+
   /* ── STEP: summary table ─────────────────────────────────────────────── */
   b = '<table><thead><tr><th>Quantity</th><th>Symbol</th><th>Expression</th>'
     + (S.twoCase ? '<th>' + S.cases[0].name + '</th><th>' + S.cases[1].name + '</th>' : '<th>Value</th>') + '</tr></thead><tbody>';
@@ -608,19 +763,28 @@ var CONFIG = {
           + ' m</strong>. The rod is <strong>' + fmt.sig(S.p.d,3) + ' mm</strong> diameter and <strong>'
           + fmt.sig(S.p.L/1000,3) + ' m</strong> long from the ceiling to the washer. Assume $E = '
           + fmt.sig(S.p.E/1000,3) + '$ GPa and for the washer take $k = ' + fmt.sig(S.p.kExtra,3)
-          + '$ N/mm. Consider two cases: <strong>(a)</strong> as shown in the figure, and <strong>(b)</strong> '
-          + 'when the rubber washer is removed.';
+          + '$ N/mm.<br/><strong>a)</strong> Determine the maximum stress for the arrangement shown in the figure.'
+          + '<br/><strong>b)</strong> Determine the maximum stress when the rubber washer is removed.'
+          + '<br/><strong>c)</strong> The rod is mild steel with $\\sigma_y = ' + fmt.sig(S.p.sigY,4) + '$ MPa. For a factor of '
+          + 'safety of ' + fmt.sig(S.p.fos,2) + ', find the maximum system stiffness the design can tolerate, the washer '
+          + 'stiffness that corresponds to, and the travel it would need. Compare that with the washer specified above.';
       },
   answer: function(S,fmt){
-        return '(a) with washer &nbsp; $\\sigma = ' + fmt.sig(S.cases[0].sigma,4)
-          + '$ MPa &nbsp;&nbsp;&nbsp; (b) washer removed &nbsp; $\\sigma = ' + fmt.sig(S.cases[1].sigma,4) + '$ MPa';
+        var sAll=S.p.sigY/S.p.fos, nMax=sAll/S.sst,
+            dMin=2*(S.p.h*1000)/((nMax-1)*(nMax-1)-1), kMax=S.W/dMin,
+            kwMax=1/(1/kMax - 1/S.kMem);
+        return 'a) $\\sigma = ' + fmt.sig(S.cases[0].sigma,4)
+          + '$ MPa &nbsp;&nbsp;&nbsp; b) $\\sigma = ' + fmt.sig(S.cases[1].sigma,4)
+          + '$ MPa &nbsp;&nbsp;&nbsp; c) $k_{eq} \\le ' + fmt.grp(kMax) + '$ N/mm, i.e. $k_{washer} \\le '
+          + fmt.grp(kwMax) + '$ N/mm on about ' + fmt.sig(nMax*dMin,3) + ' mm of travel';
       },
   caption: function(S,fmt){
         return 'The collar slides down the rod through ' + fmt.sig(S.p.h,3) + ' m and strikes the washer at the bottom '
           + 'end. The rod hangs from the ceiling, so the impact puts it in <strong>tension</strong>. Schematic \u2014 '
           + 'labels follow the selected variant, proportions are indicative.';
       },
-  source: "(Ex 2-11, <em>Engineering Mechanics of Solids</em>, Popov E.P., 1990, Prentice-Hall)",
+  design: "washerSizing",
+  source: "Parts (a) and (b) are from Ex 2-11, <em>Engineering Mechanics of Solids</em>, Popov E.P., 1990, Prentice-Hall. Part (c) added for MCEN2002.",
   mistakes: function(S,fmt){
         var out=[];
         if(S.cases[0].delta > 25) out.push('<strong>Believing the predicted washer travel.</strong> The linear model gives '
@@ -643,6 +807,8 @@ var VARIANTS = [
     "L": 1500,
     "E": 200000,
     "kExtra": 4.5,
+    "sigY": 250,
+    "fos": 2,
     "mode": "forward",
     "book": true
   },
@@ -656,6 +822,8 @@ var VARIANTS = [
     "L": 1500,
     "E": 200000,
     "kExtra": 4.5,
+    "sigY": 250,
+    "fos": 2,
     "mode": "forward"
   },
   {
@@ -668,6 +836,8 @@ var VARIANTS = [
     "L": 2000,
     "E": 200000,
     "kExtra": 9,
+    "sigY": 250,
+    "fos": 2,
     "mode": "forward"
   }
 ];
