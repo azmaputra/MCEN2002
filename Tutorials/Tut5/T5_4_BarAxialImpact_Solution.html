@@ -3,46 +3,32 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>T5.4 – Axial Impact on a Steel Bar (with Mass Correction)</title>
+<title>T5.4 &ndash; Axial Impact on a Steel Bar</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css"/>
 <script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
-<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"
-  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]})"></script>
-<style>
-*,*::before,*::after{box-sizing:border-box}
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<style>*,*::before,*::after{box-sizing:border-box}
 body{font-family:'Segoe UI',Arial,sans-serif;font-size:15px;line-height:1.75;color:#1a1a1a;background:#f5f6f8;margin:0;padding:24px 16px 56px}
-.page{max-width:860px;margin:0 auto;background:#fff;border-radius:10px;box-shadow:0 2px 14px rgba(0,0,0,.10);padding:40px 52px 52px}
-
-/* Header */
-.uni-header{text-align:center;border-bottom:2px solid #1a3c6e;padding-bottom:16px;margin-bottom:32px}
+.page{max-width:880px;margin:0 auto;background:#fff;border-radius:10px;box-shadow:0 2px 14px rgba(0,0,0,.10);padding:40px 52px 52px}
+.uni-header{text-align:center;border-bottom:2px solid #1a3c6e;padding-bottom:16px;margin-bottom:24px}
 .uni-header p{margin:0;line-height:1.4;font-size:13.5px;color:#555}
 .uni-header h2{margin:8px 0 0;font-size:20px;color:#1a3c6e}
-
-/* Section headings */
 h3{color:#1a3c6e;border-left:4px solid #1a3c6e;padding-left:10px;margin:28px 0 10px;font-size:15.5px}
-h4{color:#1a3c6e;font-size:14.5px;margin:18px 0 6px}
-
-/* Steps */
+h4{color:#1a3c6e;font-size:14.5px;margin:20px 0 6px}
 .step{margin-bottom:10px}
 .step details{border:1px solid #d1d9e8;border-radius:8px;overflow:hidden;margin-top:6px}
-.step details summary{
-  list-style:none;cursor:pointer;padding:11px 15px;
-  background:#f0f4fb;color:#1a3c6e;font-weight:500;font-size:14.5px;
-  display:flex;align-items:center;gap:10px;user-select:none;
-}
+.step details summary{list-style:none;cursor:pointer;padding:11px 15px;background:#f0f4fb;color:#1a3c6e;font-weight:500;font-size:14.5px;display:flex;align-items:center;gap:10px;user-select:none}
 .step details summary::-webkit-details-marker{display:none}
 .step details summary::before{display:none}
-.step details summary::after{content:'▼';font-size:11px;color:#f97316;transition:transform 0.2s;flex-shrink:0;margin-left:auto;padding-left:8px}
+.step details summary::after{content:'\25BC';font-size:11px;color:#f97316;transition:transform .2s;flex-shrink:0;margin-left:auto;padding-left:8px}
 .step details[open] summary::after{transform:rotate(180deg)}
-.step details summary .step-label{font-size:12px;font-weight:500;color:#f97316;margin-right:4px}
 .step details[open] summary{background:#e8eef9;border-bottom:1px solid #d1d9e8}
+.step details summary .step-label{font-size:12px;font-weight:500;color:#f97316;margin-right:4px}
 .step-body{padding:16px 20px}
 .step-heading{display:flex;align-items:center;gap:10px;margin-bottom:6px}
 .step-num{background:#1a3c6e;color:#fff;font-size:12px;font-weight:700;border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .step-title{font-size:15px;font-weight:600;color:#1a3c6e}
 .try-hint{font-size:12.5px;color:#6b7280;font-style:italic;margin-left:auto}
-
-/* Callouts */
 .callout{border-radius:6px;padding:13px 18px;margin:14px 0;font-size:14.5px}
 .callout p{margin:4px 0}
 .info{background:#eef4ff;border-left:4px solid #3b82f6}
@@ -50,316 +36,985 @@ h4{color:#1a3c6e;font-size:14.5px;margin:18px 0 6px}
 .answer{background:#fff7ed;border-left:4px solid #f97316;font-size:16px;font-weight:600}
 .note{background:#faf5ff;border-left:4px solid #a855f7;font-size:14px}
 .warn{background:#fffbeb;border-left:4px solid #f59e0b;font-size:14px}
-
-/* Math display */
 .math-block{background:#f8f9fb;border:1px solid #e2e6ef;border-radius:6px;padding:14px 20px;margin:12px 0;overflow-x:auto;text-align:center}
-
-/* Table */
 table{width:100%;border-collapse:collapse;margin:18px 0;font-size:13.5px}
 th{background:#1a3c6e;color:#fff;padding:9px 10px;text-align:center;font-weight:600;font-size:13px}
 td{padding:8px 10px;text-align:center;border-bottom:1px solid #e5e7eb;vertical-align:middle}
 td.left{text-align:left;font-weight:600}
 tr:nth-child(even) td{background:#f8f9fb}
 tr.total td{font-weight:700;background:#eef4ff;border-top:2px solid #1a3c6e}
-
-/* Diagram */
-.diagram-wrap{text-align:center;margin:24px 0 8px}
-.diagram-wrap figcaption{font-size:13px;color:#555;margin-top:8px;font-style:italic}
-
+.diagram-wrap{text-align:center;margin:22px 0 8px}
+.diagram-wrap figure{margin:0}
+.diagram-wrap svg{max-width:100%;height:auto}
+.diagram-wrap figcaption{font-size:13px;color:#555;margin-top:6px;font-style:italic;line-height:1.5}
 .footer{margin-top:40px;border-top:1px solid #e5e7eb;padding-top:12px;font-size:12px;color:#999;text-align:center}
-</style>
+.switcher{background:#f0f4fb;border:1px solid #d1d9e8;border-radius:8px;padding:14px 18px;margin-bottom:26px}
+.switcher .sw-label{font-size:12.5px;font-weight:600;color:#1a3c6e;text-transform:uppercase;letter-spacing:.06em;margin-bottom:9px}
+.sw-btns{display:flex;flex-wrap:wrap;gap:8px}
+.sw-btns button{font-family:inherit;font-size:13.5px;font-weight:500;padding:8px 15px;border-radius:6px;border:1px solid #b9c6df;background:#fff;color:#1a3c6e;cursor:pointer;transition:.15s}
+.sw-btns button:hover{background:#e8eef9;border-color:#1a3c6e}
+.sw-btns button[aria-pressed="true"]{background:#1a3c6e;border-color:#1a3c6e;color:#fff;box-shadow:0 1px 4px rgba(26,60,110,.3)}
+.sw-desc{font-size:13px;color:#555;margin-top:10px;font-style:italic}</style>
 </head>
 <body>
 <div class="page">
 
-<!-- ═══════════════════════════ HEADER ═══════════════════════════ -->
 <div class="uni-header">
-  <p>Curtin University &nbsp;·&nbsp; School of Civil and Mechanical Engineering</p>
-  <p>MCEN2002 – Fundamentals of Mechanical Design</p>
+  <p>Curtin University &nbsp;&middot;&nbsp; School of Civil and Mechanical Engineering</p>
+  <p>MCEN2002 &ndash; Fundamentals of Mechanical Design</p>
   <p style="margin-top:8px"><strong>Dr Azma Putra Azis</strong></p>
-  <h2>Tutorial 5.4 &nbsp;–&nbsp; Axial Impact on a Steel Bar (with Mass Correction)</h2>
+  <h2>Tutorial 5.4 &nbsp;&ndash;&nbsp; Axial Impact on a Steel Bar</h2>
 </div>
 
-<!-- ═══════════════════════════ PROBLEM ═══════════════════════════ -->
-<h3>Problem Statement</h3>
-<p>A <strong>2.5 cm diameter</strong> round steel bar, <strong>0.5 m long</strong>, is struck by an <strong>18 kg</strong> weight moving at a speed of <strong>0.8 m/s</strong>. The static deflection of the bar is given as $\delta_{bar} = \dfrac{mgL}{AE}$. Assume $E = 200$ GPa and density $\rho = 7850$ kg/m³.</p>
-<p><strong>a)</strong> Find the stress due to the impact assuming <em>no dissipation of energy</em>.<br/>
-<strong>b)</strong> Find the stress due to the impact <em>taking into account the dissipation of energy</em> due to the differences in weight.<br/>
-<strong>c)</strong> A colleague proposes <strong>halving the bar's length</strong> to 0.25 m, arguing that a shorter bar is stiffer and therefore stronger. Show what actually happens to the impact stress, and explain why. Then answer: per kilogram of steel added, is it better to make the bar <strong>fatter</strong> or <strong>longer</strong>?</p>
-<p style="font-size:13.5px;color:#666">(a) and (b) from ex. 8, <em>Design of Machine Elements</em>, Spotts M.F., Third Edition, Prentice-Hall. Part (c) added for MCEN2002.</p>
-
-<div class="callout given">
-  <p><strong>Given answer:</strong> &nbsp; a) $\sigma = 96.9$ MPa &nbsp;&nbsp; b) $\sigma = 95.2$ MPa &nbsp;&nbsp; c) the stress <em>rises</em> to 137.0 MPa; fatter and longer are <strong>equally effective</strong></p>
+<div class="switcher">
+  <div class="sw-label">Choose a problem</div>
+  <div class="sw-btns" id="swBtns"></div>
+  <div class="sw-desc" id="swDesc"></div>
 </div>
 
-<!-- Diagram -->
-<div class="diagram-wrap">
-<figure>
-<svg viewBox="0 0 580 300" width="520" xmlns="http://www.w3.org/2000/svg" font-family="Arial,sans-serif" font-size="12">
+<div id="doc"></div>
 
-  <!-- fixed support wall -->
-  <line x1="70" y1="55" x2="70" y2="215" stroke="#1a3c6e" stroke-width="2.5"/>
-  <g stroke="#1a3c6e" stroke-width="1.2">
-    <line x1="70" y1="65" x2="56" y2="77"/><line x1="70" y1="87" x2="56" y2="99"/>
-    <line x1="70" y1="109" x2="56" y2="121"/><line x1="70" y1="131" x2="56" y2="143"/>
-    <line x1="70" y1="153" x2="56" y2="165"/><line x1="70" y1="175" x2="56" y2="187"/>
-    <line x1="70" y1="197" x2="56" y2="209"/>
-  </g>
-  <text x="44" y="238" fill="#1a3c6e" font-size="12">rigid support</text>
-
-  <!-- bar -->
-  <rect x="70" y="112" width="270" height="46" fill="#7fe3ec" fill-opacity="0.85" stroke="#1a3c6e" stroke-width="2"/>
-  <!-- bar centreline -->
-  <line x1="60" y1="135" x2="470" y2="135" stroke="#888" stroke-width="0.9" stroke-dasharray="9,3,2,3"/>
-
-  <!-- collar / struck end -->
-  <rect x="340" y="100" width="14" height="70" fill="#fff" stroke="#1a3c6e" stroke-width="2"/>
-
-  <!-- striking weight -->
-  <rect x="386" y="95" width="84" height="80" fill="#fde68a" fill-opacity="0.9" stroke="#b45309" stroke-width="2"/>
-  <text x="404" y="132" fill="#7c2d12" font-size="12.5" font-weight="bold">m = 18 kg</text>
-  <text x="404" y="150" fill="#7c2d12" font-size="12">v = 0.8 m/s</text>
-
-  <!-- velocity arrow -->
-  <line x1="500" y1="70" x2="410" y2="70" stroke="#f97316" stroke-width="2.6"/>
-  <polygon points="400,70 416,64 416,76" fill="#f97316"/>
-  <text x="432" y="60" fill="#f97316" font-size="13" font-weight="bold">v</text>
-
-  <!-- length dimension -->
-  <line x1="70" y1="255" x2="347" y2="255" stroke="#555" stroke-width="1"/>
-  <polygon points="70,255 82,251 82,259" fill="#555"/>
-  <polygon points="347,255 335,251 335,259" fill="#555"/>
-  <line x1="70" y1="215" x2="70" y2="262" stroke="#555" stroke-width="0.9" stroke-dasharray="3,3"/>
-  <line x1="347" y1="172" x2="347" y2="262" stroke="#555" stroke-width="0.9" stroke-dasharray="3,3"/>
-  <text x="175" y="275" fill="#333" font-size="12.5">L = 0.5 m = 500 mm</text>
-
-  <!-- diameter dimension -->
-  <line x1="205" y1="112" x2="205" y2="158" stroke="#555" stroke-width="1"/>
-  <polygon points="205,112 201,122 209,122" fill="#555"/>
-  <polygon points="205,158 201,148 209,148" fill="#555"/>
-  <text x="150" y="98" fill="#333" font-size="12.5">d = 25 mm</text>
-  <line x1="205" y1="112" x2="196" y2="94" stroke="#555" stroke-width="0.9"/>
-
-  <!-- labels -->
-  <text x="88" y="185" fill="#1a3c6e" font-size="12">steel bar: E = 200 GPa, ρ = 7850 kg/m³</text>
-
-</svg>
-<figcaption>The weight strikes the end of the bar axially. The bar acts as a very stiff spring of stiffness k = AE/L; its own mass (1.93 kg) is not negligible compared with the striker, which is what part (b) corrects for.</figcaption>
-</figure>
+<div class="footer">MCEN2002 &ndash; Tutorial 5.4 &middot; Worked solution &middot; Curtin University</div>
 </div>
 
-<!-- ═══════════════════════════ SOLUTION ═══════════════════════════ -->
-<h3>Solution</h3>
+<script>
+/* ===========================================================================
+   GENERATED FILE - do not edit by hand.
+   Source: _engine/impact_engine.js  +  _engine/build.py
+   Rebuild with:  python3 _engine/build.py
+   =========================================================================== */
 
-<div class="step">
-  <div class="step-heading">
-    <div class="step-num">1</div>
-    <div class="step-title">Section properties and the bar as a spring</div>
-    <div class="try-hint">Try it first, then reveal ↓</div>
-  </div>
-  <details>
-    <summary><span class="step-label">Step 1</span> A, k = AE/L, and why that is the whole model</summary>
-    <div class="step-body">
-      <p>Cross-sectional area of the round bar:</p>
-      <div class="math-block">$$A = \frac{\pi d^{2}}{4} = \frac{\pi (25)^{2}}{4} = 490.9\ \text{mm}^{2} = 4.909 \times 10^{-4}\ \text{m}^{2}$$</div>
-      <p>The given static deflection formula $\delta_{bar} = \dfrac{mgL}{AE}$ is just Hooke's law written for an axially loaded bar, $\delta = FL/AE$. Rearranged, it tells us the bar behaves as a linear spring of stiffness</p>
-      <div class="math-block">$$k = \frac{F}{\delta} = \frac{AE}{L} = \frac{(4.909\times10^{-4})(200\times10^{9})}{0.5} = 1.963\times10^{8}\ \text{N/m}$$</div>
-      <div class="callout info">
-        <p><strong>Why this matters:</strong> once you see $k = AE/L$, T5.4 becomes structurally identical to T5.3 (trolley into a spring) — same energy balance, different $k$. The only new ingredient is converting the resulting force into a <em>stress</em>. Note how stiff the bar is: 196 MN/m, about 8700 times the trolley spring. Stiff members make bad shock absorbers.</p>
-      </div>
-    </div>
-  </details>
-</div>
+/* ══════════════════════════════════════════════════════════════════════════
+   MCEN2002 — SHARED IMPACT / ENERGY-METHOD ENGINE
+   Single source of truth for the T5.x "impact factor" family:
+       T5.2  falling mass on a rod, with and without a series rubber washer
+       T5.5  weight dropped on a bar, plus the struck-member mass correction
+       T5.6  wooden post — inverse problem, solve for the drop height
+       T5.8  diving board — stiffness inferred from a measured deflection
 
-<div class="step">
-  <div class="step-heading">
-    <div class="step-num">2</div>
-    <div class="step-title">Part (a): energy balance with no dissipation</div>
-    <div class="try-hint">Try it first, then reveal ↓</div>
-  </div>
-  <details>
-    <summary><span class="step-label">Step 2</span> Kinetic energy in = strain energy stored</summary>
-    <div class="step-body">
-      <p>The weight arrives horizontally with kinetic energy</p>
-      <div class="math-block">$$KE = \tfrac{1}{2}mv^{2} = \tfrac{1}{2}(18)(0.8)^{2} = 5.76\ \text{J}$$</div>
-      <p>Assuming none of it is lost, all of it becomes elastic strain energy in the bar. Strain energy of an axially loaded bar can be written either in terms of deflection or directly in terms of stress:</p>
-      <div class="math-block">$$U = \tfrac{1}{2}k\delta^{2} = \frac{\sigma^{2}AL}{2E}$$</div>
-      <p>Equating $KE = U$ using the stress form and solving for $\sigma$:</p>
-      <div class="math-block">$$\tfrac{1}{2}mv^{2} = \frac{\sigma^{2}AL}{2E} \qquad \Longrightarrow \qquad \sigma = v\sqrt{\frac{mE}{AL}}$$</div>
-      <p>Substituting in consistent SI units:</p>
-      <div class="math-block">$$\sigma = 0.8\sqrt{\frac{18 \times 200\times10^{9}}{(4.909\times10^{-4})(0.5)}} = 0.8\sqrt{1.467\times10^{16}}$$</div>
-      <div class="math-block">$$\sigma = 0.8 \times 1.211\times10^{8} = 9.689\times10^{7}\ \text{Pa}$$</div>
-      <div class="callout answer">
-        <p>$$\sigma_a = 96.9\ \text{MPa}$$</p>
-      </div>
-      <div class="callout note">
-        <p><strong>Notation used throughout this solution:</strong> the subscripts label the <em>parts of the question</em>, not a sequence. So $\sigma_a$ is the answer to part (a) — the idealised case with <strong>no</strong> energy dissipation — and $\sigma_b$ will be the answer to part (b), the same impact <strong>with</strong> the mass correction applied. Both describe the same event; they are two models of it, not two stages of it.</p>
-      </div>
-      <div class="callout note">
-        <p><strong>Equivalent route via deflection</strong> (use whichever you find clearer — same answer):</p>
-        <p style="text-align:center">$$\delta = v\sqrt{\frac{m}{k}} = 0.8\sqrt{\frac{18}{1.963\times10^{8}}} = 0.2422\ \text{mm}$$</p>
-        <p style="text-align:center">$$F = k\delta = 47\,560\ \text{N}, \qquad \sigma = \frac{F}{A} = \frac{47\,560}{4.909\times10^{-4}} = 96.9\ \text{MPa} \ \checkmark$$</p>
-      </div>
-      <div class="callout note">
-        <p><strong>Scale of the effect:</strong> the static stress from simply resting the weight on the bar is $\sigma_{st} = mg/A = 176.6/4.909\times10^{-4} = 0.36$ MPa. The impact multiplies it by <strong>269</strong>. Yet 96.9 MPa is still comfortably below the yield strength of structural steel (~250 MPa), so the elastic assumption behind $U = \sigma^2 AL/2E$ holds. ✓</p>
-      </div>
-    </div>
-  </details>
-</div>
+   Edit this file, then run  _engine/build.py  to regenerate the HTML files.
+   (The engine is inlined into each generated page, so every page is
+    self-contained and can be uploaded to Blackboard on its own.)
 
-<div class="step">
-  <div class="step-heading">
-    <div class="step-num">3</div>
-    <div class="step-title">Part (b): why energy is lost when the bar has mass</div>
-    <div class="try-hint">Try it first, then reveal ↓</div>
-  </div>
-  <details>
-    <summary><span class="step-label">Step 3</span> The physical mechanism — a plastic collision, not friction</summary>
-    <div class="step-body">
-      <p>Part (a) assumed the bar was massless. In reality the striker does not meet a weightless spring; it meets a body with inertia that must be suddenly accelerated from rest to the striker's speed. That sudden common-velocity event is a <strong>perfectly inelastic collision</strong>, and such collisions always lose kinetic energy.</p>
-      <div class="callout info">
-        <p><strong>Note the wording:</strong> "dissipation of energy due to the differences in weight" — the loss has nothing to do with friction, damping, or heat in the usual sense. It is the momentum-sharing loss of a plastic impact between the striker and the bar's <em>effective</em> mass.</p>
-      </div>
-      <p>First, the bar's actual mass:</p>
-      <div class="math-block">$$m_{bar} = \rho A L = 7850 \times (4.909\times10^{-4}) \times 0.5 = 1.927\ \text{kg}$$</div>
-      <p>Not all of that mass moves at the impact velocity — the fixed end stays put and the struck end moves fastest. Integrating the kinetic energy of a bar with a linear velocity distribution gives the classical result that the bar behaves as though only <strong>one third</strong> of its mass sits at the struck end:</p>
-      <div class="math-block">$$m_{eff} = \frac{m_{bar}}{3} = \frac{1.927}{3} = 0.642\ \text{kg}$$</div>
-      <p>Conservation of momentum for the plastic impact gives the common velocity $v' = \dfrac{mv}{m + m_{eff}}$, and the kinetic energy surviving the collision is</p>
-      <div class="math-block">$$\eta = \frac{KE_{\text{after}}}{KE_{\text{before}}} = \frac{1}{1 + \dfrac{m_{bar}}{3m}}$$</div>
-      <div class="math-block">$$\eta = \frac{1}{1 + \dfrac{1.927}{3 \times 18}} = \frac{1}{1 + 0.03568} = 0.9655$$</div>
-      <div class="callout answer">
-        <p>$$\eta = 0.966 \quad \text{(3.4\% of the incoming energy is lost)}$$</p>
-      </div>
-    </div>
-  </details>
-</div>
+   ─── MODEL ────────────────────────────────────────────────────────────────
+   Everything reduces to one linear spring struck by a falling weight.
 
-<div class="step">
-  <div class="step-heading">
-    <div class="step-num">4</div>
-    <div class="step-title">Part (b): apply the correction to the stress</div>
-    <div class="try-hint">Try it first, then reveal ↓</div>
-  </div>
-  <details>
-    <summary><span class="step-label">Step 4</span> Stress scales with the square root of energy</summary>
-    <div class="step-body">
-      <p>The critical detail: from $U = \sigma^2 AL/2E$, the stress is proportional to $\sqrt{U}$. So the energy factor $\eta$ enters the stress as $\sqrt{\eta}$, <strong>not</strong> as $\eta$. Scaling the part (a) result by that factor gives the part (b) result:</p>
-      <div class="math-block">$$\underbrace{\sigma_b}_{\text{part (b): with dissipation}} = \underbrace{\sigma_a}_{\text{part (a): no dissipation}}\sqrt{\eta}$$</div>
-      <div class="math-block">$$\sigma_b = 96.89 \times \sqrt{0.9655} = 96.89 \times 0.9826$$</div>
-      <div class="callout answer">
-        <p>$$\sigma_b = 95.2\ \text{MPa}$$</p>
-      </div>
-      <p>Or, all in one expression:</p>
-      <div class="math-block">$$\sigma_b = v\sqrt{\frac{mE}{AL}} \cdot \frac{1}{\sqrt{1 + \dfrac{m_{bar}}{3m}}}$$</div>
-      <div class="callout note">
-        <p><strong>Is the correction worth making?</strong> It reduces the stress by only 1.7 %, because the bar (1.93 kg) is light next to the striker (18 kg). The correction always <em>reduces</em> the predicted stress, so ignoring it is <strong>conservative</strong> — you over-predict the load, which is the safe direction to err. For hand design work with a light struck member, part (a) alone is defensible. The correction becomes important when $m_{bar}$ approaches or exceeds $3m$: for a striker of 1 kg on this same bar, $\eta$ would fall to 0.61 and the stress to 78 % of the uncorrected value.</p>
-      </div>
-    </div>
-  </details>
-</div>
+     W    = m g                        weight of the striker            [N]
+     k    = A E / L      or   W/dstGiven                                [N/mm]
+     keq  = series(k, kExtra)          optional soft element in series  [N/mm]
+     dst  = W / keq                    static deflection                [mm]
+     eta  = 1/(1 + mMember/(3 m))      energy retained after the plastic
+                                       collision with the struck member [-]
+     n    = 1 + sqrt(1 + 2 h eta/dst)  impact factor                    [-]
 
-<div class="step">
-  <div class="step-heading">
-    <div class="step-num">5</div>
-    <div class="step-title">Part (c): what actually governs impact strength</div>
-    <div class="try-hint">Try it first, then reveal ↓</div>
-  </div>
-  <details>
-    <summary><span class="step-label">Step 5</span> Rewrite the answer in terms of the bar's volume</summary>
-    <div class="step-body">
-      <p>Before touching any numbers, check the factor of safety we are working with. Mild steel yields at roughly $\sigma_y = 250$ MPa, so from part (a):</p>
-      <div class="math-block">$$\text{FoS} = \frac{\sigma_y}{\sigma} = \frac{250}{96.9} = 2.58$$</div>
-      <p>Comfortable — but that is exactly the kind of margin a design change can quietly destroy. Now look again at the result from Step 2. The area and the length only ever appeared as the product $AL$, which is the <strong>volume of the bar</strong>:</p>
-      <div class="math-block">$$\sigma = v\sqrt{\frac{mE}{AL}} = v\sqrt{\frac{mE}{V}} \qquad\text{where}\qquad V = AL$$</div>
-      <p>The reason becomes obvious if you start from strain energy <em>density</em>. A uniformly stressed bar stores $\sigma^2/2E$ joules in every cubic metre of material, so the total it can absorb is that density times the volume:</p>
-      <div class="math-block">$$U = \frac{\sigma^{2}}{2E}\,V = \tfrac{1}{2}mv^{2} \qquad \Longrightarrow \qquad \sigma = v\sqrt{\frac{mE}{V}}$$</div>
-      <div class="callout info">
-        <p><strong>The design statement:</strong> for a uniform axial member, the impact stress depends on <strong>how much material there is</strong>, not on how that material is arranged. Area and length are interchangeable. A long thin bar and a short fat bar of the same volume see <em>identical</em> impact stress.</p>
-      </div>
+     F = n W,   delta = n dst,   sigma = n W/A
 
-      <h4>The colleague's proposal</h4>
-      <p>Halving the length halves the volume, and $\sigma \propto V^{-1/2}$:</p>
-      <div class="math-block">$$\sigma_{new} = \sigma\sqrt{\frac{V}{V/2}} = 96.89\sqrt{2} = 137.0\ \text{MPa}$$</div>
-      <div class="callout answer">
-        <p>$$\sigma_{new} = 137.0\ \text{MPa}$$</p>
-        <p style="font-weight:400;font-size:14.5px">A 41&nbsp;% <em>increase</em> — and the factor of safety falls from 2.58 to <strong>1.82</strong>.</p>
-      </div>
-      <p>The colleague is not wrong that the bar becomes stiffer — $k = AE/L$ doubles. That is precisely the problem. A stiffer member stops the striker in a shorter distance, so the force needed to absorb the same 5.76 J is larger. Shortening the bar removes half the material that was sharing the energy.</p>
+   Inverse mode instead takes a target stress and returns the drop height:
+     n = sigma/sst,   h = dst[(n-1)^2 - 1] / (2 eta)
 
-      <h4>Fatter or longer?</h4>
-      <p>Suppose we can afford to add one bar's worth of steel, taking $V \to 2V$. Two ways to spend it:</p>
-      <table>
-        <thead><tr><th>Option</th><th>Change</th><th>Volume</th><th>$\sigma$</th></tr></thead>
-        <tbody>
-          <tr><td class="left">Original</td><td>$d = 25$ mm, $L = 500$ mm</td><td>245.4 cm³</td><td>96.9 MPa</td></tr>
-          <tr><td class="left">Make it longer</td><td>$L \to 1000$ mm, same $d$</td><td>490.9 cm³</td><td>68.5 MPa</td></tr>
-          <tr><td class="left">Make it fatter</td><td>$d \to 35.4$ mm, same $L$</td><td>490.9 cm³</td><td>68.5 MPa</td></tr>
-          <tr class="total"><td class="left">Verdict</td><td colspan="2">identical — only $V$ appears in the formula</td><td>equal</td></tr>
-        </tbody>
-      </table>
-      <div class="callout note">
-        <p><strong>Contrast this with static design.</strong> Under a static load, $\sigma = P/A$: the length is irrelevant and only area buys you strength. Under impact, length and area are worth exactly the same per kilogram. Students who carry static intuition into impact problems reliably over-value fat, stubby members — which are the <em>worst</em> shape for absorbing energy per unit mass.</p>
-      </div>
-      <div class="callout warn">
-        <p><strong>Important limit on this result.</strong> "Only the volume matters" holds for a <strong>uniform</strong> bar in <strong>pure axial</strong> loading, where every element is equally stressed. Put a step, a groove or a thread anywhere along it and the argument collapses: the small section carries the same force at higher stress, and only the material near it participates meaningfully in absorbing energy. A notch is doubly punishing under impact — it raises the local stress <em>and</em> shrinks the effective volume. This is why impact-loaded components are made with generous fillets and no sharp changes of section.</p>
-      </div>
-      <div class="callout info">
-        <p><strong>Where this connects:</strong> T5.2 showed that adding a soft rubber washer cut the rod stress by a factor of 68. Here, <em>doubling the mass of the bar</em> cuts the stress by only 1.41. Adding compliance beats adding material by a very wide margin — reach for a spring, a mount or a longer load path before reaching for a thicker section.</p>
-      </div>
-    </div>
-  </details>
-</div>
+   ─── PARAMETERS (one variant object) ──────────────────────────────────────
+     m         striker / person mass                              [kg]
+     h         drop height                                        [m]   (forward)
+     sigTgt    target impact stress                               [MPa] (inverse)
+     shape     'round' | 'square' | null      (null => no stress reported)
+     d         diameter                                           [mm]
+     b         side of square section                             [mm]
+     L         member length                                      [mm]
+     E         modulus                                            [MPa = N/mm2]
+     kExtra    stiffness of a series element, e.g. a washer       [N/mm]
+     dstGiven  measured static deflection (replaces geometry)     [mm]
+     rho       density, enables the mass correction from geometry [kg/m3]
+     mMember   struck-member mass given directly                  [kg]
+     corr      true => apply eta
+     v         striker speed for a horizontal strike        [m/s] (kinetic)
+     mode      'forward' | 'inverse' | 'kinetic'
+   ══════════════════════════════════════════════════════════════════════════ */
 
-<div class="step">
-  <div class="step-heading">
-    <div class="step-num">6</div>
-    <div class="step-title">Summary Table</div>
-  </div>
-  <details>
-    <summary><span class="step-label">Step 6</span> All quantities in one place</summary>
-    <div class="step-body">
-<table>
-  <thead>
-    <tr>
-      <th>Quantity</th>
-      <th>Symbol</th>
-      <th>Expression</th>
-      <th>Value</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr><td class="left">Cross-sectional area</td><td>$A$</td><td>$\pi d^2/4$</td><td>490.9 mm²</td></tr>
-    <tr><td class="left">Axial stiffness</td><td>$k$</td><td>$AE/L$</td><td>1.963 × 10⁸ N/m</td></tr>
-    <tr><td class="left">Incoming kinetic energy</td><td>$KE$</td><td>$\tfrac{1}{2}mv^2$</td><td>5.76 J</td></tr>
-    <tr><td class="left">Dynamic deflection (a)</td><td>$\delta$</td><td>$v\sqrt{m/k}$</td><td>0.242 mm</td></tr>
-    <tr><td class="left">Impact force (a)</td><td>$F$</td><td>$k\delta$</td><td>47.6 kN</td></tr>
-    <tr class="total"><td class="left">Impact stress — no dissipation</td><td>$\sigma_a$</td><td>$v\sqrt{mE/AL}$</td><td>96.9 MPa</td></tr>
-    <tr><td class="left">Bar mass</td><td>$m_{bar}$</td><td>$\rho A L$</td><td>1.927 kg</td></tr>
-    <tr><td class="left">Effective bar mass</td><td>$m_{bar}/3$</td><td>—</td><td>0.642 kg</td></tr>
-    <tr><td class="left">Energy retention factor</td><td>$\eta$</td><td>$1/(1+m_{bar}/3m)$</td><td>0.9655</td></tr>
-    <tr class="total"><td class="left">Impact stress — with dissipation</td><td>$\sigma_b$</td><td>$\sigma_a\sqrt{\eta}$</td><td>95.2 MPa</td></tr>
-    <tr><td class="left">Static stress (comparison)</td><td>$\sigma_{st}$</td><td>$mg/A$</td><td>0.36 MPa</td></tr>
-    <tr><td class="left">Bar volume</td><td>$V$</td><td>$AL$</td><td>245.4 cm³</td></tr>
-    <tr><td class="left">Factor of safety (vs 250 MPa)</td><td>—</td><td>$\sigma_y/\sigma_a$</td><td>2.58</td></tr>
-    <tr class="total"><td class="left">Impact stress if $L$ halved (c)</td><td>$\sigma_{new}$</td><td>$v\sqrt{mE/V}$, $V \to V/2$</td><td>137.0 MPa (FoS 1.82)</td></tr>
-  </tbody>
-</table>
-    </div>
-  </details>
-</div>
+var G = 9.81;
 
-<!-- ═══════════════════════════ COMMON MISTAKES ═══════════════════════════ -->
-<div class="callout warn">
-  <p><strong>Common mistake 1:</strong> Applying $\eta$ directly to the stress, i.e. $96.9 \times 0.9655 = 93.6$ MPa. Energy scales as $\sigma^2$, so the correction on stress is $\sqrt{\eta} = 0.9826$. The book's 95.2 MPa confirms the square root.</p>
-  <p style="margin-top:8px"><strong>Common mistake 2:</strong> Using the full bar mass 1.927 kg instead of $m_{bar}/3 = 0.642$ kg. That would give $\eta = 0.903$ and 92.1 MPa. The one-third factor comes from integrating the kinetic energy of a bar whose velocity varies linearly from zero at the fixed end.</p>
-  <p style="margin-top:8px"><strong>Common mistake 3:</strong> Adding a $mgh$ term. No drop height is given — the weight is <em>already moving</em> at 0.8 m/s when it makes contact, so its kinetic energy is the entire energy input. (Contrast T5.5, where a mass is released from a height and both $mgh$ and the work done through the extra deflection matter.)</p>
-  <p style="margin-top:8px"><strong>Common mistake 4:</strong> Mixing mm and m mid-calculation. With $\sigma = v\sqrt{mE/AL}$ the units only work out if everything is SI: $A$ in m², $L$ in m, $E$ in Pa. Substituting $A = 490.9$ mm² alongside $E = 200 \times 10^9$ Pa gives an answer wrong by a factor of 1000.</p>
-  <p style="margin-top:8px"><strong>Common mistake 5:</strong> In part (c), assuming that "stiffer" means "safer". Stiffness and impact strength pull in <em>opposite</em> directions: $k = AE/L$ rises when the bar is shortened, but the energy-absorbing volume falls, and it is the volume that sets the stress. Reasoning by stiffness alone gets the sign of the answer wrong.</p>
-  <p style="margin-top:8px"><strong>Common mistake 6:</strong> Extending "only the volume matters" to non-uniform members. It holds only where every element of material is equally stressed. A stepped shaft, a threaded end or a notch breaks the assumption and makes the component far weaker than its volume suggests.</p>
-  <p style="margin-top:8px"><strong>Common mistake 7:</strong> Forgetting to check that the result is elastic. If the computed impact stress exceeded the yield strength, the linear strain-energy formula would be invalid and the whole calculation meaningless. Always compare against yield before reporting.</p>
-</div>
+/* ─────────────────────────── number formatting ─────────────────────────── */
 
-<div class="footer">MCEN2002 – Fundamentals of Mechanical Design &nbsp;|&nbsp; Tutorial 5.4 &nbsp;|&nbsp; Curtin University</div>
-</div>
+function sig(x, s) {
+  if (x === 0) return '0';
+  s = s || 4;
+  var a = Math.abs(x), e = Math.floor(Math.log10(a));
+  if (a >= 1e6 || a < 1e-3) {
+    var mant = x / Math.pow(10, e);
+    return trim(mant.toFixed(3)) + ' \\times 10^{' + e + '}';
+  }
+  var dp = Math.min(6, Math.max(0, s - 1 - e));
+  return trim(x.toFixed(dp));
+}
+function trim(r) {
+  if (r.indexOf('.') >= 0) r = r.replace(/0+$/, '').replace(/\.$/, '');
+  return r;
+}
+/* thousands-separated, for prose and tables */
+function grp(x, dp) {
+  var v = (dp === undefined) ? x.toFixed(0) : x.toFixed(dp);
+  var parts = v.split('.');
+  parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, '\u202f');
+  return parts.join('.');
+}
+var fmt = { sig: sig, grp: grp };
+
+/* ─────────────────────────────── solver ────────────────────────────────── */
+
+function solve(p) {
+  var S = { p: p };
+
+  S.W = p.m * G;                                   // N
+
+  /* section area */
+  if (p.shape === 'round')       S.A = Math.PI * p.d * p.d / 4;
+  else if (p.shape === 'square') S.A = p.b * p.b;
+  else                           S.A = null;
+
+  /* member stiffness */
+  if (p.dstGiven) { S.kMem = S.W / p.dstGiven; S.fromMeasured = true; }
+  else            { S.kMem = S.A * p.E / p.L;  S.fromMeasured = false; }
+
+  /* struck-member mass */
+  if (p.mMember)   S.mMem = p.mMember;
+  else if (p.rho)  S.mMem = p.rho * S.A * p.L * 1e-9;   // mm2 * mm -> m3
+  else             S.mMem = null;
+
+  S.eta = (p.corr && S.mMem) ? 1 / (1 + S.mMem / (3 * p.m)) : 1;
+  S.hasCorr = !!(p.corr && S.mMem);
+
+  S.sst = S.A ? S.W / S.A : null;                   // MPa
+
+  /* the cases to report: with the series element, and without it */
+  S.cases = [];
+  if (p.kExtra) {
+    S.kEq = 1 / (1 / S.kMem + 1 / p.kExtra);
+    S.cases.push(mkCase('(a) with washer', S.kEq, S, p));
+    S.cases.push(mkCase('(b) washer removed', S.kMem, S, p));
+    S.twoCase = true;
+  } else {
+    S.kEq = S.kMem;
+    S.cases.push(mkCase('', S.kEq, S, p));
+    S.twoCase = false;
+  }
+  S.main = S.cases[0];
+  S.dst = S.main.dst;
+
+  return S;
+}
+
+function mkCase(name, k, S, p) {
+  var c = { name: name, k: k };
+  c.dst = S.W / k;                                  // mm
+  if (p.mode === 'kinetic') {
+    /* Horizontal strike: the striker arrives with kinetic energy only, so
+       1/2 m v^2 = 1/2 k delta^2  =>  delta = v sqrt(m/k).
+       v is in m/s and k in N/mm, hence the factor of 1000.                */
+    c.deltaNo = p.v * Math.sqrt(1000 * p.m / k);      // mm, eta = 1
+    c.delta   = p.v * Math.sqrt(1000 * p.m * S.eta / k);
+    c.FNo = k * c.deltaNo;
+    c.F   = k * c.delta;
+    c.sigmaNo = S.A ? c.FNo / S.A : null;
+    c.sigma   = S.A ? c.F / S.A : null;
+    c.nNo = c.FNo / S.W;
+    c.n   = c.F / S.W;
+    c.h = 0;
+    c.KE = 0.5 * p.m * p.v * p.v;                     // J
+    return c;
+  }
+  if (p.mode === 'inverse') {
+    c.n = p.sigTgt / S.sst;
+    c.h = c.dst * ((c.n - 1) * (c.n - 1) - 1) / (2 * S.eta) / 1000;   // m
+    c.sigma = p.sigTgt;
+  } else {
+    var hmm = p.h * 1000;
+    c.n = 1 + Math.sqrt(1 + 2 * hmm * S.eta / c.dst);
+    c.h = p.h;
+    c.sigma = S.sst ? c.n * S.sst : null;
+    /* the same case with the mass correction switched off - part (a) of the
+       textbook questions always asks for this "no dissipation" value */
+    c.nNo = 1 + Math.sqrt(1 + 2 * hmm / c.dst);
+    c.sigmaNo = S.sst ? c.nNo * S.sst : null;
+    c.FNo = c.nNo * S.W;
+    c.deltaNo = c.nNo * c.dst;
+  }
+  c.F = c.n * S.W;                                  // N
+  c.delta = c.n * c.dst;                            // mm
+  c.ratio = 2 * (c.h * 1000) * S.eta / c.dst;
+  return c;
+}
+
+/* ───────────────────────── small HTML helpers ──────────────────────────── */
+
+function mb(s)            { return '<div class="math-block">$$' + s + '$$</div>'; }
+function call(cls, html)  { return '<div class="callout ' + cls + '">' + html + '</div>'; }
+function P(html)          { return '<p>' + html + '</p>'; }
+
+var STEPN = 0;
+function step(title, summary, body, noHint) {
+  STEPN++;
+  return '<div class="step">'
+    + '<div class="step-heading"><div class="step-num">' + STEPN + '</div>'
+    + '<div class="step-title">' + title + '</div>'
+    + (noHint ? '' : '<div class="try-hint">Try it first, then reveal \u2193</div>')
+    + '</div><details><summary><span class="step-label">Step ' + STEPN + '</span> '
+    + summary + '</summary><div class="step-body">' + body + '</div></details></div>';
+}
+
+var CIRCLED = ['\u2460', '\u2461', '\u2462', '\u2463', '\u2464'];
+
+/* ═══════════════════════════ DIAGRAMS ═══════════════════════════════════ */
+/* Schematic figures. Key dimensions are redrawn in proportion where that is
+   meaningful; labels always follow the current variant.                    */
+
+function hatchV(x, y0, y1, col) {   /* vertical hatched face (a wall) */
+  var s = '<line x1="' + x + '" y1="' + y0 + '" x2="' + x + '" y2="' + y1 + '" stroke="' + col + '" stroke-width="2.5"/><g stroke="' + col + '" stroke-width="1.2">';
+  for (var y = y0 + 10; y < y1; y += 22) s += '<line x1="' + x + '" y1="' + y + '" x2="' + (x - 14) + '" y2="' + (y + 12) + '"/>';
+  return s + '</g>';
+}
+function hatchH(y, x0, x1, col) {   /* horizontal hatched ground */
+  var s = '<line x1="' + x0 + '" y1="' + y + '" x2="' + x1 + '" y2="' + y + '" stroke="' + col + '" stroke-width="2.5"/><g stroke="' + col + '" stroke-width="1.2">';
+  for (var x = x0 + 10; x < x1; x += 25) s += '<line x1="' + x + '" y1="' + y + '" x2="' + (x - 12) + '" y2="' + (y + 14) + '"/>';
+  return s + '</g>';
+}
+function dimV(x, y0, y1, label, col) {
+  col = col || '#555';
+  return '<line x1="' + x + '" y1="' + y0 + '" x2="' + x + '" y2="' + y1 + '" stroke="' + col + '" stroke-width="1"/>'
+    + '<polygon points="' + x + ',' + y0 + ' ' + (x - 4) + ',' + (y0 + 11) + ' ' + (x + 4) + ',' + (y0 + 11) + '" fill="' + col + '"/>'
+    + '<polygon points="' + x + ',' + y1 + ' ' + (x - 4) + ',' + (y1 - 11) + ' ' + (x + 4) + ',' + (y1 - 11) + '" fill="' + col + '"/>'
+    + '<text x="' + (x - 8) + '" y="' + ((y0 + y1) / 2) + '" font-size="13" fill="#333" text-anchor="end">' + label + '</text>';
+}
+function txt(x, y, s, col, size, bold) {
+  return '<text x="' + x + '" y="' + y + '" font-size="' + (size || 12) + '" fill="' + (col || '#333') + '"'
+    + (bold ? ' font-weight="bold"' : '') + '>' + s + '</text>';
+}
+
+var FIGS = {
+
+/* ── T5.2 — rod hanging from a ceiling, collar falls onto a washer ──────── */
+rodWasher: function (S) {
+  var p = S.p, s = '';
+  s += hatchH(40, 200, 380, '#1a3c6e');
+  s += '<rect x="283" y="40" width="14" height="330" fill="#7fe3ec" fill-opacity="0.85" stroke="#1a3c6e" stroke-width="1.8"/>';
+  s += '<rect x="243" y="105" width="94" height="46" fill="#fde68a" fill-opacity="0.9" stroke="#b45309" stroke-width="2"/>';
+  s += txt(345, 126, fmt.sig(p.m, 3) + ' kg', '#7c2d12', 13, true);
+  s += txt(345, 143, 'slides freely on rod', '#7c2d12', 11.5);
+  /* washer stack */
+  s += '<rect x="252" y="345" width="76" height="12" fill="#e5e7eb" stroke="#1a3c6e" stroke-width="1.6"/>';
+  s += '<rect x="252" y="357" width="76" height="18" fill="#c4b5fd" fill-opacity="0.85" stroke="#5b21b6" stroke-width="1.8"/>';
+  s += '<rect x="252" y="375" width="76" height="12" fill="#e5e7eb" stroke="#1a3c6e" stroke-width="1.6"/>';
+  s += txt(160, 412, 'rubber compression washer, k = ' + fmt.sig(p.kExtra, 3) + ' N/mm', '#5b21b6', 12.5);
+  s += '<line x1="290" y1="387" x2="290" y2="398" stroke="#5b21b6" stroke-width="1"/>';
+  s += '<line x1="200" y1="175" x2="200" y2="300" stroke="#f97316" stroke-width="2.4"/><polygon points="200,310 194,294 206,294" fill="#f97316"/>';
+  s += txt(158, 245, 'falls', '#f97316', 12.5, true);
+  s += dimV(90, 40, 357, 'L = ' + fmt.sig(p.L / 1000, 3) + ' m');
+  s += '<line x1="84" y1="40" x2="200" y2="40" stroke="#555" stroke-width="0.9" stroke-dasharray="3,3"/>';
+  s += '<line x1="84" y1="357" x2="252" y2="357" stroke="#555" stroke-width="0.9" stroke-dasharray="3,3"/>';
+  s += dimV(150, 151, 345, 'h = ' + fmt.sig(p.h, 3) + ' m');
+  s += '<line x1="144" y1="151" x2="243" y2="151" stroke="#555" stroke-width="0.9" stroke-dasharray="3,3"/>';
+  s += '<line x1="144" y1="345" x2="252" y2="345" stroke="#555" stroke-width="0.9" stroke-dasharray="3,3"/>';
+  s += txt(345, 255, fmt.sig(p.d, 3) + ' mm round bar', '#1a3c6e', 12.5, true);
+  s += txt(345, 272, 'E = ' + fmt.sig(p.E / 1000, 3) + ' GPa', '#1a3c6e', 11.5);
+  s += '<line x1="297" y1="250" x2="340" y2="250" stroke="#1a3c6e" stroke-width="0.9"/>';
+  return '<svg viewBox="0 0 520 430" width="420" xmlns="http://www.w3.org/2000/svg" font-family="Arial,sans-serif" font-size="12">' + s + '</svg>';
+},
+
+/* ── T5.4 — bar struck axially by a moving weight ───────────────────────── */
+barStrike: function (S) {
+  var p = S.p, s = '';
+  var barPx = Math.round(Math.max(140, Math.min(300, p.L * 0.54))),
+      wPx   = 2 * Math.round(Math.max(20, Math.min(60, p.d * 1.9)) / 2),
+      yMid  = 135, x0 = 70, x1 = x0 + barPx;
+  s += hatchV(x0, 55, 215, '#1a3c6e');
+  s += txt(44, 238, 'rigid support', '#1a3c6e', 12);
+  s += '<rect x="' + x0 + '" y="' + (yMid - wPx / 2) + '" width="' + barPx + '" height="' + wPx + '" fill="#7fe3ec" fill-opacity="0.85" stroke="#1a3c6e" stroke-width="2"/>';
+  s += '<line x1="60" y1="' + yMid + '" x2="' + (x1 + 130) + '" y2="' + yMid + '" stroke="#888" stroke-width="0.9" stroke-dasharray="9,3,2,3"/>';
+  s += '<rect x="' + x1 + '" y="' + (yMid - wPx / 2 - 12) + '" width="14" height="' + (wPx + 24) + '" fill="#fff" stroke="#1a3c6e" stroke-width="2"/>';
+  s += '<rect x="' + (x1 + 46) + '" y="95" width="84" height="80" fill="#fde68a" fill-opacity="0.9" stroke="#b45309" stroke-width="2"/>';
+  s += txt(x1 + 58, 130, 'm = ' + fmt.sig(p.m, 3) + ' kg', '#7c2d12', 12.5, true);
+  s += txt(x1 + 58, 148, 'v = ' + fmt.sig(p.v, 3) + ' m/s', '#7c2d12', 12);
+  s += '<line x1="' + (x1 + 160) + '" y1="70" x2="' + (x1 + 72) + '" y2="70" stroke="#f97316" stroke-width="2.6"/>';
+  s += '<polygon points="' + (x1 + 62) + ',70 ' + (x1 + 78) + ',64 ' + (x1 + 78) + ',76" fill="#f97316"/>';
+  s += txt(x1 + 90, 60, 'v', '#f97316', 13, true);
+  s += '<line x1="' + x0 + '" y1="255" x2="' + (x1 + 7) + '" y2="255" stroke="#555" stroke-width="1"/>';
+  s += '<polygon points="' + x0 + ',255 ' + (x0 + 12) + ',251 ' + (x0 + 12) + ',259" fill="#555"/>';
+  s += '<polygon points="' + (x1 + 7) + ',255 ' + (x1 - 5) + ',251 ' + (x1 - 5) + ',259" fill="#555"/>';
+  s += '<line x1="' + x0 + '" y1="215" x2="' + x0 + '" y2="262" stroke="#555" stroke-width="0.9" stroke-dasharray="3,3"/>';
+  s += '<line x1="' + (x1 + 7) + '" y1="' + (yMid + wPx / 2 + 12) + '" x2="' + (x1 + 7) + '" y2="262" stroke="#555" stroke-width="0.9" stroke-dasharray="3,3"/>';
+  s += txt(x0 + barPx / 2 - 40, 275, 'L = ' + fmt.sig(p.L, 4) + ' mm', '#333', 12.5);
+  s += '<line x1="' + (x0 + 110) + '" y1="' + (yMid - wPx / 2) + '" x2="' + (x0 + 110) + '" y2="' + (yMid + wPx / 2) + '" stroke="#555" stroke-width="1"/>';
+  s += '<polygon points="' + (x0 + 110) + ',' + (yMid - wPx / 2) + ' ' + (x0 + 106) + ',' + (yMid - wPx / 2 + 10) + ' ' + (x0 + 114) + ',' + (yMid - wPx / 2 + 10) + '" fill="#555"/>';
+  s += '<polygon points="' + (x0 + 110) + ',' + (yMid + wPx / 2) + ' ' + (x0 + 106) + ',' + (yMid + wPx / 2 - 10) + ' ' + (x0 + 114) + ',' + (yMid + wPx / 2 - 10) + '" fill="#555"/>';
+  s += txt(x0 + 40, yMid - wPx / 2 - 12, 'd = ' + fmt.sig(p.d, 3) + ' mm', '#333', 12.5);
+  s += txt(x0 + 18, 200, 'E = ' + fmt.sig(p.E / 1000, 3) + ' GPa,  \u03c1 = ' + fmt.grp(p.rho) + ' kg/m\u00b3', '#1a3c6e', 12);
+  return '<svg viewBox="0 0 620 300" width="530" xmlns="http://www.w3.org/2000/svg" font-family="Arial,sans-serif" font-size="12">' + s + '</svg>';
+},
+
+/* ── T5.5 — weight dropped onto a vertical bar on a rigid base ──────────── */
+barDrop: function (S) {
+  var p = S.p, s = '';
+  var barPx = Math.round(Math.max(90, Math.min(210, p.L * 0.55)));      /* scale with L   */
+  var gapPx = Math.round(Math.max(26, Math.min(90, p.h * 1000 * 0.42))); /* scale with h  */
+  var yTop = 300 - barPx, yW = yTop - gapPx;
+  var wPx = 2 * Math.round(Math.max(16, Math.min(40, p.d * 2.2)) / 2);
+  s += hatchH(300, 130, 400, '#1a3c6e');
+  s += txt(320, 330, 'rigid foundation', '#1a3c6e', 12);
+  s += '<rect x="' + (261 - wPx / 2) + '" y="' + yTop + '" width="' + wPx + '" height="' + barPx + '" fill="#7fe3ec" fill-opacity="0.85" stroke="#1a3c6e" stroke-width="2"/>';
+  s += '<rect x="222" y="' + (yW - 52) + '" width="78" height="52" fill="#fde68a" fill-opacity="0.9" stroke="#b45309" stroke-width="2"/>';
+  s += txt(232, yW - 20, fmt.sig(p.m, 3) + ' kg', '#7c2d12', 13, true);
+  s += dimV(180, yW, yTop, 'h = ' + fmt.sig(p.h * 1000, 3) + ' mm');
+  s += '<line x1="174" y1="' + yW + '" x2="222" y2="' + yW + '" stroke="#555" stroke-width="0.9" stroke-dasharray="3,3"/>';
+  s += '<line x1="174" y1="' + yTop + '" x2="' + (261 - wPx / 2) + '" y2="' + yTop + '" stroke="#555" stroke-width="0.9" stroke-dasharray="3,3"/>';
+  s += dimV(400, yTop, 300, '');
+  s += txt(408, (yTop + 300) / 2, 'L = ' + fmt.sig(p.L, 3) + ' mm', '#333', 13);
+  s += '<line x1="' + (261 + wPx / 2) + '" y1="' + yTop + '" x2="407" y2="' + yTop + '" stroke="#555" stroke-width="0.9" stroke-dasharray="3,3"/>';
+  s += txt(118, 250, 'd = ' + fmt.sig(p.d, 3) + ' mm', '#333', 12.5);
+  s += '<line x1="' + (261 - wPx / 2) + '" y1="255" x2="200" y2="262" stroke="#555" stroke-width="0.9"/>';
+  s += txt(46, 150, 'steel bar', '#1a3c6e', 12, true);
+  s += txt(46, 167, 'E = ' + fmt.sig(p.E / 1000, 3) + ' GPa', '#1a3c6e', 12);
+  s += txt(46, 184, '\u03c1 = ' + fmt.grp(p.rho) + ' kg/m\u00b3', '#1a3c6e', 12);
+  return '<svg viewBox="0 0 520 350" width="440" xmlns="http://www.w3.org/2000/svg" font-family="Arial,sans-serif" font-size="12">' + s + '</svg>';
+},
+
+/* ── T5.6 — square timber post, drop height unknown ─────────────────────── */
+post: function (S) {
+  var p = S.p, s = '';
+  var postPx = Math.round(Math.max(110, Math.min(200, p.L * 0.145)));
+  var yTop = 330 - postPx, wPx = 2 * Math.round(Math.max(40, Math.min(80, p.b * 0.6)) / 2);
+  s += hatchH(330, 130, 410, '#1a3c6e');
+  s += txt(322, 362, 'rigid foundation', '#1a3c6e', 12);
+  s += '<rect x="' + (268 - wPx / 2) + '" y="' + yTop + '" width="' + wPx + '" height="' + postPx + '" fill="#d9a066" fill-opacity="0.65" stroke="#7c4a1e" stroke-width="2"/>';
+  for (var i = 1; i < 4; i++) {
+    var gx = 268 - wPx / 2 + wPx * i / 4;
+    s += '<line x1="' + gx + '" y1="' + (yTop + 2) + '" x2="' + gx + '" y2="328" stroke="#7c4a1e" stroke-width="0.7" stroke-opacity="0.5"/>';
+  }
+  s += '<rect x="222" y="' + (yTop - 100) + '" width="92" height="56" fill="#fde68a" fill-opacity="0.9" stroke="#b45309" stroke-width="2"/>';
+  s += txt(232, yTop - 66, fmt.sig(p.m, 3) + ' kg', '#7c2d12', 13, true);
+  s += dimV(175, yTop - 44, yTop, 'h = ?', '#dc2626');
+  s += '<line x1="169" y1="' + (yTop - 44) + '" x2="222" y2="' + (yTop - 44) + '" stroke="#dc2626" stroke-width="0.9" stroke-dasharray="3,3"/>';
+  s += '<line x1="169" y1="' + yTop + '" x2="' + (268 - wPx / 2) + '" y2="' + yTop + '" stroke="#dc2626" stroke-width="0.9" stroke-dasharray="3,3"/>';
+  s += dimV(420, yTop, 330, '');
+  s += txt(428, (yTop + 330) / 2, 'L = ' + fmt.sig(p.L / 1000, 3) + ' m', '#333', 13);
+  s += '<line x1="' + (268 + wPx / 2) + '" y1="' + yTop + '" x2="427" y2="' + yTop + '" stroke="#555" stroke-width="0.9" stroke-dasharray="3,3"/>';
+  s += txt(210, 310, fmt.sig(p.b, 3) + ' \u00d7 ' + fmt.sig(p.b, 3) + ' mm', '#333', 12);
+  s += txt(40, 190, 'wooden post', '#7c4a1e', 12.5, true);
+  s += txt(40, 208, 'E = ' + fmt.sig(p.E / 1000, 4) + ' GPa', '#7c4a1e', 12);
+  s += txt(40, 234, 'target: \u03c3 = ' + fmt.sig(p.sigTgt, 3) + ' MPa', '#f97316', 12.5, true);
+  return '<svg viewBox="0 0 520 400" width="440" xmlns="http://www.w3.org/2000/svg" font-family="Arial,sans-serif" font-size="12">' + s + '</svg>';
+},
+
+/* ── T5.8 — overhung diving board ───────────────────────────────────────── */
+board: function (S) {
+  var p = S.p, s = '';
+  var sagPx = Math.round(Math.max(40, Math.min(130, p.dstGiven * 0.9)));
+  var yTip = 158 + sagPx;
+  s += '<rect x="60" y="150" width="46" height="150" fill="#cbd5e1" stroke="#1a3c6e" stroke-width="2"/>';
+  s += hatchH(300, 40, 130, '#1a3c6e');
+  s += txt(44, 332, 'fixed support', '#1a3c6e', 12);
+  s += '<rect x="106" y="144" width="330" height="14" fill="none" stroke="#94a3b8" stroke-width="1.6" stroke-dasharray="6,4"/>';
+  s += txt(330, 138, 'unloaded board', '#94a3b8', 11.5);
+  s += '<path d="M 106 158 Q 300 ' + (158 + sagPx * 0.2) + ' 436 ' + yTip + ' L 436 ' + (yTip + 14) + ' Q 300 ' + (172 + sagPx * 0.2) + ' 106 172 Z" fill="#7fe3ec" fill-opacity="0.85" stroke="#1a3c6e" stroke-width="2"/>';
+  s += txt(150, 200, 'board, ' + fmt.sig(p.mMember, 3) + ' kg', '#1a3c6e', 12.5, true);
+  /* diver */
+  var yh = yTip - 106;
+  s += '<circle cx="424" cy="' + yh + '" r="13" fill="#fde68a" stroke="#b45309" stroke-width="2"/>';
+  s += '<line x1="424" y1="' + (yh + 13) + '" x2="424" y2="' + (yh + 46) + '" stroke="#b45309" stroke-width="2.4"/>';
+  s += '<line x1="424" y1="' + (yh + 22) + '" x2="408" y2="' + (yh + 8) + '" stroke="#b45309" stroke-width="2"/>';
+  s += '<line x1="424" y1="' + (yh + 22) + '" x2="440" y2="' + (yh + 8) + '" stroke="#b45309" stroke-width="2"/>';
+  s += '<line x1="424" y1="' + (yh + 46) + '" x2="414" y2="' + (yh + 68) + '" stroke="#b45309" stroke-width="2.2"/>';
+  s += '<line x1="424" y1="' + (yh + 46) + '" x2="434" y2="' + (yh + 68) + '" stroke="#b45309" stroke-width="2.2"/>';
+  s += txt(452, yh + 14, fmt.sig(p.m, 3) + ' kg', '#7c2d12', 12.5, true);
+  var hPx = Math.round(Math.max(30, Math.min(110, p.h * 1000 * 0.22)));
+  s += dimV(502, yTip - 18 - hPx, yTip - 18, '');
+  s += txt(510, yTip - 18 - hPx / 2, 'h = ' + fmt.sig(p.h * 100, 3) + ' cm', '#333', 12.5);
+  s += dimV(470, 151, 151 + sagPx, '', '#a855f7');
+  s += '<line x1="436" y1="151" x2="476" y2="151" stroke="#a855f7" stroke-width="0.9" stroke-dasharray="3,3"/>';
+  s += '<line x1="436" y1="' + (151 + sagPx) + '" x2="476" y2="' + (151 + sagPx) + '" stroke="#a855f7" stroke-width="0.9" stroke-dasharray="3,3"/>';
+  s += txt(300, 300, '\u03b4st = ' + fmt.sig(p.dstGiven / 10, 3) + ' cm (person standing still)', '#a855f7', 12.5, true);
+  s += '<line x1="130" y1="330" x2="540" y2="330" stroke="#38bdf8" stroke-width="2" stroke-opacity="0.6"/>';
+  return '<svg viewBox="0 0 560 350" width="480" xmlns="http://www.w3.org/2000/svg" font-family="Arial,sans-serif" font-size="12">' + s + '</svg>';
+}
+
+};
+
+/* ═══════════════════════ DESIGN-THINKING STEPS ═════════════════════════ */
+/* Each returns {title, summary, body} or null. Selected by CONFIG.design.
+   The point of these is to move students from "what is the stress" to
+   "what would I have to change" - a different question every time.        */
+
+var DESIGN = {
+
+/* T5.2 - size the compliance so the rod does not yield ------------------- */
+washerSizing: function (S, p, fmt) {
+  if (!(p.sigY && S.sst && p.mode !== 'inverse')) return null;
+  var b = '';
+
+    var fos = p.fos || 2,
+        sAll = p.sigY / fos,
+        bare = S.cases[S.cases.length - 1],
+        nMax = sAll / S.sst,
+        dMin = 2 * (p.h * 1000) * S.eta / ((nMax - 1) * (nMax - 1) - 1),
+        kMax = S.W / dMin,
+        travel = nMax * dMin;
+
+    b = P('The two answers above are descriptive &mdash; they say what the stress <em>is</em>. A designer has to answer the '
+        + 'other question: what stiffness does the system need in order to be <strong>safe</strong>? Take the rod as mild steel, '
+        + '$\\sigma_y = ' + fmt.sig(p.sigY, 4) + '$ MPa, and require a factor of safety of ' + fmt.sig(fos, 2) + ':');
+    b += mb('\\sigma_{allow} = \\frac{\\sigma_y}{\\text{FoS}} = \\frac{' + fmt.sig(p.sigY, 4) + '}{' + fmt.sig(fos, 2) + '} = ' + fmt.sig(sAll, 4) + '\\ \\text{MPa}');
+    b += P('First check the bare rod. With no washer the stress is ' + fmt.sig(bare.sigma, 4) + ' MPa, so its factor of safety is '
+         + '$' + fmt.sig(p.sigY, 4) + '/' + fmt.sig(bare.sigma, 4) + ' = ' + fmt.sig(p.sigY / bare.sigma, 3) + '$ &mdash; '
+         + (p.sigY / bare.sigma < 1
+            ? '<strong>below 1, so the bare rod yields outright.</strong>'
+            : (p.sigY / bare.sigma < fos
+               ? '<strong>above 1 but short of the target</strong>, so some compliance must be added.'
+               : 'already adequate on its own.')));
+
+    b += '<h4>Maximum permissible system stiffness</h4>';
+    b += P('Run the impact factor backwards, exactly as in T5.6. The largest impact factor allowed is');
+    b += mb('n_{max} = \\frac{\\sigma_{allow}}{\\sigma_{st}} = \\frac{' + fmt.sig(sAll, 4) + '}{' + fmt.sig(S.sst, 4) + '} = ' + fmt.sig(nMax, 4));
+    b += P('and the static deflection that produces it follows from $(n-1)^2 = 1 + 2h/\\delta_{st}$:');
+    b += mb('\\delta_{st} = \\frac{2h}{(n_{max}-1)^{2} - 1} = ' + fmt.sig(dMin, 4) + '\\ \\text{mm} \\qquad \\Longrightarrow \\qquad '
+          + 'k_{eq} \\le \\frac{W}{\\delta_{st}} = ' + fmt.grp(kMax) + '\\ \\text{N/mm}');
+    if (p.kExtra && kMax < S.kMem) {
+      var kwMax = 1 / (1 / kMax - 1 / S.kMem);
+      b += P('The rod itself contributes ' + fmt.grp(S.kMem) + ' N/mm, so the washer must supply the rest of the compliance:');
+      b += mb('\\frac{1}{k_{washer}} = \\frac{1}{k_{eq}} - \\frac{1}{k_{rod}} \\qquad \\Longrightarrow \\qquad k_{washer} \\le ' + fmt.grp(kwMax) + '\\ \\text{N/mm}');
+      b += call('answer', P('$$k_{washer} \\le ' + fmt.grp(kwMax) + '\\ \\text{N/mm}, \\qquad \\text{travel} = ' + fmt.sig(travel, 3) + '\\ \\text{mm}$$'));
+      b += call('info', P('<strong>Now compare with the washer actually specified.</strong> The question gives $k = ' + fmt.sig(p.kExtra, 3)
+          + '$ N/mm &mdash; about <strong>' + fmt.grp(kwMax / p.kExtra) + ' times softer</strong> than it needs to be. That is why part (a) '
+          + 'predicted ' + fmt.sig(S.cases[0].delta, 4) + ' mm of washer travel, which no real washer can deliver. A washer of '
+          + fmt.grp(kwMax) + ' N/mm would need only <strong>' + fmt.sig(travel, 3) + ' mm</strong> of compression &mdash; an entirely '
+          + 'buildable component. The specified washer is not just conservative; it is unbuildable.'));
+    } else {
+      b += call('answer', P('$$k_{eq} \\le ' + fmt.grp(kMax) + '\\ \\text{N/mm}$$'));
+      b += call('note', P('Here $k_{eq}$ may exceed the rod\u2019s own ' + fmt.grp(S.kMem) + ' N/mm, so the bare rod already meets the '
+          + 'target and no added compliance is required.'));
+    }
+    b += call('note', P('<strong>The design lesson.</strong> For large drops $n \\approx \\sqrt{2h/\\delta_{st}}$, so $\\sigma \\propto \\sqrt{k}$: '
+        + 'halving the system stiffness buys only a ' + fmt.sig((1 - 1 / Math.sqrt(2)) * 100, 2) + '\u202f% reduction in stress. Stiffness is a '
+        + 'weak lever taken alone &mdash; but because the rod and washer are in <em>series</em>, the softest element sets $k_{eq}$ almost '
+        + 'single-handedly. One cheap compliant part buys what no amount of extra steel can.'));
+    b += call('warn', P('<strong>What this calculation does not cover.</strong> Sizing the washer on stiffness alone ignores whether the '
+        + 'washer itself survives, whether it bottoms out, and whether rubber behaves linearly over that stroke (it does not &mdash; '
+        + 'elastomers stiffen markedly at high compression). Treat $k_{washer}$ here as an upper bound to start from, not a specification.'));
+
+  return { title: 'Size the washer so the rod does not yield',
+           summary: 'Work backwards from an allowable stress to a maximum stiffness',
+           body: b };
+},
+
+/* T5.4 - impact stress depends on the volume of material, not its shape --- */
+volumeOnly: function (S, p, fmt) {
+  if (!(p.mode === 'kinetic' && S.A)) return null;
+  var c = S.main,
+      V    = S.A * p.L,                       /* mm^3                        */
+      sY   = p.sigY || 250,
+      fos  = sY / c.sigmaNo,
+      half = c.sigmaNo * Math.SQRT2,
+      dbl  = c.sigmaNo / Math.SQRT2,
+      dNew = p.d * Math.pow(2, 0.25);         /* diameter for twice the volume */
+
+  var b = P('Check the margin first. Taking the bar as mild steel, $\\sigma_y = ' + fmt.sig(sY, 4) + '$ MPa:');
+  b += mb('\\text{FoS} = \\frac{\\sigma_y}{\\sigma_a} = \\frac{' + fmt.sig(sY, 4) + '}{' + fmt.sig(c.sigmaNo, 4) + '} = ' + fmt.sig(fos, 3));
+  b += P('Now look again at the result. $A$ and $L$ only ever appeared as the product $AL$, which is the <strong>volume</strong>:');
+  b += mb('\\sigma = v\\sqrt{\\frac{mE}{AL}} = v\\sqrt{\\frac{mE}{V}}, \\qquad V = AL = ' + fmt.grp(V) + '\\ \\text{mm}^{3} = ' + fmt.sig(V / 1000, 4) + '\\ \\text{cm}^{3}');
+  b += P('The reason is clearer from strain-energy density. A uniformly stressed bar stores $\\sigma^{2}/2E$ per unit volume, so:');
+  b += mb('U = \\frac{\\sigma^{2}}{2E}V = \\tfrac{1}{2}mv^{2} \\qquad \\Longrightarrow \\qquad \\sigma = v\\sqrt{\\frac{mE}{V}}');
+  b += call('info', P('<strong>The design statement:</strong> for a uniform axial member the impact stress depends on <strong>how much '
+      + 'material there is</strong>, not how it is arranged. A long thin bar and a short fat bar of the same volume see identical '
+      + 'impact stress. Contrast static design, where $\\sigma = P/A$ and length is irrelevant.'));
+  b += '<h4>A colleague proposes halving the length to make the bar &ldquo;stiffer and stronger&rdquo;</h4>';
+  b += P('Halving $L$ halves $V$, and $\\sigma \\propto V^{-1/2}$:');
+  b += mb('\\sigma_{new} = ' + fmt.sig(c.sigmaNo, 4) + '\\sqrt{2} = ' + fmt.sig(half, 4) + '\\ \\text{MPa}');
+  b += call('answer', P('$$\\sigma_{new} = ' + fmt.sig(half, 4) + '\\ \\text{MPa}$$'));
+  b += P('A ' + fmt.sig(100 * (Math.SQRT2 - 1), 2) + '\u202f% <em>increase</em>, and the factor of safety falls from ' + fmt.sig(fos, 3)
+      + ' to <strong>' + fmt.sig(sY / half, 3) + '</strong>. The colleague is right that $k = AE/L$ doubles &mdash; that is exactly the '
+      + 'problem. A stiffer member stops the striker in a shorter distance, so the force needed to absorb the same '
+      + fmt.sig(c.KE, 4) + ' J is larger.');
+  b += '<h4>Fatter or longer?</h4>';
+  b += P('Suppose we can afford one bar\u2019s worth of extra steel, taking $V \\to 2V$. Two ways to spend it:');
+  b += '<table><thead><tr><th>Option</th><th>Change</th><th>Volume</th><th>$\\sigma$</th></tr></thead><tbody>'
+     + '<tr><td class="left">As specified</td><td>$d$ = ' + fmt.sig(p.d, 3) + ' mm, $L$ = ' + fmt.sig(p.L, 4) + ' mm</td><td>'
+     + fmt.sig(V / 1000, 4) + ' cm\u00b3</td><td>' + fmt.sig(c.sigmaNo, 4) + ' MPa</td></tr>'
+     + '<tr><td class="left">Make it longer</td><td>$L \\to$ ' + fmt.sig(2 * p.L, 4) + ' mm</td><td>\u00d7 2</td><td>' + fmt.sig(dbl, 4) + ' MPa</td></tr>'
+     + '<tr><td class="left">Make it fatter</td><td>$d \\to$ ' + fmt.sig(dNew, 4) + ' mm</td><td>\u00d7 2</td><td>' + fmt.sig(dbl, 4) + ' MPa</td></tr>'
+     + '<tr class="total"><td class="left">Verdict</td><td colspan="2">identical &mdash; only $V$ appears in the formula</td><td>equal</td></tr>'
+     + '</tbody></table>';
+  b += call('warn', P('<strong>Important limit on this result.</strong> &ldquo;Only the volume matters&rdquo; holds for a <strong>uniform</strong> '
+      + 'bar in <strong>pure axial</strong> loading, where every element is equally stressed. Put a step, a groove or a thread anywhere along '
+      + 'it and the argument collapses: the small section carries the same force at higher stress, and only the material near it '
+      + 'participates in absorbing energy. A notch is doubly punishing under impact &mdash; it raises the local stress <em>and</em> shrinks '
+      + 'the effective volume.'));
+  b += call('info', P('<strong>Where this connects:</strong> T5.2 showed a soft rubber washer cutting the rod stress by a factor of 68. '
+      + 'Here, <em>doubling the mass of the bar</em> cuts the stress by only ' + fmt.sig(Math.SQRT2, 3) + '. Adding compliance beats adding '
+      + 'material by a wide margin &mdash; reach for a spring, a mount or a longer load path before reaching for a thicker section.'));
+  return { title: 'What actually governs impact strength',
+           summary: 'Rewrite the answer in terms of the bar\u2019s volume',
+           body: b };
+},
+
+/* T5.5 - when does the struck member's mass stop being negligible? ------- */
+strikerMass: function (S, p, fmt) {
+  if (!S.hasCorr) return null;
+  var tol   = p.tol || 0.05,                       /* 5 % stress change     */
+      etaT  = (1 - tol) * (1 - tol),               /* since sigma ~ sqrt(eta) */
+      mStar = S.mMem / (3 * (1 / etaT - 1)),
+      pcNow = 100 * (1 - Math.sqrt(S.eta));
+
+  var b = P('Part (b) answered <em>whether</em> the correction matters for this particular bar. The more useful question is '
+        + '<em>when</em> it starts to matter &mdash; that is the version you can carry into a design office.');
+  b += P('For a large drop $n \\gg 1$, so $\\sigma \\propto \\sqrt{\\eta}$. Requiring the correction to shift the stress by no '
+        + 'more than ' + fmt.sig(100 * tol, 2) + '\u202f% means');
+  b += mb('\\sqrt{\\eta} \\ge ' + fmt.sig(1 - tol, 3) + ' \\qquad \\Longrightarrow \\qquad \\eta \\ge ' + fmt.sig(etaT, 4));
+  b += P('Substituting $\\eta = 1/(1 + m_{mem}/3m)$ and solving for the striker mass:');
+  b += mb('m \\;\\ge\\; \\frac{m_{mem}}{3\\left(\\dfrac{1}{' + fmt.sig(etaT, 4) + '} - 1\\right)} = \\frac{' + fmt.sig(S.mMem, 4) + '}{'
+        + fmt.sig(3 * (1 / etaT - 1), 4) + '} = ' + fmt.sig(mStar, 3) + '\\ \\text{kg}');
+  b += call('answer', P('$$m \\ge ' + fmt.sig(mStar, 3) + '\\ \\text{kg} \\quad\\text{i.e.}\\quad m \\gtrsim 3\\,m_{mem}$$'));
+  b += P('The bar here weighs ' + fmt.sig(S.mMem, 3) + ' kg and the striker ' + fmt.sig(p.m, 3) + ' kg, which is '
+        + fmt.sig(p.m / S.mMem, 3) + ' times heavier &mdash; comfortably past the threshold, which is why the correction came out at only '
+        + fmt.sig(pcNow, 2) + '\u202f%.');
+  b += call('info', P('<strong>The rule worth remembering:</strong> the $3(1/\\eta_{tol} - 1)$ denominator works out to almost exactly '
+        + '$1/3$ for a 5\u202f% tolerance, so the threshold is simply <strong>$m \\approx 3\\,m_{mem}$</strong>. Strike a member with '
+        + 'something less than about three times its own mass and you are losing a noticeable fraction of your energy to the collision '
+        + 'itself, before any of it reaches the workpiece.'));
+  b += call('note', P('<strong>Where you meet this in practice.</strong> It is why forging hammers use a heavy tup against a much heavier '
+        + 'anvil, why a light hammer is useless on a large casting, and why drop-test rigs specify a striker mass rather than just an '
+        + 'impact energy. At the extreme $m = m_{mem}/3$ the factor falls to $\\eta = 0.5$: half the energy is destroyed in the collision '
+        + 'and never reaches the part you are testing.'));
+  b += call('warn', P('<strong>Note the direction of the inequality.</strong> A <em>heavier</em> striker makes the correction '
+        + '<em>less</em> important, not more. Students often assume the opposite because a heavier striker sounds more severe &mdash; it is '
+        + 'more severe, but the energy it delivers is transmitted more efficiently, so the massless-member idealisation becomes better, not worse.'));
+  return { title: 'When does the bar\u2019s own mass actually matter?',
+           summary: 'Find the striker mass below which the correction exceeds ' + fmt.sig(100 * tol, 2) + '\u202f%',
+           body: b };
+},
+
+/* T5.6 - energy capacity is a property of material and volume ------------ */
+volumeCapacity: function (S, p, fmt) {
+  if (!(p.mode === 'inverse' && S.A)) return null;
+  var c = S.main,
+      V = S.A * p.L,                                  /* mm^3              */
+      U = p.sigTgt * p.sigTgt * V / (2 * p.E),        /* N.mm              */
+      hApprox = U / S.W;                              /* mm, before -delta */
+
+  var b = P('The algebra above gives the right number but hides the physics. Rewrite it in terms of energy and a much more '
+        + 'general result appears.');
+  b += P('A uniformly stressed member stores $\\sigma^{2}/2E$ joules in every cubic metre of material. Multiply by the volume '
+        + '$V = AL$ and you have the total energy the post can absorb before reaching the target stress:');
+  b += mb('U = \\frac{\\sigma^{2}}{2E}\\,V = \\frac{(' + fmt.sig(p.sigTgt, 4) + ')^{2}}{2 \\times ' + fmt.grp(p.E) + '} \\times '
+        + fmt.grp(V) + ' = ' + fmt.grp(U) + '\\ \\text{N}\\cdot\\text{mm} = ' + fmt.sig(U / 1000, 4) + '\\ \\text{J}');
+  b += P('The falling weight supplies $W(h + \\delta)$ &mdash; it descends the drop height <em>plus</em> the deflection. Equating:');
+  b += mb('W(h + \\delta) = \\frac{\\sigma^{2}V}{2E} \\qquad \\Longrightarrow \\qquad h = \\frac{\\sigma^{2}V}{2EW} - \\delta');
+  b += mb('h = ' + fmt.sig(hApprox, 5) + ' - ' + fmt.sig(c.delta, 4) + ' = ' + fmt.sig(c.h * 1000, 4) + '\\ \\text{mm}');
+  b += call('answer', P('$$h = \\frac{\\sigma^{2}V}{2EW} - \\delta = ' + fmt.sig(c.h * 1000, 4) + '\\ \\text{mm} \\quad \\checkmark$$'));
+  b += P('Exactly the answer obtained from the impact factor &mdash; but now every symbol means something.');
+  b += call('info', P('<strong>The design statement:</strong> the safe drop height is <strong>proportional to the volume of the post</strong>. '
+        + 'Not to its area, not to its length &mdash; to $AL$. Double the cross-section or double the length and you double the drop the post '
+        + 'can survive. Area and length are worth exactly the same per cubic metre of timber.'));
+  b += '<h4>Two ways to double the safe drop height</h4>';
+  b += '<table><thead><tr><th>Option</th><th>Change</th><th>Volume</th><th>Safe drop</th></tr></thead><tbody>'
+     + '<tr><td class="left">As specified</td><td>' + fmt.sig(p.b, 3) + ' mm square, ' + fmt.sig(p.L, 4) + ' mm long</td><td>'
+     + fmt.sig(V / 1e6, 4) + ' \u00d7 10\u2076 mm\u00b3</td><td>' + fmt.sig(c.h * 1000, 4) + ' mm</td></tr>'
+     + '<tr><td class="left">Longer post</td><td>length \u00d7 2</td><td>\u00d7 2</td><td>\u2248 ' + fmt.sig(2 * c.h * 1000, 4) + ' mm</td></tr>'
+     + '<tr><td class="left">Bigger section</td><td>side \u00d7 ' + fmt.sig(Math.sqrt(2), 3) + '</td><td>\u00d7 2</td><td>\u2248 '
+     + fmt.sig(2 * c.h * 1000, 4) + ' mm</td></tr>'
+     + '<tr class="total"><td class="left">Verdict</td><td colspan="2">identical &mdash; only $V$ appears</td><td>equal</td></tr>'
+     + '</tbody></table>';
+  b += call('note', P('<strong>Contrast with static design.</strong> Under a static load $\\sigma = P/A$: length is irrelevant and only area '
+        + 'buys strength. Under impact the two are interchangeable, because what you are really buying is <em>material in which to store '
+        + 'energy</em>. This is the same result as T5.4, arrived at from the opposite direction.'));
+  b += call('warn', P('<strong>Where the volume argument fails.</strong> It assumes every element of the post is equally stressed. A step, '
+        + 'a notch, a bolt hole or a knot in the timber concentrates the stress and shrinks the volume that genuinely participates &mdash; '
+        + 'so the member fails well below what its volume suggests. It also assumes the post stays elastic and does not buckle: at '
+        + fmt.sig(p.L / p.b, 3) + ' slenderness ratio that is reasonable here, but a longer post would need a buckling check before you '
+        + 'could claim the extra length as extra capacity.'));
+  return { title: 'What actually sets the safe drop height',
+           summary: 'Rewrite the answer as an energy balance and read off the design rule',
+           body: b };
+}
+
+};
+
+/* ═══════════════════════════ DOCUMENT BUILDER ══════════════════════════ */
+
+function build(CONFIG, p) {
+  var S = solve(p);
+  STEPN = 0;
+  var U = CONFIG.units || {};
+  var h = '';
+
+  /* ── problem statement ───────────────────────────────────────────────── */
+  h += '<h3>Problem Statement</h3>';
+  h += P(CONFIG.question(S, fmt));
+  /* attribution belongs to the textbook problem only - the variants are ours */
+  if (CONFIG.source && p.book) h += '<p style="font-size:13.5px;color:#666">' + CONFIG.source + '</p>';
+  h += call('given', P('<strong>' + (p.book ? 'Given answer:' : 'Computed answer:') + '</strong> &nbsp; ' + CONFIG.answer(S, fmt)));
+
+  /* ── diagram ─────────────────────────────────────────────────────────── */
+  h += '<div class="diagram-wrap"><figure>' + FIGS[CONFIG.fig](S)
+     + '<figcaption>' + CONFIG.caption(S, fmt) + '</figcaption></figure></div>';
+
+  h += '<h3>Solution</h3>';
+
+  /* ── STEP: stiffness and static reference values ─────────────────────── */
+  var b = '';
+  if (S.fromMeasured) {
+    b += P('No dimensions, no $I$, no $E$ &mdash; and none are needed. The measured static deflection <em>is</em> '
+         + 'the stiffness at the point of interest:');
+    b += mb('W = mg = ' + fmt.sig(p.m, 4) + ' \\times 9.81 = ' + fmt.sig(S.W, 4) + '\\ \\text{N}');
+    b += mb('k = \\frac{W}{\\delta_{st}} = \\frac{' + fmt.sig(S.W, 4) + '}{' + fmt.sig(p.dstGiven, 4) + '} = '
+          + fmt.sig(S.kMem, 4) + '\\ \\text{N/mm}');
+    b += call('info', P('<strong>Why a measured $k$ beats a calculated one:</strong> for a cantilever you could use '
+         + '$k = 3EI/L^3$, but a measured load&ndash;deflection pair captures the real boundary conditions, the joint '
+         + 'and the lay-up &mdash; everything the formula idealises away.'));
+  } else {
+    b += P('Work in N and mm throughout, so $E = ' + fmt.grp(p.E) + '$ N/mm\u00b2 and $W = mg = '
+         + fmt.sig(p.m, 4) + ' \\times 9.81 = ' + fmt.sig(S.W, 4) + '$ N.');
+    if (p.shape === 'round') b += mb('A = \\frac{\\pi d^{2}}{4} = \\frac{\\pi (' + fmt.sig(p.d, 4) + ')^{2}}{4} = ' + fmt.sig(S.A, 4) + '\\ \\text{mm}^{2}');
+    else                     b += mb('A = ' + fmt.sig(p.b, 4) + ' \\times ' + fmt.sig(p.b, 4) + ' = ' + fmt.grp(S.A) + '\\ \\text{mm}^{2}');
+    b += mb('k = \\frac{AE}{L} = \\frac{' + fmt.sig(S.A, 4) + ' \\times ' + fmt.grp(p.E) + '}{' + fmt.sig(p.L, 4) + '} = ' + fmt.sig(S.kMem, 4) + '\\ \\text{N/mm}');
+    b += mb('\\sigma_{st} = \\frac{W}{A} = ' + fmt.sig(S.sst, 4) + '\\ \\text{N/mm}^{2} \\qquad '
+          + '\\delta_{st} = \\frac{WL}{AE} = ' + fmt.sig(S.W / S.kMem, 4) + '\\ \\text{mm}');
+    b += call('note', P('<strong>Read the numbers before continuing.</strong> The member\u2019s own static deflection is '
+         + fmt.sig(S.W / S.kMem, 3) + ' mm. Everything that follows is driven by how that compares with the drop height.'));
+  }
+  h += step('Stiffness and static reference values',
+            'Find $A$, $k$ and the static deflection $\\delta_{st}$', b);
+
+  /* ── STEP: series combination (only if a soft element is present) ────── */
+  if (p.kExtra) {
+    var r = S.kMem / p.kExtra;
+    b = P('The falling collar pushes on the washer, the washer pushes on the rod. The <em>same force</em> passes '
+        + 'through both and their deflections <em>add</em> &mdash; that is the definition of springs in <strong>series</strong>:');
+    b += mb('\\frac{1}{k_{eq}} = \\frac{1}{k_{rod}} + \\frac{1}{k_{washer}}');
+    b += call('info', P('<strong>Look at the two stiffnesses before doing any algebra:</strong> the rod is '
+        + fmt.grp(S.kMem) + ' N/mm and the washer ' + fmt.sig(p.kExtra, 3) + ' N/mm &mdash; a ratio of <strong>'
+        + fmt.grp(r) + ' : 1</strong>. In series the <em>softest</em> element dominates, so $k_{eq}$ will land just '
+        + 'under ' + fmt.sig(p.kExtra, 3) + '. The rubber washer governs the whole system.'));
+    b += mb('k_{eq} = \\left(\\frac{1}{' + fmt.grp(S.kMem) + '} + \\frac{1}{' + fmt.sig(p.kExtra, 4) + '}\\right)^{-1} = '
+        + fmt.sig(S.kEq, 5) + '\\ \\text{N/mm}');
+    b += P('Only ' + fmt.sig(100 * (p.kExtra - S.kEq) / p.kExtra, 2) + '\u202f% below the washer\u2019s own stiffness, as predicted.');
+    h += step('Combine the washer and the rod in series', 'Add the flexibilities, not the stiffnesses', b);
+  }
+
+  /* ── STEP: the governing energy balance ──────────────────────────────── */
+  if (p.mode === 'kinetic') {
+    b = P('The striker is already moving when it makes contact &mdash; there is no drop height, so its kinetic energy is the '
+        + 'entire energy input. All of it goes into elastic strain energy in the bar:');
+    b += mb('\\tfrac{1}{2}mv^{2} = \\tfrac{1}{2}k\\delta^{2} = \\frac{\\sigma^{2}AL}{2E}');
+    b += P('Solving the middle pair for the deflection, and the outer pair for the stress:');
+    b += mb('\\delta = v\\sqrt{\\frac{m}{k}} \\qquad\\qquad \\sigma = v\\sqrt{\\frac{mE}{AL}}');
+    b += call('info', P('<strong>Note what is absent:</strong> no $h$, and no impact factor $n = 1+\\sqrt{1+2h/\\delta_{st}}$. '
+        + 'That formula belongs to a weight <em>released from rest above</em> the member, where gravity keeps doing work through '
+        + 'the deflection. Here the mass arrives with its energy already in hand, so the energy balance is the whole story. '
+        + 'Using the drop-height impact factor on this problem is the single most common error.'));
+    b += call('note', P('<strong>Incoming energy:</strong> $\\tfrac{1}{2}mv^2 = \\tfrac{1}{2}(' + fmt.sig(p.m, 4) + ')('
+        + fmt.sig(p.v, 3) + ')^2 = ' + fmt.sig(S.main.KE, 4) + '$ J &mdash; the number every later result traces back to.'));
+    h += step('Set up the energy balance', 'Kinetic energy in = strain energy stored', b);
+  } else {
+  b = P('A weight $W$ released from height $h$ above the point of contact keeps falling through the extra '
+      + 'deflection $\\delta$ as the system yields. Over the whole descent:');
+  b += mb('\\underbrace{W(h + \\delta)}_{\\text{potential energy released}} = \\underbrace{\\tfrac{1}{2}k\\delta^{2}}_{\\text{strain energy stored}}');
+  b += P('With $\\delta_{st} = W/k$ this rearranges to a quadratic in $\\delta$, whose positive root is:');
+  b += mb('n = 1 + \\sqrt{1 + \\frac{2h}{\\delta_{st}}}, \\qquad \\delta = n\\,\\delta_{st}, \\qquad F = n\\,W, \\qquad \\sigma = n\\,\\sigma_{st}');
+  b += call('note', P('<strong>Where the &ldquo;+1&rdquo; comes from:</strong> it accounts for the weight continuing to do work '
+      + 'as the system deflects. Drop it and you assume the mass arrives with kinetic energy but then weighs nothing. '
+      + 'At $h = 0$ the correct result is $n = 2$ &mdash; a suddenly applied load produces twice the static stress.'));
+  h += step('Set up the impact factor', 'Derive $n = 1 + \\sqrt{1 + 2h/\\delta_{st}}$ from energy conservation', b);
+  }
+
+  /* ── STEP: mass correction ───────────────────────────────────────────── */
+  if (S.hasCorr) {
+    var ratio = S.mMem / p.m;
+    b = P('The step above treated the struck member as massless. In reality the impact must also set '
+        + (S.fromMeasured ? 'the board' : 'the bar') + '\u2019s own mass in motion, and that sudden sharing of momentum is a '
+        + '<strong>perfectly inelastic collision</strong> &mdash; which always destroys kinetic energy.');
+    if (!S.fromMeasured)
+      b += mb('m_{mem} = \\rho A L = ' + fmt.grp(p.rho) + ' \\times ' + fmt.sig(S.A * 1e-6, 4) + ' \\times ' + fmt.sig(p.L / 1000, 3) + ' = ' + fmt.sig(S.mMem, 4) + '\\ \\text{kg}');
+    b += P('Only the struck end moves at full speed; the supported end does not move at all. Integrating the kinetic '
+        + 'energy over a linear velocity distribution gives an <strong>effective mass of one third</strong>:');
+    var vr = 1 / (1 + S.mMem / (3 * p.m)), mg = 1 + S.mMem / (3 * p.m);
+    b += P('Momentum is conserved through the collision, so striker and effective mass move off together at');
+    b += mb('mv = (m + m_{eff})v\' \\qquad \\Longrightarrow \\qquad \\frac{v\'}{v} = \\frac{m}{m + m_{eff}} = ' + fmt.sig(vr, 4));
+    b += P('Now form the energy ratio, being careful that <strong>both</strong> the mass and the velocity change &mdash; the '
+        + 'moving mass grows from $m$ to $(m + m_{eff})$:');
+    b += mb('\\eta = \\frac{\\tfrac{1}{2}(m+m_{eff})v\'^{2}}{\\tfrac{1}{2}mv^{2}} = '
+        + '\\underbrace{\\frac{m+m_{eff}}{m}}_{\\text{mass grows}} \\times \\underbrace{\\left(\\frac{v\'}{v}\\right)^{2}}_{\\text{velocity falls}} = ' + fmt.sig(mg, 4) + ' \\times ' + fmt.sig(vr * vr, 4));
+    b += call('info', P('<strong>Why this is not the square of the velocity ratio.</strong> Substituting $v\'/v = m/(m+m_{eff})$, '
+        + 'one power of the bracket cancels against the mass factor:'
+        + '$$\\eta = \\frac{m+m_{eff}}{m}\\left(\\frac{m}{m+m_{eff}}\\right)^{2} = \\frac{m}{m+m_{eff}} = \\frac{1}{1 + \\dfrac{m_{mem}}{3m}}$$'
+        + 'So the energy ratio comes out <em>numerically equal</em> to the velocity ratio, ' + fmt.sig(S.eta, 4) + '. That is not a slip: '
+        + 'energy does go as $v^2$, but it is carried by a larger mass afterwards. Using $(v\'/v)^2 = ' + fmt.sig(vr * vr, 4)
+        + '$ as the energy factor double-counts the velocity loss and forgets the mass gain.'));
+    b += mb('\\eta = \\frac{1}{1 + \\dfrac{m_{mem}}{3m}} = \\frac{1}{1 + \\dfrac{' + fmt.sig(S.mMem, 4) + '}{3 \\times ' + fmt.sig(p.m, 4) + '}} = ' + fmt.sig(S.eta, 4));
+    b += call('answer', P('$$\\eta = ' + fmt.sig(S.eta, 3) + '\\quad\\Rightarrow\\quad ' + fmt.sig(100 * (1 - S.eta), 2) + '\\%\\ \\text{of the landing energy is lost}$$'));
+    var m0 = S.main, chg = 100 * (1 - (m0.sigma !== null ? m0.sigma / m0.sigmaNo : m0.F / m0.FNo));
+    b += P('Applying $\\eta$ to the energy delivered by the fall &mdash; i.e. to the $2h$ term inside the root &mdash; changes the answer from');
+    b += mb((m0.sigma !== null
+        ? '\\sigma = ' + fmt.sig(m0.sigmaNo, 4) + '\\ \\text{MPa} \\quad \\longrightarrow \\quad ' + fmt.sig(m0.sigma, 4) + '\\ \\text{MPa}'
+        : 'F_e = ' + fmt.sig(m0.FNo, 5) + '\\ \\text{N} \\quad \\longrightarrow \\quad ' + fmt.sig(m0.F, 5) + '\\ \\text{N}')
+      + ' \\qquad (' + fmt.sig(chg, 2) + '\\%)');
+    var verdict = Math.abs(chg) < 2
+      ? 'The mass ratio $m_{mem}/m = ' + fmt.sig(ratio, 3) + '$ is small, so the change is only ' + fmt.sig(chg, 2)
+        + ' % &mdash; far inside the scatter of the inputs ($E$ for steel varies by ±3 % on its own). It always '
+        + '<em>reduces</em> the prediction, so ignoring it is <strong>conservative</strong>. <strong>Not worthwhile</strong> here, '
+        + 'but it would be if $m_{mem}$ approached $3m$.'
+      : 'The mass ratio $m_{mem}/m = ' + fmt.sig(ratio, 3) + '$ shifts the answer by ' + fmt.sig(chg, 2) + ' %. That is large '
+        + 'enough to matter &mdash; unlike the light-member cases, this correction cannot be waved away.';
+    b += call('note', P('<strong>Is it worth it?</strong> ' + verdict));
+    h += step('Correct for the struck member\u2019s own mass', 'Compute $\\eta = 1/(1 + m_{mem}/3m)$', b);
+  }
+
+  /* ── STEP: the numbers ───────────────────────────────────────────────── */
+  b = '';
+  if (p.mode === 'inverse') {
+    var c0 = S.main;
+    b += P('This problem runs the chain <em>backwards</em>: the target stress is given, the drop height is unknown. '
+         + 'Start by turning the target stress into the impact factor it demands:');
+    b += mb('n = \\frac{\\sigma}{\\sigma_{st}} = \\frac{' + fmt.sig(p.sigTgt, 4) + '}{' + fmt.sig(S.sst, 4) + '} = ' + fmt.sig(c0.n, 4));
+    b += P('Then isolate $h$. Move the 1 across <em>before</em> squaring:');
+    b += mb('(n-1)^{2} = 1 + \\frac{2h}{\\delta_{st}} \\qquad \\Longrightarrow \\qquad h = \\frac{\\delta_{st}}{2}\\left[(n-1)^{2} - 1\\right]');
+    b += mb('h = \\frac{' + fmt.sig(c0.dst, 4) + '}{2}\\left[(' + fmt.sig(c0.n - 1, 4) + ')^{2} - 1\\right] = ' + fmt.sig(c0.h * 1000, 4) + '\\ \\text{mm}');
+    b += call('answer', P('$$h = ' + fmt.sig(c0.h * 1000, 4) + '\\ \\text{mm} \\approx ' + fmt.sig(c0.h, 2) + '\\ \\text{m}$$'));
+    b += call('note', P('<strong>Forward check</strong> &mdash; always verify an inverse answer by running it forwards: '
+         + '$n = 1 + \\sqrt{1 + 2(' + fmt.sig(c0.h * 1000, 4) + ')/' + fmt.sig(c0.dst, 4) + '} = ' + fmt.sig(c0.n, 4)
+         + '$, so $\\sigma = ' + fmt.sig(c0.n, 4) + ' \\times ' + fmt.sig(S.sst, 4) + ' = ' + fmt.sig(c0.n * S.sst, 4) + '$ MPa \u2713'));
+    b += mb('F = nW = ' + fmt.grp(c0.F) + '\\ \\text{N} \\qquad \\delta = n\\delta_{st} = ' + fmt.sig(c0.delta, 4) + '\\ \\text{mm}');
+  } else if (p.mode === 'kinetic') {
+    var kc = S.main;
+    b += P('Substituting into $\\delta = v\\sqrt{m/k}$, in SI units so that $k = ' + fmt.sig(kc.k * 1000, 4) + '$ N/m:');
+    b += mb('\\delta = ' + fmt.sig(p.v, 3) + '\\sqrt{\\frac{' + fmt.sig(p.m, 4) + '}{' + fmt.sig(kc.k * 1000, 4) + '}} = ' + fmt.sig(kc.deltaNo, 4) + '\\ \\text{mm}');
+    b += mb('F = k\\delta = ' + fmt.grp(kc.FNo) + '\\ \\text{N} \\qquad \\sigma_a = \\frac{F}{A} = \\frac{' + fmt.grp(kc.FNo) + '}{' + fmt.sig(S.A, 4) + '} = ' + fmt.sig(kc.sigmaNo, 4) + '\\ \\text{MPa}');
+    b += call('answer', P('$$\\sigma_a = ' + fmt.sig(kc.sigmaNo, 4) + '\\ \\text{MPa}\\quad\\text{(part (a): no dissipation)}$$'));
+    b += call('note', P('<strong>Cross-check by the direct formula:</strong> $\\sigma = v\\sqrt{mE/AL} = ' + fmt.sig(p.v, 3)
+        + '\\sqrt{' + fmt.sig(p.m, 4) + ' \\times ' + fmt.grp(p.E) + '/(' + fmt.sig(S.A, 4) + ' \\times ' + fmt.sig(p.L, 4) + ')} = '
+        + fmt.sig(kc.sigmaNo, 4) + '$ MPa \u2713'));
+    if (S.hasCorr) {
+      b += P('Because $U \\propto \\sigma^{2}$, the energy factor $\\eta$ enters the stress as $\\sqrt{\\eta}$, not as $\\eta$:');
+      b += mb('\\underbrace{\\sigma_b}_{\\text{part (b): with dissipation}} = \\underbrace{\\sigma_a}_{\\text{part (a): no dissipation}}\\sqrt{\\eta} = '
+          + fmt.sig(kc.sigmaNo, 4) + ' \\times ' + fmt.sig(Math.sqrt(S.eta), 4) + ' = ' + fmt.sig(kc.sigma, 4) + '\\ \\text{MPa}');
+      b += call('answer', P('$$\\sigma_b = ' + fmt.sig(kc.sigma, 4) + '\\ \\text{MPa}$$'));
+      b += call('note', P('<strong>The subscripts label the parts of the question, not a sequence.</strong> $\\sigma_a$ and $\\sigma_b$ '
+          + 'are two <em>models</em> of the same impact &mdash; massless bar, and bar with inertia &mdash; not two stages of it. The correction '
+          + 'is ' + fmt.sig(100 * (1 - Math.sqrt(S.eta)), 2) + '\u202f%, and it always reduces the prediction, so ignoring it is conservative.'));
+    }
+    b += call('info', P('<strong>Scale of the event:</strong> the static stress from resting the weight on the bar is $\\sigma_{st} = mg/A = '
+        + fmt.sig(S.sst, 3) + '$ MPa, so the impact multiplies it by <strong>' + fmt.grp(kc.nNo) + '</strong>. The deflection is only '
+        + fmt.sig(kc.deltaNo, 3) + ' mm &mdash; impact loading is severe precisely because stiff members stop things in a very short distance.'));
+  } else {
+    for (var i = 0; i < S.cases.length; i++) {
+      var c = S.cases[i];
+      if (S.twoCase) b += '<h4>' + c.name + '</h4>';
+      b += mb('\\delta_{st} = \\frac{W}{k} = \\frac{' + fmt.sig(S.W, 4) + '}{' + fmt.sig(c.k, 4) + '} = ' + fmt.sig(c.dst, 4) + '\\ \\text{mm}');
+      if (S.hasCorr) {
+        b += P('First <strong>with no dissipation</strong> ($\\eta = 1$), which is what part (a) of these questions asks for:');
+        b += mb('n = 1 + \\sqrt{1 + \\frac{2 \\times ' + fmt.sig(p.h * 1000, 4) + '}{' + fmt.sig(c.dst, 4) + '}} = ' + fmt.sig(c.nNo, 5));
+        b += call('answer', P('$$' + (c.sigmaNo
+              ? '\\sigma_a = ' + fmt.sig(c.sigmaNo, 4) + '\\ \\text{MPa}'
+              : 'F_e = ' + fmt.sig(c.FNo, 5) + '\\ \\text{N} \\qquad \\delta = ' + fmt.sig(c.deltaNo / 1000, 3) + '\\ \\text{m}') + '$$'));
+        b += P('Now <strong>with the mass correction</strong> $\\eta = ' + fmt.sig(S.eta, 4) + '$ from the previous step:');
+      }
+      b += mb('n = 1 + \\sqrt{1 + \\frac{2 \\times ' + fmt.sig(p.h * 1000, 4) + (S.hasCorr ? ' \\times ' + fmt.sig(S.eta, 4) : '')
+            + '}{' + fmt.sig(c.dst, 4) + '}} = 1 + \\sqrt{' + fmt.sig(1 + c.ratio, 5) + '} = ' + fmt.sig(c.n, 5));
+      b += mb('F = nW = ' + fmt.sig(c.n, 5) + ' \\times ' + fmt.sig(S.W, 4) + ' = ' + fmt.grp(c.F) + '\\ \\text{N}'
+            + (c.sigma ? ' \\qquad \\sigma = \\frac{F}{A} = ' + fmt.sig(c.sigma, 4) + '\\ \\text{MPa}' : ''));
+      b += call('answer', P('$$' + (c.sigma
+            ? '\\sigma' + (S.twoCase ? '_{' + (i === 0 ? 'a' : 'b') + '}' : (S.hasCorr ? '_b' : '')) + ' = ' + fmt.sig(c.sigma, 4) + '\\ \\text{MPa}'
+            : 'F_e = ' + fmt.sig(c.F, 5) + '\\ \\text{N} \\qquad \\delta = ' + fmt.sig(c.delta / 1000, 3) + '\\ \\text{m}') + '$$'));
+      if (!c.sigma) b += call('note', P('<strong>Cross-check:</strong> $k\\delta = ' + fmt.sig(c.k, 4) + ' \\times '
+            + fmt.sig(c.delta, 4) + ' = ' + fmt.sig(c.k * c.delta, 5) + '$ N \u2713 &mdash; two independent routes to the same force. '
+            + 'The diver feels a peak acceleration of $(n-1)g = ' + fmt.sig(c.n - 1, 3) + 'g$.'));
+    }
+    if (S.twoCase) {
+      var rr = S.cases[1].sigma / S.cases[0].sigma;
+      b += call('info', P('<strong>The two cases differ by a factor of ' + fmt.sig(rr, 3) + '</strong> from adding a single soft '
+          + 'component that carries no extra load and adds almost no mass. For large drops $n \\approx \\sqrt{2h/\\delta_{st}}$, '
+          + 'so $\\sigma \\propto \\sqrt{k}$: softening the system by a factor of ' + fmt.grp(S.kMem / p.kExtra) + ' cuts the stress by '
+          + '$\\sqrt{' + fmt.grp(S.kMem / p.kExtra) + '} = ' + fmt.sig(Math.sqrt(S.kMem / p.kExtra), 3) + '$. '
+          + '<strong>To survive an impact, get softer, not stronger.</strong>'));
+    }
+  }
+  h += step(p.mode === 'inverse' ? 'Solve for the drop height'
+              : (p.mode === 'kinetic' ? 'Deflection, force and stress' : 'Impact factor, force and stress'),
+            p.mode === 'inverse' ? 'Run the impact factor backwards' : 'Substitute and interpret the result', b);
+
+  /* ── STEP: design thinking (selected by CONFIG.design) ───────────────── */
+  if (CONFIG.design && DESIGN[CONFIG.design]) {
+    var dz = DESIGN[CONFIG.design](S, p, fmt);
+    if (dz) h += step(dz.title, dz.summary, dz.body);
+  }
+
+  /* ── STEP: summary table ─────────────────────────────────────────────── */
+  b = '<table><thead><tr><th>Quantity</th><th>Symbol</th><th>Expression</th>'
+    + (S.twoCase ? '<th>' + S.cases[0].name + '</th><th>' + S.cases[1].name + '</th>' : '<th>Value</th>') + '</tr></thead><tbody>';
+  function row(q, sym, ex, v1, v2, tot) {
+    return '<tr' + (tot ? ' class="total"' : '') + '><td class="left">' + q + '</td><td>' + sym + '</td><td>' + ex + '</td>'
+      + '<td>' + v1 + '</td>' + (S.twoCase ? '<td>' + (v2 === undefined ? v1 : v2) + '</td>' : '') + '</tr>';
+  }
+  if (S.A) b += row('Section area', '$A$', p.shape === 'round' ? '$\\pi d^2/4$' : '$b^2$', fmt.sig(S.A, 4) + ' mm\u00b2');
+  b += row('Striker weight', '$W$', '$mg$', fmt.sig(S.W, 4) + ' N');
+  b += row('Member stiffness', '$k$', S.fromMeasured ? '$W/\\delta_{st}$' : '$AE/L$', fmt.sig(S.kMem, 4) + ' N/mm');
+  if (p.kExtra) b += row('System stiffness', '$k_{eq}$', 'series', fmt.sig(S.cases[0].k, 5) + ' N/mm', fmt.sig(S.cases[1].k, 5) + ' N/mm');
+  if (S.sst) b += row('Static stress', '$\\sigma_{st}$', '$W/A$', fmt.sig(S.sst, 4) + ' MPa');
+  b += row('Static deflection', '$\\delta_{st}$', '$W/k_{eq}$', fmt.sig(S.cases[0].dst, 4) + ' mm', S.twoCase ? fmt.sig(S.cases[1].dst, 4) + ' mm' : undefined);
+  if (S.hasCorr) {
+    b += row('Impact factor, no dissipation', '$n_a$', '$1+\\sqrt{1+2h/\\delta_{st}}$', fmt.sig(S.main.nNo, 5));
+    b += row(S.sst ? 'Stress, no dissipation (a)' : 'Force, no dissipation (a)', S.sst ? '$\\sigma_a$' : '$F_a$',
+             '$n_a\\sigma_{st}$', S.sst ? fmt.sig(S.main.sigmaNo, 4) + ' MPa' : fmt.sig(S.main.FNo, 5) + ' N', undefined, true);
+    b += row('Struck-member mass', '$m_{mem}$', S.fromMeasured ? 'given' : '$\\rho A L$', fmt.sig(S.mMem, 4) + ' kg');
+    b += row('Correction factor (b)', '$\\eta$', '$1/(1+m_{mem}/3m)$', fmt.sig(S.eta, 4), undefined, true);
+  }
+  if (p.mode === 'kinetic') {
+    b += row('Incoming kinetic energy', '$KE$', '$\\tfrac{1}{2}mv^2$', fmt.sig(S.main.KE, 4) + ' J');
+    b += row('Bar volume', '$V$', '$AL$', fmt.sig(S.A * p.L / 1000, 4) + ' cm\u00b3');
+  }
+  b += row('Impact factor', '$n$', p.mode === 'kinetic' ? '$F/W$' : '$1+\\sqrt{1+2h\\eta/\\delta_{st}}$', fmt.sig(S.cases[0].n, 5), S.twoCase ? fmt.sig(S.cases[1].n, 5) : undefined);
+  b += row('Dynamic deflection', '$\\delta$', '$n\\delta_{st}$', fmt.sig(S.cases[0].delta, 4) + ' mm', S.twoCase ? fmt.sig(S.cases[1].delta, 4) + ' mm' : undefined);
+  b += row('Impact force', '$F$', '$nW$', fmt.grp(S.cases[0].F) + ' N', S.twoCase ? fmt.grp(S.cases[1].F) + ' N' : undefined, !S.sst);
+  if (S.sst && p.mode !== 'inverse')
+    b += row('Maximum stress', '$\\sigma$', '$n\\sigma_{st}$', fmt.sig(S.cases[0].sigma, 4) + ' MPa', S.twoCase ? fmt.sig(S.cases[1].sigma, 4) + ' MPa' : undefined, true);
+  if (p.mode === 'inverse')
+    b += row('Required drop height', '$h$', '$\\tfrac{\\delta_{st}}{2}[(n-1)^2-1]$', fmt.sig(S.main.h * 1000, 4) + ' mm', undefined, true);
+  b += '</tbody></table>';
+  if (CONFIG.extraTable) b += CONFIG.extraTable(S, fmt);
+  h += step('Summary Table', 'Review the complete set of values for this variant', b, true);
+
+  /* ── adaptive common mistakes ────────────────────────────────────────── */
+  var mis = [];
+  if (p.kExtra) mis.push('<strong>Adding the stiffnesses instead of the flexibilities.</strong> $k_{rod} + k_{washer}$ treats them as '
+      + 'parallel and makes the washer look useless. Series elements share the force and add deflections &mdash; it is the '
+      + '<em>reciprocals</em> that add.');
+  if (p.kExtra) mis.push('<strong>Using the washer\u2019s stiffness to compute the stress.</strong> The washer sets the compliance and '
+      + 'hence $n$, but the stress is in the rod, so it is always $F/A_{rod}$.');
+  if (p.mode === 'inverse') mis.push('<strong>Using $n$ instead of $(n-1)$ when squaring.</strong> $h = \\tfrac{\\delta_{st}}{2}(n^2-1)$ '
+      + 'gives ' + fmt.sig(S.main.dst * (S.main.n * S.main.n - 1) / 2, 4) + ' mm instead of ' + fmt.sig(S.main.h * 1000, 4)
+      + ' mm &mdash; close enough to look right, which makes it dangerous.');
+  if (S.hasCorr) mis.push('<strong>Using the full member mass instead of $m_{mem}/3$.</strong> That would give '
+      + '$\\eta = ' + fmt.sig(1 / (1 + S.mMem / p.m), 4) + '$ &mdash; three times the correction, and wrong. The one third comes from '
+      + 'the linear velocity distribution along the member.');
+  if (!S.hasCorr && S.A) mis.push('<strong>Using $\\delta_{st}$ as the dynamic deflection.</strong> The formula in the question is the '
+      + '<em>static</em> deflection &mdash; the reference value that feeds the impact factor. The real deflection is $n$ times larger.');
+  mis.push('<strong>Dropping the &ldquo;+1&rdquo;</strong> and using $n = \\sqrt{2h/\\delta_{st}} = ' + fmt.sig(S.main.n - 1, 5) + '$. '
+      + 'Here it changes the answer by only ' + fmt.sig(100 / S.main.n, 2) + '\u202f%, which tempts students into using it habitually '
+      + '&mdash; but at $h = 0$ it gives $n = 0$ instead of the correct $n = 2$.');
+  mis.push('<strong>Mixing units.</strong> Work consistently in N and mm ($E$ in N/mm\u00b2, $h$ in mm) and the stress falls out '
+      + 'directly in MPa. Density calculations must be done separately in SI.');
+  if (CONFIG.mistakes) mis = mis.concat(CONFIG.mistakes(S, fmt));
+  h += call('warn', '<p><strong>Common mistakes:</strong></p>'
+      + mis.slice(0, 5).map(function (m, i) { return '<p style="margin-top:6px">' + CIRCLED[i] + ' ' + m + '</p>'; }).join(''));
+
+  return h;
+}
+
+
+/* ------------------- tutorial configuration ------------------- */
+var CONFIG = {
+  fig: "barStrike",
+  question: function(S,fmt){
+        return 'A <strong>' + fmt.sig(S.p.d,3) + ' mm diameter</strong> round steel bar, <strong>' + fmt.sig(S.p.L/1000,3)
+          + ' m</strong> long, is struck by a <strong>' + fmt.sig(S.p.m,4) + ' kg</strong> weight moving at <strong>'
+          + fmt.sig(S.p.v,3) + ' m/s</strong>. Assume $E = ' + fmt.sig(S.p.E/1000,3) + '$ GPa and density $\rho = '
+          + fmt.grp(S.p.rho) + '$ kg/m³.'
+          + '<br/><strong>a)</strong> Find the stress due to the impact assuming no dissipation of energy.'
+          + '<br/><strong>b)</strong> Find the stress taking into account the dissipation of energy due to the differences '
+          + 'in weight.'
+          + '<br/><strong>c)</strong> A colleague proposes <strong>halving the bar’s length</strong>, arguing that a shorter '
+          + 'bar is stiffer and therefore stronger. Show what actually happens to the impact stress and explain why. Then: per '
+          + 'kilogram of steel added, is it better to make the bar fatter or longer?';
+      },
+  answer: function(S,fmt){
+        return 'a) $\sigma_a = ' + fmt.sig(S.main.sigmaNo,4) + '$ MPa &nbsp;&nbsp;&nbsp; b) $\sigma_b = '
+          + fmt.sig(S.main.sigma,4) + '$ MPa ($\eta = ' + fmt.sig(S.eta,4) + '$) &nbsp;&nbsp;&nbsp; c) the stress <em>rises</em> to '
+          + fmt.sig(S.main.sigmaNo*Math.SQRT2,4) + ' MPa; fatter and longer are equally effective';
+      },
+  caption: function(S,fmt){
+        return 'The weight strikes the end of the bar axially with kinetic energy only — there is no drop height. The bar acts '
+          + 'as a stiff spring of stiffness $k = AE/L$; its own mass of ' + fmt.sig(S.mMem,3) + ' kg is not negligible against the '
+          + 'striker, which is what part (b) corrects for. Bar length and diameter are drawn in proportion to the variant.';
+      },
+  design: "volumeOnly",
+  source: "Parts (a) and (b) are from ex. 8, <em>Design of Machine Elements</em>, Spotts M.F., Third Edition, Prentice-Hall. Part (c) added for MCEN2002.",
+  mistakes: function(S,fmt){
+        return ['<strong>Adding an $mgh$ term.</strong> No drop height is given — the weight is <em>already moving</em> at '
+          + fmt.sig(S.p.v,3) + ' m/s on contact, so its kinetic energy is the entire energy input.',
+          '<strong>Applying $\eta$ directly to the stress</strong> instead of $\sqrt{\eta}$. Energy scales as $\sigma^2$, so the '
+          + 'correction on stress is $\sqrt{\eta} = ' + fmt.sig(Math.sqrt(S.eta),4) + '$, giving ' + fmt.sig(S.main.sigma,4)
+          + ' MPa rather than ' + fmt.sig(S.main.sigmaNo*S.eta,4) + ' MPa.',
+          '<strong>Assuming &ldquo;stiffer&rdquo; means &ldquo;safer&rdquo; in part (c).</strong> Stiffness and impact strength pull in opposite '
+          + 'directions: shortening the bar raises $k$ but removes the very material that stores the energy.'];
+      }
+};
+var VARIANTS = [
+  {
+    "btn": "Original",
+    "desc": "The tutorial sheet problem - an 18 kg weight at 0.8 m/s striking a 25 mm bar, 500 mm long.",
+    "m": 18,
+    "v": 0.8,
+    "shape": "round",
+    "d": 25,
+    "L": 500,
+    "E": 200000,
+    "rho": 7850,
+    "corr": true,
+    "sigY": 250,
+    "mode": "kinetic",
+    "book": true
+  },
+  {
+    "btn": "Variant 1 - new magnitudes",
+    "desc": "Same bar, but a heavier 30 kg striker moving more slowly at 0.5 m/s. The energy drops from 5.76 J to 3.75 J - and note that the correction factor improves too, because a heavier striker transmits its energy more efficiently.",
+    "m": 30,
+    "v": 0.5,
+    "shape": "round",
+    "d": 25,
+    "L": 500,
+    "E": 200000,
+    "rho": 7850,
+    "corr": true,
+    "sigY": 250,
+    "mode": "kinetic"
+  },
+  {
+    "btn": "Variant 2 - new geometry",
+    "desc": "Same 18 kg striker at 0.8 m/s, but a thinner 20 mm bar made 800 mm long. This pairing is chosen deliberately: the volume changes by only 2.4%, so part (c) predicts almost no change in stress despite a visibly different bar. Check that prediction against the answer.",
+    "m": 18,
+    "v": 0.8,
+    "shape": "round",
+    "d": 20,
+    "L": 800,
+    "E": 200000,
+    "rho": 7850,
+    "corr": true,
+    "sigY": 250,
+    "mode": "kinetic"
+  }
+];
+
+/* ------------------- wiring ------------------- */
+function render(i){
+  var v = VARIANTS[i];
+  document.getElementById('doc').innerHTML = build(CONFIG, v);
+  document.getElementById('swDesc').textContent = v.desc;
+  var btns = document.querySelectorAll('#swBtns button');
+  for(var j=0;j<btns.length;j++) btns[j].setAttribute('aria-pressed', j===i ? 'true' : 'false');
+  if(window.renderMathInElement){
+    renderMathInElement(document.getElementById('doc'), {
+      delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}],
+      throwOnError:false
+    });
+  }
+}
+function init(){
+  var box = document.getElementById('swBtns');
+  VARIANTS.forEach(function(v,i){
+    var b = document.createElement('button');
+    b.textContent = v.btn;
+    b.setAttribute('aria-pressed','false');
+    b.onclick = function(){ render(i); };
+    box.appendChild(b);
+  });
+  render(0);
+}
+window.addEventListener('load', init);
+</script>
 </body>
 </html>
